@@ -1,0 +1,20 @@
+@use "variables";
+
+.teachers_wrapper {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 25px 30px;
+}
+
+@media (min-width: variables.$theme-breakpoint-xs) {
+}
+@media (min-width: variables.$theme-breakpoint-sm) {
+}
+@media (min-width: variables.$theme-breakpoint-md) {
+}
+@media (min-width: variables.$theme-breakpoint-lg) {
+}
+@media (min-width: variables.$theme-breakpoint-xl) {
+}

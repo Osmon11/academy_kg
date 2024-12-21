@@ -25,7 +25,7 @@ const navLinks = [
   { label: "Учиться", href: "/study" },
   { label: "Вебинары", href: "/webinars" },
   { label: "О нас", href: "/about-us" },
-  { label: "Поддержать", href: "/support" },
+  { label: "Поддержать", href: "/support-us" },
 ];
 
 interface IHeaderProps extends AppBarProps {

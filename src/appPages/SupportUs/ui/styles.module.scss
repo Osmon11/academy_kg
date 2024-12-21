@@ -1,0 +1,25 @@
+@use "variables";
+
+.page {
+  background: variables.$theme-color-white-smoke;
+}
+.requisites_wrapper {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+@media (min-width: variables.$theme-breakpoint-xs) {
+}
+@media (min-width: variables.$theme-breakpoint-sm) {
+}
+@media (min-width: variables.$theme-breakpoint-md) {
+  .requisites_wrapper {
+    gap: 60px;
+  }
+}
+@media (min-width: variables.$theme-breakpoint-lg) {
+}
+@media (min-width: variables.$theme-breakpoint-xl) {
+}

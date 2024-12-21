@@ -5,6 +5,7 @@ import {
   CardContent,
   CardMedia,
   Chip,
+  SxProps,
   Typography,
 } from "@mui/material";
 
@@ -14,22 +15,28 @@ interface ITeacherCardProps {
   image: string;
   fullname: string;
   subjects: string;
+  mediaSx?: SxProps;
+  sx?: SxProps;
 }
 
 export function TeacherCard({
   image,
   fullname,
   subjects,
+  mediaSx,
+  sx,
 }: ITeacherCardProps) {
   return (
     <Card
       elevation={0}
       className={classNames(styles.card)}
+      sx={sx}
     >
       <CardMedia
         image={image}
         title={fullname}
         className={styles.media}
+        sx={mediaSx}
       />
       <CardContent className={styles.content}>
         <Chip

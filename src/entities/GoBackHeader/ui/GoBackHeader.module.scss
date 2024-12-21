@@ -1,0 +1,30 @@
+@use "variables";
+
+.header {
+  position: relative;
+  padding: 24px;
+  background: #ffffff;
+  box-shadow: 1px 1px 3px 0px #cccccce5;
+  .go_back_button {
+    padding: 4px;
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    .arrow_left_icon {
+      filter: invert(84%) sepia(0%) saturate(993%)
+        hue-rotate(137deg) brightness(78%)
+        contrast(89%);
+    }
+  }
+}
+
+@media (min-width: variables.$theme-breakpoint-xs) {
+}
+@media (min-width: variables.$theme-breakpoint-sm) {
+}
+@media (min-width: variables.$theme-breakpoint-md) {
+}
+@media (min-width: variables.$theme-breakpoint-lg) {
+}
+@media (min-width: variables.$theme-breakpoint-xl) {
+}

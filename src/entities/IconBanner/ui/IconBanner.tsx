@@ -1,3 +1,5 @@
+"use client";
+
 import classNames from "classnames";
 import Image from "next/image";
 
@@ -5,6 +7,7 @@ import {
   Box,
   SxProps,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 
 import styles from "./IconBanner.module.scss";
@@ -14,7 +17,7 @@ interface IIconBannerProps {
   sx?: SxProps;
   icon: string;
   icon_alt: string;
-  title: string;
+  title?: string;
   description: string;
 }
 
@@ -26,6 +29,9 @@ export function IconBanner({
   title,
   description,
 }: IIconBannerProps) {
+  const xs = useMediaQuery((theme) =>
+    theme.breakpoints.only("xs"),
+  );
   return (
     <Box
       className={classNames(
@@ -42,19 +48,23 @@ export function IconBanner({
           height={48}
         />
       </div>
+      {Boolean(title) && (
+        <Typography
+          variant="h6"
+          textTransform="uppercase"
+          fontWeight={700}
+          sx={{ marginTop: "10px" }}
+        >
+          {title}
+        </Typography>
+      )}
       <Typography
-        variant="h6"
-        textTransform="uppercase"
-        fontWeight={700}
-        sx={{ marginTop: "10px" }}
-      >
-        {title}
-      </Typography>
-      <Typography
-        variant="body1"
+        variant={xs ? "body2" : "body1"}
         textTransform="uppercase"
         sx={{
-          fontSize: { xs: "14px", sm: "16px" },
+          marginTop: Boolean(title)
+            ? "10px"
+            : "20px",
         }}
       >
         {description}

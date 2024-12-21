@@ -11,65 +11,74 @@ import { TeacherCard } from "@/features/TeacherCard";
 
 import { SECTION_PADDING } from "@/shared/config/const";
 
-import styles from "./styles.module.scss";
+import styles from "./OurTeachers.module.scss";
 
 const teachers = [
   {
     image: "/backgrounds/teacher-1.png",
     fullname: "Амир Шарифов",
-    subjects: "Амир Шарифов",
+    subjects: "Таджвид, Хадис",
   },
   {
     image: "/backgrounds/teacher-2.png",
     fullname: "Карим Салимов",
-    subjects: "Карим Салимов",
+    subjects: "Акыда",
   },
   {
     image: "/backgrounds/teacher-3.png",
     fullname: "Мухаммад Саидов",
-    subjects: "Мухаммад Саидов",
+    subjects: "Сира",
   },
   {
     image: "/backgrounds/teacher-4.png",
     fullname: "Фарук Ханибеков",
-    subjects: "Фарук Ханибеков",
+    subjects: "Адаб",
   },
   {
     image: "/backgrounds/teacher-5.png",
     fullname: "Зайнуддин Рахимов",
-    subjects: "Зайнуддин Рахимов",
+    subjects: "Ханафитский фикх",
   },
   {
     image: "/backgrounds/teacher-6.png",
     fullname: "Карим Салимов",
-    subjects: "Карим Салимов",
+    subjects: "Шафиитский фикх",
   },
   {
     image: "/backgrounds/teacher-7.png",
     fullname: "Мухаммад Саидов",
-    subjects: "Мухаммад Саидов",
+    subjects: "Тафсир",
   },
   {
     image: "/backgrounds/teacher-8.png",
     fullname: "Амина Саидова",
-    subjects: "Амина Саидова",
+    subjects:
+      "Практические занятия по Корану для женщин",
   },
   {
     image: "/backgrounds/teacher-9.png",
     fullname: "Марьям Рахимова",
-    subjects: "Марьям Рахимова",
+    subjects: "Еженедельные вебинары для женщин",
   },
   {
     image: "/backgrounds/teacher-10.png",
     fullname: "Лейла Нурмухамедова",
-    subjects: "Лейла Нурмухамедова",
+    subjects:
+      "Практические занятия по Корану для женщин",
   },
 ];
 
-export default function Teachers() {
+export function OurTeachers() {
   const upMd = useMediaQuery((theme) =>
     theme.breakpoints.up("md"),
   );
+  const cardStyles = {
+    width: "240px",
+  };
+  const mediaStyles = {
+    width: "240px",
+    height: "280px",
+  };
   return (
     <Box
       sx={{
@@ -85,6 +94,8 @@ export default function Teachers() {
                   teacher.fullname + teacherIndex
                 }
                 {...teacher}
+                mediaSx={mediaStyles}
+                sx={cardStyles}
               />
             ),
           )}
@@ -102,7 +113,11 @@ export default function Teachers() {
                   paddingRight: "20px",
                 }}
               >
-                <TeacherCard {...teacher} />
+                <TeacherCard
+                  {...teacher}
+                  mediaSx={mediaStyles}
+                  sx={cardStyles}
+                />
               </Box>
             ),
           )}

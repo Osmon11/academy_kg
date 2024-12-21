@@ -2,13 +2,19 @@
 
 import { createTheme } from "@mui/material/styles";
 
+declare module "@mui/material/styles" {
+  interface TypeText {
+    thirtiary?: string;
+  }
+}
+
 const theme = createTheme({
   cssVariables: true,
   palette: {
     primary: {
       main: "#1DA599",
-      light: "#f8b47b",
-      dark: "#37dccd",
+      light: "#37dccd",
+      dark: "#115f58",
       contrastText: "#fff",
     },
     secondary: {
@@ -20,6 +26,7 @@ const theme = createTheme({
     text: {
       primary: "#FFFFFF",
       secondary: "#202020",
+      thirtiary: "#595959",
     },
   },
   typography: {
@@ -44,9 +51,6 @@ const theme = createTheme({
       defaultProps: {
         disableElevation: true,
       },
-      // variants: [
-      //   {props: (props) => props.size ==="small", style: {height: }}
-      // ]
     },
     MuiMenuItem: {
       styleOverrides: {

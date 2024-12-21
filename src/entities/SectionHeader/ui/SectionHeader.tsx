@@ -1,5 +1,9 @@
 import classNames from "classnames";
-import { Typography } from "@mui/material";
+
+import { Box, Typography } from "@mui/material";
+
+import { SECTION_MARGIN_TOP } from "@/shared/config/const";
+
 import styles from "./SectionHeader.module.scss";
 
 interface ISectionHeaderProps {
@@ -12,11 +16,12 @@ export function SectionHeader({
   children,
 }: ISectionHeaderProps) {
   return (
-    <div
+    <Box
       className={classNames(
         styles.section_header,
-        styles[color]
+        styles[color],
       )}
+      sx={{ marginTop: SECTION_MARGIN_TOP }}
     >
       <div className={styles.line} />
       <Typography
@@ -32,6 +37,6 @@ export function SectionHeader({
         {children}
       </Typography>
       <div className={styles.line} />
-    </div>
+    </Box>
   );
 }

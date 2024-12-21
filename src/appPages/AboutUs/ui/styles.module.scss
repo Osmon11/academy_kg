@@ -1,0 +1,31 @@
+@use "variables";
+
+.teammates_wrapper {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+@media (min-width: variables.$theme-breakpoint-xs) {
+  .teammates_wrapper {
+    gap: 15px;
+  }
+}
+@media (min-width: variables.$theme-breakpoint-sm) {
+  .teammates_wrapper {
+    gap: 30px;
+  }
+}
+@media (min-width: variables.$theme-breakpoint-md) {
+  .teammates_wrapper {
+    gap: 50px;
+  }
+}
+@media (min-width: variables.$theme-breakpoint-lg) {
+  .teammates_wrapper {
+    gap: 70px;
+  }
+}
+@media (min-width: variables.$theme-breakpoint-xl) {
+}

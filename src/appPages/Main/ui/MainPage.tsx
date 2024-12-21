@@ -8,6 +8,7 @@ import {
 
 import { Footer } from "@/widgets/Footer";
 import { Header } from "@/widgets/Header";
+import { OurTeachers } from "@/widgets/OurTeachers";
 
 import { Banner } from "@/entities/Banner";
 import { SectionHeader } from "@/entities/SectionHeader";
@@ -19,7 +20,6 @@ import Achievements from "./Achievements";
 import Feedbacks from "./Feedbacks";
 import HowItWorks from "./HowItWorks";
 import Subjects from "./Subjects";
-import Teachers from "./Teachers";
 import styles from "./styles.module.scss";
 
 export function MainPage() {
@@ -54,6 +54,7 @@ export function MainPage() {
           variant="h4"
           textTransform="uppercase"
           className={styles.title}
+          sx={{ marginTop: "20px" }}
         >
           Первая исламская онлайн-академия в
           Кыргызстане - доступное образование,
@@ -63,6 +64,7 @@ export function MainPage() {
         <Typography
           variant="h6"
           className={styles.subtitle}
+          sx={{ marginTop: "20px" }}
         >
           Откройте мир исламских знаний в удобном
           онлайн-формате с ведущими
@@ -152,7 +154,7 @@ export function MainPage() {
       <SectionHeader color="primary">
         Наши преподаватели
       </SectionHeader>
-      <Teachers />
+      <OurTeachers />
       <Banner
         color="primary"
         sx={{

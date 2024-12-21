@@ -49,6 +49,9 @@ export default function HowItWorks() {
           description="С помощью аккаунтов в социальных сетях или через E-mail и пароль"
           icon="/icons/login-2.webp"
           icon_alt="login-2 icon"
+          sx={{
+            width: { xs: "100%", md: "50%" },
+          }}
         />
         <IconBanner
           color="secondary"
@@ -56,6 +59,9 @@ export default function HowItWorks() {
           description="закрепляйте полученные знания и открывайте доступ к новым уровням обучения"
           icon="/icons/note-2.webp"
           icon_alt="note-2 icon"
+          sx={{
+            width: { xs: "100%", md: "50%" },
+          }}
         />
       </Box>
       {!xs && (
@@ -86,6 +92,9 @@ export default function HowItWorks() {
           description="Смотрите видеоуроки, задавайте вопросы преподавателю и получайте обратную связь"
           icon="/icons/monitor-recorder.webp"
           icon_alt="monitor recorder icon"
+          sx={{
+            width: { xs: "100%", md: "50%" },
+          }}
         />
         <IconBanner
           color="secondary"
@@ -93,6 +102,9 @@ export default function HowItWorks() {
           description="Пройдите начальный тест, чтобы определить свой уровень знаний"
           icon="/icons/book.webp"
           icon_alt="book icon"
+          sx={{
+            width: { xs: "100%", md: "50%" },
+          }}
         />
       </Box>
     </Box>

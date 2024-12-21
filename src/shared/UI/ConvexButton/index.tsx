@@ -10,10 +10,12 @@ import styles from "./index.module.scss";
 interface IConvexButtonProps
   extends Omit<ButtonOwnProps, "color"> {
   color?: "primary" | "secondary";
+  className?: string;
 }
 
 export function ConvexButton({
   color = "primary",
+  className,
   ...props
 }: IConvexButtonProps) {
   return (
@@ -24,6 +26,7 @@ export function ConvexButton({
       className={classNames(
         styles.convex_button,
         styles[color],
+        className,
       )}
       startIcon={
         props.startIcon ? (

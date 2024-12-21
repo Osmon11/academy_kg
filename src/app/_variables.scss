@@ -7,3 +7,25 @@ $theme-breakpoint-xl: 1536px;
 $theme-color-white-smoke: #fafafa;
 $theme-color-grey-placeholder: #a3a3a3;
 $theme-color-grey-coal: #595959;
+
+$theme-box-shadow-primary:
+  1px 1px 2px 0px #2cf8e64d inset,
+  -1px -1px 2px 0px #0f534d80 inset,
+  -1px 1px 2px 0px #0f534d33,
+  1px -1px 2px 0px #0f534d33,
+  -1px -1px 2px 0px #2cf8e6e5,
+  1px 1px 3px 0px #0f534de5;
+$theme-box-shadow-secondary:
+  1px 1px 2px 0px #ffcc444d inset,
+  -1px -1px 2px 0px #7a441780 inset,
+  -1px 1px 2px 0px #7a441733,
+  1px -1px 2px 0px #7a441733,
+  -1px -1px 2px 0px #ffcc44e5,
+  1px 1px 3px 0px #7a4417e5;
+$theme-card-box-shadow:
+  1px 1px 2px 0px #ffffff4d inset,
+  -1px -1px 2px 0px #e6e6e680 inset,
+  -10px 10px 20px 0px #e6e6e633,
+  10px -10px 20px 0px #e6e6e633,
+  -10px -10px 20px 0px #ffffffe5,
+  10px 10px 25px 0px #e6e6e6e5;
