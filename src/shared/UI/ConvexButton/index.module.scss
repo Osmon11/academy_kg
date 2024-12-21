@@ -1,0 +1,46 @@
+@use "variables";
+
+.convex_button {
+  min-width: 240px;
+  min-height: 50px;
+  padding: 10px;
+  border-radius: 20px;
+  display: flex;
+  gap: 14px;
+  .circle_icon_wrapper {
+    width: 40px;
+    height: 40px;
+    background: variables.$theme-color-white-smoke;
+    padding: 8px;
+    border-radius: 18px;
+  }
+  &.primary {
+    box-shadow:
+      1px 1px 2px 0px #2cf8e64d inset,
+      -1px -1px 2px 0px #0f534d80 inset,
+      -1px 1px 2px 0px #0f534d33,
+      1px -1px 2px 0px #0f534d33,
+      -1px -1px 2px 0px #2cf8e6e5,
+      1px 1px 3px 0px #0f534de5;
+  }
+  &.secondary {
+    box-shadow:
+      1px 1px 2px 0px #ffcc444d inset,
+      -1px -1px 2px 0px #7a441780 inset,
+      -1px 1px 2px 0px #7a441733,
+      1px -1px 2px 0px #7a441733,
+      -1px -1px 2px 0px #ffcc44e5,
+      1px 1px 3px 0px #7a4417e5;
+  }
+}
+
+@media (min-width: variables.$theme-breakpoint-xs) {
+}
+@media (min-width: variables.$theme-breakpoint-sm) {
+}
+@media (min-width: variables.$theme-breakpoint-md) {
+}
+@media (min-width: variables.$theme-breakpoint-lg) {
+}
+@media (min-width: variables.$theme-breakpoint-xl) {
+}

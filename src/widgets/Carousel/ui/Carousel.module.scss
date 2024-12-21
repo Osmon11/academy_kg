@@ -1,0 +1,117 @@
+@use "variables";
+
+.embla {
+  position: relative;
+  &__viewport {
+    overflow: hidden;
+  }
+  &__container {
+    display: flex;
+    align-items: stretch;
+  }
+  .buttons {
+    width: 60px;
+    height: 60px;
+    border: 1px solid;
+    border-image-source: linear-gradient(
+      202.36deg,
+      rgba(255, 255, 255, 0.2) 8.26%,
+      rgba(255, 255, 255, 0) 85.43%
+    );
+    border-radius: 32px;
+    background: #20202033;
+    backdrop-filter: blur(20px);
+    box-shadow: -0.73px 0.73px 0.73px -1.46px
+      #ffffff59 inset;
+    position: absolute;
+    top: 50%;
+    &.prev_button {
+      left: -30px;
+      transform: translateY(-50%);
+    }
+    &.next_button {
+      right: -30px;
+      transform: translateY(-50%) rotate(-180deg);
+    }
+  }
+  .dot_buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    button {
+      padding: 0;
+      border: none;
+      outline: none;
+      transition: 300ms;
+    }
+    &.dot {
+      margin-top: 25px;
+      gap: 10px;
+      button {
+        border-radius: 50%;
+        background: variables.$theme-color-grey-placeholder;
+        &.active {
+          background: var(
+            --mui-palette-primary-main
+          );
+        }
+      }
+    }
+    &.line {
+      margin-top: 50px;
+      gap: 6px;
+      button {
+        border-radius: 100px;
+        background: var(
+          --mui-palette-secondary-light
+        );
+        &.active {
+          background: var(
+            --mui-palette-secondary-main
+          );
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: variables.$theme-breakpoint-xs) {
+  .embla {
+    .dot_buttons {
+      &.dot button {
+        width: 8px;
+        height: 8px;
+        &.active {
+          width: 20px;
+          border-radius: 23px;
+        }
+      }
+      &.line button {
+        width: 30px;
+        height: 4px;
+      }
+    }
+  }
+}
+@media (min-width: variables.$theme-breakpoint-sm) {
+}
+@media (min-width: variables.$theme-breakpoint-md) {
+  .embla {
+    .dot_buttons {
+      &.dot button,
+      &.dot button.active {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+      }
+      &.line button {
+        width: 40px;
+        height: 6px;
+      }
+    }
+  }
+}
+@media (min-width: variables.$theme-breakpoint-lg) {
+}
+@media (min-width: variables.$theme-breakpoint-xl) {
+}

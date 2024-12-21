@@ -1,0 +1,111 @@
+@use "variables";
+
+.card {
+  position: relative;
+  min-height: 260px;
+  height: 100%;
+  border-radius: 36px;
+  box-shadow:
+    0px 126px 35px 0px #00000000,
+    0px 81px 32px 0px #00000003,
+    0px 45px 27px 0px #00000005,
+    0px 20px 20px 0px #00000008,
+    0px 5px 11px 0px #0000000a;
+
+  .content {
+    width: 100%;
+    height: 100%;
+    padding: 30px 20px 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    .play_button {
+      width: 60px;
+      height: 60px;
+      background: #20202033;
+      backdrop-filter: blur(20px);
+      box-shadow: -0.73px 0.73px 0.73px -1.46px
+        #ffffff59 inset;
+      border: 1px solid;
+      border-image-source: linear-gradient(
+        202.36deg,
+        rgba(255, 255, 255, 0.2) 8.26%,
+        rgba(255, 255, 255, 0) 85.43%
+      );
+      &:hover {
+        background: #20202066;
+      }
+    }
+  }
+  .media {
+    height: 260px;
+  }
+  &.primary {
+    .title {
+      text-shadow:
+        1px 1px 2px 0px #a5d8cb4d,
+        -1px -1px 2px 0px #a1d4c780,
+        -1px 1px 2px 0px #a1d4c733,
+        1px -1px 2px 0px #a1d4c733,
+        -1px -1px 2px 0px #a5d8cbe5,
+        1px 1px 3px 0px #a1d4c7e5;
+    }
+    .content {
+      background: linear-gradient(
+        180deg,
+        rgba(29, 165, 153, 0.6) 0%,
+        rgba(255, 136, 45, 0.6) 99.99%
+      );
+    }
+  }
+  &.secondary {
+    .title {
+      text-shadow:
+        1px 1px 2px 0px #ffc28a4d,
+        -1px -1px 2px 0px #ffc28a80,
+        -1px 1px 2px 0px #ffc28a33,
+        1px -1px 2px 0px #ffc28a33,
+        -1px -1px 2px 0px #ffc28ae5,
+        1px 1px 3px 0px #ffc28ae5;
+    }
+    .content {
+      background: linear-gradient(
+        180deg,
+        rgba(255, 136, 45, 0.6) 0%,
+        rgba(29, 165, 153, 0.6) 100%
+      );
+    }
+  }
+}
+
+@media (min-width: variables.$theme-breakpoint-xs) {
+  .card {
+    min-width: calc(100vw - 30px);
+    box-shadow: none;
+  }
+}
+@media (min-width: variables.$theme-breakpoint-sm) {
+  .card {
+    min-width: 370px;
+    box-shadow: none;
+  }
+}
+@media (min-width: variables.$theme-breakpoint-md) {
+  .card {
+    min-width: 400px;
+  }
+}
+@media (min-width: variables.$theme-breakpoint-lg) {
+  .card {
+    min-width: 400px;
+  }
+}
+@media (min-width: variables.$theme-breakpoint-xl) {
+  .card {
+    min-width: 400px;
+  }
+}

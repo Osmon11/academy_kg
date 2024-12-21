@@ -1,0 +1,62 @@
+@use "variables";
+
+.footer {
+  width: 100vw;
+  background: var(--mui-palette-primary-main);
+  border-radius: 30px 30px 0px 0px;
+  margin-top: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  .links_wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+  .social_links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    .icon_button {
+      border: 2px solid #ffffff20;
+    }
+    .icon_button:hover {
+      border-color: #ffffff;
+    }
+  }
+}
+
+@media (min-width: variables.$theme-breakpoint-xs) {
+  .footer {
+    padding: 30px 12px;
+    justify-content: center;
+  }
+}
+@media (min-width: variables.$theme-breakpoint-sm) {
+  .footer {
+    padding: 30px 12px;
+    justify-content: center;
+  }
+}
+@media (min-width: variables.$theme-breakpoint-md) {
+  .footer {
+    padding: 35px 30px;
+    justify-content: space-between;
+  }
+}
+@media (min-width: variables.$theme-breakpoint-lg) {
+  .footer {
+    padding: 35px 125px;
+    justify-content: space-between;
+  }
+}
+@media (min-width: variables.$theme-breakpoint-xl) {
+  .footer {
+    padding: 35px 125px;
+    justify-content: space-between;
+  }
+}

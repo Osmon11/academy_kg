@@ -1,0 +1,130 @@
+@use "variables";
+
+.header {
+  padding: 12px 32px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  &.transparent {
+    background: transparent;
+  }
+  &.white {
+    background: white;
+  }
+  .nav_link {
+    padding: 6.5px 10px;
+    border-radius: 8px;
+    h6 {
+      line-height: 17px;
+      text-transform: uppercase;
+    }
+  }
+}
+
+.drawer_header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@media (min-width: variables.$theme-breakpoint-xs) {
+  .header {
+    padding: 15px;
+    &.white,
+    &.transparent {
+      .nav_link.active {
+        color: var(--mui-palette-primary-main);
+      }
+    }
+  }
+  .nav_link {
+    width: 100%;
+  }
+}
+@media (min-width: variables.$theme-breakpoint-sm) {
+  .header {
+    &.white,
+    &.transparent {
+      .nav_link.active {
+        color: var(--mui-palette-primary-main);
+      }
+    }
+  }
+  .nav_link {
+    width: 100%;
+  }
+}
+@media (min-width: variables.$theme-breakpoint-md) {
+  .header {
+    padding: 15px 30px;
+    &.transparent {
+      .logo {
+        filter: none;
+      }
+      .nav_link.active {
+        background: var(
+          --mui-palette-primary-main
+        );
+      }
+    }
+    &.white {
+      .logo {
+        filter: invert(49%) sepia(98%)
+          saturate(366%) hue-rotate(125deg)
+          brightness(91%) contrast(86%);
+      }
+      .nav_link.active {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+@media (min-width: variables.$theme-breakpoint-lg) {
+  .header {
+    &.transparent {
+      .logo {
+        filter: none;
+      }
+      .nav_link.active {
+        background: var(
+          --mui-palette-primary-main
+        );
+      }
+    }
+    &.white {
+      .logo {
+        filter: invert(49%) sepia(98%)
+          saturate(366%) hue-rotate(125deg)
+          brightness(91%) contrast(86%);
+      }
+      .nav_link.active {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+@media (min-width: variables.$theme-breakpoint-xl) {
+  .header {
+    &.transparent {
+      .logo {
+        filter: none;
+      }
+      .nav_link.active {
+        background: var(
+          --mui-palette-primary-main
+        );
+      }
+    }
+    &.white {
+      .logo {
+        filter: invert(49%) sepia(98%)
+          saturate(366%) hue-rotate(125deg)
+          brightness(91%) contrast(86%);
+      }
+      .nav_link.active {
+        text-decoration: underline;
+      }
+    }
+  }
+}
