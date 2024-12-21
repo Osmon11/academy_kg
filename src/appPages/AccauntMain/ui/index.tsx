@@ -1,10 +1,11 @@
-import { Header } from "@/widgets/Header";
 import { Fragment } from "react";
+
+import { Header } from "@/widgets/Header";
 
 export function AccauntMainPage() {
   return (
     <Fragment>
-      <Header />
+      <Header background="white" />
     </Fragment>
   );
 }
