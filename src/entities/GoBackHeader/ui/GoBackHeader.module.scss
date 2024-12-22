@@ -4,7 +4,7 @@
   position: relative;
   padding: 24px;
   background: #ffffff;
-  box-shadow: 1px 1px 3px 0px #cccccce5;
+  box-shadow: variables.$theme-header-box-shadow;
   .go_back_button {
     padding: 4px;
     position: absolute;

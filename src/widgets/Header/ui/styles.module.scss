@@ -10,6 +10,7 @@
   }
   &.white {
     background: white;
+    box-shadow: variables.$theme-header-box-shadow;
   }
   .nav_link {
     padding: 6.5px 10px;

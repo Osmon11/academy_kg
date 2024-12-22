@@ -22,7 +22,7 @@ import styles from "./styles.module.scss";
 
 const navLinks = [
   { label: "Главное", href: "/" },
-  { label: "Учиться", href: "/study" },
+  // { label: "Учиться", href: "/study" },
   { label: "Вебинары", href: "/webinars" },
   { label: "О нас", href: "/about-us" },
   { label: "Поддержать", href: "/support-us" },
