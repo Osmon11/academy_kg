@@ -2,29 +2,34 @@ import Image from "next/image";
 
 import { Typography } from "@mui/material";
 
+import bookIcon from "@/icons/book.png";
+import eyeIcon from "@/icons/eye.png";
+import teacherIcon from "@/icons/teacher.png";
+import videoCircleIcon from "@/icons/video-circle.png";
+
 import styles from "./styles.module.scss";
 
 const achievements = [
   {
-    icon: "/icons/book.webp",
+    icon: bookIcon,
     icon_alt: "book icon",
     score: "7",
     subtitle: "Предметов",
   },
   {
-    icon: "/icons/video-circle.webp",
+    icon: videoCircleIcon,
     icon_alt: "video circle icon",
     score: "365",
     subtitle: "уроков",
   },
   {
-    icon: "/icons/teacher.webp",
+    icon: teacherIcon,
     icon_alt: "teacher icon",
     score: "294229",
     subtitle: "студентов",
   },
   {
-    icon: "/icons/eye.webp",
+    icon: eyeIcon,
     icon_alt: "eye icon",
     score: "3052760",
     subtitle: "просмотров уроков",

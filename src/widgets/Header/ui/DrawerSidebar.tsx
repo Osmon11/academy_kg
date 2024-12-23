@@ -17,6 +17,10 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
+import loginIcon from "@/icons/login.png";
+import logoPrimaryIcon from "@/icons/logo-primary.png";
+import xCloseBlackIcon from "@/icons/x-close-black.png";
+
 import LanguageSelect from "./LanguageSelect";
 import styles from "./styles.module.scss";
 
@@ -51,14 +55,14 @@ export default function DrawerSidebar({
     >
       <div className={styles.drawer_header}>
         <Image
-          src="/icons/logo-primary.webp"
+          src={logoPrimaryIcon}
           alt="islamic online-academy green icon"
           width={40}
           height={40}
         />
         <IconButton onClick={handleDrawerClose}>
           <Image
-            src="/icons/x-close-black.webp"
+            src={xCloseBlackIcon}
             alt="x close black icon"
             width={30}
             height={30}
@@ -120,7 +124,7 @@ export default function DrawerSidebar({
       <Button
         startIcon={
           <Image
-            src="/icons/login.webp"
+            src={loginIcon}
             alt="login icon"
             width={24}
             height={24}

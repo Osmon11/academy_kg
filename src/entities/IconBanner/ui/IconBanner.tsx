@@ -1,7 +1,9 @@
 "use client";
 
 import classNames from "classnames";
-import Image from "next/image";
+import Image, {
+  StaticImageData,
+} from "next/image";
 
 import {
   Box,
@@ -15,7 +17,7 @@ import styles from "./IconBanner.module.scss";
 interface IIconBannerProps {
   color: "primary" | "secondary";
   sx?: SxProps;
-  icon: string;
+  icon: StaticImageData;
   icon_alt: string;
   title?: string;
   description: string;

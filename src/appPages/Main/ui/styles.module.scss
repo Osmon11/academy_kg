@@ -1,22 +1,5 @@
 @use "variables";
 
-.main_bg_1 {
-  width: 100vw;
-  height: 100vh;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  border-radius: 0px 0px 30px 30px;
-  .title {
-    max-width: 880px;
-    font-weight: 900;
-  }
-  .subtitle {
-    max-width: 660px;
-    font-weight: 400;
-  }
-}
-
 .subjects_wrapper {
   display: flex;
   align-items: center;
@@ -79,21 +62,6 @@
 }
 
 @media (min-width: variables.$theme-breakpoint-xs) {
-  .main_bg_1 {
-    padding: 85px 15px 30px;
-    background-image: url("/backgrounds/main-1@xs.webp");
-    .title {
-      font-size: 22px;
-    }
-    .subtitle {
-      padding: 10px;
-      font-size: 18px;
-      border-radius: 15px;
-      opacity: 1;
-      background: #dfdfdf33;
-      backdrop-filter: blur(25px);
-    }
-  }
   .scores_wrapper {
     padding: 0px 15px;
     .achievement {
@@ -130,19 +98,6 @@
   }
 }
 @media (min-width: variables.$theme-breakpoint-sm) {
-  .main_bg_1 {
-    background-image: url("/backgrounds/main-1@sm.webp");
-    .title {
-      font-size: 30px;
-    }
-    .subtitle {
-      padding: 0px;
-      font-size: 20px;
-      background: transparent;
-      backdrop-filter: none;
-      opacity: 0.7;
-    }
-  }
   .icon_banners_wrapper {
     padding: 0px 30px;
     flex-wrap: wrap;
@@ -164,10 +119,6 @@
   }
 }
 @media (min-width: variables.$theme-breakpoint-md) {
-  .main_bg_1 {
-    padding: 150px 30px 160px 30px;
-    background-image: url("/backgrounds/main-1@md.webp");
-  }
   .scores_wrapper {
     padding: 0px 30px;
     .achievement {
@@ -200,15 +151,6 @@
   }
 }
 @media (min-width: variables.$theme-breakpoint-lg) {
-  .main_bg_1 {
-    background-image: url("/backgrounds/main-1@lg.webp");
-    .title {
-      font-size: 36px;
-    }
-    .subtitle {
-      font-size: 22px;
-    }
-  }
   .scores_wrapper {
     padding: 0px 100px;
     .achievement {
@@ -242,13 +184,7 @@
   }
 }
 @media (min-width: variables.$theme-breakpoint-xl) {
-  .main_bg_1 {
-    background-image: url("/backgrounds/main-1@xl.webp");
-  }
 }
 // @media (-webkit-min-device-pixel-ratio: 2),
 //   (min-resolution: 192dpi) {
-//   .main_bg_1 {
-//     background-image: url("/backgrounds/main-1@2x.webp");
-//   }
 // }

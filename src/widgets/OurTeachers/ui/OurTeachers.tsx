@@ -11,57 +11,68 @@ import { TeacherCard } from "@/features/TeacherCard";
 
 import { SECTION_PADDING } from "@/shared/config/const";
 
+import teacher1 from "@/backgrounds/teacher-1.png";
+import teacher2 from "@/backgrounds/teacher-2.png";
+import teacher3 from "@/backgrounds/teacher-3.png";
+import teacher4 from "@/backgrounds/teacher-4.png";
+import teacher5 from "@/backgrounds/teacher-5.png";
+import teacher6 from "@/backgrounds/teacher-6.png";
+import teacher7 from "@/backgrounds/teacher-7.png";
+import teacher8 from "@/backgrounds/teacher-8.png";
+import teacher9 from "@/backgrounds/teacher-9.png";
+import teacher10 from "@/backgrounds/teacher-10.png";
+
 import styles from "./OurTeachers.module.scss";
 
 const teachers = [
   {
-    image: "/backgrounds/teacher-1.png",
+    image: teacher1.src,
     fullname: "Амир Шарифов",
     subjects: "Таджвид, Хадис",
   },
   {
-    image: "/backgrounds/teacher-2.png",
+    image: teacher2.src,
     fullname: "Карим Салимов",
     subjects: "Акыда",
   },
   {
-    image: "/backgrounds/teacher-3.png",
+    image: teacher3.src,
     fullname: "Мухаммад Саидов",
     subjects: "Сира",
   },
   {
-    image: "/backgrounds/teacher-4.png",
+    image: teacher4.src,
     fullname: "Фарук Ханибеков",
     subjects: "Адаб",
   },
   {
-    image: "/backgrounds/teacher-5.png",
+    image: teacher5.src,
     fullname: "Зайнуддин Рахимов",
     subjects: "Ханафитский фикх",
   },
   {
-    image: "/backgrounds/teacher-6.png",
+    image: teacher6.src,
     fullname: "Карим Салимов",
     subjects: "Шафиитский фикх",
   },
   {
-    image: "/backgrounds/teacher-7.png",
+    image: teacher7.src,
     fullname: "Мухаммад Саидов",
     subjects: "Тафсир",
   },
   {
-    image: "/backgrounds/teacher-8.png",
+    image: teacher8.src,
     fullname: "Амина Саидова",
     subjects:
       "Практические занятия по Корану для женщин",
   },
   {
-    image: "/backgrounds/teacher-9.png",
+    image: teacher9.src,
     fullname: "Марьям Рахимова",
     subjects: "Еженедельные вебинары для женщин",
   },
   {
-    image: "/backgrounds/teacher-10.png",
+    image: teacher10.src,
     fullname: "Лейла Нурмухамедова",
     subjects:
       "Практические занятия по Корану для женщин",

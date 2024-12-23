@@ -16,6 +16,10 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
+import loginIcon from "@/icons/login.png";
+import logoIcon from "@/icons/logo.png";
+import menuIcon from "@/icons/menu.png";
+
 import DrawerSidebar from "./DrawerSidebar";
 import LanguageSelect from "./LanguageSelect";
 import styles from "./styles.module.scss";
@@ -61,7 +65,7 @@ export function Header({
       )}
     >
       <Image
-        src="/icons/logo.webp"
+        src={logoIcon}
         alt="islamic online-academy logo"
         width={40}
         height={40}
@@ -116,7 +120,7 @@ export function Header({
             <Button
               startIcon={
                 <Image
-                  src="/icons/login.webp"
+                  src={loginIcon}
                   alt="login icon"
                   width={24}
                   height={24}
@@ -141,7 +145,7 @@ export function Header({
               onClick={handleDrawerOpen}
             >
               <Image
-                src="/icons/menu-1.webp"
+                src={menuIcon}
                 alt="menu icon"
                 width={32}
                 height={32}

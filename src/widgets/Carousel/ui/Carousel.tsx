@@ -15,6 +15,8 @@ import {
 
 import { IconButton } from "@mui/material";
 
+import arrowRightIcon from "@/icons/arrow-right.png";
+
 import styles from "./Carousel.module.scss";
 
 interface ICarouselProps {
@@ -119,10 +121,10 @@ export function Carousel({
       .on("select", onSelect);
   }, [emblaApi, onSelect, onInit]);
 
-  const arrawLeftIcon = (
+  const arrawRightIcon = (
     <Image
-      src="/icons/arrow-left.webp"
-      alt="arrow left icon"
+      src={arrowRightIcon}
+      alt="arrow right icon"
       width={24}
       height={24}
     />
@@ -149,7 +151,7 @@ export function Carousel({
               onClick={scrollPrev}
               disabled={prevBtnDisabled}
             >
-              {arrawLeftIcon}
+              {arrawRightIcon}
             </IconButton>
             <IconButton
               className={classNames(
@@ -159,7 +161,7 @@ export function Carousel({
               onClick={scrollNext}
               disabled={nextBtnDisabled}
             >
-              {arrawLeftIcon}
+              {arrawRightIcon}
             </IconButton>
           </Fragment>
         )}

@@ -4,31 +4,37 @@ import { TeacherCard } from "@/features/TeacherCard";
 
 import { SECTION_PADDING } from "@/shared/config/const";
 
+import teammate1 from "@/backgrounds/teammate-1.png";
+import teammate5 from "@/backgrounds/teammate-1.png";
+import teammate2 from "@/backgrounds/teammate-2.png";
+import teammate3 from "@/backgrounds/teammate-3.png";
+import teammate4 from "@/backgrounds/teammate-4.png";
+
 import styles from "./styles.module.scss";
 
 const teammates = [
   {
-    image: "/backgrounds/teammate-1.png",
+    image: teammate1.src,
     fullname: "Асадулла Рахимов",
     subjects: "Руководитель академии",
   },
   {
-    image: "/backgrounds/teammate-2.png",
+    image: teammate2.src,
     fullname: "Шамсуддин Каримов",
     subjects: "Администратор учебных программ",
   },
   {
-    image: "/backgrounds/teammate-3.png",
+    image: teammate3.src,
     fullname: "Ихтияр Алиев",
     subjects: "Технический специалист",
   },
   {
-    image: "/backgrounds/teammate-4.png",
+    image: teammate4.src,
     fullname: "Наимуддин Саидов",
     subjects: "Специалист по работе с учениками",
   },
   {
-    image: "/backgrounds/teammate-1.png",
+    image: teammate5.src,
     fullname: "Юнус Кадыров",
     subjects: "Маркетолог",
   },

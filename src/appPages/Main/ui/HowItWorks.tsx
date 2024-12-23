@@ -9,6 +9,13 @@ import {
 
 import { IconBanner } from "@/entities/IconBanner";
 
+import bookIcon from "@/icons/book.png";
+import login2Icon from "@/icons/login-2.png";
+import monitorRecorderIcon from "@/icons/monitor-recorder.png";
+import note2Icon from "@/icons/note-2.png";
+
+import laptopBaseBg from "@/backgrounds/base.svg";
+
 import styles from "./styles.module.scss";
 
 export default function HowItWorks() {
@@ -30,8 +37,9 @@ export default function HowItWorks() {
           <div className={styles.screen}></div>
           <Image
             className={styles.base}
-            src="/backgrounds/base.svg"
+            src={laptopBaseBg}
             alt="laptop base"
+            unoptimized
             width={10000}
             height={140}
           />
@@ -47,7 +55,7 @@ export default function HowItWorks() {
           color="primary"
           title="ЗАРЕГИСТРИРУЙТЕСЬ"
           description="С помощью аккаунтов в социальных сетях или через E-mail и пароль"
-          icon="/icons/login-2.webp"
+          icon={login2Icon}
           icon_alt="login-2 icon"
           sx={{
             width: { xs: "100%", md: "50%" },
@@ -57,7 +65,7 @@ export default function HowItWorks() {
           color="secondary"
           title="СДАВАЙТЕ ЭКЗАМЕНЫ"
           description="закрепляйте полученные знания и открывайте доступ к новым уровням обучения"
-          icon="/icons/note-2.webp"
+          icon={note2Icon}
           icon_alt="note-2 icon"
           sx={{
             width: { xs: "100%", md: "50%" },
@@ -69,8 +77,9 @@ export default function HowItWorks() {
           <div className={styles.screen}></div>
           <Image
             className={styles.base}
-            src="/backgrounds/base.svg"
+            src={laptopBaseBg}
             alt="laptop base"
+            unoptimized
             width={1128}
             height={19}
           />
@@ -90,7 +99,7 @@ export default function HowItWorks() {
           color="primary"
           title="ОБУЧАЙТЕСЬ ОНЛАЙН"
           description="Смотрите видеоуроки, задавайте вопросы преподавателю и получайте обратную связь"
-          icon="/icons/monitor-recorder.webp"
+          icon={monitorRecorderIcon}
           icon_alt="monitor recorder icon"
           sx={{
             width: { xs: "100%", md: "50%" },
@@ -100,7 +109,7 @@ export default function HowItWorks() {
           color="secondary"
           title="ПРОВЕРЬТЕ СЕБЯ"
           description="Пройдите начальный тест, чтобы определить свой уровень знаний"
-          icon="/icons/book.webp"
+          icon={bookIcon}
           icon_alt="book icon"
           sx={{
             width: { xs: "100%", md: "50%" },

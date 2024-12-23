@@ -9,17 +9,19 @@ import {
   Typography,
 } from "@mui/material";
 
+import playIcon from "@/icons/play.png";
+
 import styles from "./SubjectCard.module.scss";
 
 interface ISubjectCardProps {
-  video: string;
+  image: string;
   title: string;
   description: string;
   color: "primary" | "secondary";
 }
 
 export function SubjectCard({
-  video,
+  image,
   title,
   description,
   color,
@@ -33,7 +35,7 @@ export function SubjectCard({
       )}
     >
       <CardMedia
-        image={video}
+        image={image}
         title={title}
         className={styles.media}
       />
@@ -55,7 +57,7 @@ export function SubjectCard({
           aria-label="play icon"
         >
           <Image
-            src="/icons/play.webp"
+            src={playIcon}
             alt="play icon"
             width={24}
             height={24}

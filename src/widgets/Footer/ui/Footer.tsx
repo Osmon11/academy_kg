@@ -9,6 +9,10 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
+import instagramIcon from "@/icons/instagram.png";
+import telegramIcon from "@/icons/telegram.png";
+import youtubeIcon from "@/icons/youtube.png";
+
 import styles from "./Footer.module.scss";
 
 export function Footer() {
@@ -64,7 +68,7 @@ export function Footer() {
             rel="noopener"
           >
             <Image
-              src="/icons/instagram.webp"
+              src={instagramIcon}
               alt=""
               width={20}
               height={20}
@@ -77,7 +81,7 @@ export function Footer() {
             rel="noopener"
           >
             <Image
-              src="/icons/youtube.webp"
+              src={youtubeIcon}
               alt=""
               width={20}
               height={20}
@@ -90,7 +94,7 @@ export function Footer() {
             rel="noopener"
           >
             <Image
-              src="/icons/telegram.webp"
+              src={telegramIcon}
               alt=""
               width={20}
               height={20}

@@ -11,16 +11,22 @@ import { Header } from "@/widgets/Header";
 import { OurTeachers } from "@/widgets/OurTeachers";
 
 import { Banner } from "@/entities/Banner";
+import { PageHeading } from "@/entities/PageHeading";
 import { SectionHeader } from "@/entities/SectionHeader";
 
 import { ConvexButton } from "@/shared/UI";
 import { SECTION_MARGIN_TOP } from "@/shared/config/const";
 
+import locationIcon from "@/icons/location.png";
+import playSecondaryIcon from "@/icons/play-secondary.png";
+import teacherPrimaryIcon from "@/icons/teacher-primary.png";
+
 import Achievements from "./Achievements";
 import Feedbacks from "./Feedbacks";
 import HowItWorks from "./HowItWorks";
 import Subjects from "./Subjects";
-import styles from "./styles.module.scss";
+
+// import styles from "./styles.module.scss";
 
 export function MainPage() {
   return (
@@ -30,46 +36,35 @@ export function MainPage() {
         elevation={0}
         position="absolute"
       />
-      <div className={styles.main_bg_1}>
-        <Button
-          startIcon={
-            <Image
-              src="/icons/location.webp"
-              alt="location icon"
-              width={24}
-              height={24}
-            />
-          }
-          variant="contained"
-          sx={{
-            padding: "4px 10px",
-            borderRadius: "10px",
-            textTransform: "uppercase",
-          }}
-        >
-          Кыргызстан, бишкек
-        </Button>
-        <Typography
-          component="h1"
-          variant="h4"
-          textTransform="uppercase"
-          className={styles.title}
-          sx={{ marginTop: "20px" }}
-        >
-          Первая исламская онлайн-академия в
+      <PageHeading
+        header={
+          <Button
+            startIcon={
+              <Image
+                src={locationIcon}
+                alt="location icon"
+                width={24}
+                height={24}
+              />
+            }
+            variant="contained"
+            sx={{
+              padding: "4px 10px",
+              borderRadius: "10px",
+              textTransform: "uppercase",
+            }}
+          >
+            Кыргызстан, бишкек
+          </Button>
+        }
+        title="Первая исламская онлайн-академия в
           Кыргызстане - доступное образование,
           глубокие знания, духовное развитие для
-          всех!
-        </Typography>
-        <Typography
-          variant="h6"
-          className={styles.subtitle}
-          sx={{ marginTop: "20px" }}
-        >
-          Откройте мир исламских знаний в удобном
-          онлайн-формате с ведущими
-          преподавателями.
-        </Typography>
+          всех!"
+        subtitles={[
+          "Откройте мир исламских знаний в удобном онлайн-формате с ведущими преподавателями.",
+        ]}
+      >
         <ConvexButton
           color="secondary"
           sx={{
@@ -77,7 +72,7 @@ export function MainPage() {
           }}
           endIcon={
             <Image
-              src="/icons/play-secondary.webp"
+              src={playSecondaryIcon}
               alt="orange play icon"
               width={24}
               height={24}
@@ -93,7 +88,7 @@ export function MainPage() {
           }}
           endIcon={
             <Image
-              src="/icons/teacher-primary.webp"
+              src={teacherPrimaryIcon}
               alt="cyan teacher icon"
               width={24}
               height={24}
@@ -102,7 +97,7 @@ export function MainPage() {
         >
           начать обучение
         </ConvexButton>
-      </div>
+      </PageHeading>
       <SectionHeader color="primary">
         Наши предметы
       </SectionHeader>

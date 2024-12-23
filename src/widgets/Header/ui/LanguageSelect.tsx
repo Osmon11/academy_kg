@@ -11,6 +11,11 @@ import {
 
 import { ELanguage } from "@/shared/config/enum";
 
+import arrowDownBlackIcon from "@/icons/arrow-down-black.png";
+import arrowDownIcon from "@/icons/arrow-down.png";
+import globalBlackIcon from "@/icons/global-black.png";
+import globalIcon from "@/icons/global.png";
+
 interface ILanguageSelectProps {
   color: "white" | "black" | "primary";
 }
@@ -46,7 +51,11 @@ export default function LanguageSelect({
       <Button
         startIcon={
           <Image
-            src={`/icons/global${color === "black" ? "-black" : ""}.webp`}
+            src={
+              color === "black"
+                ? globalBlackIcon
+                : globalIcon
+            }
             alt="global icon"
             width={24}
             height={24}
@@ -54,7 +63,11 @@ export default function LanguageSelect({
         }
         endIcon={
           <Image
-            src={`/icons/arrow-down${color === "black" ? "-black" : ""}.webp`}
+            src={
+              color === "black"
+                ? arrowDownBlackIcon
+                : arrowDownIcon
+            }
             alt="arrow down icon"
             width={12}
             height={12}

@@ -6,6 +6,7 @@ import { Footer } from "@/widgets/Footer";
 import { Header } from "@/widgets/Header";
 
 import { Banner } from "@/entities/Banner";
+import { PageHeading } from "@/entities/PageHeading";
 import { SectionHeader } from "@/entities/SectionHeader";
 
 import { SECTION_MARGIN_TOP } from "@/shared/config/const";
@@ -22,41 +23,13 @@ export function WebinarsPage() {
         elevation={0}
         position="absolute"
       />
-      <div className="page_title_bg">
-        <Typography
-          component="h1"
-          variant="h4"
-          textTransform="uppercase"
-          className="title"
-          sx={{ marginTop: "20px" }}
-        >
-          наши вебинары
-        </Typography>
-        <Typography
-          variant="h6"
-          className="subtitle"
-          sx={{ marginTop: "20px" }}
-        >
-          Вебинары - это качественное дополнение к
-          образовательной программе
-          онлайн-академии, позволяющее посредством
-          живого общения стирать границы между
-          преподавателем и учащимся, в какой бы
-          точке мира они ни находились.
-        </Typography>
-        <Typography
-          variant="h6"
-          className="subtitle"
-          sx={{ marginTop: "20px" }}
-        >
-          Профессиональный подход наших
-          преподавателей, их богатый опыт и
-          потенциал, актуальная тематика вебинаров
-          дают комплексное представление об
-          исламе, раскрывают глубинные стороны
-          этой универсальной религии.
-        </Typography>
-      </div>
+      <PageHeading
+        title="Наши вебинары"
+        subtitles={[
+          "Вебинары - это качественное дополнение к образовательной программе онлайн-академии, позволяющее посредством живого общения стирать границы между преподавателем и учащимся, в какой бы точке мира они ни находились.",
+          "Профессиональный подход наших преподавателей, их богатый опыт и потенциал, актуальная тематика вебинаров дают комплексное представление об исламе, раскрывают глубинные стороны этой универсальной религии.",
+        ]}
+      />
       <SectionHeader color="primary">
         Предстоящие вебинары
       </SectionHeader>

@@ -42,6 +42,7 @@ export function FeedbackCard({
             alt={fullname}
             width={60}
             height={60}
+            quality={100}
             className={styles.profile_image}
           />
           <span>

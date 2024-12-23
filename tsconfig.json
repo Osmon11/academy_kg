@@ -35,6 +35,12 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
+      "@/icons/*": [
+        "./src/shared/assets/icons/*"
+      ],
+      "@/backgrounds/*": [
+        "./src/shared/assets/backgrounds/*"
+      ],
       "variables": ["./src/app/_variables.scss"]
     }
   },

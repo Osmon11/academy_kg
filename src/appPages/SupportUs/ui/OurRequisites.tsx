@@ -4,54 +4,56 @@ import { RequisiteCard } from "@/features/RequisiteCard";
 
 import { SECTION_PADDING } from "@/shared/config/const";
 
+import mbankQR from "@/backgrounds/mbank.png";
+
 import styles from "./styles.module.scss";
 
 const requisites = [
   {
     requisite_name: "МBank",
-    requisite_img: "/backgrounds/mbank.png",
+    requisite_img: mbankQR.src,
     phone_number: "+996225071727",
     card_number: "4123 4567 8901 2345",
     fullname: "А.Асанов",
   },
   {
     requisite_name: "МBank",
-    requisite_img: "/backgrounds/mbank.png",
+    requisite_img: mbankQR.src,
     phone_number: "+996225071727",
     card_number: "4123 4567 8901 2345",
     fullname: "А.Асанов",
   },
   {
     requisite_name: "МBank",
-    requisite_img: "/backgrounds/mbank.png",
+    requisite_img: mbankQR.src,
     phone_number: "+996225071727",
     card_number: "4123 4567 8901 2345",
     fullname: "А.Асанов",
   },
   {
     requisite_name: "МBank",
-    requisite_img: "/backgrounds/mbank.png",
+    requisite_img: mbankQR.src,
     phone_number: "+996225071727",
     card_number: "4123 4567 8901 2345",
     fullname: "А.Асанов",
   },
   {
     requisite_name: "МBank",
-    requisite_img: "/backgrounds/mbank.png",
+    requisite_img: mbankQR.src,
     phone_number: "+996225071727",
     card_number: "4123 4567 8901 2345",
     fullname: "А.Асанов",
   },
   {
     requisite_name: "МBank",
-    requisite_img: "/backgrounds/mbank.png",
+    requisite_img: mbankQR.src,
     phone_number: "+996225071727",
     card_number: "4123 4567 8901 2345",
     fullname: "А.Асанов",
   },
   {
     requisite_name: "МBank",
-    requisite_img: "/backgrounds/mbank.png",
+    requisite_img: mbankQR.src,
     phone_number: "+996225071727",
     card_number: "4123 4567 8901 2345",
     fullname: "А.Асанов",
