@@ -11,6 +11,8 @@ import {
 import { ConvexButton } from "@/shared/UI";
 import { SECTION_PADDING } from "@/shared/config/const";
 
+import videoPlayPrimaryIcon from "@/icons/video-play-primary.png";
+
 import styles from "./styles.module.scss";
 
 const webinars = [
@@ -167,7 +169,7 @@ export default function WebinarAfterwards() {
               <Button
                 startIcon={
                   <Image
-                    src="/icons/video-play-primary.webp"
+                    src={videoPlayPrimaryIcon}
                     alt="video-play green icon"
                     width={24}
                     height={24}

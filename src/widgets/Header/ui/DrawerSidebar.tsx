@@ -18,7 +18,7 @@ import {
 } from "@mui/material";
 
 import loginIcon from "@/icons/login.png";
-import logoPrimaryIcon from "@/icons/logo-primary.png";
+import logoPrimaryIcon from "@/icons/logo-primary.svg";
 import xCloseBlackIcon from "@/icons/x-close-black.png";
 
 import LanguageSelect from "./LanguageSelect";
@@ -121,20 +121,23 @@ export default function DrawerSidebar({
           );
         })}
       </List>
-      <Button
-        startIcon={
-          <Image
-            src={loginIcon}
-            alt="login icon"
-            width={24}
-            height={24}
-          />
-        }
-        color="secondary"
-        variant="contained"
-      >
-        ВХОД
-      </Button>
+      <Link href="/authorization/login">
+        <Button
+          startIcon={
+            <Image
+              src={loginIcon}
+              alt="login icon"
+              width={24}
+              height={24}
+            />
+          }
+          color="secondary"
+          variant="contained"
+          sx={{ width: "100%" }}
+        >
+          ВХОД
+        </Button>
+      </Link>
       {xs && (
         <Box sx={{ marginTop: "30px" }}>
           <LanguageSelect color="black" />

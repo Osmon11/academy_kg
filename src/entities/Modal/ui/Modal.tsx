@@ -7,6 +7,8 @@ import {
   Typography,
 } from "@mui/material";
 
+import closeIcon from "@/icons/close.png";
+
 import styles from "./Modal.module.scss";
 
 interface ModalProps {
@@ -32,7 +34,7 @@ export function Modal({
             className={styles.close_button}
           >
             <Image
-              src="/icons/close.webp"
+              src={closeIcon}
               alt="close icon"
               width={24}
               height={24}

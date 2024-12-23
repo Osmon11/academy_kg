@@ -7,6 +7,10 @@ import {
   Typography,
 } from "@mui/material";
 
+import googleIcon from "@/icons/google.png";
+import logoPrimaryIcon from "@/icons/logo-primary.svg";
+import smsIcon from "@/icons/sms.png";
+
 import styles from "./styles.module.scss";
 
 export function LoginPage() {
@@ -18,7 +22,7 @@ export function LoginPage() {
       >
         <div className={styles.logo_wrapper}>
           <Image
-            src="/icons/logo-primary.webp"
+            src={logoPrimaryIcon}
             alt="islamic online-academy green icon"
             width={100}
             height={100}
@@ -33,7 +37,7 @@ export function LoginPage() {
         </Typography>
         <Button className={styles.white_button}>
           <Image
-            src="/icons/Google.webp"
+            src={googleIcon}
             alt="google logo"
             width={24}
             height={24}
@@ -45,7 +49,7 @@ export function LoginPage() {
           sx={{ marginTop: "30px" }}
         >
           <Image
-            src="/icons/sms.webp"
+            src={smsIcon}
             alt="sms grey icon"
             width={24}
             height={24}

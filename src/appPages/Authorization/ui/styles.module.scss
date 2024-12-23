@@ -80,39 +80,3 @@
     }
   }
 }
-
-@media (min-width: variables.$theme-breakpoint-xs),
-  (max-width: variables.$theme-breakpoint-sm) {
-  .page {
-    background-image: url("/backgrounds/main-1@xs.webp");
-  }
-}
-@media (min-width: variables.$theme-breakpoint-sm),
-  (max-width: variables.$theme-breakpoint-md) {
-  .page {
-    background-image: url("/backgrounds/main-1@sm.webp");
-  }
-}
-@media (min-width: variables.$theme-breakpoint-md),
-  (max-width: variables.$theme-breakpoint-lg) {
-  .page {
-    background-image: url("/backgrounds/main-1@md.webp");
-  }
-}
-@media (min-width: variables.$theme-breakpoint-lg),
-  (max-width: variables.$theme-breakpoint-xl) {
-  .page {
-    background-image: url("/backgrounds/main-1@lg.webp");
-  }
-}
-@media (min-width: variables.$theme-breakpoint-xl) {
-  .page {
-    background-image: url("/backgrounds/main-1@xl.webp");
-  }
-}
-@media (-webkit-min-device-pixel-ratio: 2),
-  (min-resolution: 192dpi) {
-  .page {
-    background-image: url("/backgrounds/main-1@2x.webp");
-  }
-}

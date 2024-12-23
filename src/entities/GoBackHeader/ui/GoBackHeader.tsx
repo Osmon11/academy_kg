@@ -9,6 +9,8 @@ import {
   Typography,
 } from "@mui/material";
 
+import arrowLeftIcon from "@/icons/arrow-left.png";
+
 import styles from "./GoBackHeader.module.scss";
 
 interface GoBackHeaderProps {
@@ -35,7 +37,7 @@ export function GoBackHeader({
         onClick={handleGoBack}
       >
         <Image
-          src="/icons/arrow-left.webp"
+          src={arrowLeftIcon}
           alt="arrow left icon"
           width={24}
           height={24}
