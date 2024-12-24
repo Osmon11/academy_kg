@@ -9,9 +9,9 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
-import instagramIcon from "@/icons/instagram.png";
-import telegramIcon from "@/icons/telegram.png";
-import youtubeIcon from "@/icons/youtube.png";
+import instagramIcon from "@/icons/instagram.svg";
+import telegramIcon from "@/icons/telegram.svg";
+import youtubeIcon from "@/icons/youtube.svg";
 
 import styles from "./Footer.module.scss";
 

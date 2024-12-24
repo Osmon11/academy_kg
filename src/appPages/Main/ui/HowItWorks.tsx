@@ -9,10 +9,10 @@ import {
 
 import { IconBanner } from "@/entities/IconBanner";
 
-import bookIcon from "@/icons/book.png";
-import login2Icon from "@/icons/login-2.png";
-import monitorRecorderIcon from "@/icons/monitor-recorder.png";
-import note2Icon from "@/icons/note-2.png";
+import bookIcon from "@/icons/book.svg";
+import login2Icon from "@/icons/login-2.svg";
+import monitorRecorderIcon from "@/icons/monitor-recorder.svg";
+import note2Icon from "@/icons/note-2.svg";
 
 import laptopBaseBg from "@/backgrounds/base.svg";
 

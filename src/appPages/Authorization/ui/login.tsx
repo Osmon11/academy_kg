@@ -7,9 +7,9 @@ import {
   Typography,
 } from "@mui/material";
 
-import googleIcon from "@/icons/google.png";
+import googleIcon from "@/icons/google-colorful.svg";
 import logoPrimaryIcon from "@/icons/logo-primary.svg";
-import smsIcon from "@/icons/sms.png";
+import smsIcon from "@/icons/sms-coal-gray.svg";
 
 import styles from "./styles.module.scss";
 

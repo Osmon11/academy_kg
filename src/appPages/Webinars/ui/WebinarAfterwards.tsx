@@ -11,7 +11,7 @@ import {
 import { ConvexButton } from "@/shared/UI";
 import { SECTION_PADDING } from "@/shared/config/const";
 
-import videoPlayPrimaryIcon from "@/icons/video-play-primary.png";
+import videoPlayPrimaryIcon from "@/icons/video-play-primary.svg";
 
 import styles from "./styles.module.scss";
 

@@ -4,11 +4,11 @@ import { IconBanner } from "@/entities/IconBanner";
 
 import { SECTION_MARGIN_TOP } from "@/shared/config/const";
 
-import monitorRecorderIcon from "@/icons/monitor-recorder.png";
-import monitorIcon from "@/icons/monitor.png";
-import mouseSquareIcon from "@/icons/mouse-square.png";
-import smsNotificationIcon from "@/icons/sms-notification.png";
-import smsTrackingIcon from "@/icons/sms-tracking.png";
+import monitorRecorderIcon from "@/icons/monitor-recorder.svg";
+import monitorIcon from "@/icons/monitor.svg";
+import mouseSquareIcon from "@/icons/mouse-square.svg";
+import smsNotificationIcon from "@/icons/sms-notification.svg";
+import smsTrackingIcon from "@/icons/sms-tracking.svg";
 
 import styles from "./styles.module.scss";
 

@@ -17,9 +17,9 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
-import loginIcon from "@/icons/login.png";
+import loginIcon from "@/icons/login.svg";
 import logoPrimaryIcon from "@/icons/logo-primary.svg";
-import xCloseBlackIcon from "@/icons/x-close-black.png";
+import xCloseBlackIcon from "@/icons/x-close-black.svg";
 
 import LanguageSelect from "./LanguageSelect";
 import styles from "./styles.module.scss";

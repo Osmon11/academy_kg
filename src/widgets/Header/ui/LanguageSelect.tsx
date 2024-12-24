@@ -11,10 +11,10 @@ import {
 
 import { ELanguage } from "@/shared/config/enum";
 
-import arrowDownBlackIcon from "@/icons/arrow-down-black.png";
-import arrowDownIcon from "@/icons/arrow-down.png";
-import globalBlackIcon from "@/icons/global-black.png";
-import globalIcon from "@/icons/global.png";
+import arrowDownBlackIcon from "@/icons/arrow-down-black.svg";
+import arrowDownIcon from "@/icons/arrow-down.svg";
+import globalBlackIcon from "@/icons/global-black.svg";
+import globalIcon from "@/icons/global.svg";
 
 interface ILanguageSelectProps {
   color: "white" | "black" | "primary";

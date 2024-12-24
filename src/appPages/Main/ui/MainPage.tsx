@@ -17,9 +17,9 @@ import { SectionHeader } from "@/entities/SectionHeader";
 import { ConvexButton } from "@/shared/UI";
 import { SECTION_MARGIN_TOP } from "@/shared/config/const";
 
-import locationIcon from "@/icons/location.png";
-import playSecondaryIcon from "@/icons/play-secondary.png";
-import teacherPrimaryIcon from "@/icons/teacher-primary.png";
+import locationIcon from "@/icons/location.svg";
+import playSecondaryIcon from "@/icons/play-secondary.svg";
+import teacherPrimaryIcon from "@/icons/teacher-primary.svg";
 
 import Achievements from "./Achievements";
 import Feedbacks from "./Feedbacks";

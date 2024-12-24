@@ -3,8 +3,8 @@ import Image from "next/image";
 
 import { Box, SxProps } from "@mui/material";
 
-import halfmoonStarIcon from "@/icons/ay-yildiz.png";
-import lanternIcon from "@/icons/lantern.png";
+import halfmoonStarIcon from "@/icons/ay-yildiz.svg";
+import lanternIcon from "@/icons/lantern.svg";
 
 import styles from "./Banner.module.scss";
 

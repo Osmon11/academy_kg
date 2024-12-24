@@ -15,7 +15,7 @@ import {
 
 import { IconButton } from "@mui/material";
 
-import arrowRightIcon from "@/icons/arrow-right.png";
+import arrowRightIcon from "@/icons/arrow-right.svg";
 
 import styles from "./Carousel.module.scss";
 

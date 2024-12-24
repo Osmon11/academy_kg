@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 
-import playIcon from "@/icons/play.png";
+import playIcon from "@/icons/play.svg";
 
 import styles from "./SubjectCard.module.scss";
 

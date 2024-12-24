@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 
-import closeIcon from "@/icons/close.png";
+import closeIcon from "@/icons/close-gray.svg";
 
 import styles from "./Modal.module.scss";
 

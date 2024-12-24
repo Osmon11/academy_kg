@@ -2,10 +2,10 @@ import Image from "next/image";
 
 import { Typography } from "@mui/material";
 
-import bookIcon from "@/icons/book.png";
-import eyeIcon from "@/icons/eye.png";
-import teacherIcon from "@/icons/teacher.png";
-import videoCircleIcon from "@/icons/video-circle.png";
+import bookIcon from "@/icons/book.svg";
+import eyeIcon from "@/icons/eye.svg";
+import teacherIcon from "@/icons/teacher.svg";
+import videoCircleIcon from "@/icons/video-circle.svg";
 
 import styles from "./styles.module.scss";
 

@@ -16,9 +16,9 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
-import loginIcon from "@/icons/login.png";
-import logoIcon from "@/icons/logo.png";
-import menuIcon from "@/icons/menu.png";
+import loginIcon from "@/icons/login.svg";
+import logoIcon from "@/icons/logo.svg";
+import menuIcon from "@/icons/menu.svg";
 
 import DrawerSidebar from "./DrawerSidebar";
 import LanguageSelect from "./LanguageSelect";
