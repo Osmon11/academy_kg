@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
-import CssBaseline from "@mui/material/CssBaseline";
+
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
+import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@mui/material/styles";
-import theme from "./theme";
+
+import { StoreProvider } from "./StoreProvider";
 import "./globals.scss";
+import theme from "./theme";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -61,7 +64,9 @@ export default function RootLayout({
         >
           <CssBaseline />
           <ThemeProvider theme={theme}>
-            {children}
+            <StoreProvider>
+              {children}
+            </StoreProvider>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>

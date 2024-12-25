@@ -72,8 +72,6 @@ const theme = createTheme({
       },
       styleOverrides: {
         root: {
-          minWidth: "240px",
-          minHeight: "50px",
           borderRadius: "10px",
         },
       },
@@ -116,7 +114,9 @@ const theme = createTheme({
         {
           props: { variant: "convex" },
           style: ({ theme }) => ({
-            padding: "12px 4px",
+            minWidth: "240px",
+            minHeight: "50px",
+            padding: "10px 4px",
             display: "flex",
             borderRadius: "20px",
             color: theme.palette.common.white,
