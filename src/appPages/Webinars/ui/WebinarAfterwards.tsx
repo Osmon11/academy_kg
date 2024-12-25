@@ -8,7 +8,6 @@ import {
   Typography,
 } from "@mui/material";
 
-import { ConvexButton } from "@/shared/UI";
 import { SECTION_PADDING } from "@/shared/config/const";
 
 import videoPlayPrimaryIcon from "@/icons/video-play-primary.svg";
@@ -85,11 +84,12 @@ export default function WebinarAfterwards() {
                 height={260}
               />
               <div className={styles.content}>
-                <ConvexButton
+                <Button
+                  variant="convex"
                   className={styles.button}
                 >
                   смотреть
-                </ConvexButton>
+                </Button>
               </div>
               <div className={styles.overlay} />
             </div>
@@ -190,9 +190,12 @@ export default function WebinarAfterwards() {
           justifyContent: "center",
         }}
       >
-        <ConvexButton color="secondary">
+        <Button
+          variant="convex"
+          color="secondary"
+        >
           смотреть все
-        </ConvexButton>
+        </Button>
       </Box>
     </Box>
   );

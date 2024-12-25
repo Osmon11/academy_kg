@@ -14,7 +14,6 @@ import { Banner } from "@/entities/Banner";
 import { PageHeading } from "@/entities/PageHeading";
 import { SectionHeader } from "@/entities/SectionHeader";
 
-import { ConvexButton } from "@/shared/UI";
 import { SECTION_MARGIN_TOP } from "@/shared/config/const";
 
 import locationIcon from "@/icons/location.svg";
@@ -25,8 +24,7 @@ import Achievements from "./Achievements";
 import Feedbacks from "./Feedbacks";
 import HowItWorks from "./HowItWorks";
 import Subjects from "./Subjects";
-
-// import styles from "./styles.module.scss";
+import styles from "./styles.module.scss";
 
 export function MainPage() {
   return (
@@ -38,24 +36,22 @@ export function MainPage() {
       />
       <PageHeading
         header={
-          <Button
-            startIcon={
-              <Image
-                src={locationIcon}
-                alt="location icon"
-                width={24}
-                height={24}
-              />
-            }
-            variant="contained"
-            sx={{
-              padding: "4px 10px",
-              borderRadius: "10px",
-              textTransform: "uppercase",
-            }}
+          <div
+            className={styles.location_wrapper}
           >
-            Кыргызстан, бишкек
-          </Button>
+            <Image
+              src={locationIcon}
+              alt="location icon"
+              width={24}
+              height={24}
+            />
+            <Typography
+              variant="subtitle2"
+              textTransform="uppercase"
+            >
+              Кыргызстан, бишкек
+            </Typography>
+          </div>
         }
         title="Первая исламская онлайн-академия в
           Кыргызстане - доступное образование,
@@ -65,38 +61,44 @@ export function MainPage() {
           "Откройте мир исламских знаний в удобном онлайн-формате с ведущими преподавателями.",
         ]}
       >
-        <ConvexButton
+        <Button
+          variant="convex"
           color="secondary"
           sx={{
             marginTop: { xs: "20px", md: "50px" },
           }}
           endIcon={
-            <Image
-              src={playSecondaryIcon}
-              alt="orange play icon"
-              width={24}
-              height={24}
-            />
+            <div className="circle_icon_wrapper">
+              <Image
+                src={playSecondaryIcon}
+                alt="orange play icon"
+                width={24}
+                height={24}
+              />
+            </div>
           }
         >
           Смотреть видео
-        </ConvexButton>
-        <ConvexButton
+        </Button>
+        <Button
+          variant="convex"
           color="primary"
           sx={{
             marginTop: "18px",
           }}
           endIcon={
-            <Image
-              src={teacherPrimaryIcon}
-              alt="cyan teacher icon"
-              width={24}
-              height={24}
-            />
+            <div className="circle_icon_wrapper">
+              <Image
+                src={teacherPrimaryIcon}
+                alt="cyan teacher icon"
+                width={24}
+                height={24}
+              />
+            </div>
           }
         >
           начать обучение
-        </ConvexButton>
+        </Button>
       </PageHeading>
       <SectionHeader color="primary">
         Наши предметы

@@ -3,11 +3,11 @@ import Image from "next/image";
 
 import {
   Box,
+  Button,
   Paper,
   Typography,
 } from "@mui/material";
 
-import { ConvexButton } from "@/shared/UI";
 import { SECTION_PADDING } from "@/shared/config/const";
 
 import styles from "./styles.module.scss";
@@ -85,12 +85,13 @@ export default function UpcomingWebinars() {
               />
               <div className={styles.content}>
                 {haveFreeSeats && (
-                  <ConvexButton
+                  <Button
                     className={styles.button}
+                    variant="convex"
                     color="secondary"
                   >
                     Оставить заявку
-                  </ConvexButton>
+                  </Button>
                 )}
               </div>
               <div className={styles.overlay} />
@@ -189,7 +190,9 @@ export default function UpcomingWebinars() {
           justifyContent: "center",
         }}
       >
-        <ConvexButton>смотреть все</ConvexButton>
+        <Button variant="convex">
+          смотреть все
+        </Button>
       </Box>
     </Box>
   );

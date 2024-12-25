@@ -1,5 +1,15 @@
 @use "variables";
 
+.location_wrapper {
+  width: fit-content;
+  border-radius: 10px;
+  background: var(--mui-palette-primary-main);
+  padding: 4px 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .subjects_wrapper {
   display: flex;
   align-items: center;

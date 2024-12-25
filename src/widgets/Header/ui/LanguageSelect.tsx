@@ -75,6 +75,7 @@ export default function LanguageSelect({
         }
         sx={{
           width: "fit-content",
+          minWidth: "fit-content",
           typography: {
             color: colors[color],
             fontSize: "0.75rem",
