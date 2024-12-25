@@ -9,59 +9,13 @@ import { Carousel } from "@/widgets/Carousel";
 
 import { FeedbackCard } from "@/features/FeedbackCard";
 
-import profile1 from "@/backgrounds/profile-1.png";
-import profile4 from "@/backgrounds/profile-1.png";
-import profile2 from "@/backgrounds/profile-2.png";
-import profile5 from "@/backgrounds/profile-2.png";
-import profile3 from "@/backgrounds/profile-3.png";
-import profile6 from "@/backgrounds/profile-3.png";
+import { IFeedbackListItem } from "@/shared/types";
 
-const feedbacks = [
-  {
-    feedback:
-      "Академия - это не просто обучение, это духовный путь, который открывает новые горизонты. Уроки дают не только знания, но и уверенность в правильности своего пути. Благодарю за такую возможность!",
-    fullname: "Исмаил Алиев",
-    profile_image: profile1.src,
-    location: "Бишкек, Кыргызстан",
-  },
-  {
-    feedback:
-      "Замечательная академия! Благодаря урокам я научился читать Коран правильно и с пониманием. Преподаватели всегда готовы помочь, атмосфера доброжелательная, а материал преподносится очень доступно. Спасибо за такую важную и нужную работу!",
-    fullname: "Лейла Ханафиева",
-    profile_image: profile2.src,
-    location: "Джалал-Абад, Кыргызстан",
-  },
-  {
-    feedback:
-      "Я давно искал место, где мог бы начать изучать Коран, и эта академия стала для меня настоящим открытием. Уроки насыщенные, практичные, с глубоким разбором. Чувствую, как мои знания и вера растут с каждым днем!",
-    fullname: "Сулейман Кадыров",
-    profile_image: profile3.src,
-    location: "Ош, Кыргызстан",
-  },
-  {
-    feedback:
-      "Академия - это не просто обучение, это духовный путь, который открывает новые горизонты. Уроки дают не только знания, но и уверенность в правильности своего пути. Благодарю за такую возможность!",
-    fullname: "Исмаил Алиев",
-    profile_image: profile4.src,
-    location: "Бишкек, Кыргызстан",
-  },
-  {
-    feedback:
-      "Замечательная академия! Благодаря урокам я научился читать Коран правильно и с пониманием. Преподаватели всегда готовы помочь, атмосфера доброжелательная, а материал преподносится очень доступно. Спасибо за такую важную и нужную работу!",
-    fullname: "Лейла Ханафиева",
-    profile_image: profile5.src,
-    location: "Джалал-Абад, Кыргызстан",
-  },
-  {
-    feedback:
-      "Я давно искал место, где мог бы начать изучать Коран, и эта академия стала для меня настоящим открытием. Уроки насыщенные, практичные, с глубоким разбором. Чувствую, как мои знания и вера растут с каждым днем!",
-    fullname: "Сулейман Кадыров",
-    profile_image: profile6.src,
-    location: "Ош, Кыргызстан",
-  },
-];
-
-export default function Feedbacks() {
+export default function Feedbacks({
+  feedbacks,
+}: {
+  feedbacks: IFeedbackListItem[];
+}) {
   const upMd = useMediaQuery((theme) =>
     theme.breakpoints.up("md"),
   );

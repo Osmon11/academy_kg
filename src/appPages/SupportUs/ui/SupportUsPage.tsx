@@ -7,11 +7,16 @@ import { GoBackHeader } from "@/entities/GoBackHeader";
 import { SectionHeader } from "@/entities/SectionHeader";
 
 import { SECTION_MARGIN_TOP } from "@/shared/config/const";
+import { IRequisiteListItem } from "@/shared/types";
 
 import OurRequisites from "./OurRequisites";
 import styles from "./styles.module.scss";
 
-export function SupportUsPage() {
+export function SupportUsPage({
+  requisiteList,
+}: {
+  requisiteList: IRequisiteListItem[];
+}) {
   return (
     <div className={styles.page}>
       <GoBackHeader title="Поддержать нас" />
@@ -36,7 +41,7 @@ export function SupportUsPage() {
       <SectionHeader color="secondary">
         наши реквизиты
       </SectionHeader>
-      <OurRequisites />
+      <OurRequisites requisites={requisiteList} />
       <Footer />
     </div>
   );

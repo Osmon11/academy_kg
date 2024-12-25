@@ -82,6 +82,7 @@ const theme = createTheme({
             color: "primary",
           },
           style: ({ theme }) => ({
+            minHeight: "50px",
             textTransform: "none",
             boxShadow:
               "-1px 1px 2px 0px #CCCCCC33, 1px -1px 2px 0px #CCCCCC33, -1px -1px 2px 0px #FFFFFFE5, 1px 1px 3px 0px #CCCCCCE5",
@@ -97,6 +98,7 @@ const theme = createTheme({
             color: "white",
           },
           style: ({ theme }) => ({
+            minHeight: "50px",
             background:
               theme.palette.common.white,
             color: theme.palette.text.thirtiary,

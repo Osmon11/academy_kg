@@ -7,23 +7,17 @@ import {
   Typography,
 } from "@mui/material";
 
+import { IRequisiteListItem } from "@/shared/types";
+
 import styles from "./RequisiteCard.module.scss";
 
-interface IRequisiteCardProps {
-  requisite_name: string;
-  requisite_img: string;
-  phone_number?: string;
-  card_number?: string;
-  fullname: string;
-}
-
 export function RequisiteCard({
-  requisite_name,
-  requisite_img,
-  phone_number,
-  card_number,
-  fullname,
-}: IRequisiteCardProps) {
+  qr_code,
+  bank,
+  phone,
+  bank_account,
+  name,
+}: IRequisiteListItem) {
   return (
     <Card
       elevation={0}
@@ -35,36 +29,36 @@ export function RequisiteCard({
           color="textSecondary"
           fontWeight={600}
         >
-          {requisite_name}
+          {bank}
         </Typography>
         <CardMedia
           component="img"
-          src={requisite_img}
+          src={qr_code}
           className={styles.requisite_img}
         />
-        {Boolean(phone_number) && (
+        {Boolean(phone) && (
           <Typography
             variant="body1"
             color="textSecondary"
           >
-            {phone_number}
+            {phone}
           </Typography>
         )}
-        {Boolean(card_number) && (
+        {Boolean(bank_account) && (
           <Typography
             variant="body1"
             color="textSecondary"
           >
-            {card_number}
+            {bank_account}
           </Typography>
         )}
-        {Boolean(fullname) && (
+        {Boolean(name) && (
           <Typography
             variant="body1"
             color="textSecondary"
             fontWeight={600}
           >
-            {fullname}
+            {name}
           </Typography>
         )}
       </CardContent>

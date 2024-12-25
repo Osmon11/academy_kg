@@ -7,9 +7,20 @@ import { OurTeachers } from "@/widgets/OurTeachers";
 import { PageHeading } from "@/entities/PageHeading";
 import { SectionHeader } from "@/entities/SectionHeader";
 
+import {
+  ITeacherListItem,
+  ITeammateListItem,
+} from "@/shared/types";
+
 import OurTeam from "./OurTeam";
 
-export function AboutUsPage() {
+export function AboutUsPage({
+  teammateList,
+  teacherList,
+}: {
+  teammateList: ITeammateListItem[];
+  teacherList: ITeacherListItem[];
+}) {
   return (
     <Fragment>
       <Header
@@ -27,11 +38,11 @@ export function AboutUsPage() {
       <SectionHeader color="primary">
         наша команда
       </SectionHeader>
-      <OurTeam />
+      <OurTeam teammates={teammateList} />
       <SectionHeader color="primary">
         Наши преподаватели
       </SectionHeader>
-      <OurTeachers />
+      <OurTeachers teachers={teacherList} />
       <Footer />
     </Fragment>
   );

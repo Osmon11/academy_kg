@@ -9,20 +9,20 @@ import {
   Typography,
 } from "@mui/material";
 
+import { ITeacherListItem } from "@/shared/types";
+
 import styles from "./TeacherCard.module.scss";
 
-interface ITeacherCardProps {
-  image: string;
-  fullname: string;
-  subjects: string;
+interface ITeacherCardProps
+  extends ITeacherListItem {
   mediaSx?: SxProps;
   sx?: SxProps;
 }
 
 export function TeacherCard({
-  image,
-  fullname,
-  subjects,
+  full_name,
+  position,
+  avatar,
   mediaSx,
   sx,
 }: ITeacherCardProps) {
@@ -33,14 +33,14 @@ export function TeacherCard({
       sx={sx}
     >
       <CardMedia
-        image={image}
-        title={fullname}
+        image={avatar}
+        title={full_name}
         className={styles.media}
         sx={mediaSx}
       />
       <CardContent className={styles.content}>
         <Chip
-          label={fullname}
+          label={full_name}
           variant="outlined"
           color="secondary"
           sx={{
@@ -59,7 +59,7 @@ export function TeacherCard({
           color="textSecondary"
           sx={{ marginTop: "6px" }}
         >
-          {subjects}
+          {position}
         </Typography>
       </CardContent>
     </Card>

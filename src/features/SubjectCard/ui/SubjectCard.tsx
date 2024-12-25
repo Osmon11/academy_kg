@@ -9,14 +9,14 @@ import {
   Typography,
 } from "@mui/material";
 
+import { ICourseListItem } from "@/shared/types";
+
 import playIcon from "@/icons/play.svg";
 
 import styles from "./SubjectCard.module.scss";
 
-interface ISubjectCardProps {
-  image: string;
-  title: string;
-  description: string;
+interface ISubjectCardProps
+  extends ICourseListItem {
   color: "primary" | "secondary";
 }
 

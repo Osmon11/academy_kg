@@ -7,21 +7,20 @@ import {
   Typography,
 } from "@mui/material";
 
+import { IFeedbackListItem } from "@/shared/types";
+
 import styles from "./FeedbackCard.module.scss";
 
-interface IFeedbackCardProps {
-  feedback: string;
-  fullname: string;
-  profile_image: string;
-  location: string;
+interface IFeedbackCardProps
+  extends IFeedbackListItem {
   color: "primary" | "secondary";
 }
 
 export function FeedbackCard({
-  feedback,
-  fullname,
-  profile_image,
-  location,
+  comment,
+  full_name,
+  avatar,
+  region,
   color,
 }: IFeedbackCardProps) {
   return (
@@ -34,12 +33,12 @@ export function FeedbackCard({
     >
       <CardContent className={styles.content}>
         <Typography variant="h6">
-          {feedback}
+          {comment}
         </Typography>
         <div className={styles.label}>
           <Image
-            src={profile_image}
-            alt={fullname}
+            src={avatar}
+            alt={full_name}
             width={60}
             height={60}
             quality={100}
@@ -55,13 +54,13 @@ export function FeedbackCard({
                   : "primary"
               }
             >
-              {fullname}
+              {full_name}
             </Typography>
             <Typography
               variant="body2"
               color="textSecondary"
             >
-              {location}
+              {region}
             </Typography>
           </span>
         </div>

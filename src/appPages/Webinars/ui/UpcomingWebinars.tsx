@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import moment from "moment";
 import Image from "next/image";
 
 import {
@@ -9,42 +10,15 @@ import {
 } from "@mui/material";
 
 import { SECTION_PADDING } from "@/shared/config/const";
+import { IWebinarListItem } from "@/shared/types";
 
 import styles from "./styles.module.scss";
 
-const webinars = [
-  {
-    title:
-      "Практическое занятие по чтению Корана",
-    date: "18:00 - 19.12.2004",
-    duration: "≈ 90 минут",
-    for_students: "3 уровня и выше",
-    seats_total: "15",
-    free_seats: "5",
-    occupied_seats: "10",
-  },
-  {
-    title:
-      'Тема эфира: "Сподвижники и искренность"',
-    date: "18:00 - 20.12.2004",
-    duration: "≈ 120 минут",
-    for_students: "3 уровня и выше",
-    seats_total: "15",
-    free_seats: "0",
-    occupied_seats: "15",
-  },
-  {
-    title: "Практическое занятие по Таджвиду",
-    date: "18:00 - 21.12.2004",
-    duration: "≈ 60 минут",
-    for_students: "3 уровня и выше",
-    seats_total: "15",
-    free_seats: "5",
-    occupied_seats: "10",
-  },
-];
-
-export default function UpcomingWebinars() {
+export default function UpcomingWebinars({
+  webinars,
+}: {
+  webinars: IWebinarListItem[];
+}) {
   const propertyBoxStyles = {
     display: "flex",
     alignItems: "center",
@@ -58,8 +32,8 @@ export default function UpcomingWebinars() {
       }}
     >
       {webinars.map((webinar, webinarIndex) => {
-        const haveFreeSeats =
-          Number(webinar.free_seats) > 0;
+        const haveFreeSeats = false;
+        // Number(webinar.place_count) > 0;
         return (
           <Box
             key={webinarIndex}
@@ -78,7 +52,7 @@ export default function UpcomingWebinars() {
               )}
             >
               <Image
-                src="/backgrounds/subject-card-1.png"
+                src={webinar.image}
                 alt={webinar.title}
                 width={400}
                 height={260}
@@ -124,7 +98,9 @@ export default function UpcomingWebinars() {
                   fontWeight={400}
                   color="textThirtiary"
                 >
-                  {webinar.date}
+                  {moment(
+                    webinar.start_time,
+                  ).format("mm:HH - DD.MM.YYYY")}
                 </Typography>
               </Box>
               <Box
@@ -145,7 +121,7 @@ export default function UpcomingWebinars() {
                   fontWeight={400}
                   color="textThirtiary"
                 >
-                  {webinar.duration}
+                  {`≈ ${moment(webinar.duration, "HH:mm:ss").minutes()}минут`}
                 </Typography>
               </Box>
               <Box
@@ -166,7 +142,7 @@ export default function UpcomingWebinars() {
                   fontWeight={400}
                   color="textThirtiary"
                 >
-                  {webinar.for_students}
+                  {`${webinar.level} уровня и выше`}
                 </Typography>
               </Box>
               <Typography
@@ -176,7 +152,7 @@ export default function UpcomingWebinars() {
                 sx={{ marginTop: "12px" }}
               >
                 {haveFreeSeats
-                  ? `Места ограничены: записано ${webinar.occupied_seats} из ${webinar.seats_total} (осталось ${webinar.free_seats} мест!)`
+                  ? `Места ограничены: записано ${0} из ${webinar.place_count} (осталось ${0} мест!)`
                   : "Мест не осталось."}
               </Typography>
             </Paper>

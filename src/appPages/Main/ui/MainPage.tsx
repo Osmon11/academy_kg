@@ -15,6 +15,11 @@ import { PageHeading } from "@/entities/PageHeading";
 import { SectionHeader } from "@/entities/SectionHeader";
 
 import { SECTION_MARGIN_TOP } from "@/shared/config/const";
+import {
+  ICourseListItem,
+  IFeedbackListItem,
+  ITeacherListItem,
+} from "@/shared/types";
 
 import locationIcon from "@/icons/location.svg";
 import playSecondaryIcon from "@/icons/play-secondary.svg";
@@ -26,7 +31,17 @@ import HowItWorks from "./HowItWorks";
 import Subjects from "./Subjects";
 import styles from "./styles.module.scss";
 
-export function MainPage() {
+interface IMainPageProps {
+  courseList: ICourseListItem[];
+  teacherList: ITeacherListItem[];
+  feedbackList: IFeedbackListItem[];
+}
+
+export function MainPage({
+  courseList,
+  teacherList,
+  feedbackList,
+}: IMainPageProps) {
   return (
     <Fragment>
       <Header
@@ -103,7 +118,7 @@ export function MainPage() {
       <SectionHeader color="primary">
         Наши предметы
       </SectionHeader>
-      <Subjects />
+      <Subjects subjects={courseList} />
       <Banner
         color="secondary"
         sx={{
@@ -151,7 +166,7 @@ export function MainPage() {
       <SectionHeader color="primary">
         Наши преподаватели
       </SectionHeader>
-      <OurTeachers />
+      <OurTeachers teachers={teacherList} />
       <Banner
         color="primary"
         sx={{
@@ -167,7 +182,7 @@ export function MainPage() {
       <SectionHeader color="primary">
         отзывы о нас
       </SectionHeader>
-      <Feedbacks />
+      <Feedbacks feedbacks={feedbackList} />
       <Footer />
     </Fragment>
   );

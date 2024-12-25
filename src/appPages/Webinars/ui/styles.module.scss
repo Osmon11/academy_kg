@@ -57,6 +57,13 @@
   flex-wrap: wrap;
 }
 
+.broadcast_wrapper {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 @media (min-width: variables.$theme-breakpoint-xs) {
 }
 @media (min-width: variables.$theme-breakpoint-sm) {

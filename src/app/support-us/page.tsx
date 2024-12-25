@@ -1,5 +1,17 @@
 import { SupportUsPage } from "@/appPages/SupportUs";
 
-export default function SupportUs() {
-  return <SupportUsPage />;
+import { appAxios } from "@/shared/config/axios";
+import { IRequisiteListItem } from "@/shared/types";
+
+export default async function SupportUs() {
+  const requisiteList = await appAxios
+    .get<{
+      results: IRequisiteListItem[];
+    }>("academy/requisite_list/")
+    .then((res) => res.data.results);
+  return (
+    <SupportUsPage
+      requisiteList={requisiteList}
+    />
+  );
 }

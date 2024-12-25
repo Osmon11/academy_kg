@@ -166,19 +166,24 @@ export default function WebinarAfterwards() {
                   {webinar.for_students}
                 </Typography>
               </Box>
-              <Button
-                startIcon={
-                  <Image
-                    src={videoPlayPrimaryIcon}
-                    alt="video-play green icon"
-                    width={24}
-                    height={24}
-                  />
+              <div
+                className={
+                  styles.broadcast_wrapper
                 }
-                sx={{ marginTop: "12px" }}
               >
-                Запись эфира
-              </Button>
+                <Image
+                  src={videoPlayPrimaryIcon}
+                  alt="video-play green icon"
+                  width={24}
+                  height={24}
+                />
+                <Typography
+                  variant="h6"
+                  color="primary"
+                >
+                  Запись эфира
+                </Typography>
+              </div>
             </Paper>
           </Box>
         );
