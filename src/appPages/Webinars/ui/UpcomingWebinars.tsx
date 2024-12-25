@@ -34,6 +34,13 @@ export default function UpcomingWebinars({
       {webinars.map((webinar, webinarIndex) => {
         const haveFreeSeats = false;
         // Number(webinar.place_count) > 0;
+        const durationTime = moment(
+          webinar.duration,
+          "HH:mm:ss",
+        );
+        const totalMinutes =
+          durationTime.hours() * 60 +
+          durationTime.minutes();
         return (
           <Box
             key={webinarIndex}
@@ -121,7 +128,7 @@ export default function UpcomingWebinars({
                   fontWeight={400}
                   color="textThirtiary"
                 >
-                  {`≈ ${moment(webinar.duration, "HH:mm:ss").minutes()}минут`}
+                  {`≈ ${totalMinutes} минут`}
                 </Typography>
               </Box>
               <Box

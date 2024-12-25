@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import moment from "moment";
 import Image from "next/image";
 
 import {
@@ -9,44 +10,17 @@ import {
 } from "@mui/material";
 
 import { SECTION_PADDING } from "@/shared/config/const";
+import { IWebinarAfterward } from "@/shared/types";
 
 import videoPlayPrimaryIcon from "@/icons/video-play-primary.svg";
 
 import styles from "./styles.module.scss";
 
-const webinars = [
-  {
-    title:
-      "Практическое занятие по чтению Корана",
-    date: "18:00 - 19.12.2004",
-    duration: "≈ 90 минут",
-    for_students: "3 уровня и выше",
-    seats_total: "15",
-    free_seats: "5",
-    occupied_seats: "10",
-  },
-  {
-    title:
-      'Тема эфира: "Сподвижники и искренность"',
-    date: "18:00 - 20.12.2004",
-    duration: "≈ 120 минут",
-    for_students: "3 уровня и выше",
-    seats_total: "15",
-    free_seats: "0",
-    occupied_seats: "15",
-  },
-  {
-    title: "Практическое занятие по Таджвиду",
-    date: "18:00 - 21.12.2004",
-    duration: "≈ 60 минут",
-    for_students: "3 уровня и выше",
-    seats_total: "15",
-    free_seats: "5",
-    occupied_seats: "10",
-  },
-];
-
-export default function WebinarAfterwards() {
+export default function WebinarAfterwards({
+  webinars,
+}: {
+  webinars: IWebinarAfterward[];
+}) {
   const propertyBoxStyles = {
     display: "flex",
     alignItems: "center",
@@ -60,6 +34,13 @@ export default function WebinarAfterwards() {
       }}
     >
       {webinars.map((webinar, webinarIndex) => {
+        const durationTime = moment(
+          webinar.duration_video,
+          "HH:mm:ss",
+        );
+        const totalMinutes =
+          durationTime.hours() * 60 +
+          durationTime.minutes();
         return (
           <Box
             key={webinarIndex}
@@ -77,16 +58,19 @@ export default function WebinarAfterwards() {
                 styles.primary,
               )}
             >
-              <Image
-                src="/backgrounds/subject-card-1.png"
+              {/* <Image
+                src={webinar}
                 alt={webinar.title}
                 width={400}
                 height={260}
-              />
+              /> */}
               <div className={styles.content}>
                 <Button
                   variant="convex"
                   className={styles.button}
+                  href={webinar.video}
+                  target="_blank"
+                  rel="noopener"
                 >
                   смотреть
                 </Button>
@@ -121,7 +105,9 @@ export default function WebinarAfterwards() {
                   fontWeight={400}
                   color="textThirtiary"
                 >
-                  {webinar.date}
+                  {moment(
+                    webinar.start_time,
+                  ).format("mm:HH - DD.MM.YYYY")}
                 </Typography>
               </Box>
               <Box
@@ -142,7 +128,7 @@ export default function WebinarAfterwards() {
                   fontWeight={400}
                   color="textThirtiary"
                 >
-                  {webinar.duration}
+                  {`${totalMinutes} минут`}
                 </Typography>
               </Box>
               <Box
@@ -163,7 +149,7 @@ export default function WebinarAfterwards() {
                   fontWeight={400}
                   color="textThirtiary"
                 >
-                  {webinar.for_students}
+                  {`${webinar.level} уровня и выше`}
                 </Typography>
               </Box>
               <div

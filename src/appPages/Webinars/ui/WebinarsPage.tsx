@@ -10,7 +10,10 @@ import { PageHeading } from "@/entities/PageHeading";
 import { SectionHeader } from "@/entities/SectionHeader";
 
 import { SECTION_MARGIN_TOP } from "@/shared/config/const";
-import { IWebinarListItem } from "@/shared/types";
+import {
+  IWebinarAfterward,
+  IWebinarListItem,
+} from "@/shared/types";
 
 import HowOurWebinarsPass from "./HowOurWebinarsPass";
 import UpcomingWebinars from "./UpcomingWebinars";
@@ -18,8 +21,10 @@ import WebinarAfterwards from "./WebinarAfterwards";
 
 export function WebinarsPage({
   webinarList,
+  webinarAfterwards,
 }: {
   webinarList: IWebinarListItem[];
+  webinarAfterwards: IWebinarAfterward[];
 }) {
   return (
     <Fragment>
@@ -42,7 +47,9 @@ export function WebinarsPage({
       <SectionHeader color="secondary">
         Записи прошедших вебинаров
       </SectionHeader>
-      <WebinarAfterwards />
+      <WebinarAfterwards
+        webinars={webinarAfterwards}
+      />
       <Banner
         color="secondary"
         sx={{

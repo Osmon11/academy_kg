@@ -43,3 +43,12 @@ export interface IWebinarListItem {
   place_count: number;
   image: string;
 }
+
+export interface IWebinarAfterward {
+  id: number;
+  title: string;
+  duration_video: string;
+  level: number;
+  start_time: string;
+  video: string;
+}
