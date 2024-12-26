@@ -1,19 +1,30 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import {
-  // Controller,
+  useRouter,
+  useSearchParams,
+} from "next/navigation";
+import { useState } from "react";
+import { useCookies } from "react-cookie";
+import {
+  Controller,
   useForm,
 } from "react-hook-form";
 
 import {
+  Box,
   Button,
   IconButton,
   Paper,
+  TextField,
   Typography,
 } from "@mui/material";
 
+import appAxios from "@/shared/config/axios";
+
 import arrowLeftBlackIcon from "@/icons/arrow-left-black.svg";
+import eyeCoalGrayIcon from "@/icons/eye-coal-gray.svg";
+import eyeSlashCoalGrayIcon from "@/icons/eye-slash-coal-gray.svg";
 import logoPrimaryIcon from "@/icons/logo-primary.svg";
 
 import styles from "./styles.module.scss";
@@ -29,19 +40,57 @@ export default function SignIn() {
   }
   const {
     handleSubmit,
-    // control,
-    // reset,
-    // formState: { errors },
+    control,
+    formState: { errors },
   } = useForm<IFormValues>({
     defaultValues: {
       email: "",
       password: "",
     },
   });
-
-  const onSubmit = (data: IFormValues) => {
-    console.log("Form Data:", data);
-  };
+  const searchParams = useSearchParams();
+  const returnPathname = searchParams.get(
+    "return_pathname",
+  );
+  const [
+    { access_token_ilimnuru_kg },
+    setCookie,
+  ] = useCookies(["access_token_ilimnuru_kg"]);
+  const [loading, setLoading] = useState(false);
+  function onSubmit(data: IFormValues) {
+    setLoading(true);
+    appAxios
+      .post("/auth/login/", data)
+      .then(({ data }) => {
+        if (
+          data.access &&
+          access_token_ilimnuru_kg === undefined
+        ) {
+          const d = new Date();
+          d.setTime(
+            d.getTime() +
+              30 * 24 * 60 * 60 * 1000,
+          );
+          setCookie(
+            "access_token_ilimnuru_kg",
+            data.access,
+            {
+              path: "/",
+              expires: d,
+            },
+          );
+          router.push(
+            returnPathname ??
+              "/personal-accaunt/main",
+          );
+        }
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }
+  const [visiblePassword, setPasswordVisibility] =
+    useState(false);
   return (
     <Paper
       className={styles.paper}
@@ -59,12 +108,14 @@ export default function SignIn() {
           height={24}
         />
       </IconButton>
-      <Image
-        src={logoPrimaryIcon}
-        alt="islamic online-academy green icon"
-        width={100}
-        height={100}
-      />
+      <Link href="/">
+        <Image
+          src={logoPrimaryIcon}
+          alt="islamic online-academy green icon"
+          width={100}
+          height={100}
+        />
+      </Link>
       <Typography
         variant="h5"
         textAlign="center"
@@ -73,31 +124,121 @@ export default function SignIn() {
       >
         Вход с паролем
       </Typography>
-      <div>
-        <Link
-          href="/authorization/login?via=recover_password"
-          style={{ width: "100%" }}
+      <Box
+        sx={{ width: "100%", maxWidth: "400px" }}
+      >
+        <Controller
+          name="email"
+          control={control}
+          rules={{
+            required: "E-mail is required",
+          }}
+          render={({ field, fieldState }) => (
+            <TextField
+              {...field}
+              type="email"
+              placeholder="E-mail"
+              variant="outlined"
+              error={!!fieldState.error}
+              helperText={
+                fieldState.error?.message
+              }
+              fullWidth
+            />
+          )}
+        />
+      </Box>
+      <Box
+        sx={{ width: "100%", maxWidth: "400px" }}
+      >
+        <Controller
+          name="password"
+          control={control}
+          rules={{
+            required: "Password is required",
+          }}
+          render={({ field, fieldState }) => (
+            <TextField
+              {...field}
+              type={
+                visiblePassword
+                  ? "text"
+                  : "password"
+              }
+              placeholder="Пароль"
+              variant="outlined"
+              error={!!fieldState.error}
+              helperText={
+                fieldState.error?.message
+              }
+              fullWidth
+              slotProps={{
+                input: {
+                  endAdornment: (
+                    <IconButton
+                      onClick={() =>
+                        setPasswordVisibility(
+                          (boolean) => !boolean,
+                        )
+                      }
+                    >
+                      {visiblePassword ? (
+                        <Image
+                          src={eyeCoalGrayIcon}
+                          alt="eye coal gray"
+                          width={24}
+                          height={24}
+                        />
+                      ) : (
+                        <Image
+                          src={
+                            eyeSlashCoalGrayIcon
+                          }
+                          alt="eye slash coal gray"
+                          width={24}
+                          height={24}
+                        />
+                      )}
+                    </IconButton>
+                  ),
+                },
+              }}
+            />
+          )}
+        />
+        <Box
+          sx={{
+            marginTop: "20px",
+            width: "100%",
+            display: "flex",
+            justifyContent: "end",
+          }}
         >
-          <Typography
-            variant="h6"
-            color="primary"
-            sx={{
-              width: "100%",
-              textAlign: "end",
-            }}
-            className={styles.link_text}
-          >
-            Забыли пароль?
-          </Typography>
-        </Link>
-      </div>
+          <Link href="/authorization/login?via=recover_password">
+            <Typography
+              variant="h6"
+              color="primary"
+              className={styles.link_text}
+              sx={{ width: "fit-content" }}
+            >
+              Забыли пароль?
+            </Typography>
+          </Link>
+        </Box>
+      </Box>
       <Button
+        type="submit"
         color="primary"
         variant="contained"
-        sx={{ width: "100%" }}
-        disabled
+        disabled={Boolean(
+          errors.email ||
+            errors.password ||
+            loading,
+        )}
+        fullWidth
+        sx={{ maxWidth: "400px" }}
       >
-        Войти
+        {loading ? "Loading..." : "Войти"}
       </Button>
       <Typography
         variant="h6"
@@ -106,23 +247,26 @@ export default function SignIn() {
       >
         Еще не зарегистрировались?
       </Typography>
-      <Link
-        href="/authorization/registration"
-        style={{ width: "100%" }}
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+        }}
       >
-        <Typography
-          variant="h6"
-          color="primary"
-          sx={{
-            width: "100%",
-            fontWeight: 700,
-            textAlign: "center",
-          }}
-          className={styles.link_text}
-        >
-          Создать аккаунт
-        </Typography>
-      </Link>
+        <Link href="/authorization/registration">
+          <Typography
+            variant="h6"
+            color="primary"
+            sx={{
+              fontWeight: 700,
+              textAlign: "center",
+            }}
+            className={styles.link_text}
+          >
+            Создать аккаунт
+          </Typography>
+        </Link>
+      </Box>
     </Paper>
   );
 }

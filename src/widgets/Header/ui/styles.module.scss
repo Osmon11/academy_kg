@@ -29,6 +29,12 @@
   justify-content: space-between;
 }
 
+.user_profile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 @media (min-width: variables.$theme-breakpoint-xs) {
   .header {
     padding: 15px;
@@ -70,11 +76,6 @@
       }
     }
     &.white {
-      .logo {
-        filter: invert(49%) sepia(98%)
-          saturate(366%) hue-rotate(125deg)
-          brightness(91%) contrast(86%);
-      }
       .nav_link.active {
         text-decoration: underline;
       }
@@ -94,11 +95,6 @@
       }
     }
     &.white {
-      .logo {
-        filter: invert(49%) sepia(98%)
-          saturate(366%) hue-rotate(125deg)
-          brightness(91%) contrast(86%);
-      }
       .nav_link.active {
         text-decoration: underline;
       }

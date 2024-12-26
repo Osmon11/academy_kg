@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
 
 import {
   Button,
@@ -14,13 +15,33 @@ import logoPrimaryIcon from "@/icons/logo-primary.svg";
 
 import styles from "./styles.module.scss";
 
+interface IFormValues {
+  code: string;
+  password: string;
+}
+
 export default function RecoverPassword() {
   const router = useRouter();
   function handleGoBack() {
     router.back();
   }
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<IFormValues>({
+    defaultValues: {
+      code: "",
+      password: "",
+    },
+  });
+  function onSubmit(data: IFormValues) {}
   return (
-    <Paper className={styles.paper}>
+    <Paper
+      className={styles.paper}
+      component="form"
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <IconButton
         className={styles.go_back_button}
         onClick={handleGoBack}

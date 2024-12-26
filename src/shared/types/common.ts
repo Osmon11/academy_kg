@@ -1,3 +1,12 @@
+export interface IProfile {
+  full_name: string;
+  email: string;
+  gender: string;
+  avatar: string | null;
+  phone: string;
+  level: number;
+}
+
 export interface ICourseListItem {
   id: number;
   title: string;

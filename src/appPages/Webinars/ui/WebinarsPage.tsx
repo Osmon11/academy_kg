@@ -9,6 +9,7 @@ import { Banner } from "@/entities/Banner";
 import { PageHeading } from "@/entities/PageHeading";
 import { SectionHeader } from "@/entities/SectionHeader";
 
+import appAxios from "@/shared/config/axios";
 import { SECTION_MARGIN_TOP } from "@/shared/config/const";
 import {
   IWebinarAfterward,
@@ -19,13 +20,17 @@ import HowOurWebinarsPass from "./HowOurWebinarsPass";
 import UpcomingWebinars from "./UpcomingWebinars";
 import WebinarAfterwards from "./WebinarAfterwards";
 
-export function WebinarsPage({
-  webinarList,
-  webinarAfterwards,
-}: {
-  webinarList: IWebinarListItem[];
-  webinarAfterwards: IWebinarAfterward[];
-}) {
+export async function WebinarsPage() {
+  const webinarList = await appAxios
+    .get<{
+      results: IWebinarListItem[];
+    }>("academy/webinar_list/")
+    .then((res) => res.data.results);
+  const webinarAfterwards = await appAxios
+    .get<{
+      results: IWebinarAfterward[];
+    }>("academy/webinar_afterwards/")
+    .then((res) => res.data.results);
   return (
     <Fragment>
       <Header

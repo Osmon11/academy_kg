@@ -10,18 +10,22 @@ import {
   AppBar,
   AppBarProps,
   Box,
-  Button,
   IconButton,
   Typography,
   useMediaQuery,
 } from "@mui/material";
 
-import loginIcon from "@/icons/login.svg";
+import { useAppSelector } from "@/shared/config/store";
+
+import logoPrimaryIcon from "@/icons/logo-primary.svg";
 import logoIcon from "@/icons/logo.svg";
+import menuGrayIcon from "@/icons/menu-gray.svg";
 import menuIcon from "@/icons/menu.svg";
 
 import DrawerSidebar from "./DrawerSidebar";
 import LanguageSelect from "./LanguageSelect";
+import LoginButton from "./LoginButton";
+import UserProfile from "./UserProfile";
 import styles from "./styles.module.scss";
 
 const navLinks = [
@@ -40,6 +44,9 @@ export function Header({
   background,
   ...props
 }: IHeaderProps) {
+  const profile = useAppSelector(
+    (state) => state.user.profile,
+  );
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
@@ -53,9 +60,6 @@ export function Header({
   const upMd = useMediaQuery((theme) =>
     theme.breakpoints.up("md"),
   );
-  const upSm = useMediaQuery((theme) =>
-    theme.breakpoints.up("sm"),
-  );
   return (
     <AppBar
       {...props}
@@ -65,7 +69,11 @@ export function Header({
       )}
     >
       <Image
-        src={logoIcon}
+        src={
+          background === "transparent"
+            ? logoIcon
+            : logoPrimaryIcon
+        }
         alt="islamic online-academy logo"
         width={40}
         height={40}
@@ -106,46 +114,32 @@ export function Header({
           gap: 2,
         }}
       >
-        {upSm && (
-          <LanguageSelect
-            color={
-              background === "transparent"
-                ? "white"
-                : "primary"
-            }
-          />
-        )}
         {upMd ? (
-          <Link href="/authorization/login">
-            <Button
-              startIcon={
-                <Image
-                  src={loginIcon}
-                  alt="login icon"
-                  width={24}
-                  height={24}
-                />
+          <Fragment>
+            <LanguageSelect
+              color={
+                background === "transparent"
+                  ? "white"
+                  : "primary"
               }
-              sx={{
-                padding: "3px 10px",
-                borderRadius: "8px",
-                typography: {
-                  textTransform: "uppercase",
-                },
-              }}
-              color="secondary"
-              variant="contained"
-            >
-              вход
-            </Button>
-          </Link>
+            />
+            {profile ? (
+              <UserProfile profile={profile} />
+            ) : (
+              <LoginButton />
+            )}
+          </Fragment>
         ) : (
           <Fragment>
             <IconButton
               onClick={handleDrawerOpen}
             >
               <Image
-                src={menuIcon}
+                src={
+                  background === "transparent"
+                    ? menuIcon
+                    : menuGrayIcon
+                }
                 alt="menu icon"
                 width={32}
                 height={32}
@@ -158,6 +152,7 @@ export function Header({
                 handleDrawerClose
               }
               navLinks={navLinks}
+              profile={profile}
             />
           </Fragment>
         )}

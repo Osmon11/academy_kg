@@ -165,6 +165,62 @@ const theme = createTheme({
         }),
       },
     },
+    MuiTextField: {
+      variants: [
+        {
+          props: {
+            variant: "outlined",
+          },
+          style: ({ theme }) => ({
+            ".MuiOutlinedInput-root": {
+              fontWeight: 500,
+              fontSize: "20px",
+              lineHeight: "24px",
+              color: theme.palette.text.secondary,
+              borderRadius: "10px",
+              background: "#F6F6F6",
+              boxShadow:
+                "-1px -1px 2px 0px #FFFFFFE5 inset, 1px -1px 2px 0px #C5C5C533 inset, -1px 1px 2px 0px #C5C5C533 inset, 1px 1px 3px 0px #C5C5C5E5 inset",
+              fieldset: {
+                border: "1px solid #D1D1D1",
+              },
+              ":hover": {
+                fieldset: {
+                  border: "1px solid #505050",
+                },
+              },
+              "&.MuiInputBase-adornedStart": {
+                paddingLeft: "18px",
+              },
+              "&.MuiInputBase-adornedEnd": {
+                paddingRight: "18px",
+              },
+              ".MuiOutlinedInput-input": {
+                height: "24px",
+                padding: "18px",
+                "::placeholder": {
+                  color: "#A3A3A3",
+                },
+                "&:-webkit-autofill": {
+                  WebkitBoxShadow:
+                    "0 0 0 100px #F6F6F6 inset",
+                  WebkitTextFillColor:
+                    theme.palette.text.secondary,
+                },
+                "&.MuiInputBase-inputAdornedStart":
+                  {
+                    paddingLeft: "0px",
+                  },
+                "&.MuiInputBase-inputAdornedEnd":
+                  {
+                    paddingRight: "0px",
+                  },
+              },
+            },
+          }),
+        },
+      ],
+    },
   },
 });
 

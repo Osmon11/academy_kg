@@ -7,7 +7,6 @@ import { usePathname } from "next/navigation";
 
 import {
   Box,
-  Button,
   Drawer,
   IconButton,
   List,
@@ -17,28 +16,30 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
-import loginIcon from "@/icons/login.svg";
+import { IProfile } from "@/shared/types";
+
 import logoPrimaryIcon from "@/icons/logo-primary.svg";
 import xCloseBlackIcon from "@/icons/x-close-black.svg";
 
 import LanguageSelect from "./LanguageSelect";
+import LoginButton from "./LoginButton";
+import UserProfile from "./UserProfile";
 import styles from "./styles.module.scss";
 
 interface IDrawerSidebarProps {
   open: boolean;
   handleDrawerClose: () => void;
   navLinks: { label: string; href: string }[];
+  profile: IProfile | null;
 }
 
 export default function DrawerSidebar({
   open,
   handleDrawerClose,
   navLinks,
+  profile,
 }: IDrawerSidebarProps) {
   const pathname = usePathname();
-  const xs = useMediaQuery((theme) =>
-    theme.breakpoints.only("xs"),
-  );
   const up400 = useMediaQuery(
     "(min-width:400px)",
   );
@@ -54,12 +55,14 @@ export default function DrawerSidebar({
       }}
     >
       <div className={styles.drawer_header}>
-        <Image
-          src={logoPrimaryIcon}
-          alt="islamic online-academy green icon"
-          width={40}
-          height={40}
-        />
+        <Link href="/">
+          <Image
+            src={logoPrimaryIcon}
+            alt="islamic online-academy green icon"
+            width={40}
+            height={40}
+          />
+        </Link>
         <IconButton onClick={handleDrawerClose}>
           <Image
             src={xCloseBlackIcon}
@@ -121,28 +124,14 @@ export default function DrawerSidebar({
           );
         })}
       </List>
-      <Link href="/authorization/login">
-        <Button
-          startIcon={
-            <Image
-              src={loginIcon}
-              alt="login icon"
-              width={24}
-              height={24}
-            />
-          }
-          color="secondary"
-          variant="contained"
-          sx={{ width: "100%" }}
-        >
-          ВХОД
-        </Button>
-      </Link>
-      {xs && (
-        <Box sx={{ marginTop: "30px" }}>
-          <LanguageSelect color="black" />
-        </Box>
+      {profile ? (
+        <UserProfile profile={profile} />
+      ) : (
+        <LoginButton />
       )}
+      <Box sx={{ marginTop: "30px" }}>
+        <LanguageSelect color="black" />
+      </Box>
     </Drawer>
   );
 }

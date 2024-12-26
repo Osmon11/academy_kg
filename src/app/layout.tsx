@@ -5,7 +5,8 @@ import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@mui/material/styles";
 
-import { StoreProvider } from "./StoreProvider";
+import { Providers } from "@/shared/config/Providers";
+
 import "./globals.scss";
 import theme from "./theme";
 
@@ -32,7 +33,6 @@ export default function RootLayout({
           name="viewport"
           content="initial-scale=1, width=device-width"
         />
-
         <link
           rel="icon"
           type="image/png"
@@ -64,9 +64,7 @@ export default function RootLayout({
         >
           <CssBaseline />
           <ThemeProvider theme={theme}>
-            <StoreProvider>
-              {children}
-            </StoreProvider>
+            <Providers>{children}</Providers>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>
