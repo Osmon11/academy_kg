@@ -130,7 +130,7 @@ export default function DrawerSidebar({
           color="black"
         />
       ) : (
-        <LoginButton />
+        <LoginButton fullWidth />
       )}
       <Box sx={{ marginTop: "30px" }}>
         <LanguageSelect color="black" />

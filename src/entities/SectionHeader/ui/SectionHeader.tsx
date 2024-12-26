@@ -28,11 +28,11 @@ export function SectionHeader({
         variant="h4"
         color={color}
         sx={{
-          textTransform: "uppercase",
+          textWrap: { xs: "wrap", md: "nowrap" },
           fontWeight: 900,
-          textWrap: "nowrap",
+          textAlign: "center",
+          textTransform: "uppercase",
         }}
-        className={styles.title}
       >
         {children}
       </Typography>

@@ -5,9 +5,16 @@ import { Button } from "@mui/material";
 
 import loginIcon from "@/icons/login.svg";
 
-export default function LoginButton() {
+export default function LoginButton({
+  fullWidth,
+}: {
+  fullWidth?: boolean;
+}) {
   return (
-    <Link href="/authorization/login">
+    <Link
+      href="/authorization/login"
+      style={{ width: "100%" }}
+    >
       <Button
         startIcon={
           <Image
@@ -18,6 +25,7 @@ export default function LoginButton() {
           />
         }
         sx={{
+          minHeight: fullWidth ? 50 : 30,
           padding: "3px 10px",
           borderRadius: "8px",
           typography: {
@@ -26,6 +34,7 @@ export default function LoginButton() {
         }}
         color="secondary"
         variant="contained"
+        fullWidth={fullWidth}
       >
         вход
       </Button>
