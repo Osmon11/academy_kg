@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
 import { Box } from "@mui/material";
 
@@ -12,7 +13,7 @@ import RecoverPassword from "./RecoverPassword";
 import SignIn from "./SignIn";
 import styles from "./styles.module.scss";
 
-export function LoginPage() {
+function Page() {
   const searchParams = useSearchParams();
   const via = searchParams.get("via");
   const useCases = {
@@ -39,5 +40,13 @@ export function LoginPage() {
         )}
       </Box>
     </div>
+  );
+}
+
+export function LoginPage() {
+  return (
+    <Suspense>
+      <Page />
+    </Suspense>
   );
 }
