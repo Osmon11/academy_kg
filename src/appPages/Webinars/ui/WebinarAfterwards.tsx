@@ -1,3 +1,5 @@
+"use client";
+
 import classNames from "classnames";
 import moment from "moment";
 import Image from "next/image";
@@ -7,6 +9,7 @@ import {
   Button,
   Paper,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 
 import { SECTION_PADDING } from "@/shared/config/const";
@@ -16,6 +19,40 @@ import videoPlayPrimaryIcon from "@/icons/video-play-primary.svg";
 
 import styles from "./styles.module.scss";
 
+function ImageWrapper({
+  webinar,
+}: {
+  webinar: IWebinarAfterwardListItem;
+}) {
+  return (
+    <div
+      className={classNames(
+        styles.image_wrapper,
+        styles.primary,
+      )}
+    >
+      <Image
+        src={webinar.image}
+        alt={webinar.title}
+        quality={100}
+        fill
+      />
+      <div className={styles.content}>
+        <Button
+          variant="convex"
+          className={styles.button}
+          href={webinar.video}
+          target="_blank"
+          rel="noopener"
+        >
+          смотреть
+        </Button>
+      </div>
+      <div className={styles.overlay} />
+    </div>
+  );
+}
+
 export default function WebinarAfterwards({
   webinars,
 }: {
@@ -23,10 +60,18 @@ export default function WebinarAfterwards({
 }) {
   const propertyBoxStyles = {
     display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    gap: "20px",
+    alignItems: {xs: "start", sm:"center"},
+    justifyContent: {
+      xs: "start",
+      sm: "space-between",
+    },
+    flexDirection: { xs: "column", sm: "row" },
+    gap: { xs: "0px", sm: "20px" },
   };
+  const upMd = useMediaQuery((theme) =>
+    theme.breakpoints.up("md"),
+  );
+
   return (
     <Box
       sx={{
@@ -52,142 +97,123 @@ export default function WebinarAfterwards({
             }}
             className={styles.card_item}
           >
-            <div
-              className={classNames(
-                styles.image_wrapper,
-                styles.primary,
-              )}
-            >
-              <Image
-                src={webinar.image}
-                alt={webinar.title}
-                width={400}
-                height={260}
-              />
-              <div className={styles.content}>
-                <Button
-                  variant="convex"
-                  className={styles.button}
-                  href={webinar.video}
-                  target="_blank"
-                  rel="noopener"
-                >
-                  смотреть
-                </Button>
-              </div>
-              <div className={styles.overlay} />
-            </div>
+            {upMd && (
+              <ImageWrapper webinar={webinar} />
+            )}
             <Paper
               className={styles.content_wrapper}
             >
-              <Typography
-                variant="h5"
-                fontWeight={700}
-                color="primary"
-              >
-                {`Эфир: ${webinar.title}`}
-              </Typography>
+              {!upMd && (
+                <ImageWrapper webinar={webinar} />
+              )}
               <Box
                 sx={{
-                  marginTop: "12px",
-                  ...propertyBoxStyles,
+                  padding: {
+                    xs: "15px",
+                    md: "0px",
+                  },
                 }}
               >
                 <Typography
-                  variant="h6"
-                  fontWeight={600}
-                  color="textThirtiary"
-                >
-                  Дата проведения:
-                </Typography>
-                <Typography
-                  variant="h6"
-                  fontWeight={400}
-                  color="textThirtiary"
-                >
-                  {moment(
-                    webinar.start_time,
-                  ).format("mm:HH - DD.MM.YYYY")}
-                </Typography>
-              </Box>
-              <Box
-                sx={{
-                  marginTop: "12px",
-                  ...propertyBoxStyles,
-                }}
-              >
-                <Typography
-                  variant="h6"
-                  fontWeight={600}
-                  color="textThirtiary"
-                >
-                  Продолжительность вебинара:
-                </Typography>
-                <Typography
-                  variant="h6"
-                  fontWeight={400}
-                  color="textThirtiary"
-                >
-                  {`${totalMinutes} минут`}
-                </Typography>
-              </Box>
-              <Box
-                sx={{
-                  marginTop: "12px",
-                  ...propertyBoxStyles,
-                }}
-              >
-                <Typography
-                  variant="h6"
-                  fontWeight={600}
-                  color="textThirtiary"
-                >
-                  Вебинар для студентов:
-                </Typography>
-                <Typography
-                  variant="h6"
-                  fontWeight={400}
-                  color="textThirtiary"
-                >
-                  {`${webinar.level} уровня и выше`}
-                </Typography>
-              </Box>
-              <div
-                className={
-                  styles.broadcast_wrapper
-                }
-              >
-                <Image
-                  src={videoPlayPrimaryIcon}
-                  alt="video-play green icon"
-                  width={24}
-                  height={24}
-                />
-                <Typography
-                  variant="h6"
+                  variant="h5"
+                  fontWeight={700}
                   color="primary"
                 >
-                  Запись эфира
+                  {`Эфир: ${webinar.title}`}
                 </Typography>
-              </div>
+                <Box
+                  sx={{
+                    marginTop: "12px",
+                    ...propertyBoxStyles,
+                  }}
+                >
+                  <Typography
+                    variant="h6"
+                    fontWeight={600}
+                    color="textThirtiary"
+                  >
+                    Дата проведения:
+                  </Typography>
+                  <Typography
+                    variant="h6"
+                    fontWeight={400}
+                    color="textThirtiary"
+                    textAlign="end"
+                  >
+                    {moment(
+                      webinar.start_time,
+                    ).format(
+                      "mm:HH - DD.MM.YYYY",
+                    )}
+                  </Typography>
+                </Box>
+                <Box
+                  sx={{
+                    marginTop: "12px",
+                    ...propertyBoxStyles,
+                  }}
+                >
+                  <Typography
+                    variant="h6"
+                    fontWeight={600}
+                    color="textThirtiary"
+                  >
+                    Продолжительность вебинара:
+                  </Typography>
+                  <Typography
+                    variant="h6"
+                    fontWeight={400}
+                    color="textThirtiary"
+                    textAlign="end"
+                  >
+                    {`${totalMinutes} минут`}
+                  </Typography>
+                </Box>
+                <Box
+                  sx={{
+                    marginTop: "12px",
+                    ...propertyBoxStyles,
+                  }}
+                >
+                  <Typography
+                    variant="h6"
+                    fontWeight={600}
+                    color="textThirtiary"
+                  >
+                    Вебинар для студентов:
+                  </Typography>
+                  <Typography
+                    variant="h6"
+                    fontWeight={400}
+                    color="textThirtiary"
+                    textAlign="end"
+                  >
+                    {`${webinar.level} уровня и выше`}
+                  </Typography>
+                </Box>
+                <div
+                  className={
+                    styles.broadcast_wrapper
+                  }
+                >
+                  <Image
+                    src={videoPlayPrimaryIcon}
+                    alt="video-play green icon"
+                    width={24}
+                    height={24}
+                  />
+                  <Typography
+                    variant="h6"
+                    color="primary"
+                  >
+                    Запись эфира
+                  </Typography>
+                </div>
+              </Box>
             </Paper>
           </Box>
         );
       })}
-      {/* <Box
-        sx={{
-          marginTop: "60px",
-          ...propertyBoxStyles,
-          justifyContent: "center",
-        }}
-      >
-        <Button
-          variant="convex"
-          color="secondary"
-        >
-          смотреть все
-        </Button>
-      </Box> */}
     </Box>
   );
 }

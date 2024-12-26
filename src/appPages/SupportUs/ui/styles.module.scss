@@ -11,15 +11,21 @@
 }
 
 @media (min-width: variables.$theme-breakpoint-xs) {
+  .requisites_wrapper {
+    gap: 15px;
+  }
 }
 @media (min-width: variables.$theme-breakpoint-sm) {
 }
 @media (min-width: variables.$theme-breakpoint-md) {
   .requisites_wrapper {
-    gap: 60px;
+    gap: 30px;
   }
 }
 @media (min-width: variables.$theme-breakpoint-lg) {
+  .requisites_wrapper {
+    gap: 60px;
+  }
 }
 @media (min-width: variables.$theme-breakpoint-xl) {
 }

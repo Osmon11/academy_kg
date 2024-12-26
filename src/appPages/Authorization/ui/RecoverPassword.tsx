@@ -1,6 +1,6 @@
+import { useRouter } from "next-nprogress-bar";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
 import {
@@ -27,15 +27,17 @@ export default function RecoverPassword() {
   }
   const {
     handleSubmit,
-    control,
-    formState: { errors },
+    // control,
+    // formState: { errors },
   } = useForm<IFormValues>({
     defaultValues: {
       code: "",
       password: "",
     },
   });
-  function onSubmit(data: IFormValues) {}
+  function onSubmit(data: IFormValues) {
+    console.log(data);
+  }
   return (
     <Paper
       className={styles.paper}

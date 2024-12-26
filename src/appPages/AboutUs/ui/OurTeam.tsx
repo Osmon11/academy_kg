@@ -1,4 +1,11 @@
-import { Box } from "@mui/material";
+"use client";
+
+import {
+  Box,
+  useMediaQuery,
+} from "@mui/material";
+
+import { Carousel } from "@/widgets/Carousel";
 
 import { TeacherCard } from "@/features/TeacherCard";
 
@@ -12,25 +19,45 @@ export default function OurTeam({
 }: {
   teammates: ITeammateListItem[];
 }) {
+  const upMd = useMediaQuery((theme) =>
+    theme.breakpoints.up("md"),
+  );
+  const cardStyles = {
+    width: { xs: "240px", sm: "400px" },
+  };
+  const mediaStyles = {
+    width: { xs: "240px", sm: "400px" },
+    height: "280px",
+  };
   return (
     <Box
       sx={{
         padding: SECTION_PADDING,
       }}
     >
-      <div className={styles.teammates_wrapper}>
-        {teammates.map((teammate) => (
-          <TeacherCard
-            key={teammate.id}
-            {...teammate}
-            mediaSx={{
-              width: "400px",
-              height: "280px",
-            }}
-            sx={{ width: "400px" }}
-          />
-        ))}
-      </div>
+      {upMd ? (
+        <div className={styles.teammates_wrapper}>
+          {teammates.map((teammate) => (
+            <TeacherCard
+              key={teammate.id}
+              {...teammate}
+              mediaSx={mediaStyles}
+              sx={cardStyles}
+            />
+          ))}
+        </div>
+      ) : (
+        <Carousel>
+          {teammates.map((teammate) => (
+            <TeacherCard
+              key={teammate.id}
+              {...teammate}
+              mediaSx={mediaStyles}
+              sx={cardStyles}
+            />
+          ))}
+        </Carousel>
+      )}
     </Box>
   );
 }

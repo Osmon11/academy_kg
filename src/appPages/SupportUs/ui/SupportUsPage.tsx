@@ -27,8 +27,7 @@ export async function SupportUsPage() {
         sx={{ marginTop: SECTION_MARGIN_TOP }}
       >
         <Typography
-          variant="h4"
-          fontWeight={400}
+          variant="h5"
           textAlign="center"
         >
           Мы искренне благодарны каждому из вас за

@@ -125,7 +125,10 @@ export default function DrawerSidebar({
         })}
       </List>
       {profile ? (
-        <UserProfile profile={profile} />
+        <UserProfile
+          profile={profile}
+          color="black"
+        />
       ) : (
         <LoginButton />
       )}

@@ -1,11 +1,14 @@
 "use client";
 
+import { AppProgressBar } from "next-nprogress-bar";
 import { useEffect, useRef } from "react";
 import { useCookies } from "react-cookie";
 import { CookiesProvider } from "react-cookie";
 import { Provider } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
+import { useTheme } from "@mui/material";
 
 import {
   clearUserProfile,
@@ -52,6 +55,7 @@ export function Providers({
 }: {
   children: React.ReactNode;
 }) {
+  const theme = useTheme();
   const storeRef = useRef<AppStore>(null);
   if (!storeRef.current) {
     // Create the store instance the first time this renders
@@ -62,6 +66,9 @@ export function Providers({
       <CookiesProvider
         defaultSetOptions={{ path: "/" }}
       >
+        <GlobalProfileFetcher>
+          {children}
+        </GlobalProfileFetcher>
         <ToastContainer
           position="top-right"
           autoClose={5000}
@@ -69,9 +76,11 @@ export function Providers({
           theme="colored"
           pauseOnHover
         />
-        <GlobalProfileFetcher>
-          {children}
-        </GlobalProfileFetcher>
+        <AppProgressBar
+          height="4px"
+          color={theme.palette.secondary.main}
+          options={{ showSpinner: false }}
+        />
       </CookiesProvider>
     </Provider>
   );

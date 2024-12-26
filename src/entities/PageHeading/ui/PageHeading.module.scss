@@ -22,12 +22,8 @@
 @media (min-width: variables.$theme-breakpoint-xs) {
   .page_heading {
     padding: 85px 15px 30px;
-    .title {
-      font-size: 22px;
-    }
     .subtitle {
       padding: 10px;
-      font-size: 18px;
       border-radius: 15px;
       opacity: 1;
       background: #dfdfdf33;
@@ -36,14 +32,6 @@
   }
 }
 @media (min-width: variables.$theme-breakpoint-sm) {
-  .page_heading {
-    .title {
-      font-size: 30px;
-    }
-    .subtitle {
-      font-size: 20px;
-    }
-  }
 }
 @media (min-width: variables.$theme-breakpoint-md) {
   .page_heading {
@@ -53,11 +41,7 @@
 }
 @media (min-width: variables.$theme-breakpoint-lg) {
   .page_heading {
-    .title {
-      font-size: 36px;
-    }
     .subtitle {
-      font-size: 22px;
       padding: 0px;
       background: transparent;
       backdrop-filter: none;

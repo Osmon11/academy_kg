@@ -1,14 +1,9 @@
 @use "variables";
 
 .card_item {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 40px;
   .image_wrapper {
-    min-width: 400px;
-    height: 260px;
-    border-radius: 26px;
+    height: auto;
+
     position: relative;
     overflow: hidden;
     .content {
@@ -44,7 +39,7 @@
   }
   .content_wrapper {
     width: 100%;
-    padding: 30px;
+
     border-radius: 14px;
     box-shadow: variables.$theme-card-box-shadow;
   }
@@ -65,10 +60,42 @@
 }
 
 @media (min-width: variables.$theme-breakpoint-xs) {
+  .card_item {
+    .image_wrapper {
+      min-width: 100%;
+      min-height: 260px;
+      border-radius: 26px 26px 0px 0px;
+    }
+    .content_wrapper {
+      padding: 0px;
+    }
+  }
+  .icon_banners_wrapper {
+    padding: 0px 15px;
+    gap: 15px;
+  }
 }
 @media (min-width: variables.$theme-breakpoint-sm) {
 }
 @media (min-width: variables.$theme-breakpoint-md) {
+  .card_item {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    gap: 40px;
+    .image_wrapper {
+      min-width: 400px;
+      min-height: 260px;
+      border-radius: 26px;
+    }
+    .content_wrapper {
+      padding: 30px;
+    }
+  }
+  .icon_banners_wrapper {
+    padding: 0px 30px;
+    gap: 30px;
+  }
 }
 @media (min-width: variables.$theme-breakpoint-lg) {
   .icon_banners_wrapper {

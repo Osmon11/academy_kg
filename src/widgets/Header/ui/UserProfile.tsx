@@ -1,10 +1,8 @@
 "use client";
 
+import { useRouter } from "next-nprogress-bar";
 import Image from "next/image";
-import {
-  usePathname,
-  useRouter,
-} from "next/navigation";
+import { usePathname } from "next/navigation";
 import { Fragment, useState } from "react";
 import { useCookies } from "react-cookie";
 

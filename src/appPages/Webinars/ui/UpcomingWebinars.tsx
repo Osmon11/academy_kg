@@ -2,8 +2,8 @@
 
 import classNames from "classnames";
 import moment from "moment";
+import { useRouter } from "next-nprogress-bar";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
 import {
@@ -11,6 +11,7 @@ import {
   Button,
   Paper,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 
 import appAxios from "@/shared/config/axios";
@@ -20,10 +21,12 @@ import { IUpcomingWebinarListItem } from "@/shared/types";
 
 import styles from "./styles.module.scss";
 
-export default function UpcomingWebinars({
-  webinars,
+function ImageWrapper({
+  webinar,
+  haveFreeSeats,
 }: {
-  webinars: IUpcomingWebinarListItem[];
+  webinar: IUpcomingWebinarListItem;
+  haveFreeSeats: boolean;
 }) {
   const profile = useAppSelector(
     (store) => store.user.profile,
@@ -60,12 +63,54 @@ export default function UpcomingWebinars({
       );
     }
   }
+  return (
+    <div
+      className={classNames(
+        styles.image_wrapper,
+        styles.secondary,
+      )}
+    >
+      <Image
+        src={webinar.image}
+        alt={webinar.title}
+        quality={100}
+        fill
+      />
+      <div className={styles.content}>
+        {haveFreeSeats && (
+          <Button
+            className={styles.button}
+            variant="convex"
+            color="secondary"
+            onClick={() => leaveARequest(webinar)}
+          >
+            Оставить заявку
+          </Button>
+        )}
+      </div>
+      <div className={styles.overlay} />
+    </div>
+  );
+}
+
+export default function UpcomingWebinars({
+  webinars,
+}: {
+  webinars: IUpcomingWebinarListItem[];
+}) {
   const propertyBoxStyles = {
     display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    gap: "20px",
+    alignItems: { xs: "start", sm: "center" },
+    justifyContent: {
+      xs: "start",
+      sm: "space-between",
+    },
+    flexDirection: { xs: "column", sm: "row" },
+    gap: { xs: "0px", sm: "20px" },
   };
+  const upMd = useMediaQuery((theme) =>
+    theme.breakpoints.up("md"),
+  );
   return (
     <Box
       sx={{
@@ -95,136 +140,123 @@ export default function UpcomingWebinars({
             }}
             className={styles.card_item}
           >
-            <div
-              className={classNames(
-                styles.image_wrapper,
-                styles.secondary,
-              )}
-            >
-              <Image
-                src={webinar.image}
-                alt={webinar.title}
-                width={400}
-                height={260}
+            {upMd && (
+              <ImageWrapper
+                webinar={webinar}
+                haveFreeSeats={haveFreeSeats}
               />
-              <div className={styles.content}>
-                {haveFreeSeats && (
-                  <Button
-                    className={styles.button}
-                    variant="convex"
-                    color="secondary"
-                    onClick={() =>
-                      leaveARequest(webinar)
-                    }
-                  >
-                    Оставить заявку
-                  </Button>
-                )}
-              </div>
-              <div className={styles.overlay} />
-            </div>
+            )}
             <Paper
               className={styles.content_wrapper}
             >
-              <Typography
-                variant="h5"
-                fontWeight={700}
-                color="secondary"
-              >
-                {webinar.title}
-              </Typography>
+              {!upMd && (
+                <ImageWrapper
+                  webinar={webinar}
+                  haveFreeSeats={haveFreeSeats}
+                />
+              )}
               <Box
                 sx={{
-                  marginTop: "12px",
-                  ...propertyBoxStyles,
+                  padding: {
+                    xs: "15px",
+                    md: "0px",
+                  },
                 }}
               >
                 <Typography
+                  variant="h5"
+                  fontWeight={700}
+                  color="secondary"
+                >
+                  {webinar.title}
+                </Typography>
+                <Box
+                  sx={{
+                    marginTop: "12px",
+                    ...propertyBoxStyles,
+                  }}
+                >
+                  <Typography
+                    variant="h6"
+                    fontWeight={600}
+                    color="textThirtiary"
+                  >
+                    Дата проведения:
+                  </Typography>
+                  <Typography
+                    variant="h6"
+                    fontWeight={400}
+                    color="textThirtiary"
+                    textAlign="end"
+                  >
+                    {moment(
+                      webinar.start_time,
+                    ).format(
+                      "mm:HH - DD.MM.YYYY",
+                    )}
+                  </Typography>
+                </Box>
+                <Box
+                  sx={{
+                    marginTop: "12px",
+                    ...propertyBoxStyles,
+                  }}
+                >
+                  <Typography
+                    variant="h6"
+                    fontWeight={600}
+                    color="textThirtiary"
+                  >
+                    Продолжительность вебинара:
+                  </Typography>
+                  <Typography
+                    variant="h6"
+                    fontWeight={400}
+                    color="textThirtiary"
+                    textAlign="end"
+                  >
+                    {`≈ ${totalMinutes} минут`}
+                  </Typography>
+                </Box>
+                <Box
+                  sx={{
+                    marginTop: "12px",
+                    ...propertyBoxStyles,
+                  }}
+                >
+                  <Typography
+                    variant="h6"
+                    fontWeight={600}
+                    color="textThirtiary"
+                  >
+                    Вебинар для студентов:
+                  </Typography>
+                  <Typography
+                    variant="h6"
+                    fontWeight={400}
+                    color="textThirtiary"
+                    textAlign="end"
+                  >
+                    {`${webinar.level} уровня и выше`}
+                  </Typography>
+                </Box>
+                <Typography
                   variant="h6"
                   fontWeight={600}
-                  color="textThirtiary"
+                  color="error"
+                  sx={{ marginTop: "12px" }}
                 >
-                  Дата проведения:
-                </Typography>
-                <Typography
-                  variant="h6"
-                  fontWeight={400}
-                  color="textThirtiary"
-                >
-                  {moment(
-                    webinar.start_time,
-                  ).format("mm:HH - DD.MM.YYYY")}
+                  {haveFreeSeats
+                    ? webinar.busy_count > 0
+                      ? `Места ограничены: записано ${webinar.busy_count} из ${webinar.place_count} (осталось ${webinar.place_count - webinar.busy_count} мест!)`
+                      : `Места ограничены: ${webinar.place_count} мест`
+                    : "Мест не осталось."}
                 </Typography>
               </Box>
-              <Box
-                sx={{
-                  marginTop: "12px",
-                  ...propertyBoxStyles,
-                }}
-              >
-                <Typography
-                  variant="h6"
-                  fontWeight={600}
-                  color="textThirtiary"
-                >
-                  Продолжительность вебинара:
-                </Typography>
-                <Typography
-                  variant="h6"
-                  fontWeight={400}
-                  color="textThirtiary"
-                >
-                  {`≈ ${totalMinutes} минут`}
-                </Typography>
-              </Box>
-              <Box
-                sx={{
-                  marginTop: "12px",
-                  ...propertyBoxStyles,
-                }}
-              >
-                <Typography
-                  variant="h6"
-                  fontWeight={600}
-                  color="textThirtiary"
-                >
-                  Вебинар для студентов:
-                </Typography>
-                <Typography
-                  variant="h6"
-                  fontWeight={400}
-                  color="textThirtiary"
-                >
-                  {`${webinar.level} уровня и выше`}
-                </Typography>
-              </Box>
-              <Typography
-                variant="h6"
-                fontWeight={600}
-                color="error"
-                sx={{ marginTop: "12px" }}
-              >
-                {haveFreeSeats
-                  ? webinar.busy_count > 0
-                    ? `Места ограничены: записано ${webinar.busy_count} из ${webinar.place_count} (осталось ${webinar.place_count - webinar.busy_count} мест!)`
-                    : `Места ограничены: ${webinar.place_count} мест`
-                  : "Мест не осталось."}
-              </Typography>
             </Paper>
           </Box>
         );
       })}
-      {/* <Box
-        sx={{
-          marginTop: "60px",
-          ...propertyBoxStyles,
-          justifyContent: "center",
-        }}
-      >
-        <Button variant="convex">
-          смотреть все
-        </Button>
-      </Box> */}
     </Box>
   );
 }

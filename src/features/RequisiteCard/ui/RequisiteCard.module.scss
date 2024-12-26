@@ -21,14 +21,11 @@
 
 @media (min-width: variables.$theme-breakpoint-xs) {
   .card {
-    min-width: calc(100vw - 30px);
-  }
-}
-@media (min-width: variables.$theme-breakpoint-sm) {
-  .card {
     min-width: 260px;
     width: 260px;
   }
+}
+@media (min-width: variables.$theme-breakpoint-sm) {
 }
 @media (min-width: variables.$theme-breakpoint-md) {
 }
