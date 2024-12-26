@@ -1,6 +1,10 @@
+"use client";
+
 import classNames from "classnames";
 import moment from "moment";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 import {
   Box,
@@ -9,16 +13,53 @@ import {
   Typography,
 } from "@mui/material";
 
+import appAxios from "@/shared/config/axios";
 import { SECTION_PADDING } from "@/shared/config/const";
-import { IWebinarListItem } from "@/shared/types";
+import { useAppSelector } from "@/shared/config/store";
+import { IUpcomingWebinarListItem } from "@/shared/types";
 
 import styles from "./styles.module.scss";
 
 export default function UpcomingWebinars({
   webinars,
 }: {
-  webinars: IWebinarListItem[];
+  webinars: IUpcomingWebinarListItem[];
 }) {
+  const profile = useAppSelector(
+    (store) => store.user.profile,
+  );
+  const router = useRouter();
+  function leaveARequest(
+    webinar: IUpcomingWebinarListItem,
+  ) {
+    if (profile) {
+      if (profile.level >= webinar.level) {
+        appAxios
+          .post("/academy/request_webinar/", {
+            webinar: webinar.id,
+          })
+          .then((res) => {
+            if (res?.data.webinar) {
+              toast.success(
+                "Вы успешно оставили заявку!",
+              );
+              toast.info(
+                "За несколько минут до начала вы получите индивидуальную ссылку на мероприятие на почту, чтобы перейти прямо в вебинарную комнату.",
+                { autoClose: false },
+              );
+            }
+          });
+      } else {
+        toast.warning(
+          "Ваш уровень подготовки пока недостаточен для этого вебинара",
+        );
+      }
+    } else {
+      router.push(
+        "/authorization/login?return_pathname=/webinars",
+      );
+    }
+  }
   const propertyBoxStyles = {
     display: "flex",
     alignItems: "center",
@@ -32,8 +73,10 @@ export default function UpcomingWebinars({
       }}
     >
       {webinars.map((webinar, webinarIndex) => {
-        const haveFreeSeats = false;
-        // Number(webinar.place_count) > 0;
+        const haveFreeSeats =
+          webinar.place_count -
+            webinar.busy_count >
+          0;
         const durationTime = moment(
           webinar.duration,
           "HH:mm:ss",
@@ -70,6 +113,9 @@ export default function UpcomingWebinars({
                     className={styles.button}
                     variant="convex"
                     color="secondary"
+                    onClick={() =>
+                      leaveARequest(webinar)
+                    }
                   >
                     Оставить заявку
                   </Button>
@@ -159,14 +205,16 @@ export default function UpcomingWebinars({
                 sx={{ marginTop: "12px" }}
               >
                 {haveFreeSeats
-                  ? `Места ограничены: записано ${0} из ${webinar.place_count} (осталось ${0} мест!)`
+                  ? webinar.busy_count > 0
+                    ? `Места ограничены: записано ${webinar.busy_count} из ${webinar.place_count} (осталось ${webinar.place_count - webinar.busy_count} мест!)`
+                    : `Места ограничены: ${webinar.place_count} мест`
                   : "Мест не осталось."}
               </Typography>
             </Paper>
           </Box>
         );
       })}
-      <Box
+      {/* <Box
         sx={{
           marginTop: "60px",
           ...propertyBoxStyles,
@@ -176,7 +224,7 @@ export default function UpcomingWebinars({
         <Button variant="convex">
           смотреть все
         </Button>
-      </Box>
+      </Box> */}
     </Box>
   );
 }

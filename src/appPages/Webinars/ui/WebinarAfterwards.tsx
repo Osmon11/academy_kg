@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 
 import { SECTION_PADDING } from "@/shared/config/const";
-import { IWebinarAfterward } from "@/shared/types";
+import { IWebinarAfterwardListItem } from "@/shared/types";
 
 import videoPlayPrimaryIcon from "@/icons/video-play-primary.svg";
 
@@ -19,7 +19,7 @@ import styles from "./styles.module.scss";
 export default function WebinarAfterwards({
   webinars,
 }: {
-  webinars: IWebinarAfterward[];
+  webinars: IWebinarAfterwardListItem[];
 }) {
   const propertyBoxStyles = {
     display: "flex",
@@ -58,12 +58,12 @@ export default function WebinarAfterwards({
                 styles.primary,
               )}
             >
-              {/* <Image
-                src={webinar}
+              <Image
+                src={webinar.image}
                 alt={webinar.title}
                 width={400}
                 height={260}
-              /> */}
+              />
               <div className={styles.content}>
                 <Button
                   variant="convex"
@@ -174,7 +174,7 @@ export default function WebinarAfterwards({
           </Box>
         );
       })}
-      <Box
+      {/* <Box
         sx={{
           marginTop: "60px",
           ...propertyBoxStyles,
@@ -187,7 +187,7 @@ export default function WebinarAfterwards({
         >
           смотреть все
         </Button>
-      </Box>
+      </Box> */}
     </Box>
   );
 }

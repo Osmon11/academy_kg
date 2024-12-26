@@ -52,6 +52,7 @@ export default function SignIn() {
   const returnPathname = searchParams.get(
     "return_pathname",
   );
+
   const [
     { access_token_ilimnuru_kg },
     setCookie,
@@ -61,9 +62,9 @@ export default function SignIn() {
     setLoading(true);
     appAxios
       .post("/auth/login/", data)
-      .then(({ data }) => {
+      .then((res) => {
         if (
-          data.access &&
+          res?.data.access &&
           access_token_ilimnuru_kg === undefined
         ) {
           const d = new Date();
@@ -73,13 +74,13 @@ export default function SignIn() {
           );
           setCookie(
             "access_token_ilimnuru_kg",
-            data.access,
+            res.data.access,
             {
               path: "/",
               expires: d,
             },
           );
-          router.push(
+          router.replace(
             returnPathname ??
               "/personal-accaunt/main",
           );

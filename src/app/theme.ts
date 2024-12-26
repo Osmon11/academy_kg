@@ -152,7 +152,7 @@ const theme = createTheme({
               "1px 1px 2px 0px #ffcc444d inset, -1px -1px 2px 0px #7a441780 inset, -1px 1px 2px 0px #7a441733, 1px -1px 2px 0px #7a441733, -1px -1px 2px 0px #ffcc44e5, 1px 1px 3px 0px #7a4417e5",
             ":hover": {
               background:
-                theme.palette.primary.dark,
+                theme.palette.secondary.dark,
             },
           }),
         },

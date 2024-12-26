@@ -5,7 +5,18 @@ export function middleware(req: NextRequest) {
   const accessToken = req.cookies.get(
     "access_token_ilimnuru_kg",
   );
-  if (!accessToken) {
+  if (
+    accessToken &&
+    req.url.includes("authorization")
+  ) {
+    return NextResponse.redirect(
+      new URL("/personal-accaunt/main", req.url),
+    );
+  }
+  if (
+    !accessToken &&
+    req.url.includes("personal-accaunt")
+  ) {
     return NextResponse.redirect(
       new URL("/authorization/login", req.url),
     );
@@ -15,5 +26,8 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/personal-accaunt/:path*"], // Protect specific routes
+  matcher: [
+    "/personal-accaunt/:path*",
+    "/authorization/:path*",
+  ], // Protect specific routes
 };

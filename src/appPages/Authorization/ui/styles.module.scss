@@ -40,6 +40,23 @@
       top: 20px;
       left: 20px;
     }
+    .white_button {
+      width: 100%;
+      display: flex;
+      text-transform: none;
+    }
+    .divider {
+      width: 100%;
+      max-width: 400px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      .line {
+        width: 100%;
+        height: 2px;
+        background: variables.$theme-color-grey-coal;
+      }
+    }
   }
   .link_text:hover {
     text-decoration: underline;

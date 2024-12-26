@@ -43,21 +43,23 @@ export interface IRequisiteListItem {
   name: string;
 }
 
-export interface IWebinarListItem {
+export interface IWebinar {
   id: number;
   title: string;
-  duration: string;
   level: number;
   start_time: string;
-  place_count: number;
   image: string;
 }
 
-export interface IWebinarAfterward {
-  id: number;
-  title: string;
+export interface IUpcomingWebinarListItem
+  extends IWebinar {
+  duration: string;
+  busy_count: number;
+  place_count: number;
+}
+
+export interface IWebinarAfterwardListItem
+  extends IWebinar {
   duration_video: string;
-  level: number;
-  start_time: string;
   video: string;
 }

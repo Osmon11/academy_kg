@@ -5,10 +5,9 @@ import { useSearchParams } from "next/navigation";
 
 import { Box } from "@mui/material";
 
-import { Authentication } from "@/widgets/authentication/ui/Authentication";
-
 import mainBg from "@/backgrounds/main-bg.png";
 
+import { Authentication } from "./Authentication";
 import RecoverPassword from "./RecoverPassword";
 import SignIn from "./SignIn";
 import styles from "./styles.module.scss";

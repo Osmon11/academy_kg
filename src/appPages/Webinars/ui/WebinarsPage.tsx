@@ -12,8 +12,8 @@ import { SectionHeader } from "@/entities/SectionHeader";
 import appAxios from "@/shared/config/axios";
 import { SECTION_MARGIN_TOP } from "@/shared/config/const";
 import {
-  IWebinarAfterward,
-  IWebinarListItem,
+  IUpcomingWebinarListItem,
+  IWebinarAfterwardListItem,
 } from "@/shared/types";
 
 import HowOurWebinarsPass from "./HowOurWebinarsPass";
@@ -23,12 +23,12 @@ import WebinarAfterwards from "./WebinarAfterwards";
 export async function WebinarsPage() {
   const webinarList = await appAxios
     .get<{
-      results: IWebinarListItem[];
+      results: IUpcomingWebinarListItem[];
     }>("academy/webinar_list/")
     .then((res) => res.data.results);
   const webinarAfterwards = await appAxios
     .get<{
-      results: IWebinarAfterward[];
+      results: IWebinarAfterwardListItem[];
     }>("academy/webinar_afterwards/")
     .then((res) => res.data.results);
   return (

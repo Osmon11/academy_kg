@@ -68,17 +68,19 @@ export function Header({
         styles[background],
       )}
     >
-      <Image
-        src={
-          background === "transparent"
-            ? logoIcon
-            : logoPrimaryIcon
-        }
-        alt="islamic online-academy logo"
-        width={40}
-        height={40}
-        className={styles.logo}
-      />
+      <Link href="/">
+        <Image
+          src={
+            background === "transparent"
+              ? logoIcon
+              : logoPrimaryIcon
+          }
+          alt="islamic online-academy logo"
+          width={40}
+          height={40}
+          className={styles.logo}
+        />
+      </Link>
       {upMd && (
         <Box
           sx={{
@@ -120,11 +122,19 @@ export function Header({
               color={
                 background === "transparent"
                   ? "white"
-                  : "primary"
+                  : "black"
               }
             />
             {profile ? (
-              <UserProfile profile={profile} />
+              <UserProfile
+                profile={profile}
+                shortFullname
+                color={
+                  background === "transparent"
+                    ? "white"
+                    : "black"
+                }
+              />
             ) : (
               <LoginButton />
             )}
