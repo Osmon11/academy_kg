@@ -14,7 +14,7 @@ import { Banner } from "@/entities/Banner";
 import { PageHeading } from "@/entities/PageHeading";
 import { SectionHeader } from "@/entities/SectionHeader";
 
-import appAxios from "@/shared/config/axios";
+import clientAxios from "@/shared/config/clientAxios";
 import { SECTION_MARGIN_TOP } from "@/shared/config/const";
 import {
   ICourseListItem,
@@ -33,21 +33,21 @@ import Subjects from "./Subjects";
 import styles from "./styles.module.scss";
 
 export async function MainPage() {
-  const courseList = await appAxios
+  const courseList = await clientAxios
     .get<{
       results: ICourseListItem[];
     }>("academy/course_list/")
-    .then((res) => res.data.results);
-  const teacherList = await appAxios
+    .then((res) => res?.data.results);
+  const teacherList = await clientAxios
     .get<{
       results: ITeacherListItem[];
     }>("academy/teacher_list/")
-    .then((res) => res.data.results);
-  const feedbackList = await appAxios
+    .then((res) => res?.data.results);
+  const feedbackList = await clientAxios
     .get<{
       results: IFeedbackListItem[];
     }>("academy/feedback_list/")
-    .then((res) => res.data.results);
+    .then((res) => res?.data.results);
   return (
     <Fragment>
       <Header

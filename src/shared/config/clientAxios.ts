@@ -6,14 +6,16 @@ import axios, {
 import { Cookies } from "react-cookie";
 import { toast } from "react-toastify";
 
+import { IErrorResponseData } from "../types";
+
 const cookies = new Cookies();
 
-const appAxios = axios.create({
+const clientAxios = axios.create({
   baseURL: "http://80.64.24.132",
   withCredentials: true,
 });
 
-appAxios.interceptors.request.use(
+clientAxios.interceptors.request.use(
   function (config: InternalAxiosRequestConfig) {
     const token: string = cookies.get(
       "access_token_ilimnuru_kg",
@@ -28,7 +30,7 @@ appAxios.interceptors.request.use(
   },
 );
 
-appAxios.interceptors.response.use(
+clientAxios.interceptors.response.use(
   async (response: AxiosResponse) => {
     if (
       response.status === 200 ||
@@ -40,7 +42,7 @@ appAxios.interceptors.response.use(
     if (response.data?.status === "failed") {
       console.error(
         response.config.url,
-        response.data.data,
+        response.data,
       );
       return await Promise.reject(
         new Error(response.data.errors),
@@ -49,28 +51,31 @@ appAxios.interceptors.response.use(
 
     console.error(
       "Unknown server response:",
-      response.data.data,
+      response.data,
     );
     return await Promise.reject(
       new Error("An error occurred."),
     );
   },
-  async (error: AxiosError<string>) => {
+  async (
+    error: AxiosError<IErrorResponseData>,
+  ): Promise<IErrorResponseData> => {
     if (error.response) {
       if (error.response.data) {
-        toast.error(error.response.data);
-        return;
-      }
-      if (error.response.statusText) {
-        toast.error(error.response.statusText);
+        toast.error(
+          typeof error.response.data?.message ===
+            "string"
+            ? error.response.data.message
+            : "Похоже возникла неизвестная ошибка",
+        );
       }
     }
     if (error.response?.status === 401) {
       cookies.remove("access_token_ilimnuru_kg");
     }
 
-    return await Promise.reject(error.response);
+    return Promise.reject(error.response?.data);
   },
 );
 
-export default appAxios;
+export default clientAxios;

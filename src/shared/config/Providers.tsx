@@ -14,7 +14,7 @@ import {
   clearUserProfile,
   setUserProfile,
 } from "../model/user";
-import appAxios from "./axios";
+import clientAxios from "./clientAxios";
 import {
   AppStore,
   makeStore,
@@ -33,7 +33,7 @@ function GlobalProfileFetcher({
   useEffect(() => {
     if (token) {
       // Fetch profile data if token exists
-      appAxios
+      clientAxios
         .get("/auth/profile")
         .then((response) => {
           dispatch(setUserProfile(response.data));
@@ -75,6 +75,7 @@ export function Providers({
           hideProgressBar={false}
           theme="colored"
           pauseOnHover
+          closeOnClick
         />
         <AppProgressBar
           height="4px"

@@ -6,7 +6,7 @@ import { Banner } from "@/entities/Banner";
 import { GoBackHeader } from "@/entities/GoBackHeader";
 import { SectionHeader } from "@/entities/SectionHeader";
 
-import appAxios from "@/shared/config/axios";
+import clientAxios from "@/shared/config/clientAxios";
 import { SECTION_MARGIN_TOP } from "@/shared/config/const";
 import { IRequisiteListItem } from "@/shared/types";
 
@@ -14,11 +14,11 @@ import OurRequisites from "./OurRequisites";
 import styles from "./styles.module.scss";
 
 export async function SupportUsPage() {
-  const requisiteList = await appAxios
+  const requisiteList = await clientAxios
     .get<{
       results: IRequisiteListItem[];
     }>("academy/requisite_list/")
-    .then((res) => res.data.results);
+    .then((res) => res?.data.results);
   return (
     <div className={styles.page}>
       <GoBackHeader title="Поддержать нас" />

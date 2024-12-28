@@ -3,7 +3,9 @@
 .page {
   position: relative;
   width: 100vw;
-  height: 100vh;
+  height: 100%;
+  min-height: 100vh;
+  padding: 15px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -28,7 +30,6 @@
   .paper {
     position: relative;
     width: 100%;
-    padding: 50px;
     border-radius: 16px;
     display: flex;
     flex-direction: column;
@@ -61,4 +62,30 @@
   .link_text:hover {
     text-decoration: underline;
   }
+}
+
+@media (min-width: variables.$theme-breakpoint-xs) {
+  .page {
+    .paper {
+      padding: 50px 15px;
+    }
+  }
+}
+@media (min-width: variables.$theme-breakpoint-sm) {
+}
+@media (min-width: variables.$theme-breakpoint-md) {
+  .page {
+    .paper {
+      padding: 50px 30px;
+    }
+  }
+}
+@media (min-width: variables.$theme-breakpoint-lg) {
+  .page {
+    .paper {
+      padding: 50px 60px;
+    }
+  }
+}
+@media (min-width: variables.$theme-breakpoint-xl) {
 }

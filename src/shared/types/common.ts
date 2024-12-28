@@ -56,6 +56,7 @@ export interface IUpcomingWebinarListItem
   duration: string;
   busy_count: number;
   place_count: number;
+  is_requested: boolean;
 }
 
 export interface IWebinarAfterwardListItem
@@ -63,3 +64,9 @@ export interface IWebinarAfterwardListItem
   duration_video: string;
   video: string;
 }
+
+export type IErrorResponseData =
+  | {
+      message: string;
+    }
+  | undefined;

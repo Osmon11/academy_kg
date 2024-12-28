@@ -4,6 +4,7 @@ import classNames from "classnames";
 import moment from "moment";
 import { useRouter } from "next-nprogress-bar";
 import Image from "next/image";
+import { useState } from "react";
 import { toast } from "react-toastify";
 
 import {
@@ -14,7 +15,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
-import appAxios from "@/shared/config/axios";
+import clientAxios from "@/shared/config/clientAxios";
 import { SECTION_PADDING } from "@/shared/config/const";
 import { useAppSelector } from "@/shared/config/store";
 import { IUpcomingWebinarListItem } from "@/shared/types";
@@ -22,22 +23,28 @@ import { IUpcomingWebinarListItem } from "@/shared/types";
 import styles from "./styles.module.scss";
 
 function ImageWrapper({
-  webinar,
+  webinar: webinarProp,
   haveFreeSeats,
 }: {
   webinar: IUpcomingWebinarListItem;
   haveFreeSeats: boolean;
 }) {
+  const [webinar, setWebinar] =
+    useState(webinarProp);
   const profile = useAppSelector(
     (store) => store.user.profile,
   );
+
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
+
   function leaveARequest(
     webinar: IUpcomingWebinarListItem,
   ) {
     if (profile) {
       if (profile.level >= webinar.level) {
-        appAxios
+        setLoading(true);
+        clientAxios
           .post("/academy/request_webinar/", {
             webinar: webinar.id,
           })
@@ -47,11 +54,16 @@ function ImageWrapper({
                 "Вы успешно оставили заявку!",
               );
               toast.info(
-                "За несколько минут до начала вы получите индивидуальную ссылку на мероприятие на почту, чтобы перейти прямо в вебинарную комнату.",
-                { autoClose: false },
+                "За несколько минут до начала вебинара вы получите индивидуальную ссылку на мероприятие на почту, чтобы перейти прямо в вебинарную комнату.",
+                { autoClose: 30000 },
               );
+              setWebinar((state) => ({
+                ...state,
+                is_requested: true,
+              }));
             }
-          });
+          })
+          .finally(() => setLoading(false));
       } else {
         toast.warning(
           "Ваш уровень подготовки пока недостаточен для этого вебинара",
@@ -77,16 +89,22 @@ function ImageWrapper({
         fill
       />
       <div className={styles.content}>
-        {haveFreeSeats && (
-          <Button
-            className={styles.button}
-            variant="convex"
-            color="secondary"
-            onClick={() => leaveARequest(webinar)}
-          >
-            Оставить заявку
-          </Button>
-        )}
+        {!webinar.is_requested &&
+          haveFreeSeats && (
+            <Button
+              className={styles.button}
+              variant="convex"
+              color="secondary"
+              onClick={() =>
+                leaveARequest(webinar)
+              }
+              disabled={loading}
+            >
+              {loading
+                ? "Ожидание..."
+                : "Оставить заявку"}
+            </Button>
+          )}
       </div>
       <div className={styles.overlay} />
     </div>

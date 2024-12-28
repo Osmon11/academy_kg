@@ -5,21 +5,21 @@ export function middleware(req: NextRequest) {
   const accessToken = req.cookies.get(
     "access_token_ilimnuru_kg",
   );
-  if (
-    accessToken &&
-    req.url.includes("authorization")
-  ) {
-    return NextResponse.redirect(
-      new URL("/personal-accaunt/main", req.url),
-    );
-  }
-  if (
-    !accessToken &&
-    req.url.includes("personal-accaunt")
-  ) {
-    return NextResponse.redirect(
-      new URL("/authorization/login", req.url),
-    );
+  if (accessToken) {
+    if (req.url.includes("authorization")) {
+      return NextResponse.redirect(
+        new URL(
+          "/personal-accaunt/main",
+          req.url,
+        ),
+      );
+    }
+  } else {
+    if (req.url.includes("personal-accaunt")) {
+      return NextResponse.redirect(
+        new URL("/authorization/login", req.url),
+      );
+    }
   }
 
   return NextResponse.next();

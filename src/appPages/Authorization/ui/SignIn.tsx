@@ -8,23 +8,23 @@ import {
   Controller,
   useForm,
 } from "react-hook-form";
+import { toast } from "react-toastify";
 
 import {
   Box,
   Button,
   IconButton,
-  Paper,
   TextField,
   Typography,
 } from "@mui/material";
 
-import appAxios from "@/shared/config/axios";
+import clientAxios from "@/shared/config/clientAxios";
+import { IErrorResponseData } from "@/shared/types";
 
-import arrowLeftBlackIcon from "@/icons/arrow-left-black.svg";
 import eyeCoalGrayIcon from "@/icons/eye-coal-gray.svg";
 import eyeSlashCoalGrayIcon from "@/icons/eye-slash-coal-gray.svg";
-import logoPrimaryIcon from "@/icons/logo-primary.svg";
 
+import PaperContainer from "./PaperContainer";
 import styles from "./styles.module.scss";
 
 interface IFormValues {
@@ -33,9 +33,6 @@ interface IFormValues {
 }
 export default function SignIn() {
   const router = useRouter();
-  function handleGoBack() {
-    router.back();
-  }
   const {
     handleSubmit,
     control,
@@ -56,9 +53,10 @@ export default function SignIn() {
     setCookie,
   ] = useCookies(["access_token_ilimnuru_kg"]);
   const [loading, setLoading] = useState(false);
+
   function onSubmit(data: IFormValues) {
     setLoading(true);
-    appAxios
+    clientAxios
       .post("/auth/login/", data)
       .then((res) => {
         if (
@@ -72,7 +70,7 @@ export default function SignIn() {
           );
           setCookie(
             "access_token_ilimnuru_kg",
-            res.data.access,
+            res?.data.access,
             {
               path: "/",
               expires: d,
@@ -82,47 +80,44 @@ export default function SignIn() {
             returnPathname ??
               "/personal-accaunt/main",
           );
+          setLoading(false);
         }
       })
-      .finally(() => {
-        setLoading(false);
+      .catch((error: IErrorResponseData) => {
+        if (
+          error?.message ===
+          "Пользователь не подтвержден"
+        ) {
+          clientAxios
+            .post("/auth/send_code_email/", data)
+            .then((res) => {
+              if (res?.data.message) {
+                toast.success(res?.data.message);
+                const queryParams =
+                  new URLSearchParams();
+                queryParams.set(
+                  "email",
+                  data.email,
+                );
+                router.push(
+                  `/authorization/registration?verify=true&${queryParams}`,
+                );
+              }
+            })
+            .finally(() => setLoading(false));
+        } else {
+          setLoading(false);
+        }
       });
   }
   const [visiblePassword, setPasswordVisibility] =
     useState(false);
   return (
-    <Paper
-      className={styles.paper}
+    <PaperContainer
+      title="Вход с паролем"
       component="form"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <IconButton
-        className={styles.go_back_button}
-        onClick={handleGoBack}
-      >
-        <Image
-          src={arrowLeftBlackIcon}
-          alt="arrow left black icon"
-          width={24}
-          height={24}
-        />
-      </IconButton>
-      <Link href="/">
-        <Image
-          src={logoPrimaryIcon}
-          alt="islamic online-academy green icon"
-          width={100}
-          height={100}
-        />
-      </Link>
-      <Typography
-        variant="h5"
-        textAlign="center"
-        color="textThirtiary"
-        fontWeight={600}
-      >
-        Вход с паролем
-      </Typography>
       <Box
         sx={{ width: "100%", maxWidth: "400px" }}
       >
@@ -130,7 +125,7 @@ export default function SignIn() {
           name="email"
           control={control}
           rules={{
-            required: "E-mail is required",
+            required: "Необходимо ввести e-mail",
           }}
           render={({ field, fieldState }) => (
             <TextField
@@ -154,7 +149,7 @@ export default function SignIn() {
           name="password"
           control={control}
           rules={{
-            required: "Password is required",
+            required: "Необходимо ввести пароль",
           }}
           render={({ field, fieldState }) => (
             <TextField
@@ -213,7 +208,7 @@ export default function SignIn() {
             justifyContent: "end",
           }}
         >
-          <Link href="/authorization/login?via=recover_password">
+          <Link href="/authorization/login?via=fogot_password">
             <Typography
               variant="h6"
               color="primary"
@@ -237,7 +232,7 @@ export default function SignIn() {
         fullWidth
         sx={{ maxWidth: "400px" }}
       >
-        {loading ? "Loading..." : "Войти"}
+        {loading ? "Ожидание..." : "Войти"}
       </Button>
       <Typography
         variant="h6"
@@ -266,6 +261,6 @@ export default function SignIn() {
           </Typography>
         </Link>
       </Box>
-    </Paper>
+    </PaperContainer>
   );
 }

@@ -9,6 +9,7 @@ import { Box } from "@mui/material";
 import mainBg from "@/backgrounds/main-bg.png";
 
 import { Authentication } from "./Authentication";
+import FogotPassword from "./FogotPassword";
 import RecoverPassword from "./RecoverPassword";
 import SignIn from "./SignIn";
 import styles from "./styles.module.scss";
@@ -18,6 +19,7 @@ function Page() {
   const via = searchParams.get("via");
   const useCases = {
     email: <SignIn />,
+    fogot_password: <FogotPassword />,
     recover_password: <RecoverPassword />,
   };
   return (
