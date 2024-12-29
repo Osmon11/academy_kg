@@ -28,12 +28,23 @@ import LoginButton from "./LoginButton";
 import UserProfile from "./UserProfile";
 import styles from "./styles.module.scss";
 
-const navLinks = [
+interface INavLink {
+  label: string;
+  href: string;
+}
+
+const mainNavLinks: INavLink[] = [
   { label: "Главное", href: "/" },
-  // { label: "Учиться", href: "/study" },
   { label: "Вебинары", href: "/webinars" },
   { label: "О нас", href: "/about-us" },
   { label: "Поддержать", href: "/support-us" },
+];
+
+const accountNavLinks: INavLink[] = [
+  {
+    label: "Главное",
+    href: "/personal-accaunt/main",
+  },
 ];
 
 interface IHeaderProps extends AppBarProps {
@@ -60,6 +71,10 @@ export function Header({
   const upMd = useMediaQuery((theme) =>
     theme.breakpoints.up("md"),
   );
+  const mainLayout = background === "transparent";
+  const navLinks = mainLayout
+    ? mainNavLinks
+    : accountNavLinks;
   return (
     <AppBar
       {...props}
@@ -71,7 +86,7 @@ export function Header({
       <Link href="/">
         <Image
           src={
-            background === "transparent"
+            mainLayout
               ? logoIcon
               : logoPrimaryIcon
           }
@@ -89,23 +104,39 @@ export function Header({
             justifyContent: "center",
           }}
         >
-          {navLinks.map((navItem, index) => (
-            <Link
-              key={navItem.label + index}
-              href={navItem.href}
-              className={classNames(
-                styles.nav_link,
-                {
-                  [styles.active]:
-                    pathname === navItem.href,
-                },
-              )}
-            >
-              <Typography variant="subtitle1">
-                {navItem.label}
-              </Typography>
-            </Link>
-          ))}
+          {navLinks.map((navItem, index) => {
+            const active =
+              pathname === navItem.href;
+            return (
+              <Link
+                key={navItem.label + index}
+                href={navItem.href}
+                className={classNames(
+                  styles.nav_link,
+                  {
+                    [styles.active]: active,
+                  },
+                )}
+              >
+                <Typography
+                  variant="subtitle1"
+                  color={
+                    mainLayout || active
+                      ? "textPrimary"
+                      : "primary"
+                  }
+                  sx={{
+                    textTransform: mainLayout
+                      ? "uppercase"
+                      : "initial",
+                    lineHeight: "17px",
+                  }}
+                >
+                  {navItem.label}
+                </Typography>
+              </Link>
+            );
+          })}
         </Box>
       )}
       <Box
@@ -120,9 +151,7 @@ export function Header({
           <Fragment>
             <LanguageSelect
               color={
-                background === "transparent"
-                  ? "white"
-                  : "black"
+                mainLayout ? "white" : "black"
               }
             />
             {profile ? (
@@ -130,9 +159,7 @@ export function Header({
                 profile={profile}
                 shortFullname
                 color={
-                  background === "transparent"
-                    ? "white"
-                    : "black"
+                  mainLayout ? "white" : "black"
                 }
               />
             ) : (
@@ -146,7 +173,7 @@ export function Header({
             >
               <Image
                 src={
-                  background === "transparent"
+                  mainLayout
                     ? menuIcon
                     : menuGrayIcon
                 }

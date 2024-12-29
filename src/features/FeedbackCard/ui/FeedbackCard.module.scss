@@ -74,6 +74,7 @@
 }
 @media (min-width: variables.$theme-breakpoint-sm) {
   .card {
+    width: 450px;
     min-width: 450px;
   }
 }

@@ -9,14 +9,14 @@ import {
   Typography,
 } from "@mui/material";
 
-import { ICourseListItem } from "@/shared/types";
+import { ISubjectListItem } from "@/shared/types";
 
 import playIcon from "@/icons/play.svg";
 
 import styles from "./SubjectCard.module.scss";
 
 interface ISubjectCardProps
-  extends ICourseListItem {
+  extends ISubjectListItem {
   color: "primary" | "secondary";
 }
 
@@ -28,7 +28,6 @@ export function SubjectCard({
 }: ISubjectCardProps) {
   return (
     <Card
-      elevation={0}
       className={classNames(
         styles.card,
         styles[color],

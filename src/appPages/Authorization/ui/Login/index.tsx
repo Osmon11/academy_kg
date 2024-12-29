@@ -8,11 +8,11 @@ import { Box } from "@mui/material";
 
 import mainBg from "@/backgrounds/main-bg.png";
 
+import styles from "../styles.module.scss";
 import { Authentication } from "./Authentication";
 import FogotPassword from "./FogotPassword";
 import RecoverPassword from "./RecoverPassword";
 import SignIn from "./SignIn";
-import styles from "./styles.module.scss";
 
 function Page() {
   const searchParams = useSearchParams();

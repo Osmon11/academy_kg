@@ -17,8 +17,8 @@ import {
 } from "@/shared/UI";
 import clientAxios from "@/shared/config/clientAxios";
 
-import PaperContainer from "./PaperContainer";
-import styles from "./styles.module.scss";
+import PaperContainer from "../PaperContainer";
+import styles from "../styles.module.scss";
 
 interface IFormValues {
   name: string;

@@ -10,12 +10,12 @@ import { Carousel } from "@/widgets/Carousel";
 import { SubjectCard } from "@/features/SubjectCard";
 
 import { SECTION_PADDING } from "@/shared/config/const";
-import { ICourseListItem } from "@/shared/types";
+import { ISubjectListItem } from "@/shared/types";
 
 import styles from "./styles.module.scss";
 
 interface ISubjectsProps {
-  subjects: ICourseListItem[];
+  subjects: ISubjectListItem[];
 }
 
 export default function Subjects({

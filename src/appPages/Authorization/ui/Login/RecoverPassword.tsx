@@ -1,25 +1,25 @@
-"use client";
-
-import {
-  useRouter,
-  useSearchParams,
-} from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
+import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
-import { Button } from "@mui/material";
+import {
+  Button,
+  Typography,
+} from "@mui/material";
 
 import { ControllerTextField } from "@/shared/UI";
 import clientAxios from "@/shared/config/clientAxios";
 
-import PaperContainer from "./PaperContainer";
+import PaperContainer from "../PaperContainer";
 
 interface IFormValues {
+  password: string;
   code: string;
 }
 
-export default function VerifyAccount() {
+export default function RecoverPassword() {
   const router = useRouter();
   const {
     handleSubmit,
@@ -27,18 +27,31 @@ export default function VerifyAccount() {
     formState: { errors },
   } = useForm<IFormValues>({
     defaultValues: {
+      password: "",
       code: "",
     },
   });
   const searchParams = useSearchParams();
   const email = searchParams.get("email");
+  const [codeSent, setCodeSent] = useState(false);
+
+  function sendCodeAgain() {
+    clientAxios
+      .post("/auth/send_code_email/", { email })
+      .then((res) => {
+        if (res?.data.message) {
+          toast.success(res?.data.message);
+          setCodeSent(true);
+        }
+      });
+  }
 
   const [loading, setLoading] = useState(false);
 
   function onSubmit(data: IFormValues) {
     setLoading(true);
     clientAxios
-      .post("/auth/code_verify/", {
+      .post("/auth/recovery_password/", {
         email,
         ...data,
       })
@@ -54,10 +67,23 @@ export default function VerifyAccount() {
   }
   return (
     <PaperContainer
-      title={`Введите код из вашей почты ${email}`}
+      title="Введите новый пароль"
       component="form"
       onSubmit={handleSubmit(onSubmit)}
     >
+      <ControllerTextField<IFormValues>
+        name="password"
+        control={control}
+        rules={{
+          required:
+            "Необходимо ввести новый пароль",
+        }}
+        textField={{
+          placeholder: "Пароль",
+          type: "password",
+          autoComplete: "off",
+        }}
+      />
       <ControllerTextField<IFormValues>
         name="code"
         control={control}
@@ -75,13 +101,33 @@ export default function VerifyAccount() {
         type="submit"
         color="primary"
         variant="contained"
-        disabled={Boolean(errors.code || loading)}
+        disabled={Boolean(
+          errors.password ||
+            errors.code ||
+            loading,
+        )}
         fullWidth
         sx={{ maxWidth: "400px" }}
       >
         {loading
           ? "Ожидание..."
-          : "Подтвердить e-mail"}
+          : "Восстановить пароль"}
+      </Button>
+      <Typography
+        variant="h6"
+        color="textThirtiary"
+        textAlign="center"
+      >
+        Не пришел код?
+      </Typography>
+      <Button
+        onClick={sendCodeAgain}
+        disabled={codeSent}
+        sx={{
+          typography: { textTransform: "none" },
+        }}
+      >
+        Отправить повторно
       </Button>
     </PaperContainer>
   );

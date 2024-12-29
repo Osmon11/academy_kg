@@ -17,8 +17,8 @@ import { SectionHeader } from "@/entities/SectionHeader";
 import clientAxios from "@/shared/config/clientAxios";
 import { SECTION_MARGIN_TOP } from "@/shared/config/const";
 import {
-  ICourseListItem,
   IFeedbackListItem,
+  ISubjectListItem,
   ITeacherListItem,
 } from "@/shared/types";
 
@@ -35,7 +35,7 @@ import styles from "./styles.module.scss";
 export async function MainPage() {
   const courseList = await clientAxios
     .get<{
-      results: ICourseListItem[];
+      results: ISubjectListItem[];
     }>("academy/course_list/")
     .then((res) => res?.data.results);
   const teacherList = await clientAxios

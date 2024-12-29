@@ -7,7 +7,7 @@ export interface IProfile {
   level: number;
 }
 
-export interface ICourseListItem {
+export interface ISubjectListItem {
   id: number;
   title: string;
   description: string;
@@ -70,3 +70,20 @@ export type IErrorResponseData =
       message: string;
     }
   | undefined;
+
+export interface IRecommendationListItem {
+  id: number;
+  title: string;
+  description: string;
+  image: string;
+  logo: string;
+}
+
+export interface ICourseListItem {
+  id: number;
+  title: string;
+  description: string;
+  image: string;
+  teacher: string;
+  price: number;
+}

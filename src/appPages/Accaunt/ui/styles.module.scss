@@ -1,0 +1,129 @@
+@use "variables";
+
+.page {
+  margin-top: 80px;
+}
+
+.recommendation_card {
+  position: relative;
+  min-height: 200px;
+  height: auto;
+  border-radius: 36px;
+
+  .media {
+    height: 200px;
+  }
+  .content {
+    width: 100%;
+    height: 100%;
+    padding: 30px 20px 20px;
+    background: linear-gradient(
+      180deg,
+      rgba(29, 165, 153, 0.6) 0%,
+      rgba(255, 136, 45, 0.6) 99.99%
+    );
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    .title {
+      text-shadow:
+        1px 1px 2px 0px #a5d8cb4d,
+        -1px -1px 2px 0px #a1d4c780,
+        -1px 1px 2px 0px #a1d4c733,
+        1px -1px 2px 0px #a1d4c733,
+        -1px -1px 2px 0px #a5d8cbe5,
+        1px 1px 3px 0px #a1d4c7e5;
+    }
+    .description {
+      text-shadow:
+        1px 1px 2px 0px #ffc28a4d,
+        -1px -1px 2px 0px #ffc28a80,
+        -1px 1px 2px 0px #ffc28a33,
+        1px -1px 2px 0px #ffc28a33,
+        -1px -1px 2px 0px #ffc28ae5,
+        1px 1px 3px 0px #ffc28ae5;
+    }
+  }
+}
+
+.courses_wrapper {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+
+  .course_card {
+    padding: 30px;
+    min-height: 280px;
+    border-radius: 20px;
+    box-shadow:
+      -4px 4px 8px 0px #aeaeae33,
+      4px -4px 8px 0px #aeaeae33,
+      -4px -4px 8px 0px #ffffffe5,
+      4px 4px 10px 0px #aeaeaee5;
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    > :nth-child(1) {
+      align-items: start;
+    }
+    > :nth-child(2) {
+      align-items: end;
+    }
+    .flex_column {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      .price {
+        width: fit-content;
+        padding: 8px 10px;
+        border-radius: 10px;
+        background: var(
+          --mui-palette-primary-main
+        );
+      }
+    }
+  }
+}
+
+@media (min-width: variables.$theme-breakpoint-xs) {
+  .page {
+    padding: 20px 30px;
+  }
+  .recommendation_card,
+  .course_card {
+    min-width: calc(100vw - 30px);
+  }
+  .courses_wrapper {
+    gap: 30px;
+  }
+}
+@media (min-width: variables.$theme-breakpoint-sm) {
+  .recommendation_card {
+    min-width: 370px;
+  }
+  .course_card {
+    min-width: 585px;
+  }
+}
+@media (min-width: variables.$theme-breakpoint-md) {
+  .page {
+    padding: 20px 50px;
+  }
+  .recommendation_card {
+    min-width: 400px;
+  }
+  .course_card {
+    width: 645px;
+  }
+  .courses_wrapper {
+    gap: 50px;
+  }
+}
+@media (min-width: variables.$theme-breakpoint-lg) {
+}
+@media (min-width: variables.$theme-breakpoint-xl) {
+}

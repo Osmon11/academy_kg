@@ -10,8 +10,8 @@ import {
 import googleColorfulIcon from "@/icons/google-colorful.svg";
 import smsCoalGrayIcon from "@/icons/sms-coal-gray.svg";
 
-import PaperContainer from "./PaperContainer";
-import styles from "./styles.module.scss";
+import PaperContainer from "../PaperContainer";
+import styles from "../styles.module.scss";
 
 export function Authentication() {
   const searchParams = useSearchParams();

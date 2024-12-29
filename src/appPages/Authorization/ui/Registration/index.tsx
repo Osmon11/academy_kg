@@ -7,9 +7,9 @@ import { Box } from "@mui/material";
 
 import mainBg from "@/backgrounds/main-bg.png";
 
+import styles from "../styles.module.scss";
 import SignUp from "./SignUp";
 import VerifyAccount from "./VerifyAccount";
-import styles from "./styles.module.scss";
 
 export function RegistrationPage() {
   const searchParams = useSearchParams();

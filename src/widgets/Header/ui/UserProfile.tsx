@@ -8,7 +8,6 @@ import { useCookies } from "react-cookie";
 
 import {
   Box,
-  IconButton,
   Menu,
   MenuItem,
   SxProps,
@@ -63,16 +62,12 @@ export default function UserProfile({
         }}
         sx={sx}
       >
-        <IconButton>
-          <Image
-            src={
-              profile?.avatar ?? avatarGrayIcon
-            }
-            alt="user profile avatar"
-            width={30}
-            height={30}
-          />
-        </IconButton>
+        <Image
+          src={profile?.avatar ?? avatarGrayIcon}
+          alt="user profile avatar"
+          width={30}
+          height={30}
+        />
         <Box
           sx={{
             display: { xs: "flex", md: "block" },

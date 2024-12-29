@@ -24,8 +24,8 @@ import { IErrorResponseData } from "@/shared/types";
 import eyeCoalGrayIcon from "@/icons/eye-coal-gray.svg";
 import eyeSlashCoalGrayIcon from "@/icons/eye-slash-coal-gray.svg";
 
-import PaperContainer from "./PaperContainer";
-import styles from "./styles.module.scss";
+import PaperContainer from "../PaperContainer";
+import styles from "../styles.module.scss";
 
 interface IFormValues {
   email: string;
