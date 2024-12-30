@@ -16,6 +16,7 @@ import {
 } from "@mui/material";
 
 import { useAppSelector } from "@/shared/config/store";
+import { routePath } from "@/shared/functions";
 
 import logoPrimaryIcon from "@/icons/logo-primary.svg";
 import logoIcon from "@/icons/logo.svg";
@@ -83,7 +84,7 @@ export function Header({
         styles[background],
       )}
     >
-      <Link href="/">
+      <Link href={routePath("main")}>
         <Image
           src={
             mainLayout

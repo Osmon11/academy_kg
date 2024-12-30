@@ -14,6 +14,7 @@ import {
   Typography,
 } from "@mui/material";
 
+import { routePath } from "@/shared/functions";
 import { IProfile } from "@/shared/types";
 
 import avatarGrayIcon from "@/icons/avatar-gray.svg";
@@ -45,7 +46,7 @@ export default function UserProfile({
   function logout() {
     setAnchorEl(null);
     removeCookie("access_token_ilimnuru_kg");
-    router.push("/");
+    router.push(routePath("main"));
   }
   return (
     <Fragment>
@@ -128,9 +129,7 @@ export default function UserProfile({
           <MenuItem
             onClick={() => {
               setAnchorEl(null);
-              router.push(
-                "/personal-accaunt/main",
-              );
+              router.push(routePath("accaunt"));
             }}
           >
             Личный кабинет

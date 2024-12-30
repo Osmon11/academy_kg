@@ -14,7 +14,7 @@ import {
   clearUserProfile,
   setUserProfile,
 } from "../model/user";
-import clientAxios from "./clientAxios";
+import axiosInstance from "./axios";
 import {
   AppStore,
   makeStore,
@@ -33,7 +33,7 @@ function GlobalProfileFetcher({
   useEffect(() => {
     if (token) {
       // Fetch profile data if token exists
-      clientAxios
+      axiosInstance
         .get("/auth/profile")
         .then((response) => {
           dispatch(setUserProfile(response.data));

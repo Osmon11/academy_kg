@@ -1,4 +1,3 @@
-import axios from "axios";
 import { Fragment } from "react";
 
 import { Typography } from "@mui/material";
@@ -10,6 +9,7 @@ import { Banner } from "@/entities/Banner";
 import { PageHeading } from "@/entities/PageHeading";
 import { SectionHeader } from "@/entities/SectionHeader";
 
+import axiosInstance from "@/shared/config/axios";
 import { SECTION_MARGIN_TOP } from "@/shared/config/const";
 import {
   IUpcomingWebinarListItem,
@@ -21,12 +21,12 @@ import UpcomingWebinars from "./UpcomingWebinars";
 import WebinarAfterwards from "./WebinarAfterwards";
 
 export async function WebinarsPage() {
-  const webinarList = await axios
+  const webinarList = await axiosInstance
     .get<{
       results: IUpcomingWebinarListItem[];
     }>("academy/webinar_list/")
     .then((res) => res?.data.results);
-  const webinarAfterwards = await axios
+  const webinarAfterwards = await axiosInstance
     .get<{
       results: IWebinarAfterwardListItem[];
     }>("academy/webinar_afterwards/")

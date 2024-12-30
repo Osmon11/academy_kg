@@ -14,9 +14,8 @@ import { Banner } from "@/entities/Banner";
 import { PageHeading } from "@/entities/PageHeading";
 import { SectionHeader } from "@/entities/SectionHeader";
 
-import clientAxios from "@/shared/config/clientAxios";
+import axiosInstance from "@/shared/config/axios";
 import { SECTION_MARGIN_TOP } from "@/shared/config/const";
-// import { routePath } from "@/shared/functions";
 import {
   IFeedbackListItem,
   ISubjectListItem,
@@ -34,27 +33,21 @@ import Subjects from "./Subjects";
 import styles from "./styles.module.scss";
 
 export async function MainPage() {
-  const courseList = await clientAxios
+  const courseList = await axiosInstance
     .get<{
       results: ISubjectListItem[];
     }>("academy/course_list/")
     .then((res) => res?.data.results);
-  const teacherList = await clientAxios
+  const teacherList = await axiosInstance
     .get<{
       results: ITeacherListItem[];
     }>("academy/teacher_list/")
     .then((res) => res?.data.results);
-  const feedbackList = await clientAxios
+  const feedbackList = await axiosInstance
     .get<{
       results: IFeedbackListItem[];
     }>("academy/feedback_list/")
     .then((res) => res?.data.results);
-  // console.log(
-  //   routePath("[course]", {
-  //     id: 1,
-  //     queryParams: { email: "osmonab@gmail.com" },
-  //   }),
-  // );
   return (
     <Fragment>
       <Header

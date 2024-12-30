@@ -10,7 +10,8 @@ import {
 } from "@mui/material";
 
 import { ControllerTextField } from "@/shared/UI";
-import clientAxios from "@/shared/config/clientAxios";
+import axiosInstance from "@/shared/config/axios";
+import { routePath } from "@/shared/functions";
 
 import PaperContainer from "../PaperContainer";
 
@@ -36,7 +37,7 @@ export default function RecoverPassword() {
   const [codeSent, setCodeSent] = useState(false);
 
   function sendCodeAgain() {
-    clientAxios
+    axiosInstance
       .post("/auth/send_code_email/", { email })
       .then((res) => {
         if (res?.data.message) {
@@ -50,7 +51,7 @@ export default function RecoverPassword() {
 
   function onSubmit(data: IFormValues) {
     setLoading(true);
-    clientAxios
+    axiosInstance
       .post("/auth/recovery_password/", {
         email,
         ...data,
@@ -59,7 +60,9 @@ export default function RecoverPassword() {
         if (res?.data.message) {
           toast.success(res?.data.message);
           router.push(
-            "/authorization/login?via=email",
+            routePath("signIn", {
+              queryParams: { via: "email" },
+            }),
           );
         }
       })

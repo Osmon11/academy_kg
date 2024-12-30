@@ -9,13 +9,19 @@ import { toast } from "react-toastify";
 import { IErrorResponseData } from "../types";
 
 const cookies = new Cookies();
+const unknownError =
+  "Похоже возникла неизвестная ошибка";
 
-const clientAxios = axios.create({
+const axiosInstance = axios.create({
   baseURL: "http://80.64.24.132",
   withCredentials: true,
+  timeout: 5000, // 5 seconds
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
-clientAxios.interceptors.request.use(
+axiosInstance.interceptors.request.use(
   function (config: InternalAxiosRequestConfig) {
     const token: string = cookies.get(
       "access_token_ilimnuru_kg",
@@ -30,7 +36,7 @@ clientAxios.interceptors.request.use(
   },
 );
 
-clientAxios.interceptors.response.use(
+axiosInstance.interceptors.response.use(
   async (response: AxiosResponse) => {
     if (
       response.status === 200 ||
@@ -58,24 +64,47 @@ clientAxios.interceptors.response.use(
     );
   },
   async (
-    error: AxiosError<IErrorResponseData>,
+    error: AxiosError<
+      IErrorResponseData | string | undefined
+    >,
   ): Promise<IErrorResponseData> => {
     if (error.response) {
-      if (error.response.data) {
-        toast.error(
-          typeof error.response.data?.message ===
-            "string"
-            ? error.response.data.message
-            : "Похоже возникла неизвестная ошибка",
+      const resData = error.response?.data;
+      if (error.response.status === 401) {
+        cookies.remove(
+          "access_token_ilimnuru_kg",
         );
       }
+      if (
+        typeof resData === "object" &&
+        typeof window !== "undefined"
+      ) {
+        toast.error(
+          typeof resData.message === "string"
+            ? resData.message
+            : unknownError,
+        );
+      }
+      if (
+        typeof resData === "string" &&
+        resData.length < 101
+      ) {
+        toast.error(resData);
+        return Promise.reject({
+          message: resData,
+        });
+      }
     }
-    if (error.response?.status === 401) {
-      cookies.remove("access_token_ilimnuru_kg");
+    if (error.code === "ETIMEDOUT") {
+      console.error("Request timed out");
+      return Promise.reject(
+        new Error("Request timed out"),
+      );
     }
-
-    return Promise.reject(error.response?.data);
+    return Promise.reject({
+      message: unknownError,
+    });
   },
 );
 
-export default clientAxios;
+export default axiosInstance;

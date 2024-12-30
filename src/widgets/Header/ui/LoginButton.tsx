@@ -3,6 +3,8 @@ import Link from "next/link";
 
 import { Button } from "@mui/material";
 
+import { routePath } from "@/shared/functions";
+
 import loginIcon from "@/icons/login.svg";
 
 export default function LoginButton({
@@ -12,7 +14,7 @@ export default function LoginButton({
 }) {
   return (
     <Link
-      href="/authorization/login"
+      href={routePath("signIn")}
       style={{ width: "100%" }}
     >
       <Button

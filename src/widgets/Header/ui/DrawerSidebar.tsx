@@ -16,6 +16,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
+import { routePath } from "@/shared/functions";
 import { IProfile } from "@/shared/types";
 
 import logoPrimaryIcon from "@/icons/logo-primary.svg";
@@ -55,7 +56,7 @@ export default function DrawerSidebar({
       }}
     >
       <div className={styles.drawer_header}>
-        <Link href="/">
+        <Link href={routePath("main")}>
           <Image
             src={logoPrimaryIcon}
             alt="islamic online-academy green icon"

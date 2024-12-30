@@ -1,28 +1,21 @@
 import { useRouter } from "next-nprogress-bar";
-import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useCookies } from "react-cookie";
-import {
-  Controller,
-  useForm,
-} from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
 import {
   Box,
   Button,
-  IconButton,
-  TextField,
   Typography,
 } from "@mui/material";
 
-import clientAxios from "@/shared/config/clientAxios";
+import { ControllerTextField } from "@/shared/UI";
+import axiosInstance from "@/shared/config/axios";
+import { routePath } from "@/shared/functions";
 import { IErrorResponseData } from "@/shared/types";
-
-import eyeCoalGrayIcon from "@/icons/eye-coal-gray.svg";
-import eyeSlashCoalGrayIcon from "@/icons/eye-slash-coal-gray.svg";
 
 import PaperContainer from "../PaperContainer";
 import styles from "../styles.module.scss";
@@ -56,7 +49,7 @@ export default function SignIn() {
 
   function onSubmit(data: IFormValues) {
     setLoading(true);
-    clientAxios
+    axiosInstance
       .post("/auth/login/", data)
       .then((res) => {
         if (
@@ -88,19 +81,18 @@ export default function SignIn() {
           error?.message ===
           "Пользователь не подтвержден"
         ) {
-          clientAxios
+          axiosInstance
             .post("/auth/send_code_email/", data)
             .then((res) => {
               if (res?.data.message) {
                 toast.success(res?.data.message);
-                const queryParams =
-                  new URLSearchParams();
-                queryParams.set(
-                  "email",
-                  data.email,
-                );
                 router.push(
-                  `/authorization/registration?verify=true&${queryParams}`,
+                  routePath("signUp", {
+                    queryParams: {
+                      verify: "true",
+                      email: data.email,
+                    },
+                  }),
                 );
               }
             })
@@ -110,116 +102,34 @@ export default function SignIn() {
         }
       });
   }
-  const [visiblePassword, setPasswordVisibility] =
-    useState(false);
   return (
     <PaperContainer
       title="Вход с паролем"
       component="form"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <Box
-        sx={{ width: "100%", maxWidth: "400px" }}
-      >
-        <Controller
-          name="email"
-          control={control}
-          rules={{
-            required: "Необходимо ввести e-mail",
-          }}
-          render={({ field, fieldState }) => (
-            <TextField
-              {...field}
-              type="email"
-              placeholder="E-mail"
-              variant="outlined"
-              error={!!fieldState.error}
-              helperText={
-                fieldState.error?.message
-              }
-              fullWidth
-            />
-          )}
-        />
-      </Box>
-      <Box
-        sx={{ width: "100%", maxWidth: "400px" }}
-      >
-        <Controller
-          name="password"
-          control={control}
-          rules={{
-            required: "Необходимо ввести пароль",
-          }}
-          render={({ field, fieldState }) => (
-            <TextField
-              {...field}
-              type={
-                visiblePassword
-                  ? "text"
-                  : "password"
-              }
-              placeholder="Пароль"
-              variant="outlined"
-              error={!!fieldState.error}
-              helperText={
-                fieldState.error?.message
-              }
-              fullWidth
-              slotProps={{
-                input: {
-                  endAdornment: (
-                    <IconButton
-                      onClick={() =>
-                        setPasswordVisibility(
-                          (boolean) => !boolean,
-                        )
-                      }
-                    >
-                      {visiblePassword ? (
-                        <Image
-                          src={eyeCoalGrayIcon}
-                          alt="eye coal gray"
-                          width={24}
-                          height={24}
-                        />
-                      ) : (
-                        <Image
-                          src={
-                            eyeSlashCoalGrayIcon
-                          }
-                          alt="eye slash coal gray"
-                          width={24}
-                          height={24}
-                        />
-                      )}
-                    </IconButton>
-                  ),
-                },
-              }}
-            />
-          )}
-        />
-        <Box
-          sx={{
-            marginTop: "20px",
-            width: "100%",
-            display: "flex",
-            justifyContent: "end",
-          }}
-        >
-          <Link href="/authorization/login?via=fogot_password">
-            <Typography
-              variant="h6"
-              color="primary"
-              className={styles.link_text}
-              sx={{ width: "fit-content" }}
-            >
-              Забыли пароль?
-            </Typography>
-          </Link>
-        </Box>
-      </Box>
+      <ControllerTextField
+        name="email"
+        control={control}
+        rules={{
+          required: "Необходимо ввести e-mail",
+        }}
+        textField={{
+          type: "email",
+          placeholder: "E-mail",
+        }}
+      />
+      <ControllerTextField
+        name="password"
+        control={control}
+        rules={{
+          required: "Необходимо ввести пароль",
+        }}
+        textField={{
+          type: "password",
+          placeholder: "Пароль",
+        }}
+      />
       <Button
         type="submit"
         color="primary"
@@ -230,7 +140,6 @@ export default function SignIn() {
             loading,
         )}
         fullWidth
-        sx={{ maxWidth: "400px" }}
       >
         {loading ? "Ожидание..." : "Войти"}
       </Button>
@@ -247,7 +156,7 @@ export default function SignIn() {
           justifyContent: "center",
         }}
       >
-        <Link href="/authorization/registration">
+        <Link href={routePath("signUp")}>
           <Typography
             variant="h6"
             color="primary"

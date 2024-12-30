@@ -72,20 +72,20 @@
   }
 }
 @media (min-width: variables.$theme-breakpoint-sm) {
-}
-@media (min-width: variables.$theme-breakpoint-md) {
   .page {
     .paper {
-      padding: 50px 30px;
+      padding: 50px 40px;
     }
   }
 }
-@media (min-width: variables.$theme-breakpoint-lg) {
+@media (min-width: variables.$theme-breakpoint-md) {
   .page {
     .paper {
       padding: 50px 60px;
     }
   }
+}
+@media (min-width: variables.$theme-breakpoint-lg) {
 }
 @media (min-width: variables.$theme-breakpoint-xl) {
 }

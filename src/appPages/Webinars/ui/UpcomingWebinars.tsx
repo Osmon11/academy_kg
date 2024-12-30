@@ -15,9 +15,10 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
-import clientAxios from "@/shared/config/clientAxios";
+import axiosInstance from "@/shared/config/axios";
 import { SECTION_PADDING } from "@/shared/config/const";
 import { useAppSelector } from "@/shared/config/store";
+import { routePath } from "@/shared/functions";
 import { IUpcomingWebinarListItem } from "@/shared/types";
 
 import styles from "./styles.module.scss";
@@ -44,7 +45,7 @@ function ImageWrapper({
     if (profile) {
       if (profile.level >= webinar.level) {
         setLoading(true);
-        clientAxios
+        axiosInstance
           .post("/academy/request_webinar/", {
             webinar: webinar.id,
           })
@@ -71,7 +72,11 @@ function ImageWrapper({
       }
     } else {
       router.push(
-        "/authorization/login?return_pathname=/webinars",
+        routePath("signIn", {
+          queryParams: {
+            return_pathname: "/webinars",
+          },
+        }),
       );
     }
   }

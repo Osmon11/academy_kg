@@ -6,7 +6,7 @@ import { Banner } from "@/entities/Banner";
 import { GoBackHeader } from "@/entities/GoBackHeader";
 import { SectionHeader } from "@/entities/SectionHeader";
 
-import clientAxios from "@/shared/config/clientAxios";
+import axiosInstance from "@/shared/config/axios";
 import { SECTION_MARGIN_TOP } from "@/shared/config/const";
 import { IRequisiteListItem } from "@/shared/types";
 
@@ -14,7 +14,7 @@ import OurRequisites from "./OurRequisites";
 import styles from "./styles.module.scss";
 
 export async function SupportUsPage() {
-  const requisiteList = await clientAxios
+  const requisiteList = await axiosInstance
     .get<{
       results: IRequisiteListItem[];
     }>("academy/requisite_list/")

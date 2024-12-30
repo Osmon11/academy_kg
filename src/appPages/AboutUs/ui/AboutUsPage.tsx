@@ -7,7 +7,7 @@ import { OurTeachers } from "@/widgets/OurTeachers";
 import { PageHeading } from "@/entities/PageHeading";
 import { SectionHeader } from "@/entities/SectionHeader";
 
-import clientAxios from "@/shared/config/clientAxios";
+import axiosInstance from "@/shared/config/axios";
 import {
   ITeacherListItem,
   ITeammateListItem,
@@ -16,12 +16,12 @@ import {
 import OurTeam from "./OurTeam";
 
 export async function AboutUsPage() {
-  const teammateList = await clientAxios
+  const teammateList = await axiosInstance
     .get<{
       results: ITeammateListItem[];
     }>("academy/our_team_list/")
     .then((res) => res?.data.results);
-  const teacherList = await clientAxios
+  const teacherList = await axiosInstance
     .get<{
       results: ITeacherListItem[];
     }>("academy/teacher_list/")

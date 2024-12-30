@@ -7,6 +7,8 @@ import {
   Typography,
 } from "@mui/material";
 
+import { routePath } from "@/shared/functions";
+
 import googleColorfulIcon from "@/icons/google-colorful.svg";
 import smsCoalGrayIcon from "@/icons/sms-coal-gray.svg";
 
@@ -15,11 +17,15 @@ import styles from "../styles.module.scss";
 
 export function Authentication() {
   const searchParams = useSearchParams();
-  const queryParams = searchParams.toString();
+  const searchParamsObject = Object.fromEntries(
+    searchParams.entries(),
+  );
   return (
     <PaperContainer title="Войти или зарегистрироваться">
       <Link
-        href="/authorization/login?via=google"
+        href={routePath("signIn", {
+          queryParams: { via: "google" },
+        })}
         style={{ width: "100%" }}
       >
         <Button
@@ -39,7 +45,12 @@ export function Authentication() {
         </Button>
       </Link>
       <Link
-        href={`/authorization/login?via=email${queryParams ? `&${queryParams}` : ""}`}
+        href={routePath("signIn", {
+          queryParams: {
+            ...searchParamsObject,
+            via: "email",
+          },
+        })}
         style={{ width: "100%" }}
       >
         <Button
@@ -69,7 +80,7 @@ export function Authentication() {
         <span className={styles.line} />
       </div>
       <Link
-        href="/authorization/registration"
+        href={routePath("signUp")}
         style={{ width: "100%" }}
       >
         <Button

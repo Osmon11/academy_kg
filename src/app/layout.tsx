@@ -1,4 +1,3 @@
-import axios from "axios";
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import { cookies } from "next/headers";
@@ -8,14 +7,10 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@mui/material/styles";
 
 import { Providers } from "@/shared/config/Providers";
+import axiosInstance from "@/shared/config/axios";
 
 import "./globals.scss";
 import theme from "./theme";
-
-axios.defaults.baseURL = "http://80.64.24.132";
-axios.defaults.withCredentials = true;
-axios.defaults.headers["Content-Type"] =
-  "application/json";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -38,8 +33,9 @@ export default async function RootLayout({
     "access_token_ilimnuru_kg",
   );
   if (token) {
-    axios.defaults.headers["Authorization"] =
-      `Bearer ${token.value}`;
+    axiosInstance.defaults.headers[
+      "Authorization"
+    ] = `Bearer ${token.value}`;
   }
   return (
     <html lang="en">

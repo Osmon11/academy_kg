@@ -11,7 +11,8 @@ import {
 } from "@mui/material";
 
 import { ControllerTextField } from "@/shared/UI";
-import clientAxios from "@/shared/config/clientAxios";
+import axiosInstance from "@/shared/config/axios";
+import { routePath } from "@/shared/functions";
 
 import PaperContainer from "../PaperContainer";
 import styles from "../styles.module.scss";
@@ -35,16 +36,18 @@ export default function FogotPassword() {
 
   function onSubmit(data: IFormValues) {
     setLoading(true);
-    clientAxios
+    axiosInstance
       .post("/auth/send_code_email/", data)
       .then((res) => {
         if (res?.data.message) {
           toast.success(res?.data.message);
-          const queryParams =
-            new URLSearchParams();
-          queryParams.set("email", data.email);
           router.push(
-            `/authorization/login?via=recover_password&${queryParams}`,
+            routePath("signIn", {
+              queryParams: {
+                via: "recover_password",
+                email: data.email,
+              },
+            }),
           );
         }
       })
@@ -93,7 +96,7 @@ export default function FogotPassword() {
           justifyContent: "center",
         }}
       >
-        <Link href="/authorization/registration">
+        <Link href={routePath("signUp")}>
           <Typography
             variant="h6"
             color="primary"

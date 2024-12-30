@@ -15,7 +15,8 @@ import {
   ControllerRadioGroup,
   ControllerTextField,
 } from "@/shared/UI";
-import clientAxios from "@/shared/config/clientAxios";
+import axiosInstance from "@/shared/config/axios";
+import { routePath } from "@/shared/functions";
 
 import PaperContainer from "../PaperContainer";
 import styles from "../styles.module.scss";
@@ -49,13 +50,15 @@ export default function SignUp() {
 
   function onSubmit(data: IFormValues) {
     setLoading(true);
-    clientAxios
+    axiosInstance
       .post("/auth/register/", data)
       .then((res) => {
         if (res?.data.message) {
           toast.success(res?.data.message);
           router.push(
-            "/authorization/login?via=email",
+            routePath("signIn", {
+              queryParams: { via: "email" },
+            }),
           );
         }
       })
@@ -169,7 +172,7 @@ export default function SignUp() {
         type="submit"
         color="primary"
         variant="contained"
-        sx={{ width: "100%" }}
+        fullWidth
         disabled={Boolean(
           errors.name ||
             errors.surname ||
@@ -191,7 +194,7 @@ export default function SignUp() {
         Уже зарегистрировались?
       </Typography>
       <Link
-        href="/authorization/login?via=email"
+        href={routePath("signUp")}
         style={{ width: "100%" }}
       >
         <Typography

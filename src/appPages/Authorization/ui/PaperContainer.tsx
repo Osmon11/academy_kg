@@ -10,6 +10,8 @@ import {
   Typography,
 } from "@mui/material";
 
+import { routePath } from "@/shared/functions";
+
 import arrowLeftBlackIcon from "@/icons/arrow-left-black.svg";
 import logoPrimaryIcon from "@/icons/logo-primary.svg";
 
@@ -51,7 +53,7 @@ export default function PaperContainer({
           height={24}
         />
       </IconButton>
-      <Link href="/">
+      <Link href={routePath("main")}>
         <Image
           src={logoPrimaryIcon}
           alt="islamic online-academy green icon"
