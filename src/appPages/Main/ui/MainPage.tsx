@@ -16,6 +16,7 @@ import { SectionHeader } from "@/entities/SectionHeader";
 
 import clientAxios from "@/shared/config/clientAxios";
 import { SECTION_MARGIN_TOP } from "@/shared/config/const";
+// import { routePath } from "@/shared/functions";
 import {
   IFeedbackListItem,
   ISubjectListItem,
@@ -48,6 +49,12 @@ export async function MainPage() {
       results: IFeedbackListItem[];
     }>("academy/feedback_list/")
     .then((res) => res?.data.results);
+  // console.log(
+  //   routePath("[course]", {
+  //     id: 1,
+  //     queryParams: { email: "osmonab@gmail.com" },
+  //   }),
+  // );
   return (
     <Fragment>
       <Header

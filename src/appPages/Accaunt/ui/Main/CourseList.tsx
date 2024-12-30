@@ -2,7 +2,7 @@ import Image from "next/image";
 
 import { Box, Typography } from "@mui/material";
 
-import { formatThePrice } from "@/shared/functions/formatThePrice";
+import { formatThePrice } from "@/shared/functions";
 import { ICourseListItem } from "@/shared/types";
 
 import styles from "../styles.module.scss";
