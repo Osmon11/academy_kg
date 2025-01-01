@@ -1,13 +1,11 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
-import { cookies } from "next/headers";
 
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@mui/material/styles";
 
 import { Providers } from "@/shared/config/Providers";
-import axiosInstance from "@/shared/config/axios";
 
 import "./globals.scss";
 import theme from "./theme";
@@ -28,15 +26,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const cookieStore = await cookies();
-  const token = cookieStore.get(
-    "access_token_ilimnuru_kg",
-  );
-  if (token) {
-    axiosInstance.defaults.headers[
-      "Authorization"
-    ] = `Bearer ${token.value}`;
-  }
   return (
     <html lang="en">
       <head>

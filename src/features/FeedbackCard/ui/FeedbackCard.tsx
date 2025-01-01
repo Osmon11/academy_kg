@@ -1,11 +1,6 @@
-import classNames from "classnames";
-import Image from "next/image";
+import { CommentCard } from "@/features/CommentCard";
 
-import {
-  Card,
-  CardContent,
-  Typography,
-} from "@mui/material";
+import { TeacherProfileAvatar } from "@/entities/TeacherProfileAvatar";
 
 import { IFeedbackListItem } from "@/shared/types";
 
@@ -24,47 +19,17 @@ export function FeedbackCard({
   color,
 }: IFeedbackCardProps) {
   return (
-    <Card
-      elevation={0}
-      className={classNames(
-        styles.card,
-        styles[color],
-      )}
+    <CommentCard
+      comment={comment}
+      color={color}
     >
-      <CardContent className={styles.content}>
-        <Typography variant="h6">
-          {comment}
-        </Typography>
-        <div className={styles.label}>
-          <Image
-            src={avatar}
-            alt={full_name}
-            width={60}
-            height={60}
-            quality={100}
-            className={styles.profile_image}
-          />
-          <span>
-            <Typography
-              variant="body1"
-              fontWeight={700}
-              color={
-                color === "primary"
-                  ? "secondary"
-                  : "primary"
-              }
-            >
-              {full_name}
-            </Typography>
-            <Typography
-              variant="body2"
-              color="textSecondary"
-            >
-              {region}
-            </Typography>
-          </span>
-        </div>
-      </CardContent>
-    </Card>
+      <TeacherProfileAvatar
+        className={styles.label}
+        full_name={full_name}
+        avatar={avatar}
+        position={region}
+        fullnameColor={color}
+      />
+    </CommentCard>
   );
 }

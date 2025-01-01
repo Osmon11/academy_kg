@@ -12,7 +12,10 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
-import { SECTION_PADDING } from "@/shared/config/const";
+import {
+  SECTION_PADDING,
+  TIME_FORMAT,
+} from "@/shared/config/const";
 import { IWebinarAfterwardListItem } from "@/shared/types";
 
 import videoPlayPrimaryIcon from "@/icons/video-play-primary.svg";
@@ -60,7 +63,7 @@ export default function WebinarAfterwards({
 }) {
   const propertyBoxStyles = {
     display: "flex",
-    alignItems: {xs: "start", sm:"center"},
+    alignItems: { xs: "start", sm: "center" },
     justifyContent: {
       xs: "start",
       sm: "space-between",
@@ -81,7 +84,7 @@ export default function WebinarAfterwards({
       {webinars.map((webinar, webinarIndex) => {
         const durationTime = moment(
           webinar.duration_video,
-          "HH:mm:ss",
+          TIME_FORMAT,
         );
         const totalMinutes =
           durationTime.hours() * 60 +

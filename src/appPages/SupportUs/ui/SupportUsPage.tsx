@@ -6,7 +6,7 @@ import { Banner } from "@/entities/Banner";
 import { GoBackHeader } from "@/entities/GoBackHeader";
 import { SectionHeader } from "@/entities/SectionHeader";
 
-import axiosInstance from "@/shared/config/axios";
+import axiosInstance from "@/shared/config/axiosClientInstance";
 import { SECTION_MARGIN_TOP } from "@/shared/config/const";
 import { IRequisiteListItem } from "@/shared/types";
 

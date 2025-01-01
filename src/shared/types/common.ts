@@ -79,6 +79,11 @@ export interface IRecommendationListItem {
   logo: string;
 }
 
+export interface IObjectivesListItem {
+  id: number;
+  title: string;
+}
+
 export interface ICourseListItem {
   id: number;
   title: string;
@@ -86,4 +91,16 @@ export interface ICourseListItem {
   image: string;
   teacher: string;
   price: number;
+}
+
+export interface ICourseDetail
+  extends Omit<ICourseListItem, "teacher"> {
+  teacher: ITeacherListItem;
+  objectives: IObjectivesListItem[];
+  levels: {
+    id: number;
+    level: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  };
+  lesson_count: string;
+  duration_count: string;
 }

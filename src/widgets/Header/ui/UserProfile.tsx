@@ -38,14 +38,16 @@ export default function UserProfile({
     useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const removeCookie = useCookies([
-    "access_token_ilimnuru_kg",
+    process.env.NEXT_ACCESS_TOKEN_KEY as string,
   ])[2];
   const pathname = usePathname();
   const router = useRouter();
 
   function logout() {
     setAnchorEl(null);
-    removeCookie("access_token_ilimnuru_kg");
+    removeCookie(
+      process.env.NEXT_ACCESS_TOKEN_KEY as string,
+    );
     router.push(routePath("main"));
   }
   return (

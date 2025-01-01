@@ -14,7 +14,7 @@ import {
   clearUserProfile,
   setUserProfile,
 } from "../model/user";
-import axiosInstance from "./axios";
+import axiosInstance from "./axiosClientInstance";
 import {
   AppStore,
   makeStore,
@@ -27,8 +27,14 @@ function GlobalProfileFetcher({
   children: React.ReactNode;
 }) {
   const dispatch = useAppDispatch();
-  const [{ access_token_ilimnuru_kg: token }] =
-    useCookies(["access_token_ilimnuru_kg"]);
+  const [
+    {
+      [process.env
+        .NEXT_ACCESS_TOKEN_KEY as string]: token,
+    },
+  ] = useCookies([
+    process.env.NEXT_ACCESS_TOKEN_KEY as string,
+  ]);
 
   useEffect(() => {
     if (token) {

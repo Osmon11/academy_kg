@@ -1,14 +1,14 @@
 import { CourseOverviewPage } from "@/appPages/Accaunt";
 
-interface ICourseParams {
-  course: string;
+interface ICourseProps {
+  params: Promise<{
+    course: string;
+  }>;
 }
 
 export default async function Course({
   params,
-}: {
-  params: Promise<ICourseParams>;
-}) {
-  console.log((await params).course);
-  return <CourseOverviewPage />;
+}: ICourseProps) {
+  const { course } = await params;
+  return <CourseOverviewPage courseId={course} />;
 }

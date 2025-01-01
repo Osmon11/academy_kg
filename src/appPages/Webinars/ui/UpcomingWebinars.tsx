@@ -15,8 +15,11 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
-import axiosInstance from "@/shared/config/axios";
-import { SECTION_PADDING } from "@/shared/config/const";
+import axiosInstance from "@/shared/config/axiosClientInstance";
+import {
+  SECTION_PADDING,
+  TIME_FORMAT,
+} from "@/shared/config/const";
 import { useAppSelector } from "@/shared/config/store";
 import { routePath } from "@/shared/functions";
 import { IUpcomingWebinarListItem } from "@/shared/types";
@@ -147,7 +150,7 @@ export default function UpcomingWebinars({
           0;
         const durationTime = moment(
           webinar.duration,
-          "HH:mm:ss",
+          TIME_FORMAT,
         );
         const totalMinutes =
           durationTime.hours() * 60 +

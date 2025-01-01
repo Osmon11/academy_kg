@@ -1,0 +1,10 @@
+@use "variables";
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  .profile_image {
+    border-radius: 50%;
+  }
+}

@@ -14,7 +14,7 @@ import { Banner } from "@/entities/Banner";
 import { PageHeading } from "@/entities/PageHeading";
 import { SectionHeader } from "@/entities/SectionHeader";
 
-import axiosInstance from "@/shared/config/axios";
+import axiosInstance from "@/shared/config/axiosClientInstance";
 import { SECTION_MARGIN_TOP } from "@/shared/config/const";
 import {
   IFeedbackListItem,

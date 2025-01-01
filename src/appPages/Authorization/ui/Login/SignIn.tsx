@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 
 import { ControllerTextField } from "@/shared/UI";
-import axiosInstance from "@/shared/config/axios";
+import axiosInstance from "@/shared/config/axiosClientInstance";
 import { routePath } from "@/shared/functions";
 import { IErrorResponseData } from "@/shared/types";
 
@@ -44,7 +44,9 @@ export default function SignIn() {
   const [
     { access_token_ilimnuru_kg },
     setCookie,
-  ] = useCookies(["access_token_ilimnuru_kg"]);
+  ] = useCookies([
+    process.env.NEXT_ACCESS_TOKEN_KEY as string,
+  ]);
   const [loading, setLoading] = useState(false);
 
   function onSubmit(data: IFormValues) {
@@ -62,7 +64,8 @@ export default function SignIn() {
               30 * 24 * 60 * 60 * 1000,
           );
           setCookie(
-            "access_token_ilimnuru_kg",
+            process.env
+              .NEXT_ACCESS_TOKEN_KEY as string,
             res?.data.access,
             {
               path: "/",

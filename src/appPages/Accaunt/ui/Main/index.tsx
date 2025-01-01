@@ -46,7 +46,10 @@ export function AccauntMainPage() {
   return (
     <Fragment>
       <Header background="white" />
-      <Box className={styles.page}>
+      <Box
+        className={styles.page}
+        sx={{ marginTop: "80px" }}
+      >
         <Typography
           variant="h5"
           color="textSecondary"

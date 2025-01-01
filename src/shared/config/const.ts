@@ -9,3 +9,5 @@ export const SECTION_MARGIN_TOP = {
   md: "50px",
   lg: "80px",
 };
+
+export const TIME_FORMAT = "HH:mm:ss";

@@ -7,7 +7,7 @@ import { OurTeachers } from "@/widgets/OurTeachers";
 import { PageHeading } from "@/entities/PageHeading";
 import { SectionHeader } from "@/entities/SectionHeader";
 
-import axiosInstance from "@/shared/config/axios";
+import axiosInstance from "@/shared/config/axiosClientInstance";
 import {
   ITeacherListItem,
   ITeammateListItem,

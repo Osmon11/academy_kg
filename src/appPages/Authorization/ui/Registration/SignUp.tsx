@@ -15,7 +15,7 @@ import {
   ControllerRadioGroup,
   ControllerTextField,
 } from "@/shared/UI";
-import axiosInstance from "@/shared/config/axios";
+import axiosInstance from "@/shared/config/axiosClientInstance";
 import { routePath } from "@/shared/functions";
 
 import PaperContainer from "../PaperContainer";

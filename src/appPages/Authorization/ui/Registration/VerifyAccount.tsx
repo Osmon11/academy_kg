@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 import { Button } from "@mui/material";
 
 import { ControllerTextField } from "@/shared/UI";
-import axiosInstance from "@/shared/config/axios";
+import axiosInstance from "@/shared/config/axiosClientInstance";
 import { routePath } from "@/shared/functions";
 
 import PaperContainer from "../PaperContainer";
