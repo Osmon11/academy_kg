@@ -1,7 +1,11 @@
 import moment from "moment";
+import Image from "next/image";
 import { Fragment } from "react";
 
 import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
   Box,
   Button,
   Grid2 as Grid,
@@ -18,6 +22,8 @@ import { TeacherProfileAvatar } from "@/entities/TeacherProfileAvatar";
 import { createAxiosInstanceForSSR } from "@/shared/config/axiosServerInstance";
 import { TIME_FORMAT } from "@/shared/config/const";
 import { ICourseDetail } from "@/shared/types";
+
+import arrowUpBlackIcon from "@/icons/arrow-up-black.svg";
 
 import styles from "../styles.module.scss";
 
@@ -36,12 +42,15 @@ export async function CourseOverviewPage({
         `/academy/course_detail/${courseId}`,
       )
       .then((res) => res.data);
+    // const courseLevelDetail = await axiosInstance
+    //   .get<ICourseLevelDetail>(
+    //     `/academy/course_level_detail/${courseId}`,
+    //   )
+    //   .then((res) => res.data);
     const durationTime = moment(
       courseDetail.duration_count,
       TIME_FORMAT,
     );
-    console.log(durationTime);
-
     return (
       <Fragment>
         <GoBackHeader
@@ -133,9 +142,43 @@ export async function CourseOverviewPage({
             fontWeight={500}
             sx={{ marginTop: "20px" }}
           >
-            {/* {`${courseDetail.lesson_count} лекций, ${durationTime.hours()} часов ${durationTime.minutes()} минуты`} */}
-            15 лекций, 9 часов 33 минуты
+            {`${courseDetail.lesson_count} лекций, ${durationTime.hours()} часов ${durationTime.minutes()} минуты`}
           </Typography>
+          <Accordion>
+            <AccordionSummary
+              expandIcon={
+                <Image
+                  src={arrowUpBlackIcon}
+                  alt="arrow up black icon"
+                  width={30}
+                  height={30}
+                />
+              }
+              aria-controls="panel1-content"
+              id="panel1-header"
+            >
+              <Box>
+                <Typography
+                  variant="h5"
+                  color="textSecondary"
+                  fontWeight={600}
+                >
+                  Уроки
+                </Typography>
+                <Typography
+                  variant="subtitle2"
+                  color="textSecondary"
+                >{`${courseDetail.lesson_count} уроков`}</Typography>
+              </Box>
+            </AccordionSummary>
+            <AccordionDetails>
+              {/* <Lessons
+                lessons={
+                  courseLevelDetail.lessons
+                }
+              /> */}
+            </AccordionDetails>
+          </Accordion>
         </Box>
         <Footer />
       </Fragment>

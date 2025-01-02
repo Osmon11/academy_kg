@@ -7,7 +7,8 @@ export const createAxiosInstanceForSSR =
   async (): Promise<AxiosInstance> => {
     const cookieStore = await cookies();
     const token = cookieStore.get(
-      process.env.NEXT_ACCESS_TOKEN_KEY as string,
+      process.env
+        .NEXT_PUBLIC_ACCESS_TOKEN_KEY as string,
     )?.value;
 
     const axiosInstance = axios.create(

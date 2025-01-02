@@ -35,16 +35,22 @@ interface INavLink {
 }
 
 const mainNavLinks: INavLink[] = [
-  { label: "Главное", href: "/" },
-  { label: "Вебинары", href: "/webinars" },
-  { label: "О нас", href: "/about-us" },
-  { label: "Поддержать", href: "/support-us" },
+  { label: "Главное", href: routePath("main") },
+  {
+    label: "Вебинары",
+    href: routePath("webinars"),
+  },
+  { label: "О нас", href: routePath("aboutUs") },
+  {
+    label: "Поддержать",
+    href: routePath("supportUs"),
+  },
 ];
 
 const accountNavLinks: INavLink[] = [
   {
     label: "Главное",
-    href: "/personal-accaunt/main",
+    href: routePath("accaunt"),
   },
 ];
 
@@ -94,7 +100,6 @@ export function Header({
           alt="islamic online-academy logo"
           width={40}
           height={40}
-          className={styles.logo}
         />
       </Link>
       {upMd && (
@@ -181,7 +186,6 @@ export function Header({
                 alt="menu icon"
                 width={32}
                 height={32}
-                className={styles.logo}
               />
             </IconButton>
             <DrawerSidebar

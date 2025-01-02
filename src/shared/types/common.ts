@@ -99,8 +99,30 @@ export interface ICourseDetail
   objectives: IObjectivesListItem[];
   levels: {
     id: number;
-    level: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    level: number;
   };
   lesson_count: string;
   duration_count: string;
+}
+
+export interface ILessonDetail {
+  id: number;
+  tittle: string;
+  duration: string;
+  video: string;
+  text_lesson: string;
+}
+
+export interface IExamDetail {
+  id: number;
+  title: string;
+  duration: string;
+  pass_points: number;
+}
+
+export interface ICourseLevelDetail {
+  id: number;
+  level: number;
+  lessons: ILessonDetail[];
+  exam: IExamDetail;
 }

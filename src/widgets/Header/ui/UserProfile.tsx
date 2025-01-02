@@ -38,7 +38,8 @@ export default function UserProfile({
     useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const removeCookie = useCookies([
-    process.env.NEXT_ACCESS_TOKEN_KEY as string,
+    process.env
+      .NEXT_PUBLIC_ACCESS_TOKEN_KEY as string,
   ])[2];
   const pathname = usePathname();
   const router = useRouter();
@@ -46,7 +47,8 @@ export default function UserProfile({
   function logout() {
     setAnchorEl(null);
     removeCookie(
-      process.env.NEXT_ACCESS_TOKEN_KEY as string,
+      process.env
+        .NEXT_PUBLIC_ACCESS_TOKEN_KEY as string,
     );
     router.push(routePath("main"));
   }

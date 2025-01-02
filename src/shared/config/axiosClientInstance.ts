@@ -19,7 +19,7 @@ axiosInstance.interceptors.request.use(
     if (typeof window !== "undefined") {
       const token: string = cookies.get(
         process.env
-          .NEXT_ACCESS_TOKEN_KEY as string,
+          .NEXT_PUBLIC_ACCESS_TOKEN_KEY as string,
       );
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
@@ -69,7 +69,7 @@ axiosInstance.interceptors.response.use(
       if (error.response.status === 401) {
         cookies.remove(
           process.env
-            .NEXT_ACCESS_TOKEN_KEY as string,
+            .NEXT_PUBLIC_ACCESS_TOKEN_KEY as string,
         );
       }
       if (typeof window !== "undefined") {

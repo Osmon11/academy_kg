@@ -45,7 +45,8 @@ export default function SignIn() {
     { access_token_ilimnuru_kg },
     setCookie,
   ] = useCookies([
-    process.env.NEXT_ACCESS_TOKEN_KEY as string,
+    process.env
+      .NEXT_PUBLIC_ACCESS_TOKEN_KEY as string,
   ]);
   const [loading, setLoading] = useState(false);
 
@@ -63,9 +64,10 @@ export default function SignIn() {
             d.getTime() +
               30 * 24 * 60 * 60 * 1000,
           );
+
           setCookie(
             process.env
-              .NEXT_ACCESS_TOKEN_KEY as string,
+              .NEXT_PUBLIC_ACCESS_TOKEN_KEY as string,
             res?.data.access,
             {
               path: "/",
@@ -74,7 +76,7 @@ export default function SignIn() {
           );
           router.replace(
             returnPathname ??
-              "/personal-accaunt/main",
+              routePath("accaunt"),
           );
           setLoading(false);
         }

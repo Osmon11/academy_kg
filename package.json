@@ -15,6 +15,7 @@
     "@mui/material": "^6.2.0",
     "@mui/material-nextjs": "^6.2.0",
     "@reduxjs/toolkit": "^2.5.0",
+    "@types/react-window": "^1.8.8",
     "axios": "^1.7.9",
     "classnames": "^2.5.1",
     "embla-carousel": "^8.5.1",
@@ -29,7 +30,8 @@
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.54.2",
     "react-redux": "^9.2.0",
-    "react-toastify": "^11.0.2"
+    "react-toastify": "^11.0.2",
+    "react-window": "^1.8.11"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

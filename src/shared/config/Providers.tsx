@@ -30,10 +30,12 @@ function GlobalProfileFetcher({
   const [
     {
       [process.env
-        .NEXT_ACCESS_TOKEN_KEY as string]: token,
+        .NEXT_PUBLIC_ACCESS_TOKEN_KEY as string]:
+        token,
     },
   ] = useCookies([
-    process.env.NEXT_ACCESS_TOKEN_KEY as string,
+    process.env
+      .NEXT_PUBLIC_ACCESS_TOKEN_KEY as string,
   ]);
 
   useEffect(() => {

@@ -3,7 +3,8 @@ import type { NextRequest } from "next/server";
 
 export function middleware(req: NextRequest) {
   const accessToken = req.cookies.get(
-    process.env.NEXT_ACCESS_TOKEN_KEY as string,
+    process.env
+      .NEXT_PUBLIC_ACCESS_TOKEN_KEY as string,
   );
   if (accessToken) {
     if (req.url.includes("authorization")) {
