@@ -13,4 +13,5 @@ export enum ERoute {
   "accaunt" = "/personal-accaunt/main",
   "courses" = "/personal-accaunt/courses",
   "[course]" = "/personal-accaunt/courses/[id]",
+  "study" = "/personal-accaunt/courses/[id]/study",
 }

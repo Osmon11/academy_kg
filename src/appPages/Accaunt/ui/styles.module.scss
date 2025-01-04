@@ -120,6 +120,12 @@
   }
 }
 
+.lesson_wrapper {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
+
 @media (min-width: variables.$theme-breakpoint-xs) {
   .page {
     padding: 20px 30px;

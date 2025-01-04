@@ -1,5 +1,6 @@
 import moment from "moment";
 import Image from "next/image";
+import Link from "next/link";
 import { Fragment } from "react";
 
 import {
@@ -21,9 +22,10 @@ import { TeacherProfileAvatar } from "@/entities/TeacherProfileAvatar";
 
 import { createAxiosInstanceForSSR } from "@/shared/config/axiosServerInstance";
 import { TIME_FORMAT } from "@/shared/config/const";
+import { routePath } from "@/shared/functions";
 import { ICourseDetail } from "@/shared/types";
 
-import arrowUpBlackIcon from "@/icons/arrow-up-black.svg";
+import arrowDownBlackIcon from "@/icons/arrow-down-black.svg";
 
 import styles from "../styles.module.scss";
 
@@ -51,6 +53,8 @@ export async function CourseOverviewPage({
       courseDetail.duration_count,
       TIME_FORMAT,
     );
+    const hours = durationTime.hours();
+    const minutes = durationTime.minutes();
     return (
       <Fragment>
         <GoBackHeader
@@ -75,13 +79,19 @@ export async function CourseOverviewPage({
                 fullnameColor="secondary"
                 {...courseDetail.teacher}
               />
-              <Button
-                variant="contained"
-                color="secondary"
-                sx={{ width: "300px" }}
+              <Link
+                href={routePath("study", {
+                  id: Number(courseId),
+                })}
               >
-                Начать учиться
-              </Button>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  sx={{ width: "300px" }}
+                >
+                  Начать учиться
+                </Button>
+              </Link>
             </Box>
           </Box>
           <Typography
@@ -135,20 +145,31 @@ export async function CourseOverviewPage({
           >
             Программа курса
           </Typography>
-          <Typography
-            variant="h5"
-            color="primary"
-            textAlign="center"
-            fontWeight={500}
-            sx={{ marginTop: "20px" }}
+          {courseDetail.lesson_count && (
+            <Typography
+              variant="h5"
+              color="primary"
+              textAlign="center"
+              fontWeight={500}
+              sx={{ marginTop: "20px" }}
+            >
+              {`${courseDetail.lesson_count} лекций, ${hours ? hours + " часов" : ""} ${minutes} минут`}
+            </Typography>
+          )}
+          <Accordion
+            elevation={0}
+            sx={{
+              marginTop: "40px",
+              border: "none",
+              "::before": {
+                display: "none",
+              },
+            }}
           >
-            {`${courseDetail.lesson_count} лекций, ${durationTime.hours()} часов ${durationTime.minutes()} минуты`}
-          </Typography>
-          <Accordion>
             <AccordionSummary
               expandIcon={
                 <Image
-                  src={arrowUpBlackIcon}
+                  src={arrowDownBlackIcon}
                   alt="arrow up black icon"
                   width={30}
                   height={30}
@@ -156,6 +177,7 @@ export async function CourseOverviewPage({
               }
               aria-controls="panel1-content"
               id="panel1-header"
+              sx={{ padding: "0px" }}
             >
               <Box>
                 <Typography

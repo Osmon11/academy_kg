@@ -16,7 +16,7 @@ export function routePath(
   let result = ERoute[route].toString();
 
   if (
-    route.includes("[") &&
+    result.includes("[") &&
     typeof options?.id === "number"
   ) {
     result = result.replace(
