@@ -11,6 +11,7 @@ import {
 } from "@/shared/types";
 
 import styles from "../styles.module.scss";
+import Lesson from "./Lesson";
 
 interface IStudyPageProps {
   courseId: string;
@@ -40,10 +41,7 @@ export async function StudyPage({
           title={courseDetail.title}
         />
         <Box className={styles.page}>
-          <Box className={styles.lesson_wrapper}>
-            <video />
-            <Box></Box>
-          </Box>
+          <Lesson />
         </Box>
       </Fragment>
     );
