@@ -50,39 +50,6 @@
   display: flex;
   align-items: stretch;
   justify-content: center;
-
-  .course_card {
-    padding: 30px;
-    min-height: 280px;
-    border-radius: 20px;
-    box-shadow:
-      -4px 4px 8px 0px #aeaeae33,
-      4px -4px 8px 0px #aeaeae33,
-      -4px -4px 8px 0px #ffffffe5,
-      4px 4px 10px 0px #aeaeaee5;
-    display: flex;
-    justify-content: space-between;
-    gap: 30px;
-    > :nth-child(1) {
-      align-items: start;
-    }
-    > :nth-child(2) {
-      align-items: end;
-    }
-    .flex_column {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      .price {
-        width: fit-content;
-        padding: 8px 10px;
-        border-radius: 10px;
-        background: var(
-          --mui-palette-primary-main
-        );
-      }
-    }
-  }
 }
 
 .course_heading {
@@ -106,44 +73,86 @@
   background: var(--mui-palette-secondary-main);
 }
 
-.lessons {
+.accordeons {
+  border-top: 1px solid #f2f2f2;
+  border-bottom: 1px solid #f2f2f2;
   .item {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 20px;
-    .left {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
   }
+}
+
+.flex_box {
+  display: flex;
+  align-items: center;
 }
 
 .lesson_wrapper {
   display: flex;
-  align-items: center;
-  gap: 50px;
+  video {
+    background-color: black;
+  }
+  .list,
+  .text_of_the_lesson {
+    width: 100%;
+    overflow: auto;
+    padding-right: 10px;
+  }
+  .wrapper {
+    margin-top: 10px;
+    border-top: 1px solid #f2f2f2;
+    border-bottom: 1px solid #f2f2f2;
+  }
+  .text_of_the_lesson {
+    position: relative;
+    margin: 10px 0px;
+    padding: 9px;
+    padding-left: 0px;
+  }
+}
+
+.questions {
+  .input_wrapper {
+    width: 100%;
+    padding: 10px;
+    border-radius: 12px;
+    background: variables.$theme-color-white-smoke;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
 }
 
 @media (min-width: variables.$theme-breakpoint-xs) {
   .page {
     padding: 20px 30px;
   }
-  .recommendation_card,
-  .course_card {
+  .recommendation_card {
     min-width: calc(100vw - 30px);
   }
   .courses_wrapper {
     gap: 30px;
   }
+  .lesson_wrapper {
+    gap: 30px;
+    video {
+      width: 100%;
+      height: 400px;
+    }
+    .list {
+      max-height: 325px;
+      margin-top: 25px;
+    }
+    .text_of_the_lesson {
+      max-height: 285px;
+    }
+  }
 }
 @media (min-width: variables.$theme-breakpoint-sm) {
   .recommendation_card {
     min-width: 370px;
-  }
-  .course_card {
-    min-width: 585px;
   }
 }
 @media (min-width: variables.$theme-breakpoint-md) {
@@ -153,11 +162,19 @@
   .recommendation_card {
     min-width: 400px;
   }
-  .course_card {
-    width: 645px;
-  }
+
   .courses_wrapper {
     gap: 50px;
+  }
+  .lesson_wrapper {
+    gap: 50px;
+    video {
+      width: calc(60% - 25px);
+      height: 440px;
+    }
+    .list {
+      max-height: 365px;
+    }
   }
 }
 @media (min-width: variables.$theme-breakpoint-lg) {

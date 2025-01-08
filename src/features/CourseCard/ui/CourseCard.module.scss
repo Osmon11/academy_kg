@@ -1,0 +1,52 @@
+@use "variables";
+
+.course_card {
+  padding: 30px;
+  min-height: 280px;
+  border-radius: 20px;
+  box-shadow:
+    -4px 4px 8px 0px #aeaeae33,
+    4px -4px 8px 0px #aeaeae33,
+    -4px -4px 8px 0px #ffffffe5,
+    4px 4px 10px 0px #aeaeaee5;
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  > :nth-child(1) {
+    align-items: start;
+  }
+  > :nth-child(2) {
+    align-items: end;
+  }
+  .flex_column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .price {
+      width: fit-content;
+      padding: 8px 10px;
+      border-radius: 10px;
+      background: var(--mui-palette-primary-main);
+    }
+  }
+}
+
+@media (min-width: variables.$theme-breakpoint-xs) {
+  .course_card {
+    min-width: calc(100vw - 30px);
+  }
+}
+@media (min-width: variables.$theme-breakpoint-sm) {
+  .course_card {
+    min-width: 585px;
+  }
+}
+@media (min-width: variables.$theme-breakpoint-md) {
+  .course_card {
+    width: 645px;
+  }
+}
+@media (min-width: variables.$theme-breakpoint-lg) {
+}
+@media (min-width: variables.$theme-breakpoint-xl) {
+}

@@ -9,6 +9,22 @@ a {
   line-height: normal;
   text-decoration: none;
 }
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-track {
+  border-radius: 30px;
+}
+::-webkit-scrollbar-track {
+  background: #e5e5e5;
+}
+::-webkit-scrollbar-thumb {
+  background: variables.$theme-color-grey-coal;
+  &:hover {
+    background: variables.$theme-color-grey-placeholder;
+  }
+}
 .circle_icon_wrapper {
   width: 40px;
   height: 40px;

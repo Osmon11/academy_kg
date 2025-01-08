@@ -20,7 +20,7 @@ import playCirclePrimaryIcon from "@/icons/play-circle-primary.svg";
 
 import styles from "../styles.module.scss";
 
-interface ILessonsProps {
+interface IOverviewLessonsProps {
   lessons: ILessonDetail[];
 }
 
@@ -36,21 +36,29 @@ function renderRow(
       component="div"
       className={styles.item}
     >
-      <Box className={styles.left}>
+      <Box
+        className={styles.flex_box}
+        sx={{ gap: "20px" }}
+      >
         <Typography>{index + 1}</Typography>
-        <Image
-          src={playCirclePrimaryIcon}
-          alt="play circle green icon"
-          width={24}
-          height={24}
-        />
-        <Typography
-          variant="body1"
-          color="textSecondary"
-          fontWeight={600}
+        <Box
+          className={styles.flex_box}
+          sx={{ gap: "8px" }}
         >
-          {lesson.tittle}
-        </Typography>
+          <Image
+            src={playCirclePrimaryIcon}
+            alt="play circle green icon"
+            width={24}
+            height={24}
+          />
+          <Typography
+            variant="body1"
+            color="textSecondary"
+            fontWeight={600}
+          >
+            {lesson.tittle}
+          </Typography>
+        </Box>
       </Box>
       <Typography
         variant="body1"
@@ -60,12 +68,12 @@ function renderRow(
   );
 }
 
-export default function Lessons({
+export default function OverviewLessons({
   lessons,
-}: ILessonsProps) {
+}: IOverviewLessonsProps) {
   return (
     <FixedSizeList
-      className={styles.lessons}
+      className={styles.accordeons}
       height={400}
       width={800}
       itemSize={46}

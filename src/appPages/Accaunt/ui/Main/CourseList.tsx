@@ -1,12 +1,7 @@
-import Image from "next/image";
-import Link from "next/link";
+import { Box } from "@mui/material";
 
-import { Box, Typography } from "@mui/material";
+import { CourseCard } from "@/features/CourseCard";
 
-import {
-  formatThePrice,
-  routePath,
-} from "@/shared/functions";
 import { ICourseListItem } from "@/shared/types";
 
 import styles from "../styles.module.scss";
@@ -18,67 +13,11 @@ export default function CourseList({
 }) {
   return (
     <Box className={styles.courses_wrapper}>
-      {courses.map((item) => (
-        <Link
-          key={item.id}
-          href={routePath("[course]", {
-            id: item.id,
-          })}
-        >
-          <Box className={styles.course_card}>
-            <Box className={styles.flex_column}>
-              <Box>
-                <Typography
-                  variant="h5"
-                  color="secondary"
-                  fontWeight={700}
-                >
-                  {item.title}
-                </Typography>
-                <Typography
-                  variant="h6"
-                  color="textSecondary"
-                  sx={{ marginTop: "8px" }}
-                >
-                  {item.description}
-                </Typography>
-              </Box>
-              <Box>
-                <Typography
-                  variant="body1"
-                  color="textThirtiary"
-                  fontWeight={700}
-                >
-                  Преподаватель
-                </Typography>
-                <Typography
-                  variant="h6"
-                  color="textSecondary"
-                  fontWeight={600}
-                  sx={{ marginTop: "8px" }}
-                >
-                  {item.teacher}
-                </Typography>
-              </Box>
-            </Box>
-            <Box className={styles.flex_column}>
-              <Box className={styles.price}>
-                <Typography
-                  variant="h6"
-                  fontWeight={600}
-                >
-                  {formatThePrice(item.price)}
-                </Typography>
-              </Box>
-              <Image
-                src={item.image}
-                alt={item.title}
-                width={160}
-                height={160}
-              />
-            </Box>
-          </Box>
-        </Link>
+      {courses.map((course) => (
+        <CourseCard
+          key={course.id}
+          course={course}
+        />
       ))}
     </Box>
   );

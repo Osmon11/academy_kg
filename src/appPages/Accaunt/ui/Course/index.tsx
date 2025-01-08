@@ -175,8 +175,6 @@ export async function CourseOverviewPage({
                   height={30}
                 />
               }
-              aria-controls="panel1-content"
-              id="panel1-header"
               sx={{ padding: "0px" }}
             >
               <Box>
@@ -194,7 +192,7 @@ export async function CourseOverviewPage({
               </Box>
             </AccordionSummary>
             <AccordionDetails>
-              {/* <Lessons
+              {/* <OverviewLessons
                 lessons={
                   courseLevelDetail.lessons
                 }

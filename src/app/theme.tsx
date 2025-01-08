@@ -1,9 +1,13 @@
 "use client";
 
+import Image from "next/image";
+
 import {
   createTheme,
   responsiveFontSizes,
 } from "@mui/material/styles";
+
+import arrowDownBlackIcon from "@/icons/arrow-down-black.svg";
 
 declare module "@mui/material/styles" {
   // interface Palette {
@@ -169,6 +173,23 @@ let theme = createTheme({
       },
     },
     MuiTextField: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          ".MuiInputBase-root": {
+            fontWeight: 500,
+            fontSize: "20px",
+            lineHeight: "24px",
+            color: theme.palette.text.secondary,
+            ":hover:not(.Mui-disabled, .Mui-error):before":
+              {
+                borderBottom: `2px solid ${theme.palette.text.secondary}`,
+              },
+            ".MuiInput-input": {
+              padding: "0px",
+            },
+          },
+        }),
+      },
       variants: [
         {
           props: {
@@ -176,10 +197,6 @@ let theme = createTheme({
           },
           style: ({ theme }) => ({
             ".MuiOutlinedInput-root": {
-              fontWeight: 500,
-              fontSize: "20px",
-              lineHeight: "24px",
-              color: theme.palette.text.secondary,
               borderRadius: "10px",
               background: "#F6F6F6",
               boxShadow:
@@ -231,6 +248,46 @@ let theme = createTheme({
             variant: "h6",
             color: "textThirtiary",
           },
+        },
+      },
+    },
+    MuiTab: {
+      styleOverrides: {
+        root: {
+          fontSize: "20px",
+          fontWeight: 500,
+          textTransform: "none",
+        },
+      },
+    },
+    MuiAccordion: {
+      defaultProps: {
+        elevation: 0,
+      },
+    },
+    MuiAccordionSummary: {
+      defaultProps: {
+        expandIcon: (
+          <Image
+            src={arrowDownBlackIcon}
+            alt="arrow up black icon"
+            width={30}
+            height={30}
+          />
+        ),
+      },
+      styleOverrides: {
+        root: {
+          padding: "0px",
+        },
+      },
+    },
+    MuiAccordionDetails: {
+      styleOverrides: {
+        root: {
+          borderTop: "2px solid #e5e5e5",
+          borderBottom: "2px solid #e5e5e5",
+          background: "#fafafa",
         },
       },
     },

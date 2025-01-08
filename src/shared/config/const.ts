@@ -11,3 +11,5 @@ export const SECTION_MARGIN_TOP = {
 };
 
 export const TIME_FORMAT = "HH:mm:ss";
+
+export const PAGINATION_LIMIT = 10;
