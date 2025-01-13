@@ -6,12 +6,13 @@ import { ICourseListItem } from "@/shared/types";
 
 import styles from "../styles.module.scss";
 
-interface ICourseListProps {
+interface IArabLanguageProps {
   courses: ICourseListItem[];
 }
-export default function CourseList({
+
+export default function ArabLanguage({
   courses,
-}: ICourseListProps) {
+}: IArabLanguageProps) {
   return (
     <Box className={styles.courses_wrapper}>
       {courses.map((course) => (

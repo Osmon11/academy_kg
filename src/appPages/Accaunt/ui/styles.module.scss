@@ -1,51 +1,5 @@
 @use "variables";
 
-.recommendation_card {
-  position: relative;
-  min-height: 200px;
-  height: auto;
-  border-radius: 36px;
-
-  .media {
-    height: 200px;
-  }
-  .content {
-    width: 100%;
-    height: 100%;
-    padding: 30px 20px 20px;
-    background: linear-gradient(
-      180deg,
-      rgba(29, 165, 153, 0.6) 0%,
-      rgba(255, 136, 45, 0.6) 99.99%
-    );
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    justify-content: space-between;
-    .title {
-      text-shadow:
-        1px 1px 2px 0px #a5d8cb4d,
-        -1px -1px 2px 0px #a1d4c780,
-        -1px 1px 2px 0px #a1d4c733,
-        1px -1px 2px 0px #a1d4c733,
-        -1px -1px 2px 0px #a5d8cbe5,
-        1px 1px 3px 0px #a1d4c7e5;
-    }
-    .description {
-      text-shadow:
-        1px 1px 2px 0px #ffc28a4d,
-        -1px -1px 2px 0px #ffc28a80,
-        -1px 1px 2px 0px #ffc28a33,
-        1px -1px 2px 0px #ffc28a33,
-        -1px -1px 2px 0px #ffc28ae5,
-        1px 1px 3px 0px #ffc28ae5;
-    }
-  }
-}
-
 .courses_wrapper {
   display: flex;
   align-items: stretch;
@@ -53,7 +7,7 @@
 }
 
 .course_heading {
-  video {
+  iframe {
     width: 100%;
     height: 60vh;
     background: black;
@@ -91,7 +45,7 @@
 
 .lesson_wrapper {
   display: flex;
-  video {
+  iframe {
     background-color: black;
   }
   .list,
@@ -125,19 +79,26 @@
   }
 }
 
+.courses_wrapper {
+  padding: 20px;
+  max-width: 100%;
+  overflow: auto;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 30px;
+}
+
 @media (min-width: variables.$theme-breakpoint-xs) {
   .page {
     padding: 20px 30px;
-  }
-  .recommendation_card {
-    min-width: calc(100vw - 30px);
   }
   .courses_wrapper {
     gap: 30px;
   }
   .lesson_wrapper {
     gap: 30px;
-    video {
+    iframe {
       width: 100%;
       height: 400px;
     }
@@ -151,24 +112,17 @@
   }
 }
 @media (min-width: variables.$theme-breakpoint-sm) {
-  .recommendation_card {
-    min-width: 370px;
-  }
 }
 @media (min-width: variables.$theme-breakpoint-md) {
   .page {
     padding: 20px 50px;
   }
-  .recommendation_card {
-    min-width: 400px;
-  }
-
   .courses_wrapper {
     gap: 50px;
   }
   .lesson_wrapper {
     gap: 50px;
-    video {
+    iframe {
       width: calc(60% - 25px);
       height: 440px;
     }

@@ -20,6 +20,7 @@ import { useTheme } from "@mui/material";
 
 import {
   clearUserProfile,
+  setLoading,
   setUserProfile,
 } from "../model/user";
 import axiosInstance from "./axiosClientInstance";
@@ -49,6 +50,7 @@ function GlobalProfileFetcher({
   useEffect(() => {
     if (token) {
       // Fetch profile data if token exists
+      dispatch(setLoading(true));
       axiosInstance
         .get("/auth/profile")
         .then((response) => {
@@ -56,6 +58,9 @@ function GlobalProfileFetcher({
         })
         .catch(() => {
           dispatch(clearUserProfile());
+        })
+        .finally(() => {
+          dispatch(setLoading(false));
         });
     } else {
       // Clear profile data if token is missing

@@ -5,8 +5,15 @@ import {
 
 import { IProfile } from "../types";
 
-const initialState: { profile: IProfile | null } =
-  { profile: null };
+interface IInitialState {
+  profile: IProfile | null;
+  loading: boolean;
+}
+
+const initialState: IInitialState = {
+  profile: null,
+  loading: false,
+};
 
 const userSlice = createSlice({
   name: "user",
@@ -21,11 +28,18 @@ const userSlice = createSlice({
     clearUserProfile(state) {
       state.profile = null;
     },
+    setLoading: (
+      state,
+      action: PayloadAction<typeof state.loading>,
+    ) => {
+      state.loading = action.payload;
+    },
   },
 });
 
 export const {
   setUserProfile,
   clearUserProfile,
+  setLoading,
 } = userSlice.actions;
 export const userReducer = userSlice.reducer;

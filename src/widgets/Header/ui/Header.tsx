@@ -15,6 +15,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
+import { TubeSpinner } from "@/shared/UI";
 import { useAppSelector } from "@/shared/config/store";
 import { routePath } from "@/shared/functions";
 
@@ -52,6 +53,10 @@ const accountNavLinks: INavLink[] = [
     label: "Главное",
     href: routePath("accaunt"),
   },
+  {
+    label: "Курсы",
+    href: routePath("courses"),
+  },
 ];
 
 interface IHeaderProps extends AppBarProps {
@@ -62,8 +67,8 @@ export function Header({
   background,
   ...props
 }: IHeaderProps) {
-  const profile = useAppSelector(
-    (state) => state.user.profile,
+  const { profile, loading } = useAppSelector(
+    (state) => state.user,
   );
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
@@ -108,6 +113,7 @@ export function Header({
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
+            gap: "20px",
           }}
         >
           {navLinks.map((navItem, index) => {
@@ -160,7 +166,12 @@ export function Header({
                 mainLayout ? "white" : "black"
               }
             />
-            {profile ? (
+            {loading ? (
+              <TubeSpinner
+                width={30}
+                height={30}
+              />
+            ) : profile ? (
               <UserProfile
                 profile={profile}
                 shortFullname
@@ -194,7 +205,6 @@ export function Header({
                 handleDrawerClose
               }
               navLinks={navLinks}
-              profile={profile}
             />
           </Fragment>
         )}

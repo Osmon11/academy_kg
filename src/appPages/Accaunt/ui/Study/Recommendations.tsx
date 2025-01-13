@@ -62,6 +62,7 @@ export default function Recommendations() {
     <Box sx={{ marginTop: SECTION_MARGIN_TOP }}>
       <Typography
         variant="h5"
+        color="textSecondary"
         fontWeight={700}
       >
         Рекомендации
@@ -75,14 +76,19 @@ export default function Recommendations() {
             />
           ))
         ) : (
-          <Typography textAlign="center">
-            Пока нет ракомендаций
+          <Typography
+            textAlign="center"
+            color="textSecondary"
+            fontWeight={600}
+          >
+            Пока нет рекомендаций
           </Typography>
         )}
         {data && (
           <Typography
             ref={ref}
             textAlign="center"
+            color="textSecondary"
           >
             {isFetchingNextPage
               ? "Загрузка..."

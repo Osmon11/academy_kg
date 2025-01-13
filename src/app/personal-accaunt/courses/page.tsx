@@ -1,5 +1,5 @@
-import { AccauntMainPage } from "@/appPages/Accaunt";
+import { AllCoursesPage } from "@/appPages/Accaunt";
 
 export default function AccauntCourses() {
-  return <AccauntMainPage />;
+  return <AllCoursesPage />;
 }

@@ -16,8 +16,9 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
+import { TubeSpinner } from "@/shared/UI";
+import { useAppSelector } from "@/shared/config/store";
 import { routePath } from "@/shared/functions";
-import { IProfile } from "@/shared/types";
 
 import logoPrimaryIcon from "@/icons/logo-primary.svg";
 import xCloseBlackIcon from "@/icons/x-close-black.svg";
@@ -31,15 +32,16 @@ interface IDrawerSidebarProps {
   open: boolean;
   handleDrawerClose: () => void;
   navLinks: { label: string; href: string }[];
-  profile: IProfile | null;
 }
 
 export default function DrawerSidebar({
   open,
   handleDrawerClose,
   navLinks,
-  profile,
 }: IDrawerSidebarProps) {
+  const { profile, loading } = useAppSelector(
+    (state) => state.user,
+  );
   const pathname = usePathname();
   const up400 = useMediaQuery(
     "(min-width:400px)",
@@ -125,7 +127,12 @@ export default function DrawerSidebar({
           );
         })}
       </List>
-      {profile ? (
+      {loading ? (
+        <TubeSpinner
+          width={30}
+          height={30}
+        />
+      ) : profile ? (
         <UserProfile
           profile={profile}
           color="black"

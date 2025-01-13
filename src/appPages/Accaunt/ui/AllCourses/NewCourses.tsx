@@ -6,12 +6,12 @@ import { ICourseListItem } from "@/shared/types";
 
 import styles from "../styles.module.scss";
 
-interface ICourseListProps {
+interface INewCoursesProps {
   courses: ICourseListItem[];
 }
-export default function CourseList({
+export default function NewCourses({
   courses,
-}: ICourseListProps) {
+}: INewCoursesProps) {
   return (
     <Box className={styles.courses_wrapper}>
       {courses.map((course) => (

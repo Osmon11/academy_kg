@@ -1,6 +1,7 @@
+"use client";
+
 import moment from "moment";
 import Image from "next/image";
-import Link from "next/link";
 import { Fragment } from "react";
 
 import {
@@ -8,7 +9,6 @@ import {
   AccordionDetails,
   AccordionSummary,
   Box,
-  Button,
   Grid2 as Grid,
   Typography,
 } from "@mui/material";
@@ -20,52 +20,82 @@ import { CommentCard } from "@/features/CommentCard";
 import { GoBackHeader } from "@/entities/GoBackHeader";
 import { TeacherProfileAvatar } from "@/entities/TeacherProfileAvatar";
 
-import { createAxiosInstanceForSSR } from "@/shared/config/axiosServerInstance";
+import axiosInstance from "@/shared/config/axiosClientInstance";
 import { TIME_FORMAT } from "@/shared/config/const";
-import { routePath } from "@/shared/functions";
-import { ICourseDetail } from "@/shared/types";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "@/shared/config/store";
+import {
+  setCourse,
+  setCourseLevels,
+  setLoading,
+} from "@/shared/model";
+import {
+  ICourseDetail,
+  ICourseLevelDetail,
+} from "@/shared/types";
 
 import arrowDownBlackIcon from "@/icons/arrow-down-black.svg";
 
 import styles from "../styles.module.scss";
+import OverviewLessons from "./OverviewLessons";
+import StartStudying from "./StartStudying";
 
 interface ICourseOverviewPageProps {
   courseId: string;
 }
 
-export async function CourseOverviewPage({
+export function CourseOverviewPage({
   courseId,
 }: ICourseOverviewPageProps) {
+  const dispatch = useAppDispatch();
+  const { course, courseLevels } = useAppSelector(
+    (store) => store.course,
+  );
   try {
-    const axiosInstance =
-      await createAxiosInstanceForSSR();
-    const courseDetail = await axiosInstance
-      .get<ICourseDetail>(
-        `/academy/course_detail/${courseId}`,
-      )
-      .then((res) => res.data);
-    // const courseLevelDetail = await axiosInstance
-    //   .get<ICourseLevelDetail>(
-    //     `/academy/course_level_detail/${courseId}`,
-    //   )
-    //   .then((res) => res.data);
+    dispatch(setLoading(true));
+    Promise.all([
+      axiosInstance
+        .get<ICourseDetail>(
+          `/academy/course_detail/${courseId}`,
+        )
+        .then((res) => {
+          if (res?.data) {
+            dispatch(setCourse(res.data));
+          }
+        }),
+      axiosInstance
+        .get<ICourseLevelDetail>(
+          `/academy/course_level_detail/${courseId}`,
+        )
+        .then((res) => {
+          if (res?.data) {
+            dispatch(setCourseLevels(res.data));
+          }
+        }),
+    ]).finally(() => {
+      dispatch(setLoading(false));
+    });
     const durationTime = moment(
-      courseDetail.duration_count,
+      course ? course.duration_count : "02:45:00",
       TIME_FORMAT,
     );
     const hours = durationTime.hours();
     const minutes = durationTime.minutes();
-    return (
+    return course && courseLevels ? (
       <Fragment>
-        <GoBackHeader
-          title={courseDetail.title}
-        />
+        <GoBackHeader title={course.title} />
         <Box className={styles.page}>
           <Box className={styles.course_heading}>
-            <video />
+            <iframe
+              src="https://www.youtube.com/embed/h62kbC5dxdA"
+              allow="autoplay; fullscreen; picture-in-picture"
+              allowFullScreen
+            ></iframe>
             <CommentCard
               header="Описание:"
-              comment={courseDetail.description}
+              comment={course.description}
               sx={{
                 width: "100% !important",
                 marginTop: "20px",
@@ -77,21 +107,11 @@ export async function CourseOverviewPage({
             >
               <TeacherProfileAvatar
                 fullnameColor="secondary"
-                {...courseDetail.teacher}
+                {...course.teacher}
               />
-              <Link
-                href={routePath("study", {
-                  id: Number(courseId),
-                })}
-              >
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  sx={{ width: "300px" }}
-                >
-                  Начать учиться
-                </Button>
-              </Link>
+              <StartStudying
+                courseId={courseId}
+              />
             </Box>
           </Box>
           <Typography
@@ -109,7 +129,7 @@ export async function CourseOverviewPage({
             justifyContent="center"
             sx={{ marginTop: "40px" }}
           >
-            {courseDetail.objectives.map(
+            {course.objectives.map(
               (objective) => (
                 <Grid
                   key={objective.id}
@@ -145,7 +165,7 @@ export async function CourseOverviewPage({
           >
             Программа курса
           </Typography>
-          {courseDetail.lesson_count && (
+          {course.lesson_count && (
             <Typography
               variant="h5"
               color="primary"
@@ -153,7 +173,7 @@ export async function CourseOverviewPage({
               fontWeight={500}
               sx={{ marginTop: "20px" }}
             >
-              {`${courseDetail.lesson_count} лекций, ${hours ? hours + " часов" : ""} ${minutes} минут`}
+              {`${course.lesson_count} лекций, ${hours ? hours + " часов" : ""} ${minutes} минут`}
             </Typography>
           )}
           <Accordion
@@ -188,21 +208,19 @@ export async function CourseOverviewPage({
                 <Typography
                   variant="subtitle2"
                   color="textSecondary"
-                >{`${courseDetail.lesson_count} уроков`}</Typography>
+                >{`${course.lesson_count} уроков`}</Typography>
               </Box>
             </AccordionSummary>
             <AccordionDetails>
-              {/* <OverviewLessons
-                lessons={
-                  courseLevelDetail.lessons
-                }
-              /> */}
+              <OverviewLessons
+                lessons={courseLevels.lessons}
+              />
             </AccordionDetails>
           </Accordion>
         </Box>
         <Footer />
       </Fragment>
-    );
+    ) : null;
   } catch (error) {
     console.error(
       "Error fetching course detail:",

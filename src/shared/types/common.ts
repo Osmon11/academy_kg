@@ -2,7 +2,7 @@ export interface IProfile {
   full_name: string;
   email: string;
   gender: string;
-  avatar: string | null;
+  avatar?: string | null;
   phone: string;
   level: number;
 }
@@ -20,7 +20,7 @@ export interface IFeedbackListItem {
   full_name: string;
   comment: string;
   region: string;
-  avatar: string;
+  avatar?: string;
 }
 
 export interface ITeammateListItem {
@@ -28,7 +28,7 @@ export interface ITeammateListItem {
   full_name: string;
   email: string;
   phone: string;
-  avatar: string;
+  avatar?: string;
   position: string;
 }
 
@@ -125,4 +125,26 @@ export interface ICourseLevelDetail {
   level: number;
   lessons: ILessonDetail[];
   exam: IExamDetail;
+}
+
+export interface ISetOfCourses {
+  id: number;
+  title: string;
+  description: string;
+  image: string;
+  amout_of_courses: number;
+}
+
+export interface IUser {
+  id: number;
+  full_name: string;
+  avatar?: string;
+}
+
+export interface IComment {
+  id: number;
+  comment: string;
+  user: IUser;
+  created_at: string;
+  answer: string | null;
 }

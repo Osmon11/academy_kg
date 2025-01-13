@@ -5,11 +5,17 @@ import {
   useStore,
 } from "react-redux";
 
-import { userReducer } from "../model/user";
+import {
+  courseReducer,
+  userReducer,
+} from "../model";
 
 export const makeStore = () =>
   configureStore({
-    reducer: { user: userReducer },
+    reducer: {
+      user: userReducer,
+      course: courseReducer,
+    },
   });
 
 export type AppStore = ReturnType<

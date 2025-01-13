@@ -6,14 +6,16 @@ import { ICourseListItem } from "@/shared/types";
 
 import styles from "../styles.module.scss";
 
-interface ICourseListProps {
+interface ILifeOfTheProphetProps {
   courses: ICourseListItem[];
 }
-export default function CourseList({
+export default function LifeOfTheProphet({
   courses,
-}: ICourseListProps) {
+}: ILifeOfTheProphetProps) {
   return (
-    <Box className={styles.courses_wrapper}>
+    <Box
+      className={styles.courses_wrapper}
+    >
       {courses.map((course) => (
         <CourseCard
           key={course.id}

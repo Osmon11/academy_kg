@@ -21,63 +21,83 @@ import styles from "../styles.module.scss";
 
 interface ILessonsListProps {
   lessons: ILessonDetail[];
+  onSelectLesson: (lesson: ILessonDetail) => void;
 }
 
 export default function LessonsList({
   lessons,
+  onSelectLesson,
 }: ILessonsListProps) {
   return (
     <Box className={styles.accordeons}>
-      {lessons.map((lesson, index) => (
-        <Accordion key={lesson.id}>
-          <AccordionSummary>
-            <Box
-              className={styles.flex_box}
-              sx={{ gap: "20px" }}
-            >
-              <Typography
-                variant="h5"
-                fontWeight={600}
-                color="#A3A3A3"
-              >
-                {index + 1}
-              </Typography>
+      {lessons.length > 0 ? (
+        lessons.map((lesson, index) => (
+          <Accordion
+            key={lesson.id}
+            onChange={(_, expanded) => {
+              if (expanded) {
+                onSelectLesson(lesson);
+              }
+            }}
+          >
+            <AccordionSummary>
               <Box
                 className={styles.flex_box}
-                sx={{ gap: "8px" }}
+                sx={{ gap: "20px" }}
               >
-                <Image
-                  src={playCirclePrimaryIcon}
-                  alt="play circle green icon"
-                  width={24}
-                  height={24}
-                />
-                <Box>
-                  <Typography
-                    variant="body1"
-                    color="textSecondary"
-                    fontWeight={600}
-                  >
-                    {lesson.tittle}
-                  </Typography>
-                  <Typography
-                    variant="body1"
-                    color="textSecondary"
-                  >{`Видео - ${moment(lesson.duration, TIME_FORMAT).format("HH:mm")}`}</Typography>
+                <Typography
+                  variant="h5"
+                  fontWeight={600}
+                  color="#A3A3A3"
+                >
+                  {index + 1}
+                </Typography>
+                <Box
+                  className={styles.flex_box}
+                  sx={{ gap: "8px" }}
+                >
+                  <Image
+                    src={playCirclePrimaryIcon}
+                    alt="play circle green icon"
+                    width={24}
+                    height={24}
+                  />
+                  <Box>
+                    <Typography
+                      variant="body1"
+                      color="textSecondary"
+                      fontWeight={600}
+                    >
+                      {lesson.tittle}
+                    </Typography>
+                    <Typography
+                      variant="body1"
+                      color="textSecondary"
+                    >{`Видео - ${moment(lesson.duration, TIME_FORMAT).format("HH:mm")}`}</Typography>
+                  </Box>
                 </Box>
               </Box>
-            </Box>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography
-              variant="caption"
-              color="textSecondary"
-            >
-              {lesson.text_lesson}
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
-      ))}
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography
+                variant="caption"
+                color="textSecondary"
+              >
+                {lesson.text_lesson}
+              </Typography>
+            </AccordionDetails>
+          </Accordion>
+        ))
+      ) : (
+        <Typography
+          textAlign="center"
+          color="textSecondary"
+          fontWeight={600}
+          sx={{ marginTop: "16px" }}
+        >
+          Нет уроков
+        </Typography>
+      )}
     </Box>
   );
 }

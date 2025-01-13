@@ -11,13 +11,13 @@ import playCirclePrimaryIcon from "@/icons/play-circle-primary.svg";
 import styles from "../styles.module.scss";
 
 interface ITextOfTheLessonProps {
-  lesson: ILessonDetail;
+  lesson: ILessonDetail | null;
 }
 
 export default function TextOfTheLesson({
   lesson,
 }: ITextOfTheLessonProps) {
-  return (
+  return lesson ? (
     <Box>
       <Box
         className={styles.flex_box}
@@ -56,5 +56,5 @@ export default function TextOfTheLesson({
         </Box>
       </Box>
     </Box>
-  );
+  ) : null;
 }
