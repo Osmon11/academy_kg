@@ -124,17 +124,38 @@ export default function SignIn() {
           placeholder: "E-mail",
         }}
       />
-      <ControllerTextField
-        name="password"
-        control={control}
-        rules={{
-          required: "Необходимо ввести пароль",
-        }}
-        textField={{
-          type: "password",
-          placeholder: "Пароль",
-        }}
-      />
+      <Box sx={{ width: "100%" }}>
+        <ControllerTextField
+          name="password"
+          control={control}
+          rules={{
+            required: "Необходимо ввести пароль",
+          }}
+          textField={{
+            type: "password",
+            placeholder: "Пароль",
+          }}
+        />
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "end",
+            marginTop: "20px",
+          }}
+        >
+          <Link href="/authorization/login?via=fogot_password">
+            <Typography
+              variant="h6"
+              color="primary"
+              className={styles.link_text}
+              sx={{ width: "fit-content" }}
+            >
+              Забыли пароль?
+            </Typography>
+          </Link>
+        </Box>
+      </Box>
       <Button
         type="submit"
         color="primary"
