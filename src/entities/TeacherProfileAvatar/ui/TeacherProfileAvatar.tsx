@@ -9,6 +9,8 @@ import {
 
 import { ITeacherListItem } from "@/shared/types";
 
+import avatarGrayIcon from "@/icons/avatar-gray.svg";
+
 import styles from "./TeacherProfileAvatar.module.scss";
 
 interface ITeacherProfileAvatarProps
@@ -38,7 +40,7 @@ export function TeacherProfileAvatar({
       sx={sx}
     >
       <Image
-        src={avatar}
+        src={avatar ?? avatarGrayIcon}
         alt={full_name}
         width={60}
         height={60}

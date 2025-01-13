@@ -28,7 +28,7 @@ const userSlice = createSlice({
     clearUserProfile(state) {
       state.profile = null;
     },
-    setLoading: (
+    setProfileLoading: (
       state,
       action: PayloadAction<typeof state.loading>,
     ) => {
@@ -40,6 +40,6 @@ const userSlice = createSlice({
 export const {
   setUserProfile,
   clearUserProfile,
-  setLoading,
+  setProfileLoading,
 } = userSlice.actions;
 export const userReducer = userSlice.reducer;
