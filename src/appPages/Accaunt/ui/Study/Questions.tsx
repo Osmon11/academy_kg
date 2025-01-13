@@ -100,6 +100,8 @@ export default function Questions() {
     component: "p",
     color: "textSecondary",
   };
+  const [activeIndex, setActiveIndex] =
+    useState(-1);
   return (
     <Box className={styles.questions}>
       <Box
@@ -171,10 +173,16 @@ export default function Questions() {
             margin: "10px",
           }}
         >
-          {comments.map((comment) => (
+          {comments.map((comment, index) => (
             <Accordion
               key={comment.id}
               disabled={comment.answer === null}
+              onChange={(_, expanded) => {
+                if (expanded) {
+                  setActiveIndex(index);
+                }
+              }}
+              expanded={index === activeIndex}
             >
               <AccordionSummary>
                 <Box
@@ -205,7 +213,8 @@ export default function Questions() {
                   </Box>
                 </Box>
               </AccordionSummary>
-              {comment.answer === "string" && (
+              {typeof comment.answer ===
+                "string" && (
                 <AccordionDetails>
                   <Box
                     sx={{
