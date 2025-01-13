@@ -63,7 +63,7 @@ export default function Questions() {
       setLoading(true);
       axiosInstance
         .post("/academy/comment_create/", {
-          course,
+          course: course.id,
           comment,
         })
         .then((res) => {
@@ -86,7 +86,7 @@ export default function Questions() {
                 }
               })
               .finally(() =>
-                setCommentsLoading(true),
+                setCommentsLoading(false),
               );
           }
         })
@@ -96,7 +96,7 @@ export default function Questions() {
 
   const captionProps = {
     variant:
-      "caption" as TypographyProps["variant"],
+      "body1" as TypographyProps["variant"],
     component: "p",
     color: "textSecondary",
   };
@@ -205,32 +205,36 @@ export default function Questions() {
                   </Box>
                 </Box>
               </AccordionSummary>
-              <AccordionDetails>
-                <Box
-                  sx={{
-                    display: "flex",
-                    gap: "10px",
-                  }}
-                >
-                  <Image
-                    src={logoPrimary}
-                    alt="academy logo primary"
-                    width={30}
-                    height={30}
-                  />
-                  <Box>
-                    <Typography
-                      {...captionProps}
-                      fontWeight={600}
-                    >
-                      Академия
-                    </Typography>
-                    <Typography {...captionProps}>
-                      {comment.answer}
-                    </Typography>
+              {comment.answer === "string" && (
+                <AccordionDetails>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      gap: "10px",
+                    }}
+                  >
+                    <Image
+                      src={logoPrimary}
+                      alt="academy logo primary"
+                      width={30}
+                      height={30}
+                    />
+                    <Box>
+                      <Typography
+                        {...captionProps}
+                        fontWeight={600}
+                      >
+                        Академия
+                      </Typography>
+                      <Typography
+                        {...captionProps}
+                      >
+                        {comment.answer}
+                      </Typography>
+                    </Box>
                   </Box>
-                </Box>
-              </AccordionDetails>
+                </AccordionDetails>
+              )}
             </Accordion>
           ))}
         </Box>

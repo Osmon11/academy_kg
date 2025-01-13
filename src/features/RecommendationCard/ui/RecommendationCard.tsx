@@ -8,12 +8,14 @@ import {
   Typography,
 } from "@mui/material";
 
-import { IRecommendationListItem } from "@/shared/types";
+import { ICourseListItem } from "@/shared/types";
+
+import logoIcon from "@/icons/logo.svg";
 
 import styles from "./RecommendationCard.module.scss";
 
 interface IRecommendationCardProps {
-  recommendation: IRecommendationListItem;
+  recommendation: ICourseListItem;
 }
 export function RecommendationCard({
   recommendation,
@@ -27,8 +29,8 @@ export function RecommendationCard({
       />
       <CardContent className={styles.content}>
         <Image
-          src={recommendation.logo}
-          alt={recommendation.title}
+          src={logoIcon}
+          alt="islamic online-academy logo"
           width={60}
           height={60}
         />

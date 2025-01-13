@@ -9,7 +9,7 @@
 .course_heading {
   iframe {
     width: 100%;
-    height: 60vh;
+    height: 70vh;
     background: black;
   }
   .actions {
@@ -89,6 +89,13 @@
   gap: 30px;
 }
 
+.tube_spinner_wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 @media (min-width: variables.$theme-breakpoint-xs) {
   .page {
     padding: 20px 30px;
@@ -97,6 +104,7 @@
     gap: 30px;
   }
   .lesson_wrapper {
+    min-height: 400px;
     gap: 30px;
     iframe {
       width: 100%;
@@ -121,6 +129,7 @@
     gap: 50px;
   }
   .lesson_wrapper {
+    min-height: 440px;
     gap: 50px;
     iframe {
       width: calc(60% - 25px);

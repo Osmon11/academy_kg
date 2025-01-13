@@ -24,18 +24,31 @@ export default function OverviewLessons({
   lessons,
 }: IOverviewLessonsProps) {
   return lessons.length > 0 ? (
-    <Box className={styles.accordeons}>
+    <Box>
       {lessons.map((lesson, index) => (
         <ListItem
           key={lesson.id}
           component="div"
           className={styles.item}
+          sx={{
+            borderBottom:
+              index + 1 !== lessons.length
+                ? "1px solid #E5E5E5"
+                : "none",
+          }}
         >
           <Box
             className={styles.flex_box}
             sx={{ gap: "20px" }}
           >
-            <Typography>{index + 1}</Typography>
+            <Typography
+              variant="h5"
+              fontWeight={600}
+              color="#A3A3A3"
+              minWidth="33px"
+            >
+              {index + 1}
+            </Typography>
             <Box
               className={styles.flex_box}
               sx={{ gap: "8px" }}
@@ -51,7 +64,7 @@ export default function OverviewLessons({
                 color="textSecondary"
                 fontWeight={600}
               >
-                {lesson.tittle}
+                {lesson.title}
               </Typography>
             </Box>
           </Box>

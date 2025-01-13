@@ -71,14 +71,6 @@ export type IErrorResponseData =
     }
   | undefined;
 
-export interface IRecommendationListItem {
-  id: number;
-  title: string;
-  description: string;
-  image: string;
-  logo: string;
-}
-
 export interface IObjectivesListItem {
   id: number;
   title: string;
@@ -89,13 +81,14 @@ export interface ICourseListItem {
   title: string;
   description: string;
   image: string;
-  teacher: string;
+  teacher: ITeacherListItem;
   price: number;
 }
 
 export interface ICourseDetail
   extends Omit<ICourseListItem, "teacher"> {
   teacher: ITeacherListItem;
+  trailer: string;
   objectives: IObjectivesListItem[];
   levels: {
     id: number;
@@ -107,10 +100,11 @@ export interface ICourseDetail
 
 export interface ILessonDetail {
   id: number;
-  tittle: string;
+  title: string;
   duration: string;
   video: string;
   text_lesson: string;
+  description: string;
 }
 
 export interface IExamDetail {

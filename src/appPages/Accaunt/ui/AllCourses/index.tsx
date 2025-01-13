@@ -40,7 +40,13 @@ const courses: ICourseListItem[] = [
     title: "Тайны молитвы",
     description:
       'Курс по книге Ибн Каййима аль-Джаузия "Тайны молитвы"',
-    teacher: "Карим Салимов",
+    teacher: {
+      id: 1,
+      full_name: "Карим Салимов",
+      email: "",
+      phone: "",
+      position: "",
+    },
     image: courseImg.src,
     price: 3490,
   },
@@ -62,7 +68,7 @@ export async function AllCoursesPage() {
           {...headerProps}
           sx={{ marginTop: "20px" }}
         >
-          Рекомендации
+          Наборы курсов
         </Typography>
         <CourseSets courseSets={courseSets} />
         <Typography

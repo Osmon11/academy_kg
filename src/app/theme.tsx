@@ -264,6 +264,17 @@ let theme = createTheme({
       defaultProps: {
         elevation: 0,
       },
+      styleOverrides: {
+        root: ({ theme }) => ({
+          "&.Mui-expanded": {
+            margin: "0px",
+          },
+          "&.Mui-disabled": {
+            background:
+              theme.palette.background.paper,
+          },
+        }),
+      },
     },
     MuiAccordionSummary: {
       defaultProps: {
@@ -279,6 +290,13 @@ let theme = createTheme({
       styleOverrides: {
         root: {
           padding: "0px",
+          "&.Mui-disabled": {
+            opacity: 1,
+            ".MuiAccordionSummary-expandIconWrapper":
+              {
+                display: "none",
+              },
+          },
         },
       },
     },

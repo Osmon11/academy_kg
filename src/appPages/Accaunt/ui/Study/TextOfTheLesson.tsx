@@ -35,7 +35,7 @@ export default function TextOfTheLesson({
             color="textSecondary"
             fontWeight={600}
           >
-            {lesson.tittle}
+            {lesson.title}
           </Typography>
           <Typography
             variant="body1"

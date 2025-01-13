@@ -1,14 +1,28 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
 import { Carousel } from "@/widgets/Carousel";
 
 import { RecommendationCard } from "@/features/RecommendationCard";
 
-import { IRecommendationListItem } from "@/shared/types";
+import axiosInstance from "@/shared/config/axiosClientInstance";
+import { ICourseListItem } from "@/shared/types";
 
-export default function Recommendations({
-  recommendations,
-}: {
-  recommendations: IRecommendationListItem[];
-}) {
+export default function Recommendations() {
+  const [recommendations, setRecommendations] =
+    useState<ICourseListItem[]>([]);
+  useEffect(() => {
+    axiosInstance
+      .get<{
+        results: ICourseListItem[];
+      }>("/academy/recommendation_courses/")
+      .then((res) => {
+        if (res?.data) {
+          setRecommendations(res.data.results);
+        }
+      });
+  }, []);
   return (
     <Carousel options={{ align: "start" }}>
       {recommendations.map((item) => (

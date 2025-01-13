@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { Fragment, useState } from "react";
 
 import {
   Box,
@@ -16,6 +17,7 @@ import {
 
 import { TubeSpinner } from "@/shared/UI";
 import { useAppSelector } from "@/shared/config/store";
+import { routePath } from "@/shared/functions";
 import { ILessonDetail } from "@/shared/types";
 
 import bookSquareIconPrimary from "@/icons/book-square-primary.svg";
@@ -35,7 +37,8 @@ function a11yProps(index: number) {
 }
 
 export default function LessonDetails() {
-  const { courseLevels, loading } =
+  const router = useRouter();
+  const { course, courseLevels, loading } =
     useAppSelector((store) => store.course);
   const [lesson, setLesson] =
     useState<ILessonDetail | null>(null);
@@ -72,125 +75,138 @@ export default function LessonDetails() {
     justifyContent: "center",
     gap: "10px",
   };
-  return loading ? (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-      }}
-    >
-      <TubeSpinner
-        width={50}
-        height={50}
-      />
-    </Box>
-  ) : (
+  return (
     <Box className={styles.lesson_wrapper}>
-      <iframe
-        src={lesson?.video}
-        allow="autoplay; fullscreen; picture-in-picture"
-        allowFullScreen
-      ></iframe>
-      <Box
-        sx={{
-          width: {
-            sx: "100%",
-            md: "calc(40% - 25px)",
-          },
-        }}
-      >
+      {loading ? (
         <Box
-          className={styles.flex_box}
-          sx={{
-            justifyContent: "space-between",
-            gap: "20px",
-          }}
+          className={styles.tube_spinner_wrapper}
         >
-          <Tabs
-            value={tab}
-            onChange={handleChange}
-            aria-label="study tabs example"
-            variant={
-              upSm ? "standard" : "scrollable"
-            }
-          >
-            <Tab
-              label="Уроки"
-              {...a11yProps(0)}
-            />
-            <Tab
-              label="Вопросы"
-              {...a11yProps(1)}
-            />
-            <Tab
-              label="Текст урока"
-              {...a11yProps(2)}
-            />
-          </Tabs>
-          <IconButton
-            aria-controls={
-              open ? "profile-menu" : undefined
-            }
-            aria-haspopup="true"
-            aria-expanded={
-              open ? "true" : undefined
-            }
-            onClick={(event) => {
-              setAnchorEl(event.currentTarget);
-            }}
-          >
-            <Image
-              src={settingIconPrimary}
-              alt="setting green icon"
-              width={24}
-              height={24}
-            />
-          </IconButton>
+          <TubeSpinner
+            width={50}
+            height={50}
+          />
         </Box>
-        <Menu
-          id="profile-menu"
-          anchorEl={anchorEl}
-          open={open}
-          onClose={() => setAnchorEl(null)}
-          MenuListProps={{
-            "aria-labelledby": "profile-button",
-            color: "primary",
-          }}
-        >
-          <MenuItem
-            onClick={() => {
-              setAnchorEl(null);
+      ) : (
+        <Fragment>
+          <iframe
+            src={lesson?.video}
+            allow="autoplay; fullscreen; picture-in-picture"
+            allowFullScreen
+          ></iframe>
+          <Box
+            sx={{
+              width: {
+                sx: "100%",
+                md: "calc(40% - 25px)",
+              },
             }}
-            sx={menuItemStyles}
           >
-            <Image
-              src={bookSquareIconPrimary}
-              alt="book square green icon"
-              width={24}
-              height={24}
-            />
-            О курсе
-          </MenuItem>
-          <Divider />
-          <MenuItem
-            onClick={() => {
-              setAnchorEl(null);
-            }}
-            sx={menuItemStyles}
-          >
-            <Image
-              src={shareIconPrimary}
-              alt="share green icon"
-              width={24}
-              height={24}
-            />
-            Поделиться курсом
-          </MenuItem>
-        </Menu>
-        <Box className={styles.list}>
-          {tabs[tab] ?? "No content"}
-        </Box>
-      </Box>
+            <Box
+              className={styles.flex_box}
+              sx={{
+                justifyContent: "space-between",
+                gap: "20px",
+              }}
+            >
+              <Tabs
+                value={tab}
+                onChange={handleChange}
+                aria-label="study tabs example"
+                variant={
+                  upSm ? "standard" : "scrollable"
+                }
+              >
+                <Tab
+                  label="Уроки"
+                  {...a11yProps(0)}
+                />
+                <Tab
+                  label="Вопросы"
+                  {...a11yProps(1)}
+                />
+                <Tab
+                  label="Текст урока"
+                  {...a11yProps(2)}
+                />
+              </Tabs>
+              <IconButton
+                aria-controls={
+                  open
+                    ? "settings-menu"
+                    : undefined
+                }
+                aria-haspopup="true"
+                aria-expanded={
+                  open ? "true" : undefined
+                }
+                onClick={(event) => {
+                  setAnchorEl(
+                    event.currentTarget,
+                  );
+                }}
+              >
+                <Image
+                  src={settingIconPrimary}
+                  alt="setting green icon"
+                  width={24}
+                  height={24}
+                />
+              </IconButton>
+            </Box>
+            {course && (
+              <Menu
+                id="settings-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={() => setAnchorEl(null)}
+                MenuListProps={{
+                  "aria-labelledby":
+                    "settings-button",
+                  color: "primary",
+                }}
+              >
+                <MenuItem
+                  onClick={() => {
+                    setAnchorEl(null);
+                    router.push(
+                      routePath("[course]", {
+                        id: course.id,
+                      }),
+                    );
+                  }}
+                  sx={menuItemStyles}
+                >
+                  <Image
+                    src={bookSquareIconPrimary}
+                    alt="book square green icon"
+                    width={24}
+                    height={24}
+                  />
+                  О курсе
+                </MenuItem>
+                <Divider />
+                <MenuItem
+                  onClick={() => {
+                    setAnchorEl(null);
+                  }}
+                  sx={menuItemStyles}
+                >
+                  <Image
+                    src={shareIconPrimary}
+                    alt="share green icon"
+                    width={24}
+                    height={24}
+                  />
+                  Поделиться курсом
+                </MenuItem>
+              </Menu>
+            )}
+            <Box className={styles.list}>
+              {tabs[tab] ?? "No content"}
+            </Box>
+          </Box>
+        </Fragment>
+      )}
     </Box>
   );
 }

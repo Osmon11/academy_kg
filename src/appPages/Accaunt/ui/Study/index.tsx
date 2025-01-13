@@ -1,8 +1,10 @@
 "use client";
 
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 
 import { Box } from "@mui/material";
+
+import { Footer } from "@/widgets/Footer";
 
 import { GoBackHeader } from "@/entities/GoBackHeader";
 
@@ -38,7 +40,7 @@ export function StudyPage({
   const course = useAppSelector(
     (store) => store.course.course,
   );
-  try {
+  useEffect(() => {
     dispatch(setLoading(true));
     Promise.all([
       axiosInstance
@@ -76,25 +78,18 @@ export function StudyPage({
     ]).finally(() => {
       dispatch(setLoading(false));
     });
+  }, [dispatch, courseId]);
 
-    return (
-      <Fragment>
-        <GoBackHeader
-          title={course ? course.title : "test"}
-        />
-        <Box className={styles.page}>
-          <LessonDetails />
-          <Recommendations />
-        </Box>
-      </Fragment>
-    );
-  } catch (error) {
-    console.error(
-      "Error fetching course detail:",
-      error,
-    );
-    return (
-      <div>Failed to load course detail</div>
-    );
-  }
+  return (
+    <Fragment>
+      <GoBackHeader
+        title={course ? course.title : "test"}
+      />
+      <Box className={styles.page}>
+        <LessonDetails />
+        <Recommendations />
+      </Box>
+      <Footer />
+    </Fragment>
+  );
 }

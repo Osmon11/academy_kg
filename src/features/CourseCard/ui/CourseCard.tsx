@@ -56,7 +56,7 @@ export function CourseCard({
               fontWeight={600}
               sx={{ marginTop: "8px" }}
             >
-              {course.teacher}
+              {course.teacher.full_name}
             </Typography>
           </Box>
         </Box>
@@ -65,6 +65,7 @@ export function CourseCard({
             <Typography
               variant="h6"
               fontWeight={600}
+              lineHeight="24px"
             >
               {formatThePrice(course.price)}
             </Typography>
