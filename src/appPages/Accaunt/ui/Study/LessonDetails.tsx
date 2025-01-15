@@ -10,8 +10,10 @@ import {
   IconButton,
   Menu,
   MenuItem,
+  Paper,
   Tab,
   Tabs,
+  Typography,
   useMediaQuery,
 } from "@mui/material";
 
@@ -42,6 +44,7 @@ export default function LessonDetails() {
     useAppSelector((store) => store.course);
   const [lesson, setLesson] =
     useState<ILessonDetail | null>(null);
+  const [isExam, setIsExam] = useState(false);
   const [anchorEl, setAnchorEl] =
     useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -60,8 +63,23 @@ export default function LessonDetails() {
   const tabs = [
     <LessonsList
       key="LessonsList"
-      lessons={courseLevels?.lessons ?? []}
-      onSelectLesson={setLesson}
+      lessonsAndExam={
+        courseLevels
+          ? [
+              ...courseLevels.lessons,
+              courseLevels.exam,
+            ]
+          : []
+      }
+      onSelectLesson={(lesson) => {
+        console.log("onSelectLesson");
+
+        setIsExam(false);
+        setLesson(lesson);
+      }}
+      onSelectExam={() => {
+        setIsExam(true);
+      }}
     />,
     <Questions key="Questions" />,
     <TextOfTheLesson
@@ -88,11 +106,27 @@ export default function LessonDetails() {
         </Box>
       ) : (
         <Fragment>
-          <iframe
-            src={lesson?.video}
-            allow="autoplay; fullscreen; picture-in-picture"
-            allowFullScreen
-          ></iframe>
+          {isExam ? (
+            <Paper>
+              <Typography
+                variant="h6"
+                fontSize={600}
+                color="primary"
+                textAlign="center"
+              >
+                Таджвид (3 уровень)
+              </Typography>
+              <Box>
+                <Typography></Typography>
+              </Box>
+            </Paper>
+          ) : (
+            <iframe
+              src={lesson?.video}
+              allow="autoplay; fullscreen; picture-in-picture"
+              allowFullScreen
+            ></iframe>
+          )}
           <Box
             sx={{
               width: {

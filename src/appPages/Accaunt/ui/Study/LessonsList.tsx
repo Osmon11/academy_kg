@@ -2,7 +2,11 @@
 
 import moment from "moment";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import {
+  Fragment,
+  useEffect,
+  useState,
+} from "react";
 
 import {
   Accordion,
@@ -14,29 +18,44 @@ import {
 } from "@mui/material";
 
 import { TIME_FORMAT } from "@/shared/config/const";
-import { ILessonDetail } from "@/shared/types";
+import {
+  IExamDetail,
+  ILessonDetail,
+  isExamTypeGuard,
+} from "@/shared/types";
 
 import playCircleGrayIcon from "@/icons/play-circle-gray.svg";
 import playCirclePrimaryIcon from "@/icons/play-circle-primary.svg";
+import starCirclePrimaryIcon from "@/icons/star-circle-primary.svg";
 
 import styles from "../styles.module.scss";
 
 interface ILessonsListProps {
-  lessons: ILessonDetail[];
+  lessonsAndExam: (ILessonDetail | IExamDetail)[];
   onSelectLesson: (lesson: ILessonDetail) => void;
+  onSelectExam: () => void;
 }
 
 export default function LessonsList({
-  lessons,
+  lessonsAndExam,
   onSelectLesson,
+  onSelectExam,
 }: ILessonsListProps) {
   const [activeIndex, setActiveIndex] =
-    useState(0);
+    useState(-1);
   useEffect(() => {
-    if (lessons.length > 0) {
-      onSelectLesson(lessons[0]);
+    if (
+      activeIndex < 0 &&
+      lessonsAndExam.length > 0 &&
+      !isExamTypeGuard(lessonsAndExam[0])
+    ) {
+      onSelectLesson(lessonsAndExam[0]);
     }
-  }, [lessons, onSelectLesson]);
+  }, [
+    activeIndex,
+    lessonsAndExam,
+    onSelectLesson,
+  ]);
   const typographyProps = {
     variant:
       "body1" as TypographyProps["variant"],
@@ -47,74 +66,109 @@ export default function LessonsList({
   };
   return (
     <Box className={styles.accordeons}>
-      {lessons.length > 0 ? (
-        lessons.map((lesson, index) => {
-          const isActive = index === activeIndex;
-          return (
-            <Accordion
-              key={lesson.id}
-              onChange={(_, expanded) => {
-                setActiveIndex(index);
-                if (expanded) {
-                  onSelectLesson(lesson);
-                }
-              }}
-              expanded={isActive}
-            >
-              <AccordionSummary>
-                <Box
-                  className={styles.flex_box}
-                  sx={{ gap: "20px" }}
-                >
-                  <Typography
-                    variant="h5"
-                    fontWeight={600}
-                    color="#A3A3A3"
-                    minWidth="33px"
-                  >
-                    {index + 1}
-                  </Typography>
+      {lessonsAndExam.length > 0 ? (
+        <Fragment>
+          {lessonsAndExam.map((item, index) => {
+            const isActive =
+              index === activeIndex;
+            const isExam = isExamTypeGuard(item);
+            return (
+              <Accordion
+                key={`${item.id}-${isExam ? "exam" : "lesson"}`}
+                onChange={(_, expanded) => {
+                  setActiveIndex(index);
+                  if (expanded) {
+                    if (isExam) {
+                      onSelectExam();
+                    } else {
+                      onSelectLesson(item);
+                    }
+                  }
+                }}
+                expanded={isActive}
+              >
+                <AccordionSummary>
                   <Box
                     className={styles.flex_box}
-                    sx={{ gap: "8px" }}
                   >
-                    <Image
-                      src={
-                        isActive
-                          ? playCirclePrimaryIcon
-                          : playCircleGrayIcon
-                      }
-                      alt={`play circle ${isActive ? "green" : "gray"} icon`}
-                      width={24}
-                      height={24}
-                    />
-                    <Box>
-                      <Typography
-                        {...typographyProps}
-                        fontWeight={
-                          isActive ? 600 : 400
+                    <Typography
+                      variant="h5"
+                      fontWeight={600}
+                      color="#A3A3A3"
+                      minWidth="33px"
+                    >
+                      {index + 1}
+                    </Typography>
+                    <Box
+                      className={styles.flex_box}
+                      sx={{ gap: "8px" }}
+                    >
+                      <Image
+                        src={
+                          isExam
+                            ? starCirclePrimaryIcon
+                            : isActive
+                              ? playCirclePrimaryIcon
+                              : playCircleGrayIcon
                         }
-                      >
-                        {lesson.title}
-                      </Typography>
-                      <Typography
-                        {...typographyProps}
-                      >{`Видео - ${moment(lesson.duration, TIME_FORMAT).format("HH:mm")}`}</Typography>
+                        alt={
+                          isExam
+                            ? "star circle green icon"
+                            : `play circle ${isActive ? "green" : "gray"} icon`
+                        }
+                        width={24}
+                        height={24}
+                      />
+                      <Box>
+                        <Typography
+                          {...typographyProps}
+                          fontWeight={
+                            isActive ? 600 : 400
+                          }
+                        >
+                          {isExam
+                            ? "Экзамен"
+                            : item.title}
+                        </Typography>
+                        {!isExam && (
+                          <Typography
+                            {...typographyProps}
+                          >{`Видео - ${moment(item.duration, TIME_FORMAT).format("HH:mm")}`}</Typography>
+                        )}
+                      </Box>
                     </Box>
                   </Box>
-                </Box>
-              </AccordionSummary>
-              <AccordionDetails>
-                <Typography
-                  variant="caption"
-                  color="textSecondary"
-                >
-                  {lesson.description}
-                </Typography>
-              </AccordionDetails>
-            </Accordion>
-          );
-        })
+                </AccordionSummary>
+                <AccordionDetails>
+                  {isExam ? (
+                    <Fragment>
+                      <Typography
+                        variant="caption"
+                        component="p"
+                        color="textSecondary"
+                      >
+                        {`Необходимый минимум
+                        баллов: ${item.pass_points}`}
+                      </Typography>
+                      <Typography
+                        variant="caption"
+                        component="p"
+                        color="textSecondary"
+                      >{`Время на экзамен: ${moment(item.duration, TIME_FORMAT).get("minutes")} мин.`}</Typography>
+                    </Fragment>
+                  ) : (
+                    <Typography
+                      variant="caption"
+                      color="textSecondary"
+                    >
+                      {item.description}
+                    </Typography>
+                  )}
+                </AccordionDetails>
+              </Accordion>
+            );
+          })}
+        </Fragment>
       ) : (
         <Typography
           textAlign="center"

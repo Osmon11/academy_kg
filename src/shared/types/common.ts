@@ -142,3 +142,7 @@ export interface IComment {
   created_at: string;
   answer: string | null;
 }
+
+export const isExamTypeGuard = (
+  data: ILessonDetail | IExamDetail,
+): data is IExamDetail => "pass_points" in data;

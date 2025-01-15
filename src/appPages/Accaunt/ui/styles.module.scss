@@ -1,5 +1,9 @@
 @use "variables";
 
+.page {
+  min-height: calc(100vh - 250px);
+}
+
 .courses_wrapper {
   display: flex;
   align-items: stretch;

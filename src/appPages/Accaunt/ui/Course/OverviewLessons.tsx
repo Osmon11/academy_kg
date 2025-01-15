@@ -37,10 +37,7 @@ export default function OverviewLessons({
                 : "none",
           }}
         >
-          <Box
-            className={styles.flex_box}
-            sx={{ gap: "20px" }}
-          >
+          <Box className={styles.flex_box}>
             <Typography
               variant="h5"
               fontWeight={600}
