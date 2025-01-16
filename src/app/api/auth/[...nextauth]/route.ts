@@ -1,6 +1,4 @@
-import NextAuth, {
-  NextAuthOptions,
-} from "next-auth";
+import NextAuth from "next-auth";
 import GoogleProvider, {
   GoogleProfile,
 } from "next-auth/providers/google";
@@ -18,7 +16,7 @@ declare module "next-auth/jwt" {
   }
 }
 
-export const authOptions: NextAuthOptions = {
+const handler = NextAuth({
   pages: {
     signIn: routePath("signIn", {
       queryParams: { via: "google" },
@@ -46,8 +44,6 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
   },
-};
-
-const handler = NextAuth(authOptions);
+});
 
 export { handler as GET, handler as POST };
