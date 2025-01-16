@@ -67,6 +67,11 @@ export default async function RootLayout({
             <Providers>{children}</Providers>
           </ThemeProvider>
         </AppRouterCacheProvider>
+        <script
+          src="https://accounts.google.com/gsi/client"
+          async
+          defer
+        />
       </body>
     </html>
   );

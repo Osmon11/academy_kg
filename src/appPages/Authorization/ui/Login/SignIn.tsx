@@ -1,3 +1,5 @@
+"use client";
+
 import { useRouter } from "next-nprogress-bar";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
@@ -14,7 +16,10 @@ import {
 
 import { ControllerTextField } from "@/shared/UI";
 import axiosInstance from "@/shared/config/axiosClientInstance";
-import { routePath } from "@/shared/functions";
+import {
+  routePath,
+  sessionExpiration,
+} from "@/shared/functions";
 import { IErrorResponseData } from "@/shared/types";
 
 import PaperContainer from "../PaperContainer";
@@ -59,19 +64,13 @@ export default function SignIn() {
           res?.data.access &&
           access_token_ilimnuru_kg === undefined
         ) {
-          const d = new Date();
-          d.setTime(
-            d.getTime() +
-              30 * 24 * 60 * 60 * 1000,
-          );
-
           setCookie(
             process.env
               .NEXT_PUBLIC_ACCESS_TOKEN_KEY as string,
             res?.data.access,
             {
               path: "/",
-              expires: d,
+              expires: sessionExpiration(),
             },
           );
           router.replace(

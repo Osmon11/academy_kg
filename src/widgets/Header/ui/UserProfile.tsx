@@ -1,5 +1,6 @@
 "use client";
 
+import { signOut } from "next-auth/react";
 import { useRouter } from "next-nprogress-bar";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -45,6 +46,7 @@ export default function UserProfile({
   const router = useRouter();
 
   function logout() {
+    signOut();
     setAnchorEl(null);
     removeCookie(
       process.env

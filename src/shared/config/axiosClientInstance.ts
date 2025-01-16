@@ -3,6 +3,7 @@ import axios, {
   AxiosResponse,
   InternalAxiosRequestConfig,
 } from "axios";
+import { signOut } from "next-auth/react";
 import { Cookies } from "react-cookie";
 import { toast } from "react-toastify";
 
@@ -67,10 +68,7 @@ axiosInstance.interceptors.response.use(
     if (error.response) {
       const resData = error.response?.data;
       if (error.response.status === 401) {
-        cookies.remove(
-          process.env
-            .NEXT_PUBLIC_ACCESS_TOKEN_KEY as string,
-        );
+        signOut();
       }
       if (typeof window !== "undefined") {
         if (typeof resData === "object") {

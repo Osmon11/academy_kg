@@ -4,6 +4,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
+import { SessionProvider } from "next-auth/react";
 import { AppProgressBar } from "next-nprogress-bar";
 import {
   useEffect,
@@ -90,26 +91,28 @@ export function Providers({
       <CookiesProvider
         defaultSetOptions={{ path: "/" }}
       >
-        <GlobalProfileFetcher>
-          <QueryClientProvider
-            client={queryClient}
-          >
-            {children}
-          </QueryClientProvider>
-        </GlobalProfileFetcher>
-        <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar={false}
-          theme="colored"
-          pauseOnHover
-          closeOnClick
-        />
-        <AppProgressBar
-          height="4px"
-          color={theme.palette.secondary.main}
-          options={{ showSpinner: false }}
-        />
+        <SessionProvider>
+          <GlobalProfileFetcher>
+            <QueryClientProvider
+              client={queryClient}
+            >
+              {children}
+            </QueryClientProvider>
+          </GlobalProfileFetcher>
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            theme="colored"
+            pauseOnHover
+            closeOnClick
+          />
+          <AppProgressBar
+            height="4px"
+            color={theme.palette.secondary.main}
+            options={{ showSpinner: false }}
+          />
+        </SessionProvider>
       </CookiesProvider>
     </Provider>
   );
