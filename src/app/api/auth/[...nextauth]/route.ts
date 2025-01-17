@@ -17,6 +17,11 @@ declare module "next-auth/jwt" {
 }
 
 const handler = NextAuth({
+  secret: process.env.NEXTAUTH_SECRET,
+  debug: process.env.NODE_ENV === "development",
+  session: {
+    strategy: "jwt",
+  },
   pages: {
     signIn: routePath("signIn", {
       queryParams: { via: "google" },
