@@ -144,6 +144,7 @@ export default function LessonDetails() {
               onStateChange={(event) => {
                 if (
                   event.data ===
+                  //@ts-expect-error Property 'YT' does not exist on type 'Window & typeof globalThis'.
                   window.YT.PlayerState
                 ) {
                   finishLesson();
