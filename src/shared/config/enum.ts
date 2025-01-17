@@ -15,3 +15,12 @@ export enum ERoute {
   "[course]" = "/personal-accaunt/courses/[id]",
   "study" = "/personal-accaunt/courses/[id]/study",
 }
+
+export enum EYouTubePlayerState {
+  "BUFFERING" = 3,
+  "CUED" = 5,
+  "ENDED" = 0,
+  "PAUSED" = 2,
+  "PLAYING" = 1,
+  "UNSTARTED" = -1,
+}

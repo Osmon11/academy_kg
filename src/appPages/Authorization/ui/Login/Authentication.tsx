@@ -44,8 +44,6 @@ export function Authentication() {
   ])[1];
 
   useEffect(() => {
-    console.log(status, session);
-
     if (
       via === "google" &&
       status === "authenticated" &&

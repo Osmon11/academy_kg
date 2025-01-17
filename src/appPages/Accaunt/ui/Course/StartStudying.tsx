@@ -6,41 +6,47 @@ import { useState } from "react";
 import { Button } from "@mui/material";
 
 import axiosInstance from "@/shared/config/axiosClientInstance";
+import { useAppSelector } from "@/shared/config/store";
 import { routePath } from "@/shared/functions";
 
-interface IStartStudyingProps {
-  courseId: string;
-}
-
-export default function StartStudying({
-  courseId,
-}: IStartStudyingProps) {
+export default function StartStudying() {
+  const { course } = useAppSelector(
+    (store) => store.course,
+  );
   const [loading, setLoading] = useState(false);
   function startStudying() {
-    if (!loading) {
+    if (course && !loading) {
       setLoading(true);
       axiosInstance
         .post("/academy/start_learning/", {
-          course: courseId,
+          course: course.id,
         })
         .finally(() => setLoading(false));
     }
   }
-  return (
+  return course ? (
     <Link
       href={routePath("study", {
-        id: Number(courseId),
+        id: Number(course.id),
       })}
     >
       <Button
         variant="contained"
         color="secondary"
-        onClick={startStudying}
+        onClick={
+          course.is_learning
+            ? undefined
+            : startStudying
+        }
         sx={{ width: "300px" }}
         disabled={loading}
       >
-        Начать учиться
+        {course.is_learning
+          ? "Продолжить обучение"
+          : "Начать учиться"}
       </Button>
     </Link>
+  ) : (
+    "No course in store"
   );
 }

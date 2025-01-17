@@ -110,7 +110,7 @@ export function CourseOverviewPage({
               fullnameColor="secondary"
               {...course.teacher}
             />
-            <StartStudying courseId={courseId} />
+            <StartStudying />
           </Box>
         </Box>
         <Typography

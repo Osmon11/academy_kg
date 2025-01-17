@@ -1,4 +1,5 @@
 export interface IProfile {
+  id: number;
   full_name: string;
   email: string;
   gender: string;
@@ -96,6 +97,7 @@ export interface ICourseDetail
   };
   lesson_count: string;
   duration_count: string;
+  is_learning: boolean;
 }
 
 export interface ILessonDetail {
@@ -132,7 +134,7 @@ export interface ISetOfCourses {
 export interface IUser {
   id: number;
   full_name: string;
-  avatar?: string;
+  avatar?: string | null;
 }
 
 export interface IComment {

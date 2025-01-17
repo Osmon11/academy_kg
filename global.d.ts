@@ -1,5 +1,14 @@
 declare global {
   interface Window {
-    google: any; // You can use 'any' or define specific types for the Google object
+    YT: {
+      PlayerState: {
+        BUFFERING: 3;
+        CUED: 5;
+        ENDED: 0;
+        PAUSED: 2;
+        PLAYING: 1;
+        UNSTARTED: -1;
+      };
+    };
   }
 }

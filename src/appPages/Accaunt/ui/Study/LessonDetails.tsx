@@ -2,7 +2,13 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { Fragment, useState } from "react";
+import {
+  Fragment,
+  useMemo,
+  useState,
+} from "react";
+import { toast } from "react-toastify";
+import YouTube from "react-youtube";
 
 import {
   Box,
@@ -10,16 +16,18 @@ import {
   IconButton,
   Menu,
   MenuItem,
-  Paper,
   Tab,
   Tabs,
-  Typography,
   useMediaQuery,
 } from "@mui/material";
 
 import { TubeSpinner } from "@/shared/UI";
+import axiosInstance from "@/shared/config/axiosClientInstance";
 import { useAppSelector } from "@/shared/config/store";
-import { routePath } from "@/shared/functions";
+import {
+  getYouTubeVideoId,
+  routePath,
+} from "@/shared/functions";
 import { ILessonDetail } from "@/shared/types";
 
 import bookSquareIconPrimary from "@/icons/book-square-primary.svg";
@@ -27,6 +35,7 @@ import settingIconPrimary from "@/icons/settng-primary.svg";
 import shareIconPrimary from "@/icons/share-primary.svg";
 
 import styles from "../styles.module.scss";
+import ExamOverview from "./ExamOverview";
 import LessonsList from "./LessonsList";
 import Questions from "./Questions";
 import TextOfTheLesson from "./TextOfTheLesson";
@@ -57,6 +66,21 @@ export default function LessonDetails() {
       setTab(newValue);
     }
   };
+
+  function finishLesson() {
+    if (lesson) {
+      axiosInstance
+        .post(
+          `/academy/finish_lesson/${lesson.id}/`,
+        )
+        .then((res) => {
+          if (res?.data?.message) {
+            toast.success(res.data.message);
+          }
+        });
+    }
+  }
+
   const upSm = useMediaQuery((theme) =>
     theme.breakpoints.up("sm"),
   );
@@ -72,8 +96,6 @@ export default function LessonDetails() {
           : []
       }
       onSelectLesson={(lesson) => {
-        console.log("onSelectLesson");
-
         setIsExam(false);
         setLesson(lesson);
       }}
@@ -93,9 +115,16 @@ export default function LessonDetails() {
     justifyContent: "center",
     gap: "10px",
   };
+  const videoId = useMemo(
+    () =>
+      lesson
+        ? getYouTubeVideoId(lesson.video)
+        : undefined,
+    [lesson],
+  );
   return (
     <Box className={styles.lesson_wrapper}>
-      {loading ? (
+      {loading || !courseLevels ? (
         <Box
           className={styles.tube_spinner_wrapper}
         >
@@ -106,32 +135,27 @@ export default function LessonDetails() {
         </Box>
       ) : (
         <Fragment>
-          {isExam ? (
-            <Paper>
-              <Typography
-                variant="h6"
-                fontSize={600}
-                color="primary"
-                textAlign="center"
-              >
-                Таджвид (3 уровень)
-              </Typography>
-              <Box>
-                <Typography></Typography>
-              </Box>
-            </Paper>
+          {isExam && courseLevels ? (
+            <ExamOverview />
           ) : (
-            <iframe
-              src={lesson?.video}
-              allow="autoplay; fullscreen; picture-in-picture"
-              allowFullScreen
-            ></iframe>
+            <YouTube
+              videoId={videoId}
+              onEnd={finishLesson}
+              onStateChange={(event) => {
+                if (
+                  event.data ===
+                  window.YT.PlayerState
+                ) {
+                  finishLesson();
+                }
+              }}
+            />
           )}
           <Box
             sx={{
               width: {
                 sx: "100%",
-                md: "calc(40% - 25px)",
+                lg: "calc(40% - 25px)",
               },
             }}
           >

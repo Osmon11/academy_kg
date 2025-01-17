@@ -25,7 +25,6 @@ import {
   useAppSelector,
 } from "@/shared/config/store";
 import { setComments } from "@/shared/model";
-import { IComment } from "@/shared/types";
 
 import avatarGrayIcon from "@/icons/avatar-gray.svg";
 import logoPrimary from "@/icons/logo-primary.svg";
@@ -49,17 +48,16 @@ export default function Questions() {
     handleSubmit,
     control,
     formState: { errors },
+    reset,
   } = useForm<IFormValues>({
     defaultValues: {
       comment: "",
     },
   });
   const [loading, setLoading] = useState(false);
-  const [commentsLoading, setCommentsLoading] =
-    useState(false);
 
   function onSubmit({ comment }: IFormValues) {
-    if (course) {
+    if (course && profile) {
       setLoading(true);
       axiosInstance
         .post("/academy/comment_create/", {
@@ -68,26 +66,24 @@ export default function Questions() {
         })
         .then((res) => {
           if (res?.data?.comment) {
-            setCommentsLoading(true);
-            axiosInstance
-              .get<{
-                results: IComment[];
-              }>(
-                `/academy/comment_list/${course.id}`,
-              )
-              .then((res) => {
-                if (
-                  res?.data &&
-                  Array.isArray(res.data.results)
-                ) {
-                  dispatch(
-                    setComments(res.data.results),
-                  );
-                }
-              })
-              .finally(() =>
-                setCommentsLoading(false),
-              );
+            dispatch(
+              setComments([
+                {
+                  id: comments.length + 1,
+                  comment,
+                  user: {
+                    id: profile.id,
+                    full_name: profile.full_name,
+                    avatar: profile.avatar,
+                  },
+                  created_at:
+                    new Date().toISOString(),
+                  answer: null,
+                },
+                ...comments,
+              ]),
+            );
+            reset();
           }
         })
         .finally(() => setLoading(false));
@@ -129,6 +125,8 @@ export default function Questions() {
                 fieldState.error?.message
               }
               disabled={loading}
+              multiline
+              maxRows={3}
             />
           )}
         />
@@ -154,19 +152,7 @@ export default function Questions() {
           )}
         </IconButton>
       </Box>
-      {commentsLoading ? (
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          <TubeSpinner
-            width={50}
-            height={50}
-          />
-        </Box>
-      ) : comments.length > 0 ? (
+      {comments.length > 0 ? (
         <Box
           className={styles.accordeons}
           sx={{

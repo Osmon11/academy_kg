@@ -37,7 +37,7 @@ let theme = createTheme({
     primary: {
       main: "#1DA599",
       light: "#37dccd",
-      dark: "#115f58",
+      dark: "#178279",
       contrastText: "#fff",
     },
     secondary: {
@@ -121,7 +121,10 @@ let theme = createTheme({
           }),
         },
         {
-          props: { variant: "convex" },
+          props: {
+            variant: "convex",
+            size: "medium",
+          },
           style: ({ theme }) => ({
             minWidth: "240px",
             minHeight: "60px",
@@ -129,6 +132,21 @@ let theme = createTheme({
             display: "flex",
             borderRadius: "20px",
             color: theme.palette.common.white,
+          }),
+        },
+        {
+          props: {
+            variant: "convex",
+            size: "small",
+          },
+          style: ({ theme }) => ({
+            minWidth: "240px",
+            minHeight: "30px",
+            padding: "7px 4px",
+            display: "flex",
+            borderRadius: "8px",
+            color: theme.palette.common.white,
+            textTransform: "none",
           }),
         },
         {
