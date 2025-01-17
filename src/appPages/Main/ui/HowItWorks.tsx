@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import YouTube from "react-youtube";
 
 import {
   Box,
@@ -22,6 +23,21 @@ export default function HowItWorks() {
   const xs = useMediaQuery((theme) =>
     theme.breakpoints.only("xs"),
   );
+  const Laptop = (
+    <div className={styles.laptop}>
+      <div className={styles.screen}>
+        <YouTube videoId="MV_J9E1M_dc" />
+      </div>
+      <Image
+        className={styles.base}
+        src={laptopBaseBg}
+        alt="laptop base"
+        unoptimized
+        width={1128}
+        height={19}
+      />
+    </div>
+  );
   return (
     <Box
       sx={{
@@ -32,19 +48,7 @@ export default function HowItWorks() {
         },
       }}
     >
-      {xs && (
-        <div className={styles.laptop}>
-          <div className={styles.screen}></div>
-          <Image
-            className={styles.base}
-            src={laptopBaseBg}
-            alt="laptop base"
-            unoptimized
-            width={10000}
-            height={140}
-          />
-        </div>
-      )}
+      {xs && Laptop}
       <Box
         className={styles.icon_banners_wrapper}
         sx={{
@@ -72,19 +76,7 @@ export default function HowItWorks() {
           }}
         />
       </Box>
-      {!xs && (
-        <div className={styles.laptop}>
-          <div className={styles.screen}></div>
-          <Image
-            className={styles.base}
-            src={laptopBaseBg}
-            alt="laptop base"
-            unoptimized
-            width={1128}
-            height={19}
-          />
-        </div>
-      )}
+      {!xs && Laptop}
       <Box
         className={styles.icon_banners_wrapper}
         sx={{

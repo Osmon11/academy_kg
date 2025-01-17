@@ -5,6 +5,7 @@ import {
   useSearchParams,
 } from "next/navigation";
 import { useState } from "react";
+import { useCookies } from "react-cookie";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
@@ -12,7 +13,10 @@ import { Button } from "@mui/material";
 
 import { ControllerTextField } from "@/shared/UI";
 import axiosInstance from "@/shared/config/axiosClientInstance";
-import { routePath } from "@/shared/functions";
+import {
+  routePath,
+  sessionExpiration,
+} from "@/shared/functions";
 
 import PaperContainer from "../PaperContainer";
 
@@ -33,8 +37,11 @@ export default function VerifyAccount() {
   });
   const searchParams = useSearchParams();
   const email = searchParams.get("email");
-
   const [loading, setLoading] = useState(false);
+  const setCookie = useCookies([
+    process.env
+      .NEXT_PUBLIC_ACCESS_TOKEN_KEY as string,
+  ])[1];
 
   function onSubmit(data: IFormValues) {
     setLoading(true);
@@ -44,13 +51,18 @@ export default function VerifyAccount() {
         ...data,
       })
       .then((res) => {
-        if (res?.data.message) {
-          toast.success(res?.data.message);
-          router.push(
-            routePath("signIn", {
-              queryParams: { via: "email" },
-            }),
+        if (res?.data?.access) {
+          toast.success("Аккаунт подтвержден");
+          setCookie(
+            process.env
+              .NEXT_PUBLIC_ACCESS_TOKEN_KEY as string,
+            res?.data.access,
+            {
+              path: "/",
+              expires: sessionExpiration(),
+            },
           );
+          router.replace(routePath("accaunt"));
         }
       })
       .finally(() => setLoading(false));

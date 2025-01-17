@@ -66,11 +66,9 @@ export interface IWebinarAfterwardListItem
   video: string;
 }
 
-export type IErrorResponseData =
-  | {
-      message: string;
-    }
-  | undefined;
+export type IErrorResponseData = {
+  message: string;
+};
 
 export interface IObjectivesListItem {
   id: number;

@@ -71,12 +71,14 @@ axiosInstance.interceptors.response.use(
         signOut();
       }
       if (typeof window !== "undefined") {
-        if (typeof resData === "object") {
-          toast.error(
-            typeof resData.message === "string"
-              ? resData.message
-              : unknownError,
-          );
+        if (
+          typeof resData === "object" &&
+          typeof resData.message === "string"
+        ) {
+          toast.error(resData.message);
+          return Promise.reject({
+            message: resData.message,
+          });
         }
         if (
           typeof resData === "string" &&
@@ -87,6 +89,7 @@ axiosInstance.interceptors.response.use(
             message: resData,
           });
         }
+        toast.error(unknownError);
       }
     }
     if (error.code === "ETIMEDOUT") {

@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import { forwardRef } from "react";
 
 import { Box, Typography } from "@mui/material";
 
@@ -11,12 +12,16 @@ interface ISectionHeaderProps {
   children: React.ReactNode;
 }
 
-export function SectionHeader({
-  color,
-  children,
-}: ISectionHeaderProps) {
+export const SectionHeader = forwardRef<
+  HTMLDivElement,
+  ISectionHeaderProps
+>(function SectionHeader(
+  { color, children },
+  ref,
+) {
   return (
     <Box
+      ref={ref}
       className={classNames(
         styles.section_header,
         styles[color],
@@ -39,4 +44,4 @@ export function SectionHeader({
       <div className={styles.line} />
     </Box>
   );
-}
+});

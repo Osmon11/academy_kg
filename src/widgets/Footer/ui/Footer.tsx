@@ -31,19 +31,31 @@ export function Footer() {
       )}
       <span>
         <div className={styles.links_wrapper}>
-          <Link href="">
+          <Link
+            href="https://odigital.app"
+            target="_blank"
+            rel="noopener"
+          >
             <Typography variant="body2">
               Политика конфиденциальности
             </Typography>
           </Link>
           <Typography>|</Typography>
-          <Link href="">
+          <Link
+            href=""
+            target="_blank"
+            rel="noopener"
+          >
             <Typography variant="body2">
               Библиотека
             </Typography>
           </Link>
           <Typography>|</Typography>
-          <Link href="">
+          <Link
+            href=""
+            target="_blank"
+            rel="noopener"
+          >
             <Typography variant="body2">
               Мир Знаний
             </Typography>
@@ -63,7 +75,7 @@ export function Footer() {
         <div className={styles.social_links}>
           <IconButton
             className={styles.icon_button}
-            href="null"
+            href="https://www.instagram.com"
             target="_blank"
             rel="noopener"
           >
@@ -76,7 +88,7 @@ export function Footer() {
           </IconButton>
           <IconButton
             className={styles.icon_button}
-            href="https://www.youtube.com/@varlamov"
+            href="https://www.youtube.com"
             target="_blank"
             rel="noopener"
           >
@@ -89,7 +101,7 @@ export function Footer() {
           </IconButton>
           <IconButton
             className={styles.icon_button}
-            href="null"
+            href="https://telegram.org/"
             target="_blank"
             rel="noopener"
           >

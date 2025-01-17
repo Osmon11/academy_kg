@@ -55,14 +55,31 @@ export default function SignUp() {
       .then((res) => {
         if (res?.data.message) {
           toast.success(res?.data.message);
-          router.push(
-            routePath("signIn", {
-              queryParams: { via: "email" },
-            }),
-          );
+          axiosInstance
+            .post("/auth/send_code_email/", {
+              email: data.email,
+            })
+            .then((res) => {
+              if (res?.data.message) {
+                toast.success(res?.data.message);
+                router.push(
+                  routePath("signUp", {
+                    queryParams: {
+                      verify: "true",
+                      email: data.email,
+                    },
+                  }),
+                );
+              }
+            })
+            .finally(() => setLoading(false));
+        } else {
+          setLoading(false);
         }
       })
-      .finally(() => setLoading(false));
+      .catch(() => {
+        setLoading(false);
+      });
   }
 
   const password = watch("password", "");

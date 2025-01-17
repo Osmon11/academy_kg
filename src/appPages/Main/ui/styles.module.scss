@@ -96,10 +96,15 @@
     .screen {
       width: 300px;
       height: 200px;
-      padding: 15px 12px 14px;
+      padding: 15px 12px;
       border-radius: 10px 10px 0px 0px;
       border-width: 2px 3px 5px;
+      iframe {
+        width: 270px;
+        height: 170px;
+      }
     }
+
     .base {
       width: 360px;
       height: 14px;
@@ -120,6 +125,10 @@
       height: 450px;
       border-radius: 16px 16px 0px 0px;
       border-width: 5px 5px 16px;
+      iframe {
+        width: calc(80vw - 35px);
+        height: 420px;
+      }
     }
     .base {
       width: 100%;
@@ -153,6 +162,10 @@
     .screen {
       padding: 27px 18px 21px;
       border-width: 4px 5px 12px;
+      iframe {
+        width: calc(80vw - 45px);
+        height: 372px;
+      }
     }
     .base {
       width: 100vw;
@@ -186,6 +199,10 @@
       padding: 39px 25px 28px;
       border-width: 6px 7px 18px;
       border-radius: 24px 24px 0px 0px;
+      iframe {
+        width: 848px;
+        height: 509px;
+      }
     }
     .base {
       width: 1125px;

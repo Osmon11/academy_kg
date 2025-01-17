@@ -1,5 +1,13 @@
+"use client";
+
 import Image from "next/image";
-import { Fragment } from "react";
+import Link from "next/link";
+import {
+  Fragment,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 import {
   Button,
@@ -16,6 +24,7 @@ import { SectionHeader } from "@/entities/SectionHeader";
 
 import axiosInstance from "@/shared/config/axiosClientInstance";
 import { SECTION_MARGIN_TOP } from "@/shared/config/const";
+import { routePath } from "@/shared/functions";
 import {
   IFeedbackListItem,
   ISubjectListItem,
@@ -32,22 +41,62 @@ import HowItWorks from "./HowItWorks";
 import Subjects from "./Subjects";
 import styles from "./styles.module.scss";
 
-export async function MainPage() {
-  const courseList = await axiosInstance
-    .get<{
-      results: ISubjectListItem[];
-    }>("academy/course_list/")
-    .then((res) => res?.data.results);
-  const teacherList = await axiosInstance
-    .get<{
-      results: ITeacherListItem[];
-    }>("academy/teacher_list/")
-    .then((res) => res?.data.results);
-  const feedbackList = await axiosInstance
-    .get<{
-      results: IFeedbackListItem[];
-    }>("academy/feedback_list/")
-    .then((res) => res?.data.results);
+export function MainPage() {
+  const videoRef = useRef<HTMLDivElement>(null);
+  const [courseList, setCourseList] = useState<
+    ISubjectListItem[]
+  >([]);
+  const [teacherList, setTeacherList] = useState<
+    ITeacherListItem[]
+  >([]);
+  const [feedbackList, setFeedbackList] =
+    useState<IFeedbackListItem[]>([]);
+
+  useEffect(() => {
+    axiosInstance
+      .get<{
+        results: ISubjectListItem[];
+      }>("academy/course_list/")
+      .then((res) => {
+        if (
+          res?.data &&
+          Array.isArray(res.data.results)
+        ) {
+          setCourseList(res.data.results);
+        }
+      });
+    axiosInstance
+      .get<{
+        results: ITeacherListItem[];
+      }>("academy/teacher_list/")
+      .then((res) => {
+        if (
+          res?.data &&
+          Array.isArray(res.data.results)
+        ) {
+          setTeacherList(res.data.results);
+        }
+      });
+    axiosInstance
+      .get<{
+        results: IFeedbackListItem[];
+      }>("academy/feedback_list/")
+      .then((res) => {
+        if (
+          res?.data &&
+          Array.isArray(res.data.results)
+        ) {
+          setFeedbackList(res.data.results);
+        }
+      });
+  }, []);
+
+  const scrollToVideo = () => {
+    videoRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
   return (
     <Fragment>
       <Header
@@ -98,28 +147,31 @@ export async function MainPage() {
               />
             </div>
           }
+          onClick={scrollToVideo}
         >
           Смотреть видео
         </Button>
-        <Button
-          variant="convex"
-          color="primary"
-          sx={{
-            marginTop: "18px",
-          }}
-          endIcon={
-            <div className="circle_icon_wrapper">
-              <Image
-                src={teacherPrimaryIcon}
-                alt="cyan teacher icon"
-                width={24}
-                height={24}
-              />
-            </div>
-          }
-        >
-          начать обучение
-        </Button>
+        <Link href={routePath("signUp")}>
+          <Button
+            variant="convex"
+            color="primary"
+            sx={{
+              marginTop: "18px",
+            }}
+            endIcon={
+              <div className="circle_icon_wrapper">
+                <Image
+                  src={teacherPrimaryIcon}
+                  alt="cyan teacher icon"
+                  width={24}
+                  height={24}
+                />
+              </div>
+            }
+          >
+            начать обучение
+          </Button>
+        </Link>
       </PageHeading>
       <SectionHeader color="primary">
         Наши предметы
@@ -181,7 +233,10 @@ export async function MainPage() {
       >
         <Achievements />
       </Banner>
-      <SectionHeader color="secondary">
+      <SectionHeader
+        ref={videoRef}
+        color="secondary"
+      >
         как это работает?
       </SectionHeader>
       <HowItWorks />

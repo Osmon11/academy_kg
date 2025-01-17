@@ -82,11 +82,13 @@ export default function SignIn() {
       })
       .catch((error: IErrorResponseData) => {
         if (
-          error?.message ===
+          error.message ===
           "Пользователь не подтвержден"
         ) {
           axiosInstance
-            .post("/auth/send_code_email/", data)
+            .post("/auth/send_code_email/", {
+              email: data.email,
+            })
             .then((res) => {
               if (res?.data.message) {
                 toast.success(res?.data.message);
