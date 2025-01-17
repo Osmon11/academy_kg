@@ -16,12 +16,12 @@ import {
 } from "@mui/material";
 
 import axiosInstance from "@/shared/config/axiosClientInstance";
-import {
-  SECTION_PADDING,
-  TIME_FORMAT,
-} from "@/shared/config/const";
+import { SECTION_PADDING } from "@/shared/config/const";
 import { useAppSelector } from "@/shared/config/store";
-import { routePath } from "@/shared/functions";
+import {
+  getAllMinutes,
+  routePath,
+} from "@/shared/functions";
 import { IUpcomingWebinarListItem } from "@/shared/types";
 
 import styles from "./styles.module.scss";
@@ -148,13 +148,6 @@ export default function UpcomingWebinars({
           webinar.place_count -
             webinar.busy_count >
           0;
-        const durationTime = moment(
-          webinar.duration,
-          TIME_FORMAT,
-        );
-        const totalMinutes =
-          durationTime.hours() * 60 +
-          durationTime.minutes();
         return (
           <Box
             key={webinarIndex}
@@ -241,7 +234,7 @@ export default function UpcomingWebinars({
                     color="textThirtiary"
                     textAlign="end"
                   >
-                    {`≈ ${totalMinutes} минут`}
+                    {`≈ ${getAllMinutes(webinar.duration)} минут`}
                   </Typography>
                 </Box>
                 <Box

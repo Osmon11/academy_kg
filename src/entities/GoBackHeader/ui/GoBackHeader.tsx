@@ -2,9 +2,11 @@
 
 import { useRouter } from "next-nprogress-bar";
 import Image from "next/image";
+import { ReactElement } from "react";
 
 import {
   AppBar,
+  Box,
   IconButton,
   Typography,
 } from "@mui/material";
@@ -16,11 +18,13 @@ import styles from "./GoBackHeader.module.scss";
 interface GoBackHeaderProps {
   title: string;
   onGoBack?: () => void;
+  append?: ReactElement;
 }
 
 export function GoBackHeader({
   title,
   onGoBack,
+  append,
 }: GoBackHeaderProps) {
   const navigation = useRouter();
 
@@ -52,6 +56,7 @@ export function GoBackHeader({
       >
         {title}
       </Typography>
+      {append ? <Box className={styles.append_wrapper}>{append}</Box> : null}
     </AppBar>
   );
 }

@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import {
   Box,
   Button,
@@ -6,6 +8,7 @@ import {
 } from "@mui/material";
 
 import { useAppSelector } from "@/shared/config/store";
+import { routePath } from "@/shared/functions";
 
 import styles from "../styles.module.scss";
 
@@ -57,13 +60,19 @@ export default function ExamOverview() {
           </Typography>
         </Box>
       </Box>
-      <Button
-        variant="convex"
-        size="small"
-        sx={{ width: "330px" }}
+      <Link
+        href={routePath("exam", {
+          id: course.id,
+        })}
       >
-        Начать
-      </Button>
+        <Button
+          variant="convex"
+          size="small"
+          sx={{ width: "330px" }}
+        >
+          Начать
+        </Button>
+      </Link>
     </Paper>
   ) : (
     "No course in store"

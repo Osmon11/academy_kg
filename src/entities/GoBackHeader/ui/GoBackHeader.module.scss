@@ -16,6 +16,11 @@
         contrast(89%);
     }
   }
+  .append_wrapper {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+  }
 }
 
 @media (min-width: variables.$theme-breakpoint-xs) {

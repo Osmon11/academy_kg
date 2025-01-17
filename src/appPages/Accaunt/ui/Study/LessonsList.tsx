@@ -18,6 +18,7 @@ import {
 } from "@mui/material";
 
 import { TIME_FORMAT } from "@/shared/config/const";
+import { getAllMinutes } from "@/shared/functions";
 import {
   IExamDetail,
   ILessonDetail,
@@ -154,7 +155,7 @@ export default function LessonsList({
                         variant="caption"
                         component="p"
                         color="textSecondary"
-                      >{`Время на экзамен: ${moment(item.duration, TIME_FORMAT).get("minutes")} мин.`}</Typography>
+                      >{`Время на экзамен: ${getAllMinutes(item.duration)} мин.`}</Typography>
                     </Fragment>
                   ) : (
                     <Typography

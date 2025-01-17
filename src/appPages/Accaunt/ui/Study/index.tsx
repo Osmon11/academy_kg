@@ -83,7 +83,7 @@ export function StudyPage({
   return (
     <Fragment>
       <GoBackHeader
-        title={course ? course.title : "test"}
+        title={course ? course.title : ""}
       />
       <Box className={styles.page}>
         <LessonDetails />
