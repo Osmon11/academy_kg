@@ -1,16 +1,8 @@
 "use client";
 
-import {
-  QueryClient,
-  QueryClientProvider,
-} from "@tanstack/react-query";
 import { SessionProvider } from "next-auth/react";
 import { AppProgressBar } from "next-nprogress-bar";
-import {
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { useEffect, useRef } from "react";
 import { useCookies } from "react-cookie";
 import { CookiesProvider } from "react-cookie";
 import { Provider } from "react-redux";
@@ -83,9 +75,6 @@ export function Providers({
     // Create the store instance the first time this renders
     storeRef.current = makeStore();
   }
-  const [queryClient] = useState(
-    () => new QueryClient(),
-  );
   return (
     <Provider store={storeRef.current}>
       <CookiesProvider
@@ -93,11 +82,7 @@ export function Providers({
       >
         <SessionProvider>
           <GlobalProfileFetcher>
-            <QueryClientProvider
-              client={queryClient}
-            >
-              {children}
-            </QueryClientProvider>
+            {children}
           </GlobalProfileFetcher>
           <ToastContainer
             position="top-right"

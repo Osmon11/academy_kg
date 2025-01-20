@@ -29,7 +29,7 @@ export function Modal({
       className={styles.modal}
     >
       <Box className={styles.content}>
-        <div className={styles.header}>
+        <Box className={styles.header}>
           <IconButton
             className={styles.close_button}
           >
@@ -50,7 +50,7 @@ export function Modal({
               {title}
             </Typography>
           )}
-        </div>
+        </Box>
       </Box>
     </MuiModal>
   );

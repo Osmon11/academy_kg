@@ -84,7 +84,7 @@ function ImageWrapper({
     }
   }
   return (
-    <div
+    <Box
       className={classNames(
         styles.image_wrapper,
         styles.secondary,
@@ -96,26 +96,27 @@ function ImageWrapper({
         quality={100}
         fill
       />
-      <div className={styles.content}>
-        {!webinar.is_requested &&
-          haveFreeSeats && (
-            <Button
-              className={styles.button}
-              variant="convex"
-              color="secondary"
-              onClick={() =>
-                leaveARequest(webinar)
-              }
-              disabled={loading}
-            >
-              {loading
-                ? "Ожидание..."
+      <Box className={styles.content}>
+        {haveFreeSeats && (
+          <Button
+            className={styles.button}
+            variant="convex"
+            color="secondary"
+            onClick={() => leaveARequest(webinar)}
+            disabled={
+              loading || webinar.is_requested
+            }
+          >
+            {loading
+              ? "Ожидание..."
+              : webinar.is_requested
+                ? "Заявка отправлена"
                 : "Оставить заявку"}
-            </Button>
-          )}
-      </div>
-      <div className={styles.overlay} />
-    </div>
+          </Button>
+        )}
+      </Box>
+      <Box className={styles.overlay} />
+    </Box>
   );
 }
 
@@ -256,7 +257,7 @@ export default function UpcomingWebinars({
                     color="textThirtiary"
                     textAlign="end"
                   >
-                    {`${webinar.level} уровня и выше`}
+                    {`${webinar.level}-уровня и выше`}
                   </Typography>
                 </Box>
                 <Typography

@@ -7,6 +7,7 @@ import {
 
 import {
   courseReducer,
+  examReducer,
   userReducer,
 } from "../model";
 
@@ -15,6 +16,7 @@ export const makeStore = () =>
     reducer: {
       user: userReducer,
       course: courseReducer,
+      exam: examReducer,
     },
   });
 

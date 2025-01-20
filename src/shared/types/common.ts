@@ -146,3 +146,21 @@ export interface IComment {
 export const isExamTypeGuard = (
   data: ILessonDetail | IExamDetail,
 ): data is IExamDetail => "pass_points" in data;
+
+export interface IAnswer {
+  id: number;
+  key: string;
+  value: string;
+  is_correct: boolean;
+}
+
+export interface IQuestion {
+  id: number;
+  question: string;
+  answers: IAnswer[];
+}
+
+export interface IExamQuestions
+  extends IExamDetail {
+  questions: IQuestion[];
+}

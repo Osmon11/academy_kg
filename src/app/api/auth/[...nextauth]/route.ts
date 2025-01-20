@@ -8,11 +8,13 @@ import { routePath } from "@/shared/functions";
 declare module "next-auth" {
   interface Session {
     accessToken?: string;
+    idToken?: string;
   }
 }
 declare module "next-auth/jwt" {
   interface JWT {
     accessToken?: string;
+    idToken?: string;
   }
 }
 
@@ -40,12 +42,14 @@ const handler = NextAuth({
       // Persist the OAuth access_token to the token right after signin
       if (account) {
         token.accessToken = account.access_token;
+        token.idToken = account.id_token;
       }
       return token;
     },
     async session({ session, token }) {
       // Send properties to the client, like an access_token from a provider.
       session.accessToken = token.accessToken;
+      session.idToken = token.idToken;
       return session;
     },
   },

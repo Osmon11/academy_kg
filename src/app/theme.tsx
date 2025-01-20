@@ -51,6 +51,9 @@ let theme = createTheme({
       secondary: "#202020",
       thirtiary: "#595959",
     },
+    action: {
+      disabled: "rgb(255 255 255 / 66%)",
+    },
   },
   typography: {
     fontFamily: "var(--font-montserrat)",
@@ -178,6 +181,32 @@ let theme = createTheme({
             ":hover": {
               background:
                 theme.palette.secondary.dark,
+            },
+          }),
+        },
+        {
+          props: {
+            variant: "convex",
+            color: "white",
+          },
+          style: ({ theme }) => ({
+            minHeight: "50px",
+            color: theme.palette.text.thirtiary,
+            background:
+              theme.palette.common.white,
+            textTransform: "none",
+            boxShadow:
+              "1px 1px 2px 0px #FFFFFF4D inset, -1px -1px 2px 0px #AEAEAE80 inset, -1px 1px 2px 0px #AEAEAE33, 1px -1px 2px 0px #AEAEAE33, -1px -1px 2px 0px #FFFFFFE5, 1px 1px 3px 0px #AEAEAEE5",
+            ":hover": {
+              background:
+                theme.palette.common.white,
+              boxShadow:
+                "1px 1px 2px 0px #FFFFFF4D inset, -1px -1px 2px 0px #AEAEAE80 inset, -1px 1px 2px 0px #AEAEAE33, 1px -1px 2px 0px #AEAEAE33, -1px -1px 2px 0px #FFFFFFE5, 1px 1px 3px 0px #AEAEAEE5",
+            },
+            "&.Mui-disabled": {
+              color: theme.palette.text.thirtiary,
+              boxShadow:
+                "1px 1px 2px 0px #FFFFFF4D inset, -1px -1px 2px 0px #AEAEAE80 inset, -1px 1px 2px 0px #AEAEAE33, 1px -1px 2px 0px #AEAEAE33, -1px -1px 2px 0px #FFFFFFE5, 1px 1px 3px 0px #AEAEAEE5",
             },
           }),
         },

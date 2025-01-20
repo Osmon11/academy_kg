@@ -57,7 +57,7 @@ export default function DrawerSidebar({
         },
       }}
     >
-      <div className={styles.drawer_header}>
+      <Box className={styles.drawer_header}>
         <Link href={routePath("main")}>
           <Image
             src={logoPrimaryIcon}
@@ -74,7 +74,7 @@ export default function DrawerSidebar({
             height={30}
           />
         </IconButton>
-      </div>
+      </Box>
       <List
         disablePadding
         sx={{ marginTop: "30px" }}

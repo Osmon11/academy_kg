@@ -10,6 +10,7 @@ import {
 } from "react";
 
 import {
+  Box,
   Button,
   Typography,
 } from "@mui/material";
@@ -106,7 +107,7 @@ export function MainPage() {
       />
       <PageHeading
         header={
-          <div
+          <Box
             className={styles.location_wrapper}
           >
             <Image
@@ -121,7 +122,7 @@ export function MainPage() {
             >
               Кыргызстан, бишкек
             </Typography>
-          </div>
+          </Box>
         }
         title="Первая исламская онлайн-академия в
           Кыргызстане - доступное образование,
@@ -138,14 +139,14 @@ export function MainPage() {
             marginTop: { xs: "20px", md: "50px" },
           }}
           endIcon={
-            <div className="circle_icon_wrapper">
+            <Box className="circle_icon_wrapper">
               <Image
                 src={playSecondaryIcon}
                 alt="orange play icon"
                 width={24}
                 height={24}
               />
-            </div>
+            </Box>
           }
           onClick={scrollToVideo}
         >
@@ -159,14 +160,14 @@ export function MainPage() {
               marginTop: "18px",
             }}
             endIcon={
-              <div className="circle_icon_wrapper">
+              <Box className="circle_icon_wrapper">
                 <Image
                   src={teacherPrimaryIcon}
                   alt="cyan teacher icon"
                   width={24}
                   height={24}
                 />
-              </div>
+              </Box>
             }
           >
             начать обучение

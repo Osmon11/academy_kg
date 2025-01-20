@@ -24,10 +24,10 @@ export default function HowItWorks() {
     theme.breakpoints.only("xs"),
   );
   const Laptop = (
-    <div className={styles.laptop}>
-      <div className={styles.screen}>
+    <Box className={styles.laptop}>
+      <Box className={styles.screen}>
         <YouTube videoId="MV_J9E1M_dc" />
-      </div>
+      </Box>
       <Image
         className={styles.base}
         src={laptopBaseBg}
@@ -36,7 +36,7 @@ export default function HowItWorks() {
         width={1128}
         height={19}
       />
-    </div>
+    </Box>
   );
   return (
     <Box

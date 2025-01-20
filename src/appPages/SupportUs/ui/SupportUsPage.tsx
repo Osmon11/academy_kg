@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 import { Footer } from "@/widgets/Footer";
 
@@ -20,7 +20,7 @@ export async function SupportUsPage() {
     }>("academy/requisite_list/")
     .then((res) => res?.data.results);
   return (
-    <div className={styles.page}>
+    <Box className={styles.page}>
       <GoBackHeader title="Поддержать нас" />
       <Banner
         color="primary"
@@ -44,6 +44,6 @@ export async function SupportUsPage() {
       </SectionHeader>
       <OurRequisites requisites={requisiteList} />
       <Footer />
-    </div>
+    </Box>
   );
 }

@@ -59,6 +59,9 @@
       }
     }
   }
+  .link_text {
+    cursor: pointer;
+  }
   .link_text:hover {
     text-decoration: underline;
   }

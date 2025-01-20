@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 
-import { Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 import { Footer } from "@/widgets/Footer";
 import { Header } from "@/widgets/Header";
@@ -124,6 +124,6 @@ export async function WebinarsPage() {
       "Error fetching webinars:",
       error,
     );
-    return <div>Failed to load webinars</div>;
+    return <Box>Failed to load webinars</Box>;
   }
 }

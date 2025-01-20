@@ -15,7 +15,7 @@ export function RegistrationPage() {
   const searchParams = useSearchParams();
   const verify = searchParams.get("verify");
   return (
-    <div className={styles.page}>
+    <Box className={styles.page}>
       <Image
         src={mainBg}
         alt="mosque"
@@ -28,6 +28,6 @@ export function RegistrationPage() {
       <Box className={styles.content}>
         {verify ? <VerifyAccount /> : <SignUp />}
       </Box>
-    </div>
+    </Box>
   );
 }

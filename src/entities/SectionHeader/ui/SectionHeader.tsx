@@ -28,7 +28,7 @@ export const SectionHeader = forwardRef<
       )}
       sx={{ marginTop: SECTION_MARGIN_TOP }}
     >
-      <div className={styles.line} />
+      <Box className={styles.line} />
       <Typography
         variant="h4"
         color={color}
@@ -41,7 +41,7 @@ export const SectionHeader = forwardRef<
       >
         {children}
       </Typography>
-      <div className={styles.line} />
+      <Box className={styles.line} />
     </Box>
   );
 });

@@ -42,14 +42,14 @@ export function IconBanner({
       )}
       sx={sx}
     >
-      <div className={styles.icon}>
+      <Box className={styles.icon}>
         <Image
           src={icon}
           alt={icon_alt}
           width={48}
           height={48}
         />
-      </div>
+      </Box>
       {Boolean(title) && (
         <Typography
           variant="h6"

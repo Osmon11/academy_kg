@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 import bookIcon from "@/icons/book.svg";
 import eyeIcon from "@/icons/eye.svg";
@@ -38,20 +38,20 @@ const achievements = [
 
 export default function Achievements() {
   return (
-    <div className={styles.scores_wrapper}>
+    <Box className={styles.scores_wrapper}>
       {achievements.map((achievement) => (
-        <div
+        <Box
           className={styles.achievement}
           key={achievement.subtitle}
         >
-          <div className={styles.icon}>
+          <Box className={styles.icon}>
             <Image
               src={achievement.icon}
               alt={achievement.icon_alt}
               width={60}
               height={60}
             />
-          </div>
+          </Box>
           <Typography
             variant="h5"
             textAlign="center"
@@ -71,8 +71,8 @@ export default function Achievements() {
           >
             {achievement.subtitle}
           </Typography>
-        </div>
+        </Box>
       ))}
-    </div>
+    </Box>
   );
 }

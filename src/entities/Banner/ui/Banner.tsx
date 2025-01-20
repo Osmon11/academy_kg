@@ -41,9 +41,9 @@ export function Banner({
         width={146.73}
         height={146.68}
       />
-      <div className={styles.content}>
+      <Box className={styles.content}>
         {children}
-      </div>
+      </Box>
     </Box>
   );
 }

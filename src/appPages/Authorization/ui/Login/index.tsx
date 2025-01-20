@@ -23,7 +23,7 @@ function Page() {
     recover_password: <RecoverPassword />,
   };
   return (
-    <div className={styles.page}>
+    <Box className={styles.page}>
       <Image
         src={mainBg}
         alt="mosque"
@@ -41,7 +41,7 @@ function Page() {
           <Authentication />
         )}
       </Box>
-    </div>
+    </Box>
   );
 }
 

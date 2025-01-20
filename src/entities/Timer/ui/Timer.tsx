@@ -17,7 +17,7 @@ interface ITimerProps {
   onEnd: () => void;
 }
 
-export default function Timer({
+export function Timer({
   minutes,
   onEnd,
 }: ITimerProps) {

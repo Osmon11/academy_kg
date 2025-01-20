@@ -5,15 +5,19 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
 import {
+  Box,
   Button,
   Typography,
 } from "@mui/material";
+
+import { Timer } from "@/entities/Timer";
 
 import { ControllerTextField } from "@/shared/UI";
 import axiosInstance from "@/shared/config/axiosClientInstance";
 import { routePath } from "@/shared/functions";
 
 import PaperContainer from "../PaperContainer";
+import styles from "../styles.module.scss";
 
 interface IFormValues {
   password: string;
@@ -34,15 +38,18 @@ export default function RecoverPassword() {
   });
   const searchParams = useSearchParams();
   const email = searchParams.get("email");
-  const [codeSent, setCodeSent] = useState(false);
+  const [
+    isNewCodeAvailable,
+    setIsNewCodeAvailable,
+  ] = useState(false);
 
   function sendCodeAgain() {
+    setIsNewCodeAvailable(false);
     axiosInstance
       .post("/auth/send_code_email/", { email })
       .then((res) => {
         if (res?.data.message) {
           toast.success(res?.data.message);
-          setCodeSent(true);
         }
       });
   }
@@ -123,15 +130,40 @@ export default function RecoverPassword() {
       >
         Не пришел код?
       </Typography>
-      <Button
-        onClick={sendCodeAgain}
-        disabled={codeSent}
-        sx={{
-          typography: { textTransform: "none" },
-        }}
-      >
-        Отправить повторно
-      </Button>
+      {isNewCodeAvailable ? (
+        <Typography
+          variant="h6"
+          fontWeight={700}
+          color="primary"
+          textAlign="center"
+          onClick={sendCodeAgain}
+          className={styles.link_text}
+        >
+          Отправить повторно
+        </Typography>
+      ) : (
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: "10px",
+          }}
+        >
+          <Typography
+            variant="h6"
+            fontWeight={600}
+            color="textThirtiary"
+          >
+            Новый код доступен через
+          </Typography>
+          <Timer
+            minutes={2}
+            onEnd={() =>
+              setIsNewCodeAvailable(true)
+            }
+          />
+        </Box>
+      )}
     </PaperContainer>
   );
 }

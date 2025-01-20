@@ -13,7 +13,7 @@ import {
   useState,
 } from "react";
 
-import { IconButton } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 
 import arrowRightIcon from "@/icons/arrow-right.svg";
 
@@ -130,15 +130,15 @@ export function Carousel({
     />
   );
   return (
-    <div className={classNames(styles.embla)}>
-      <div
+    <Box className={classNames(styles.embla)}>
+      <Box
         className={styles.embla__viewport}
         ref={emblaRef}
       >
-        <div className={styles.embla__container}>
+        <Box className={styles.embla__container}>
           {children}
-        </div>
-      </div>
+        </Box>
+      </Box>
       {navButtons &&
         (!prevBtnDisabled ||
           !nextBtnDisabled) && (
@@ -166,7 +166,7 @@ export function Carousel({
           </Fragment>
         )}
       {scrollSnaps.length > 1 && (
-        <div
+        <Box
           className={classNames(
             styles.dot_buttons,
             styles[dotButtonType],
@@ -184,8 +184,8 @@ export function Carousel({
               }
             />
           ))}
-        </div>
+        </Box>
       )}
-    </div>
+    </Box>
   );
 }

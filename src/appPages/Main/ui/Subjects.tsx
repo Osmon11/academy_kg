@@ -31,7 +31,7 @@ export default function Subjects({
       }}
     >
       {upMd ? (
-        <div className={styles.subjects_wrapper}>
+        <Box className={styles.subjects_wrapper}>
           {subjects.map((course, cardIndex) => (
             <SubjectCard
               key={course.id}
@@ -43,7 +43,7 @@ export default function Subjects({
               {...course}
             />
           ))}
-        </div>
+        </Box>
       ) : (
         <Carousel options={{ align: "start" }}>
           {subjects.map((card, cardIndex) => (

@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import {
+  Box,
   IconButton,
   Typography,
   useMediaQuery,
@@ -30,7 +31,7 @@ export function Footer() {
         </Typography>
       )}
       <span>
-        <div className={styles.links_wrapper}>
+        <Box className={styles.links_wrapper}>
           <Link
             href="https://odigital.app"
             target="_blank"
@@ -60,7 +61,7 @@ export function Footer() {
               Мир Знаний
             </Typography>
           </Link>
-        </div>
+        </Box>
         <Typography
           variant="body2"
           textAlign="center"
@@ -72,7 +73,7 @@ export function Footer() {
         </Typography>
       </span>
       {upMd && (
-        <div className={styles.social_links}>
+        <Box className={styles.social_links}>
           <IconButton
             className={styles.icon_button}
             href="https://www.instagram.com"
@@ -112,7 +113,7 @@ export function Footer() {
               height={20}
             />
           </IconButton>
-        </div>
+        </Box>
       )}
     </footer>
   );

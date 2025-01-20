@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
 
-import { Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 import mainBg from "@/backgrounds/main-bg.png";
 
@@ -21,7 +21,7 @@ export function PageHeading({
   children,
 }: IPageHeadingProps) {
   return (
-    <div className={styles.page_heading}>
+    <Box className={styles.page_heading}>
       <Image
         className={styles.bg_image}
         src={mainBg}
@@ -58,6 +58,6 @@ export function PageHeading({
           ),
         )}
       {children}
-    </div>
+    </Box>
   );
 }

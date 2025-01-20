@@ -14,6 +14,7 @@ import { useEffect } from "react";
 import { useCookies } from "react-cookie";
 
 import {
+  Box,
   Button,
   Typography,
 } from "@mui/material";
@@ -47,12 +48,14 @@ export function Authentication() {
     if (
       via === "google" &&
       status === "authenticated" &&
-      session?.accessToken &&
+      session?.idToken &&
       session?.user
     ) {
+      console.log(session);
+
       axiosInstance
         .post("/auth/google_sign_in/", {
-          token: session.accessToken,
+          token: session.idToken,
           email: session.user.email,
           name: session.user.name,
         })
@@ -69,7 +72,10 @@ export function Authentication() {
             );
             router.replace(routePath("accaunt"));
           }
-        });
+        })
+        .catch(() =>
+          router.replace(routePath("signIn")),
+        );
     }
   }, [session, status, via, setCookie, router]);
 
@@ -123,7 +129,7 @@ export function Authentication() {
           Войти с эл. почтой
         </Button>
       </Link>
-      <div className={styles.divider}>
+      <Box className={styles.divider}>
         <span className={styles.line} />
         <Typography
           variant="h6"
@@ -132,7 +138,7 @@ export function Authentication() {
           или
         </Typography>
         <span className={styles.line} />
-      </div>
+      </Box>
       <Link
         href={routePath("signUp")}
         style={{ width: "100%" }}

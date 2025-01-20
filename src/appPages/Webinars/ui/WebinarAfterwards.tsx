@@ -28,7 +28,7 @@ function ImageWrapper({
   webinar: IWebinarAfterwardListItem;
 }) {
   return (
-    <div
+    <Box
       className={classNames(
         styles.image_wrapper,
         styles.primary,
@@ -40,7 +40,7 @@ function ImageWrapper({
         quality={100}
         fill
       />
-      <div className={styles.content}>
+      <Box className={styles.content}>
         <Button
           variant="convex"
           className={styles.button}
@@ -50,9 +50,9 @@ function ImageWrapper({
         >
           смотреть
         </Button>
-      </div>
-      <div className={styles.overlay} />
-    </div>
+      </Box>
+      <Box className={styles.overlay} />
+    </Box>
   );
 }
 
@@ -191,10 +191,10 @@ export default function WebinarAfterwards({
                     color="textThirtiary"
                     textAlign="end"
                   >
-                    {`${webinar.level} уровня и выше`}
+                    {`${webinar.level}-уровня и выше`}
                   </Typography>
                 </Box>
-                <div
+                <Box
                   className={
                     styles.broadcast_wrapper
                   }
@@ -211,7 +211,7 @@ export default function WebinarAfterwards({
                   >
                     Запись эфира
                   </Typography>
-                </div>
+                </Box>
               </Box>
             </Paper>
           </Box>

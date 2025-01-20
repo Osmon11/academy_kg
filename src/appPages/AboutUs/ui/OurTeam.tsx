@@ -36,7 +36,7 @@ export default function OurTeam({
       }}
     >
       {upMd ? (
-        <div className={styles.teammates_wrapper}>
+        <Box className={styles.teammates_wrapper}>
           {teammates.map((teammate) => (
             <TeacherCard
               key={teammate.id}
@@ -45,7 +45,7 @@ export default function OurTeam({
               sx={cardStyles}
             />
           ))}
-        </div>
+        </Box>
       ) : (
         <Carousel>
           {teammates.map((teammate) => (

@@ -5,7 +5,9 @@ import { Fragment, useEffect } from "react";
 import { Box } from "@mui/material";
 
 import { GoBackHeader } from "@/entities/GoBackHeader";
+import { Timer } from "@/entities/Timer";
 
+import { TubeSpinner } from "@/shared/UI";
 import axiosInstance from "@/shared/config/axiosClientInstance";
 import {
   useAppDispatch,
@@ -13,13 +15,13 @@ import {
 } from "@/shared/config/store";
 import { getAllMinutes } from "@/shared/functions";
 import {
-  setCourseLevels,
-  setLoading,
+  setExamLoading,
+  setExamQuestions,
 } from "@/shared/model";
-import { ICourseLevelDetail } from "@/shared/types";
+import { IExamQuestions } from "@/shared/types";
 
 import styles from "../styles.module.scss";
-import Timer from "./Timer";
+import Questions from "./Questions";
 
 interface IExamPageProps {
   courseId: string;
@@ -29,23 +31,22 @@ export function ExamPage({
   courseId,
 }: IExamPageProps) {
   const dispatch = useAppDispatch();
-  const courseLevels = useAppSelector(
-    (store) => store.course.courseLevels,
-  );
+  const { examQuestions, loading } =
+    useAppSelector((store) => store.exam);
 
   useEffect(() => {
-    dispatch(setLoading(true));
+    dispatch(setExamLoading(true));
     axiosInstance
-      .get<ICourseLevelDetail>(
-        `/academy/course_level_detail/${courseId}`,
+      .get<IExamQuestions>(
+        `/academy/start_exam/${courseId}`,
       )
       .then((res) => {
         if (res?.data) {
-          dispatch(setCourseLevels(res.data));
+          dispatch(setExamQuestions(res.data));
         }
       })
       .finally(() => {
-        dispatch(setLoading(false));
+        dispatch(setExamLoading(false));
       });
   }, [dispatch, courseId]);
 
@@ -56,22 +57,37 @@ export function ExamPage({
     <Fragment>
       <GoBackHeader
         title={
-          courseLevels
-            ? courseLevels.exam.title
+          examQuestions
+            ? examQuestions.title
             : "Экзамен"
         }
         append={
-          courseLevels ? (
+          examQuestions ? (
             <Timer
               minutes={getAllMinutes(
-                courseLevels.exam.duration,
+                examQuestions.duration,
               )}
               onEnd={onTimerEnd}
             />
           ) : undefined
         }
       />
-      <Box className={styles.page}></Box>
+      <Box className={styles.page}>
+        {loading ? (
+          <Box
+            className={
+              styles.tube_spinner_wrapper
+            }
+          >
+            <TubeSpinner
+              width={50}
+              height={50}
+            />
+          </Box>
+        ) : (
+          <Questions />
+        )}
+      </Box>
     </Fragment>
   );
 }

@@ -36,7 +36,7 @@ export function OurTeachers({
       }}
     >
       {upMd ? (
-        <div className={styles.teachers_wrapper}>
+        <Box className={styles.teachers_wrapper}>
           {teachers.map((teacher) => (
             <TeacherCard
               key={teacher.id}
@@ -45,7 +45,7 @@ export function OurTeachers({
               sx={cardStyles}
             />
           ))}
-        </div>
+        </Box>
       ) : (
         <Carousel>
           {teachers.map((teacher) => (

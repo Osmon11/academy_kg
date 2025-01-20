@@ -14,14 +14,14 @@ export default function OurRequisites({
 }) {
   return (
     <Box sx={{ padding: SECTION_PADDING }}>
-      <div className={styles.requisites_wrapper}>
+      <Box className={styles.requisites_wrapper}>
         {requisites.map((requisite) => (
           <RequisiteCard
             key={requisite.id}
             {...requisite}
           />
         ))}
-      </div>
+      </Box>
     </Box>
   );
 }
