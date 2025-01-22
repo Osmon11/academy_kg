@@ -79,9 +79,10 @@ export interface ICourseListItem {
   id: number;
   title: string;
   description: string;
-  image: string;
+  image: string | null;
+  icon: string | null;
   teacher: ITeacherListItem;
-  price: number;
+  price: number | null;
 }
 
 export interface ICourseDetail
@@ -158,9 +159,11 @@ export interface IQuestion {
   id: number;
   question: string;
   answers: IAnswer[];
+  point: number;
 }
 
 export interface IExamQuestions
   extends IExamDetail {
+  point_sum: number;
   questions: IQuestion[];
 }

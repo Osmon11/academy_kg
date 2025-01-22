@@ -1,0 +1,68 @@
+@use "variables";
+
+.wrapper {
+  width: 100%;
+  height: calc(100vh - 152px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.question_card {
+  border-radius: 14px;
+  box-shadow:
+    0px 73px 20px 0px #14141400,
+    0px 47px 19px 0px #14141403,
+    0px 26px 16px 0px #1414140d,
+    0px 12px 12px 0px #14141417,
+    0px 3px 6px 0px #1414141a;
+  display: flex;
+  flex-direction: column;
+  .answers {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+
+    .active_chip {
+      color: var(--mui-palette-text-primary);
+      background: variables.$theme-color-grey-coal;
+    }
+    .value_wrapper {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      &.active {
+        cursor: pointer;
+        border-bottom: 1px solid
+          var(--mui-palette-text-primary);
+      }
+    }
+  }
+  .button {
+    min-width: 200px;
+  }
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+@media (min-width: variables.$theme-breakpoint-xs) {
+}
+@media (min-width: variables.$theme-breakpoint-sm) {
+}
+@media (min-width: variables.$theme-breakpoint-md) {
+  .question_card {
+    width: 600px;
+    padding: 35px 60px 60px;
+    gap: 50px;
+  }
+}
+@media (min-width: variables.$theme-breakpoint-lg) {
+}
+@media (min-width: variables.$theme-breakpoint-xl) {
+}

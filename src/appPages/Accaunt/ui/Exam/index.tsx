@@ -1,6 +1,10 @@
 "use client";
 
-import { Fragment, useEffect } from "react";
+import {
+  Fragment,
+  useEffect,
+  useState,
+} from "react";
 
 import { Box } from "@mui/material";
 
@@ -22,6 +26,7 @@ import { IExamQuestions } from "@/shared/types";
 
 import styles from "../styles.module.scss";
 import Questions from "./Questions";
+import ResultCard from "./ResultCard";
 
 interface IExamPageProps {
   courseId: string;
@@ -31,8 +36,9 @@ export function ExamPage({
   courseId,
 }: IExamPageProps) {
   const dispatch = useAppDispatch();
-  const { examQuestions, loading } =
+  const { examQuestions, results, loading } =
     useAppSelector((store) => store.exam);
+  const [finished, setFinished] = useState(false);
 
   useEffect(() => {
     dispatch(setExamLoading(true));
@@ -48,10 +54,29 @@ export function ExamPage({
       .finally(() => {
         dispatch(setExamLoading(false));
       });
+    return () => {
+      setFinished(false);
+    };
   }, [dispatch, courseId]);
 
-  function onTimerEnd() {
-    console.log("end");
+  function finishExam() {
+    if (examQuestions) {
+      dispatch(setExamLoading(true));
+      axiosInstance
+        .post(
+          `/academy/finish_exam/${examQuestions.id}/`,
+          {
+            passed_count: results.filter(
+              (i) =>
+                !i.skipped && i.correctAnswer,
+            ).length,
+          },
+        )
+        .then(() => setFinished(true))
+        .finally(() =>
+          dispatch(setExamLoading(false)),
+        );
+    }
   }
   return (
     <Fragment>
@@ -67,7 +92,7 @@ export function ExamPage({
               minutes={getAllMinutes(
                 examQuestions.duration,
               )}
-              onEnd={onTimerEnd}
+              onEnd={finishExam}
             />
           ) : undefined
         }
@@ -84,8 +109,10 @@ export function ExamPage({
               height={50}
             />
           </Box>
+        ) : finished ? (
+          <ResultCard />
         ) : (
-          <Questions />
+          <Questions finishExam={finishExam} />
         )}
       </Box>
     </Fragment>

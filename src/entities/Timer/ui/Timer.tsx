@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { Box, Typography } from "@mui/material";
 
 import timerCoalGrayIcon from "@/icons/timer-coal-gray.svg";
+import timerRedIcon from "@/icons/timer-red.svg";
 
 // Convert seconds to minutes:seconds format
 const formatTime = (time: number) => {
@@ -48,16 +49,25 @@ export function Timer({
       <Typography
         variant="h6"
         fontWeight={600}
-        color="textThirtiary"
+        color={time ? "textThirtiary" : "#FF4D4D"}
       >
-        {formatTime(time)}
+        {time ? formatTime(time) : "-"}
       </Typography>
-      <Image
-        src={timerCoalGrayIcon}
-        alt="timer coal gray icon"
-        width={24}
-        height={24}
-      />
+      {time ? (
+        <Image
+          src={timerCoalGrayIcon}
+          alt="timer coal gray icon"
+          width={24}
+          height={24}
+        />
+      ) : (
+        <Image
+          src={timerRedIcon}
+          alt="timer red icon"
+          width={24}
+          height={24}
+        />
+      )}
     </Box>
   );
 }

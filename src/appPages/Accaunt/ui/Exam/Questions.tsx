@@ -1,22 +1,74 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   Step,
   Stepper,
   Typography,
 } from "@mui/material";
 
-import { QuestionCard } from "@/features/QuestionCard";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "@/shared/config/store";
+import { setResults } from "@/shared/model";
 
-import { useAppSelector } from "@/shared/config/store";
+import { QuestionCard } from "./QuestionCard";
+import styles from "./styles.module.scss";
 
-export default function Questions() {
-  const examQuestions = useAppSelector(
-    (store) => store.exam.examQuestions,
-  );
+interface IQuestionsProps {
+  finishExam: () => void;
+}
+
+export default function Questions({
+  finishExam,
+}: IQuestionsProps) {
+  const dispatch = useAppDispatch();
+  const { examQuestions, results } =
+    useAppSelector((store) => store.exam);
   const [activeQuestion, setActiveQuestion] =
     useState(0);
+  const [finishExamModal, setFinishExamModal] =
+    useState(false);
+
+  useEffect(
+    () => () => {
+      setActiveQuestion(0);
+      setFinishExamModal(false);
+    },
+    [],
+  );
+
+  function updateResults(
+    skipped: boolean,
+    correctAnswer = false,
+  ) {
+    if (examQuestions) {
+      const newState = [...results];
+      newState[activeQuestion] = {
+        ...examQuestions.questions[
+          activeQuestion
+        ],
+        skipped,
+        correctAnswer,
+      };
+      dispatch(setResults(newState));
+      if (
+        activeQuestion + 1 ===
+        examQuestions.questions.length
+      ) {
+        finishExam();
+      } else {
+        setActiveQuestion((state) => state + 1);
+      }
+    }
+  }
   return examQuestions ? (
     <Box>
       <Stepper
@@ -55,42 +107,70 @@ export default function Questions() {
           ),
         )}
       </Stepper>
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
+      <Box className={styles.wrapper}>
         <QuestionCard
           question={
             examQuestions.questions[
               activeQuestion
             ]
           }
-          backButtonProps={{
-            disabled: activeQuestion <= 0,
-            onClick: () =>
-              setActiveQuestion(
-                (state) => state - 1,
-              ),
-          }}
-          nextButtonProps={{
-            onClick: () =>
-              setActiveQuestion(
-                (state) => state + 1,
-              ),
-          }}
-          skipButtonProps={{
-            disabled:
-              activeQuestion + 1 ===
-              examQuestions.questions.length,
-            onClick: () =>
-              setActiveQuestion(
-                (state) => state + 1,
-              ),
-          }}
+          onBack={() =>
+            setActiveQuestion(
+              (state) => state - 1,
+            )
+          }
+          firstQuestion={activeQuestion <= 0}
+          onSkip={() => updateResults(true)}
+          onNext={(isCorrect) =>
+            updateResults(false, isCorrect)
+          }
         />
+        <Button
+          variant="text"
+          onClick={() => setFinishExamModal(true)}
+          sx={{
+            fontSize: "22px",
+            fontWeight: 700,
+            textTransform: "none",
+            marginTop: "40px",
+          }}
+        >
+          Завершить экзамен
+        </Button>
+        <Dialog
+          open={finishExamModal}
+          onClose={() =>
+            setFinishExamModal(false)
+          }
+        >
+          <DialogTitle color="textSecondary">
+            Завершить экзамен?
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Некоторые задания остались
+              нерешенными. Вы дейстивительно
+              хотите завершить экзамен, пропустив
+              их?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button
+              variant="text"
+              onClick={() =>
+                setFinishExamModal(false)
+              }
+            >
+              отмена
+            </Button>
+            <Button
+              variant="text"
+              onClick={finishExam}
+            >
+              Завершить экзамен
+            </Button>
+          </DialogActions>
+        </Dialog>
       </Box>
     </Box>
   ) : null;

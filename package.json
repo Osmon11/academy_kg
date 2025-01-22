@@ -12,7 +12,6 @@
     "@emotion/cache": "^11.14.0",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
-    "@larissa-n/react-flex-arrows": "^1.0.0",
     "@mui/material": "^6.2.0",
     "@mui/material-nextjs": "^6.2.0",
     "@reduxjs/toolkit": "^2.5.0",

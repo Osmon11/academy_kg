@@ -356,6 +356,20 @@ let theme = createTheme({
         },
       },
     },
+    MuiChip: {
+      variants: [
+        {
+          props: {
+            variant: "outlined",
+            color: "default",
+          },
+          style: ({ theme }) => ({
+            color: theme.palette.text.thirtiary,
+            border: `1px solid ${theme.palette.text.thirtiary}`,
+          }),
+        },
+      ],
+    },
   },
 });
 theme = responsiveFontSizes(theme);
