@@ -22,11 +22,13 @@ export function RecommendationCard({
 }: IRecommendationCardProps) {
   return (
     <Card className={styles.recommendation_card}>
-      <CardMedia
-        image={recommendation.image}
-        title={recommendation.title}
-        className={styles.media}
-      />
+      {recommendation.image ? (
+        <CardMedia
+          image={recommendation.image}
+          title={recommendation.title}
+          className={styles.media}
+        />
+      ) : null}
       <CardContent className={styles.content}>
         <Image
           src={logoIcon}
