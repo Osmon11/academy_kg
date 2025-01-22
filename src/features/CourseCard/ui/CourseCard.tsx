@@ -56,7 +56,9 @@ export function CourseCard({
               fontWeight={600}
               sx={{ marginTop: "8px" }}
             >
-              {course.teacher.full_name}
+              {course.teacher
+                ? course.teacher.full_name
+                : "Не назначен"}
             </Typography>
           </Box>
         </Box>
@@ -70,12 +72,14 @@ export function CourseCard({
               {formatThePrice(course.price)}
             </Typography>
           </Box>
-          <Image
-            src={course.image}
-            alt={course.title}
-            width={160}
-            height={160}
-          />
+          {course.icon ? (
+            <Image
+              src={course.icon}
+              alt={course.title}
+              width={160}
+              height={160}
+            />
+          ) : null}
         </Box>
       </Box>
     </Link>

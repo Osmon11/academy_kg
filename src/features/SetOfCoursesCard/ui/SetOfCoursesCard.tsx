@@ -19,19 +19,21 @@ export function SetOfCoursesCard({
   return (
     <Card className={styles.setOfCourses_card}>
       <CardMedia
-        image={setOfCourses.image}
+        image={setOfCourses.img}
         title={setOfCourses.title}
         className={styles.media}
       />
       <CardContent className={styles.content}>
-        <Box className={styles.badge}>
-          <Typography
-            variant="caption"
-            fontWeight={900}
-          >
-            {`${setOfCourses.amout_of_courses} курса`}
-          </Typography>
-        </Box>
+        {setOfCourses.course_count ? (
+          <Box className={styles.badge}>
+            <Typography
+              variant="caption"
+              fontWeight={900}
+            >
+              {`${setOfCourses.course_count} курса`}
+            </Typography>
+          </Box>
+        ) : null}
         <Box>
           <Typography
             className={styles.title}

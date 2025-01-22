@@ -370,6 +370,24 @@ let theme = createTheme({
         },
       ],
     },
+    MuiLinearProgress: {
+      variants: [
+        {
+          props: {
+            variant: "determinate",
+            color: "primary",
+          },
+          style: () => ({
+            height: "10px",
+            backgroundColor: "#FFC28A",
+            ".MuiLinearProgress-bar": {
+              borderTopRightRadius: "30px",
+              borderBottomRightRadius: "30px",
+            },
+          }),
+        },
+      ],
+    },
   },
 });
 theme = responsiveFontSizes(theme);

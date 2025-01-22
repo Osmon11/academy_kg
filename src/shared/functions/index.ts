@@ -3,3 +3,4 @@ export { routePath } from "./routePath";
 export { sessionExpiration } from "./sessionExpiration";
 export { getYouTubeVideoId } from "./getYouTubeVideoId";
 export { getAllMinutes } from "./getAllMinutes";
+export { getPercentage } from "./getPercentage";

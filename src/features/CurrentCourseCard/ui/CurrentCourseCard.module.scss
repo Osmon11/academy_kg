@@ -1,6 +1,7 @@
 @use "variables";
 
 .course_card {
+  position: relative;
   padding: 30px;
   min-height: 280px;
   border-radius: 20px;
@@ -29,6 +30,14 @@
       border-radius: 10px;
       background: var(--mui-palette-primary-main);
     }
+  }
+  .progress_bar {
+    position: absolute;
+    inset: 0px;
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    align-items: end;
   }
 }
 

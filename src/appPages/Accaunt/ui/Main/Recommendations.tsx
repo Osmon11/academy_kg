@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 
+import { Box } from "@mui/material";
+
 import { Carousel } from "@/widgets/Carousel";
 
 import { RecommendationCard } from "@/features/RecommendationCard";
@@ -26,10 +28,17 @@ export default function Recommendations() {
   return (
     <Carousel options={{ align: "start" }}>
       {recommendations.map((item) => (
-        <RecommendationCard
+        <Box
           key={item.id}
-          recommendation={item}
-        />
+          sx={{
+            height: "auto",
+            paddingRight: "20px",
+          }}
+        >
+          <RecommendationCard
+            recommendation={item}
+          />
+        </Box>
       ))}
     </Carousel>
   );

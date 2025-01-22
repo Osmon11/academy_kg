@@ -81,7 +81,7 @@ export interface ICourseListItem {
   description: string;
   image: string | null;
   icon: string | null;
-  teacher: ITeacherListItem;
+  teacher: ITeacherListItem | null;
   price: number | null;
 }
 
@@ -126,8 +126,8 @@ export interface ISetOfCourses {
   id: number;
   title: string;
   description: string;
-  image: string;
-  amout_of_courses: number;
+  img: string;
+  course_count: number | null;
 }
 
 export interface IUser {
@@ -166,4 +166,26 @@ export interface IExamQuestions
   extends IExamDetail {
   point_sum: number;
   questions: IQuestion[];
+}
+
+export interface IMyCourseListDetail {
+  level: number;
+  lesson_count: number;
+  finished_count: number;
+  exam_result: null;
+}
+
+export interface IMyCourseListItem
+  extends Pick<
+    ICourseListItem,
+    "id" | "title" | "image" | "icon"
+  > {
+  detail: IMyCourseListDetail | null;
+}
+
+export interface IPaginatedList<ListItem> {
+  count: number;
+  next: number | null;
+  previous: number | null;
+  results: ListItem[];
 }
