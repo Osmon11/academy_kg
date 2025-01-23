@@ -1,16 +1,20 @@
 "use client";
 
-import moment from "moment";
-import Image from "next/image";
-import { Fragment, useEffect } from "react";
+import classNames from "classnames";
+import { useRouter } from "next/navigation";
+import {
+  Fragment,
+  useEffect,
+  useState,
+} from "react";
+import YouTube from "react-youtube";
 
 import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
   Box,
+  Button,
   Grid2 as Grid,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 
 import { Footer } from "@/widgets/Footer";
@@ -20,12 +24,17 @@ import { CommentCard } from "@/features/CommentCard";
 import { GoBackHeader } from "@/entities/GoBackHeader";
 import { TeacherProfileAvatar } from "@/entities/TeacherProfileAvatar";
 
+import { TubeSpinner } from "@/shared/UI";
 import axiosInstance from "@/shared/config/axiosClientInstance";
-import { TIME_FORMAT } from "@/shared/config/const";
+import { SECTION_MARGIN_TOP } from "@/shared/config/const";
 import {
   useAppDispatch,
   useAppSelector,
 } from "@/shared/config/store";
+import {
+  getYouTubeVideoId,
+  routePath,
+} from "@/shared/functions";
 import {
   setCourse,
   setCourseLevels,
@@ -36,11 +45,9 @@ import {
   ICourseLevelDetail,
 } from "@/shared/types";
 
-import arrowDownBlackIcon from "@/icons/arrow-down-black.svg";
-
-import styles from "../styles.module.scss";
-import OverviewLessons from "./OverviewLessons";
-import StartStudying from "./StartStudying";
+import commonStyles from "../styles.module.scss";
+import CourseProgram from "./CourseProgram";
+import styles from "./styles.module.scss";
 
 interface ICourseOverviewPageProps {
   courseId: string;
@@ -49,10 +56,41 @@ interface ICourseOverviewPageProps {
 export function CourseOverviewPage({
   courseId,
 }: ICourseOverviewPageProps) {
+  const router = useRouter();
   const dispatch = useAppDispatch();
-  const { course, courseLevels } = useAppSelector(
-    (store) => store.course,
-  );
+  const { course, courseLevels, loading } =
+    useAppSelector((store) => store.course);
+  const [processing, setProcessing] =
+    useState(false);
+
+  function navigate(id: number) {
+    router.push(
+      routePath("study", {
+        id,
+      }),
+    );
+  }
+  function onClickStudy() {
+    if (course && !processing) {
+      if (course.is_learning) {
+        navigate(Number(course.id));
+      }
+      {
+        setProcessing(true);
+        axiosInstance
+          .post("/academy/start_learning/", {
+            course: course.id,
+          })
+          .then((res) => {
+            if (res?.data?.course) {
+              navigate(Number(course.id));
+            }
+          })
+          .finally(() => setProcessing(false));
+      }
+    }
+  }
+
   useEffect(() => {
     dispatch(setLoading(true));
     Promise.all([
@@ -78,146 +116,156 @@ export function CourseOverviewPage({
       dispatch(setLoading(false));
     });
   }, [dispatch, courseId]);
-  const durationTime = moment(
-    course ? course.duration_count : "02:45:00",
-    TIME_FORMAT,
+
+  const onlyXs = useMediaQuery((theme) =>
+    theme.breakpoints.only("xs"),
   );
-  const hours = durationTime.hours();
-  const minutes = durationTime.minutes();
+  const upMd = useMediaQuery((theme) =>
+    theme.breakpoints.up("md"),
+  );
+  const upLg = useMediaQuery((theme) =>
+    theme.breakpoints.up("lg"),
+  );
+  const Video = course ? (
+    <YouTube
+      className={styles.video}
+      videoId={getYouTubeVideoId(course.trailer)}
+    />
+  ) : null;
+  const Description = course ? (
+    <Box className={styles.description_wrapper}>
+      <CommentCard
+        className={styles.description}
+        header="Описание:"
+        comment={course.description}
+      />
+      <Box
+        className={styles.actions}
+        sx={{ marginTop: "20px" }}
+      >
+        <TeacherProfileAvatar
+          fullnameColor="secondary"
+          {...course.teacher}
+        />
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={onClickStudy}
+          size={onlyXs ? "large" : "medium"}
+          sx={{
+            width: {
+              xs: "100%",
+              sm: "300px",
+            },
+            textTransform: "none",
+          }}
+          disabled={processing}
+        >
+          {processing
+            ? "Подождите..."
+            : course.is_learning
+              ? "Продолжить обучение"
+              : "Начать учиться"}
+        </Button>
+      </Box>
+    </Box>
+  ) : null;
   return course && courseLevels ? (
     <Fragment>
       <GoBackHeader title={course.title} />
-      <Box className={styles.page}>
-        <Box className={styles.course_heading}>
-          <iframe
-            src={course.trailer}
-            allow="autoplay; fullscreen; picture-in-picture"
-            allowFullScreen
-          ></iframe>
-          <CommentCard
-            header="Описание:"
-            comment={course.description}
-            sx={{
-              width: "100% !important",
-              marginTop: "20px",
-            }}
-          />
-          <Box
-            className={styles.actions}
-            sx={{ marginTop: "20px" }}
-          >
-            <TeacherProfileAvatar
-              fullnameColor="secondary"
-              {...course.teacher}
-            />
-            <StartStudying />
-          </Box>
-        </Box>
-        <Typography
-          variant="h4"
-          color="primary"
-          textAlign="center"
-          fontWeight={700}
-          sx={{ marginTop: "40px" }}
-        >
-          Чему вы научитесь
-        </Typography>
-        <Grid
-          container
-          spacing={2}
-          justifyContent="center"
-          sx={{ marginTop: "40px" }}
-        >
-          {course.objectives.map((objective) => (
-            <Grid
-              key={objective.id}
-              size={{
-                xs: 12,
-                sm: 6,
-                md: 4,
-                lg: 3,
-              }}
-            >
-              <Box className={styles.objective}>
-                <Typography
-                  variant="h6"
-                  fontWeight={600}
-                  textAlign="center"
-                  lineHeight="24px"
-                >
-                  {objective.title}
-                </Typography>
-              </Box>
-            </Grid>
-          ))}
-        </Grid>
-        <Typography
-          variant="h4"
-          color="primary"
-          textAlign="center"
-          fontWeight={700}
-          sx={{ marginTop: "40px" }}
-        >
-          Программа курса
-        </Typography>
-        {course.lesson_count && (
-          <Typography
-            variant="h5"
-            color="primary"
-            textAlign="center"
-            fontWeight={500}
-            sx={{ marginTop: "20px" }}
-          >
-            {`${course.lesson_count} лекций, ${hours ? hours + " часов" : ""} ${minutes} минут`}
-          </Typography>
-        )}
-        <Accordion
-          elevation={0}
+      {loading ? (
+        <Box
+          className={
+            commonStyles.tube_spinner_wrapper
+          }
           sx={{
-            marginTop: "40px",
-            "::before": {
-              top: "unset",
-              bottom: "-1px",
-            },
+            minHeight: "calc(100vh - 225px)",
           }}
         >
-          <AccordionSummary
-            expandIcon={
-              <Image
-                src={arrowDownBlackIcon}
-                alt="arrow up black icon"
-                width={30}
-                height={30}
-              />
-            }
-            sx={{ padding: "0px" }}
-          >
-            <Box>
-              <Typography
-                variant="h5"
-                color="textSecondary"
-                fontWeight={600}
-              >
-                Уроки
-              </Typography>
-              <Typography
-                variant="subtitle2"
-                color="textSecondary"
-              >{`${course.lesson_count} уроков`}</Typography>
+          <TubeSpinner
+            width={50}
+            height={50}
+          />
+        </Box>
+      ) : (
+        <Box
+          className={classNames({
+            [commonStyles.page]: upMd,
+          })}
+        >
+          {upLg ? (
+            <Box className={styles.wrapper}>
+              {Video}
+              {Description}
             </Box>
-          </AccordionSummary>
-          <AccordionDetails
-            sx={{
-              paddingLeft: "0px",
-              paddingRight: "0px",
-            }}
+          ) : (
+            Video
+          )}
+          <Box
+            className={classNames({
+              [commonStyles.page]: !upMd,
+            })}
           >
-            <OverviewLessons
-              lessons={courseLevels.lessons}
-            />
-          </AccordionDetails>
-        </Accordion>
-      </Box>
+            {!upLg && Description}
+            <Typography
+              variant="h4"
+              color="primary"
+              textAlign="center"
+              fontWeight={700}
+              sx={{
+                marginTop: SECTION_MARGIN_TOP,
+              }}
+            >
+              Чему вы научитесь
+            </Typography>
+            <Grid
+              container
+              spacing={2}
+              justifyContent="center"
+              sx={{ marginTop: "20px" }}
+            >
+              {course.objectives.map(
+                (objective) => (
+                  <Grid
+                    key={objective.id}
+                    size={{
+                      xs: 12,
+                      sm: 6,
+                      md: 4,
+                      lg: 3,
+                    }}
+                  >
+                    <Box
+                      className={styles.objective}
+                    >
+                      <Typography
+                        variant="h6"
+                        fontWeight={600}
+                        textAlign="center"
+                        lineHeight="24px"
+                      >
+                        {objective.title}
+                      </Typography>
+                    </Box>
+                  </Grid>
+                ),
+              )}
+            </Grid>
+            <Typography
+              variant="h4"
+              color="primary"
+              textAlign="center"
+              fontWeight={700}
+              sx={{
+                marginTop: SECTION_MARGIN_TOP,
+              }}
+            >
+              Программа курса
+            </Typography>
+            <CourseProgram course={course} />
+          </Box>
+        </Box>
+      )}
       <Footer />
     </Fragment>
   ) : null;

@@ -15,6 +15,7 @@ interface ICommentCardProps {
   color?: "primary" | "secondary";
   children?: React.ReactNode;
   sx?: SxProps;
+  className?: string;
 }
 
 export function CommentCard({
@@ -23,6 +24,7 @@ export function CommentCard({
   color = "primary",
   children,
   sx,
+  className,
 }: ICommentCardProps) {
   return (
     <Card
@@ -30,6 +32,7 @@ export function CommentCard({
       className={classNames(
         styles.card,
         styles[color],
+        className,
       )}
       sx={sx}
     >

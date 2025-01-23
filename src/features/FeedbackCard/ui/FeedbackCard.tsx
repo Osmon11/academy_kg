@@ -20,6 +20,7 @@ export function FeedbackCard({
 }: IFeedbackCardProps) {
   return (
     <CommentCard
+      className={styles.card}
       comment={comment}
       color={color}
     >

@@ -1,12 +1,9 @@
 "use client";
 
+import classNames from "classnames";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import {
-  Fragment,
-  useMemo,
-  useState,
-} from "react";
+import { Fragment, useState } from "react";
 import { toast } from "react-toastify";
 import YouTube from "react-youtube";
 
@@ -34,11 +31,12 @@ import bookSquareIconPrimary from "@/icons/book-square-primary.svg";
 import settingIconPrimary from "@/icons/settng-primary.svg";
 import shareIconPrimary from "@/icons/share-primary.svg";
 
-import styles from "../styles.module.scss";
+import commonStyles from "../styles.module.scss";
 import ExamOverview from "./ExamOverview";
 import LessonsList from "./LessonsList";
 import Questions from "./Questions";
 import TextOfTheLesson from "./TextOfTheLesson";
+import styles from "./styles.module.scss";
 
 function a11yProps(index: number) {
   return {
@@ -84,17 +82,12 @@ export default function LessonDetails() {
   const upSm = useMediaQuery((theme) =>
     theme.breakpoints.up("sm"),
   );
+  const upMd = useMediaQuery((theme) =>
+    theme.breakpoints.up("md"),
+  );
   const tabs = [
     <LessonsList
       key="LessonsList"
-      lessonsAndExam={
-        courseLevels
-          ? [
-              ...courseLevels.lessons,
-              courseLevels.exam,
-            ]
-          : []
-      }
       onSelectLesson={(lesson) => {
         setIsExam(false);
         setLesson(lesson);
@@ -115,18 +108,24 @@ export default function LessonDetails() {
     justifyContent: "center",
     gap: "10px",
   };
-  const videoId = useMemo(
-    () =>
-      lesson
-        ? getYouTubeVideoId(lesson.video)
-        : undefined,
-    [lesson],
-  );
   return (
-    <Box className={styles.lesson_wrapper}>
+    <Box
+      className={classNames(
+        styles.lesson_wrapper,
+        { [commonStyles.page]: upMd },
+      )}
+      sx={
+        loading || !courseLevels
+          ? { justifyContent: "center" }
+          : undefined
+      }
+    >
       {loading || !courseLevels ? (
         <Box
-          className={styles.tube_spinner_wrapper}
+          className={
+            commonStyles.tube_spinner_wrapper
+          }
+          sx={{ height: "100%" }}
         >
           <TubeSpinner
             width={50}
@@ -139,7 +138,14 @@ export default function LessonDetails() {
             <ExamOverview />
           ) : (
             <YouTube
-              videoId={videoId}
+              className={styles.video}
+              videoId={
+                lesson
+                  ? getYouTubeVideoId(
+                      lesson.video,
+                    )
+                  : undefined
+              }
               onEnd={finishLesson}
               onStateChange={(event) => {
                 if (
@@ -153,15 +159,13 @@ export default function LessonDetails() {
             />
           )}
           <Box
-            sx={{
-              width: {
-                sx: "100%",
-                lg: "calc(40% - 25px)",
-              },
-            }}
+            className={classNames(
+              styles.content,
+              { [commonStyles.page]: !upMd },
+            )}
           >
             <Box
-              className={styles.flex_box}
+              className={commonStyles.flex_box}
               sx={{
                 justifyContent: "space-between",
                 gap: "20px",

@@ -1,10 +1,11 @@
 import Image from "next/image";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 import {
   Box,
   LinearProgress,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 
 import {
@@ -25,50 +26,91 @@ interface ICurrentCourseCardProps {
 export function CurrentCourseCard({
   course,
 }: ICurrentCourseCardProps) {
+  const router = useRouter();
+  const onlyXs = useMediaQuery((theme) =>
+    theme.breakpoints.only("xs"),
+  );
+  const upSm = useMediaQuery((theme) =>
+    theme.breakpoints.up("sm"),
+  );
+  const onlyMd = useMediaQuery((theme) =>
+    theme.breakpoints.only("md"),
+  );
+  const upLg = useMediaQuery((theme) =>
+    theme.breakpoints.up("lg"),
+  );
   return (
-    <Link
-      href={routePath("study", {
-        id: course.id,
-      })}
+    <Box
+      className={styles.course_card}
+      onClick={() =>
+        router.push(
+          routePath("study", {
+            id: course.id,
+          }),
+        )
+      }
     >
-      <Box className={styles.course_card}>
-        <Box className={styles.flex_column}>
-          <Box>
-            <Typography
-              variant="h5"
-              color="secondary"
-              fontWeight={700}
+      <Box className={styles.flex_box}>
+        <Box>
+          <Typography
+            variant="h5"
+            color="secondary"
+            fontWeight={700}
+          >
+            {course.title}
+          </Typography>
+          {course.detail.exam_result !==
+          "Passed" ? (
+            <Box
+              className={styles.lesson_wrapper}
             >
-              {course.title}
-            </Typography>
-            <Box sx={{ marginTop: "30px" }}>
-              <Image
-                src={playCirclePrimaryIcon}
-                alt="play circle green icon"
-                width={24}
-                height={24}
-              />
-              <Image
-                src={starCirclePrimaryIcon}
-                alt="star circle green icon"
-                width={24}
-                height={24}
-              />
+              {course.detail.exam_result !==
+              "Not passed" ? (
+                <Image
+                  src={playCirclePrimaryIcon}
+                  alt="play circle green icon"
+                  width={24}
+                  height={24}
+                />
+              ) : (
+                <Image
+                  src={starCirclePrimaryIcon}
+                  alt="star circle green icon"
+                  width={24}
+                  height={24}
+                />
+              )}
+              <Typography
+                variant={upLg ? "h6" : "body1"}
+                color="textSecondary"
+              >
+                {course.detail.exam_result !==
+                "Not passed"
+                  ? course.detail.lesson
+                  : "Экзамен"}
+              </Typography>
             </Box>
-          </Box>
-          {course.detail ? (
-            <Typography
-              variant="h6"
-              color="textSecondary"
-            >
-              {`Пройдено: ${course.detail.finished_count}/${course.detail.lesson_count}`}
-            </Typography>
           ) : null}
         </Box>
-        <Box className={styles.flex_column}>
-          {course.detail ? (
-            <Box className={styles.price}>
+        {!onlyXs && !onlyMd && (
+          <Box className={styles.level}>
+            <Typography
+              className={styles.text}
+              variant="h6"
+              fontWeight={600}
+              lineHeight="24px"
+            >
+              {`Уровень ${course.detail.level}`}
+            </Typography>
+          </Box>
+        )}
+      </Box>
+      <Box className={styles.flex_box}>
+        <Box>
+          {(onlyXs || onlyMd) && (
+            <Box className={styles.level}>
               <Typography
+                className={styles.text}
                 variant="h6"
                 fontWeight={600}
                 lineHeight="24px"
@@ -76,31 +118,36 @@ export function CurrentCourseCard({
                 {`Уровень ${course.detail.level}`}
               </Typography>
             </Box>
-          ) : (
-            <Box />
           )}
-          {course.icon ? (
-            <Image
-              src={course.icon}
-              alt={course.title}
-              width={160}
-              height={160}
-            />
-          ) : null}
+          <Typography
+            variant="h6"
+            color="textSecondary"
+            sx={{ marginTop: { xs: "20px" } }}
+          >
+            {`Пройдено: ${course.detail.finished_count}/${course.detail.lesson_count}`}
+          </Typography>
         </Box>
-        {course.detail ? (
-          <Box className={styles.progress_bar}>
-            <LinearProgress
-              variant="determinate"
-              value={getPercentage(
-                course.detail.finished_count,
-                course.detail.lesson_count,
-              )}
-              sx={{ width: "100%" }}
-            />
-          </Box>
+        {course.icon ? (
+          <Image
+            src={course.icon}
+            alt={course.title}
+            width={upSm ? 160 : 130}
+            height={upSm ? 160 : 130}
+          />
         ) : null}
       </Box>
-    </Link>
+      {course.detail ? (
+        <Box className={styles.progress_bar}>
+          <LinearProgress
+            variant="determinate"
+            value={getPercentage(
+              course.detail.finished_count,
+              course.detail.lesson_count,
+            )}
+            sx={{ width: "100%" }}
+          />
+        </Box>
+      ) : null}
+    </Box>
   );
 }

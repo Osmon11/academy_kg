@@ -5,6 +5,7 @@ import Image from "next/image";
 import {
   Fragment,
   useEffect,
+  useMemo,
   useState,
 } from "react";
 
@@ -18,9 +19,9 @@ import {
 } from "@mui/material";
 
 import { TIME_FORMAT } from "@/shared/config/const";
+import { useAppSelector } from "@/shared/config/store";
 import { getAllMinutes } from "@/shared/functions";
 import {
-  IExamDetail,
   ILessonDetail,
   isExamTypeGuard,
 } from "@/shared/types";
@@ -29,27 +30,40 @@ import playCircleGrayIcon from "@/icons/play-circle-gray.svg";
 import playCirclePrimaryIcon from "@/icons/play-circle-primary.svg";
 import starCirclePrimaryIcon from "@/icons/star-circle-primary.svg";
 
-import styles from "../styles.module.scss";
+import commonStyles from "../styles.module.scss";
 
 interface ILessonsListProps {
-  lessonsAndExam: (ILessonDetail | IExamDetail)[];
   onSelectLesson: (lesson: ILessonDetail) => void;
   onSelectExam: () => void;
 }
 
 export default function LessonsList({
-  lessonsAndExam,
   onSelectLesson,
   onSelectExam,
 }: ILessonsListProps) {
+  const { courseLevels } = useAppSelector(
+    (store) => store.course,
+  );
+  const lessonsAndExam = useMemo(
+    () =>
+      courseLevels
+        ? [
+            ...courseLevels.lessons,
+            courseLevels.exam,
+          ]
+        : [],
+    [courseLevels],
+  );
   const [activeIndex, setActiveIndex] =
     useState(-1);
+
   useEffect(() => {
     if (
       activeIndex < 0 &&
       lessonsAndExam.length > 0 &&
       !isExamTypeGuard(lessonsAndExam[0])
     ) {
+      setActiveIndex(0);
       onSelectLesson(lessonsAndExam[0]);
     }
   }, [
@@ -66,7 +80,7 @@ export default function LessonsList({
     component: "p",
   };
   return (
-    <Box className={styles.accordeons}>
+    <Box className={commonStyles.accordeons}>
       {lessonsAndExam.length > 0 ? (
         <Fragment>
           {lessonsAndExam.map((item, index) => {
@@ -90,7 +104,9 @@ export default function LessonsList({
               >
                 <AccordionSummary>
                   <Box
-                    className={styles.flex_box}
+                    className={
+                      commonStyles.flex_box
+                    }
                   >
                     <Typography
                       variant="h5"
@@ -101,7 +117,9 @@ export default function LessonsList({
                       {index + 1}
                     </Typography>
                     <Box
-                      className={styles.flex_box}
+                      className={
+                        commonStyles.flex_box
+                      }
                       sx={{ gap: "8px" }}
                     >
                       <Image

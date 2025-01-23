@@ -2,14 +2,11 @@
 
 .header {
   position: relative;
-  padding: 24px;
   background: #ffffff;
   box-shadow: variables.$theme-header-box-shadow;
   .go_back_button {
-    padding: 4px;
     position: absolute;
-    top: 24px;
-    left: 24px;
+
     .arrow_left_icon {
       filter: invert(84%) sepia(0%) saturate(993%)
         hue-rotate(137deg) brightness(78%)
@@ -24,10 +21,40 @@
 }
 
 @media (min-width: variables.$theme-breakpoint-xs) {
+  .header {
+    min-height: 72px;
+    padding: 20px;
+    .go_back_button {
+      padding: 2px;
+      left: 20px;
+    }
+    .append_wrapper {
+      right: 20px;
+    }
+    .go_back_button,
+    .append_wrapper {
+      top: 20px;
+    }
+  }
 }
 @media (min-width: variables.$theme-breakpoint-sm) {
 }
 @media (min-width: variables.$theme-breakpoint-md) {
+  .header {
+    min-height: 80px;
+    padding: 24px;
+    .go_back_button {
+      padding: 4px;
+      left: 24px;
+    }
+    .append_wrapper {
+      right: 24px;
+    }
+    .go_back_button,
+    .append_wrapper {
+      top: 24px;
+    }
+  }
 }
 @media (min-width: variables.$theme-breakpoint-lg) {
 }

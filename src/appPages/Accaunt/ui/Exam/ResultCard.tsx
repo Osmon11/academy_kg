@@ -44,7 +44,7 @@ export default function ResultCard() {
             sx={{
               display: "flex",
               flexDirection: "column",
-              gap: "30px",
+              gap: { xs: "20px", md: "30px" },
             }}
           >
             <Box

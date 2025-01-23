@@ -2,8 +2,6 @@
 
 import { Fragment, useEffect } from "react";
 
-import { Box } from "@mui/material";
-
 import { Footer } from "@/widgets/Footer";
 
 import { GoBackHeader } from "@/entities/GoBackHeader";
@@ -25,7 +23,6 @@ import {
   ICourseLevelDetail,
 } from "@/shared/types";
 
-import styles from "../styles.module.scss";
 import LessonDetails from "./LessonDetails";
 import Recommendations from "./Recommendations";
 
@@ -85,10 +82,8 @@ export function StudyPage({
       <GoBackHeader
         title={course ? course.title : ""}
       />
-      <Box className={styles.page}>
-        <LessonDetails />
-        <Recommendations />
-      </Box>
+      <LessonDetails />
+      <Recommendations />
       <Footer />
     </Fragment>
   );

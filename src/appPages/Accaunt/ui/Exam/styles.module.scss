@@ -6,7 +6,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
 }
 
 .question_card {
@@ -51,14 +50,38 @@
   gap: 20px;
 }
 
+.label {
+  margin: 0px;
+}
+
 @media (min-width: variables.$theme-breakpoint-xs) {
+  .wrapper {
+    justify-content: start;
+  }
+  .question_card {
+    width: calc(100vw - 30px);
+    padding: 20px 15px 30px;
+    margin-top: 20px;
+    gap: 20px;
+    .button {
+      min-width: calc(50% - 10px);
+    }
+  }
 }
 @media (min-width: variables.$theme-breakpoint-sm) {
+  .question_card {
+    width: 540px;
+    padding: 35px 60px 60px;
+    margin-top: 45px;
+    gap: 30px;
+  }
 }
 @media (min-width: variables.$theme-breakpoint-md) {
+  .wrapper {
+    justify-content: center;
+  }
   .question_card {
     width: 600px;
-    padding: 35px 60px 60px;
     gap: 50px;
   }
 }

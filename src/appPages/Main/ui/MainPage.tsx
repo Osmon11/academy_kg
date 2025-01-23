@@ -28,7 +28,6 @@ import { SECTION_MARGIN_TOP } from "@/shared/config/const";
 import { routePath } from "@/shared/functions";
 import {
   IFeedbackListItem,
-  ISubjectListItem,
   ITeacherListItem,
 } from "@/shared/types";
 
@@ -44,9 +43,7 @@ import styles from "./styles.module.scss";
 
 export function MainPage() {
   const videoRef = useRef<HTMLDivElement>(null);
-  const [courseList, setCourseList] = useState<
-    ISubjectListItem[]
-  >([]);
+
   const [teacherList, setTeacherList] = useState<
     ITeacherListItem[]
   >([]);
@@ -54,18 +51,6 @@ export function MainPage() {
     useState<IFeedbackListItem[]>([]);
 
   useEffect(() => {
-    axiosInstance
-      .get<{
-        results: ISubjectListItem[];
-      }>("academy/course_list/")
-      .then((res) => {
-        if (
-          res?.data &&
-          Array.isArray(res.data.results)
-        ) {
-          setCourseList(res.data.results);
-        }
-      });
     axiosInstance
       .get<{
         results: ITeacherListItem[];
@@ -177,7 +162,7 @@ export function MainPage() {
       <SectionHeader color="primary">
         Наши предметы
       </SectionHeader>
-      <Subjects subjects={courseList} />
+      <Subjects />
       <Banner
         color="secondary"
         sx={{

@@ -48,14 +48,13 @@ export function Authentication() {
     if (
       via === "google" &&
       status === "authenticated" &&
-      session?.idToken &&
-      session?.user
+      session &&
+      session.accessToken &&
+      session.user
     ) {
-      console.log(session);
-
       axiosInstance
         .post("/auth/google_sign_in/", {
-          token: session.idToken,
+          token: session.accessToken,
           email: session.user.email,
           name: session.user.name,
         })

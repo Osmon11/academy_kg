@@ -1,0 +1,134 @@
+@use "variables";
+
+.lesson_wrapper {
+  display: flex;
+  .video iframe {
+    width: 100%;
+    height: 100%;
+  }
+  .exam_overview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    box-shadow:
+      -1px -1px 2px 0px #ffffff4d,
+      1px 1px 2px 0px #d6d6d680,
+      1px -1px 2px 0px #d6d6d633 inset,
+      -1px 1px 2px 0px #d6d6d633 inset,
+      1px 1px 2px 0px #ffffffe5 inset,
+      -1px -1px 3px 0px #d6d6d6e5 inset;
+    .content {
+      width: 330px;
+      display: flex;
+      flex-direction: column;
+      .item {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+      }
+    }
+  }
+  .list,
+  .text_of_the_lesson {
+    width: 100%;
+    overflow: auto;
+  }
+  .wrapper {
+    margin-top: 10px;
+    border-top: 1px solid #f2f2f2;
+    border-bottom: 1px solid #f2f2f2;
+  }
+  .text_of_the_lesson {
+    position: relative;
+    margin: 10px 0px;
+    padding: 9px;
+    padding-left: 0px;
+  }
+}
+
+@media (min-width: variables.$theme-breakpoint-xs) {
+  .lesson_wrapper {
+    min-height: 400px;
+    flex-direction: column;
+    gap: 0px;
+    .video,
+    .exam_overview {
+      width: 100%;
+      height: 400px;
+    }
+    .exam_overview {
+      border-radius: 0px;
+      gap: 30px;
+      .content {
+        gap: 20px;
+      }
+    }
+    .content {
+      width: 100%;
+    }
+    .list {
+      max-height: 400px;
+      margin-top: 25px;
+    }
+    .text_of_the_lesson {
+      max-height: 285px;
+    }
+  }
+}
+@media (min-width: variables.$theme-breakpoint-sm) {
+  .lesson_wrapper {
+    min-height: 500px;
+    .video,
+    .exam_overview {
+      height: 500px;
+    }
+    .content {
+      padding: 30px;
+    }
+  }
+}
+@media (min-width: variables.$theme-breakpoint-md) {
+  .lesson_wrapper {
+    min-height: 440px;
+    gap: 50px;
+    .video,
+    .exam_overview {
+      width: 100%;
+      height: 70vh;
+    }
+    .exam_overview {
+      border-radius: 14px;
+      gap: 50px;
+      .content {
+        gap: 32px;
+      }
+    }
+    .content {
+      padding: 0px;
+    }
+  }
+}
+@media (min-width: variables.$theme-breakpoint-lg) {
+  .lesson_wrapper {
+    min-height: 550px;
+    flex-direction: row;
+    .video,
+    .exam_overview {
+      width: calc(60% - 25px);
+      height: 550px;
+    }
+    .content {
+      width: calc(40% - 25px);
+    }
+    .list,
+    .text_of_the_lesson {
+      padding-right: 10px;
+    }
+  }
+}
+@media (min-width: variables.$theme-breakpoint-xl) {
+}

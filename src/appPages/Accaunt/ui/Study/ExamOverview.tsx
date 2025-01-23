@@ -10,7 +10,7 @@ import {
 import { useAppSelector } from "@/shared/config/store";
 import { routePath } from "@/shared/functions";
 
-import styles from "../styles.module.scss";
+import styles from "./styles.module.scss";
 
 export default function ExamOverview() {
   const { course, courseLevels } = useAppSelector(
@@ -20,7 +20,7 @@ export default function ExamOverview() {
     <Paper className={styles.exam_overview}>
       <Typography
         variant="h6"
-        fontSize={600}
+        fontWeight={600}
         color="primary"
         textAlign="center"
       >

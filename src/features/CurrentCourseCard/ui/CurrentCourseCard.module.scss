@@ -2,8 +2,8 @@
 
 .course_card {
   position: relative;
-  padding: 30px;
   min-height: 280px;
+  cursor: pointer;
   border-radius: 20px;
   background: var(--mui-palette-common-white);
   box-shadow:
@@ -20,16 +20,24 @@
   > :nth-child(2) {
     align-items: end;
   }
-  .flex_column {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    .price {
-      width: fit-content;
-      padding: 8px 10px;
-      border-radius: 10px;
-      background: var(--mui-palette-primary-main);
+  .level {
+    width: fit-content;
+    padding: 8px 10px;
+    border-radius: 10px;
+    background: var(--mui-palette-primary-main);
+    .text {
+      white-space: nowrap;
     }
+  }
+  .flex_box {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+  .lesson_wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
   .progress_bar {
     position: absolute;
@@ -43,20 +51,36 @@
 
 @media (min-width: variables.$theme-breakpoint-xs) {
   .course_card {
-    min-width: calc(100vw - 30px);
+    width: 100%;
+    padding: 24px;
+    flex-wrap: wrap;
+    .lesson_wrapper {
+      margin-top: 20px;
+    }
   }
 }
 @media (min-width: variables.$theme-breakpoint-sm) {
   .course_card {
-    min-width: 585px;
+    .flex_box {
+      flex-wrap: nowrap;
+      justify-content: space-between;
+    }
   }
 }
 @media (min-width: variables.$theme-breakpoint-md) {
   .course_card {
-    width: 645px;
+    width: calc(50% - 15px);
   }
 }
 @media (min-width: variables.$theme-breakpoint-lg) {
+  .course_card {
+    width: 645px;
+    padding: 30px;
+    flex-direction: column;
+    .lesson_wrapper {
+      margin-top: 30px;
+    }
+  }
 }
 @media (min-width: variables.$theme-breakpoint-xl) {
 }

@@ -75,6 +75,7 @@ export default function Questions({
         activeStep={activeQuestion}
         connector={null}
         sx={{
+          marginTop: "20px",
           justifyContent: "center",
           gap: { md: "20px", lg: "40px" },
         }}
@@ -85,24 +86,29 @@ export default function Questions({
               key={item.id}
               completed={activeQuestion > index}
             >
-              <Typography
-                variant="h6"
-                fontWeight={600}
+              <Box
                 sx={{
-                  color:
+                  borderBottom:
                     activeQuestion === index
-                      ? "#1DA599"
-                      : index > activeQuestion
-                        ? "#D9D9D9"
-                        : "#A3D6C9",
-                  textDecoration:
-                    activeQuestion === index
-                      ? "underline"
+                      ? "2px solid #1DA599"
                       : "none",
                 }}
               >
-                {index + 1}
-              </Typography>
+                <Typography
+                  variant="h6"
+                  fontWeight={600}
+                  sx={{
+                    color:
+                      activeQuestion === index
+                        ? "#1DA599"
+                        : index > activeQuestion
+                          ? "#D9D9D9"
+                          : "#A3D6C9",
+                  }}
+                >
+                  {index + 1}
+                </Typography>
+              </Box>
             </Step>
           ),
         )}
@@ -132,7 +138,7 @@ export default function Questions({
             fontSize: "22px",
             fontWeight: 700,
             textTransform: "none",
-            marginTop: "40px",
+            marginTop: { xs: "20px", md: "40px" },
           }}
         >
           Завершить экзамен

@@ -1,7 +1,13 @@
-import Image from "next/image";
-import Link from "next/link";
+"use client";
 
-import { Box, Typography } from "@mui/material";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+
+import {
+  Box,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 
 import {
   formatThePrice,
@@ -18,51 +24,60 @@ interface ICourseCardProps {
 export function CourseCard({
   course,
 }: ICourseCardProps) {
+  const router = useRouter();
+  const onlyXs = useMediaQuery((theme) =>
+    theme.breakpoints.only("xs"),
+  );
+  const upSm = useMediaQuery((theme) =>
+    theme.breakpoints.up("sm"),
+  );
+  const onlyMd = useMediaQuery((theme) =>
+    theme.breakpoints.only("md"),
+  );
+  const upLg = useMediaQuery((theme) =>
+    theme.breakpoints.up("lg"),
+  );
   return (
-    <Link
-      href={routePath("[course]", {
-        id: course.id,
-      })}
+    <Box
+      className={styles.course_card}
+      onClick={() =>
+        router.push(
+          routePath("[course]", {
+            id: course.id,
+          }),
+        )
+      }
     >
-      <Box className={styles.course_card}>
-        <Box className={styles.flex_column}>
-          <Box>
-            <Typography
-              variant="h5"
-              color="secondary"
-              fontWeight={700}
-            >
-              {course.title}
-            </Typography>
-            <Typography
-              variant="h6"
-              color="textSecondary"
-              sx={{ marginTop: "8px" }}
-            >
-              {course.description}
-            </Typography>
-          </Box>
-          <Box>
-            <Typography
-              variant="body1"
-              color="textThirtiary"
-              fontWeight={700}
-            >
-              Преподаватель
-            </Typography>
-            <Typography
-              variant="h6"
-              color="textSecondary"
-              fontWeight={600}
-              sx={{ marginTop: "8px" }}
-            >
-              {course.teacher
-                ? course.teacher.full_name
-                : "Не назначен"}
-            </Typography>
-          </Box>
+      <Box className={styles.flex_box}>
+        <Box>
+          <Typography
+            variant="h5"
+            color="secondary"
+            fontWeight={700}
+            sx={{
+              textAlign: {
+                xs: "center",
+                sm: "start",
+              },
+            }}
+          >
+            {course.title}
+          </Typography>
+          <Typography
+            variant={upLg ? "h6" : "body1"}
+            color="textSecondary"
+            sx={{
+              marginTop: "8px",
+              textAlign: {
+                xs: "center",
+                sm: "start",
+              },
+            }}
+          >
+            {course.description}
+          </Typography>
         </Box>
-        <Box className={styles.flex_column}>
+        {!onlyXs && !onlyMd && (
           <Box className={styles.price}>
             <Typography
               variant="h6"
@@ -72,16 +87,73 @@ export function CourseCard({
               {formatThePrice(course.price)}
             </Typography>
           </Box>
-          {course.icon ? (
-            <Image
-              src={course.icon}
-              alt={course.title}
-              width={160}
-              height={160}
-            />
-          ) : null}
-        </Box>
+        )}
       </Box>
-    </Link>
+      <Box className={styles.flex_box}>
+        <Box
+          sx={
+            onlyXs
+              ? {
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }
+              : undefined
+          }
+        >
+          {(onlyXs || onlyMd) && (
+            <Box className={styles.price}>
+              <Typography
+                variant={upLg ? "h6" : "body1"}
+                fontWeight={600}
+                lineHeight={
+                  upLg ? "24px" : "18px"
+                }
+              >
+                {formatThePrice(course.price)}
+              </Typography>
+            </Box>
+          )}
+          <Typography
+            variant="body1"
+            color="textThirtiary"
+            fontWeight={700}
+            sx={{
+              textAlign: {
+                xs: "center",
+                sm: "start",
+              },
+              marginTop: { xs: "20px" },
+            }}
+          >
+            Преподаватель
+          </Typography>
+          <Typography
+            variant={upLg ? "h6" : "body1"}
+            color="textSecondary"
+            fontWeight={600}
+            sx={{
+              textAlign: {
+                xs: "center",
+                sm: "start",
+              },
+            }}
+          >
+            {course.teacher
+              ? course.teacher.full_name
+              : "Не назначен"}
+          </Typography>
+        </Box>
+
+        {course.icon ? (
+          <Image
+            src={course.icon}
+            alt={course.title}
+            width={upSm ? 160 : 130}
+            height={upSm ? 160 : 130}
+          />
+        ) : null}
+      </Box>
+    </Box>
   );
 }

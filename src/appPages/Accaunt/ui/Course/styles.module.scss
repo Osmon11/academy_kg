@@ -1,0 +1,81 @@
+@use "variables";
+
+.video {
+  width: 100%;
+  iframe {
+    width: 100%;
+    height: 100%;
+  }
+}
+.description {
+  width: 100%;
+}
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.objective {
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  border-radius: 14px;
+  background: var(--mui-palette-secondary-main);
+}
+.lesson_item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+@media (min-width: variables.$theme-breakpoint-xs) {
+  .video {
+    height: 400px;
+  }
+  .actions {
+    flex-wrap: wrap;
+  }
+}
+@media (min-width: variables.$theme-breakpoint-sm) {
+  .video {
+    height: 500px;
+  }
+  .actions {
+    flex-wrap: nowrap;
+  }
+}
+@media (min-width: variables.$theme-breakpoint-md) {
+  .video {
+    height: 70vh;
+  }
+  .description {
+    margin-top: 40px;
+  }
+}
+@media (min-width: variables.$theme-breakpoint-lg) {
+  .wrapper {
+    display: flex;
+    align-items: stretch;
+    gap: 50px;
+  }
+  .video {
+    width: calc(50% - 25px);
+    height: auto;
+    min-height: 440px;
+  }
+  .description_wrapper {
+    width: calc(50% - 25px);
+    height: auto;
+    .description {
+      margin-top: 0px;
+      height: fit-content;
+    }
+    .actions {
+      flex-wrap: wrap;
+    }
+  }
+}
+@media (min-width: variables.$theme-breakpoint-xl) {
+}

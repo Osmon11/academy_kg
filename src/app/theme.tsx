@@ -36,13 +36,13 @@ let theme = createTheme({
   palette: {
     primary: {
       main: "#1DA599",
-      light: "#37dccd",
+      light: "#A6D5C9",
       dark: "#178279",
       contrastText: "#fff",
     },
     secondary: {
       main: "#F4882D",
-      light: "#f8b47b",
+      light: "#F8CBA3",
       dark: "#c5600a",
       contrastText: "#fff",
     },
@@ -81,9 +81,13 @@ let theme = createTheme({
         disableElevation: true,
       },
       styleOverrides: {
-        root: {
+        root: ({ theme }) => ({
           borderRadius: "10px",
-        },
+          "&.Mui-disabled": {
+            color: theme.palette.grey[400],
+            background: theme.palette.grey[100],
+          },
+        }),
       },
       variants: [
         {
@@ -91,15 +95,11 @@ let theme = createTheme({
             variant: "contained",
             color: "primary",
           },
-          style: ({ theme }) => ({
+          style: ({}) => ({
             minHeight: "60px",
             textTransform: "none",
             boxShadow:
               "-1px 1px 2px 0px #CCCCCC33, 1px -1px 2px 0px #CCCCCC33, -1px -1px 2px 0px #FFFFFFE5, 1px 1px 3px 0px #CCCCCCE5",
-            ":disabled": {
-              color: theme.palette.common.white,
-              background: "#A7D2C6",
-            },
           }),
         },
         {
@@ -114,13 +114,20 @@ let theme = createTheme({
             color: theme.palette.text.thirtiary,
             fontWeight: 500,
             textTransform: "none",
-            boxShadow:
-              "-1px -1px 2px 0px #ffffffe5, 1px -1px 2px 0px #cccccc33, -1px 1px 2px 0px #cccccc33, 1px 1px 3px 0px #cccccce5",
-            ":hover": {
-              background: "#d6d6d6",
+            "&, :hover, &.Mui-disabled": {
               boxShadow:
                 "-1px -1px 2px 0px #ffffffe5, 1px -1px 2px 0px #cccccc33, -1px 1px 2px 0px #cccccc33, 1px 1px 3px 0px #cccccce5",
             },
+            ":hover": {
+              background: theme.palette.grey[100],
+            },
+          }),
+        },
+        {
+          props: { variant: "convex" },
+          style: ({ theme }) => ({
+            display: "flex",
+            color: theme.palette.common.white,
           }),
         },
         {
@@ -128,13 +135,11 @@ let theme = createTheme({
             variant: "convex",
             size: "medium",
           },
-          style: ({ theme }) => ({
+          style: ({}) => ({
             minWidth: "240px",
             minHeight: "60px",
             padding: "10px 4px",
-            display: "flex",
             borderRadius: "20px",
-            color: theme.palette.common.white,
           }),
         },
         {
@@ -142,13 +147,11 @@ let theme = createTheme({
             variant: "convex",
             size: "small",
           },
-          style: ({ theme }) => ({
+          style: ({}) => ({
             minWidth: "240px",
             minHeight: "30px",
             padding: "7px 4px",
-            display: "flex",
             borderRadius: "8px",
-            color: theme.palette.common.white,
             textTransform: "none",
           }),
         },
@@ -166,6 +169,10 @@ let theme = createTheme({
               background:
                 theme.palette.primary.dark,
             },
+            "&.Mui-disabled": {
+              color: "#A8A8A8",
+              background: "#A6D5C9",
+            },
           }),
         },
         {
@@ -182,6 +189,10 @@ let theme = createTheme({
               background:
                 theme.palette.secondary.dark,
             },
+            "&.Mui-disabled": {
+              color: "#A8A8A8",
+              background: "#F8CBA3",
+            },
           }),
         },
         {
@@ -195,18 +206,12 @@ let theme = createTheme({
             background:
               theme.palette.common.white,
             textTransform: "none",
-            boxShadow:
-              "1px 1px 2px 0px #FFFFFF4D inset, -1px -1px 2px 0px #AEAEAE80 inset, -1px 1px 2px 0px #AEAEAE33, 1px -1px 2px 0px #AEAEAE33, -1px -1px 2px 0px #FFFFFFE5, 1px 1px 3px 0px #AEAEAEE5",
-            ":hover": {
-              background:
-                theme.palette.common.white,
+            "&, :hover, &.Mui-disabled": {
               boxShadow:
                 "1px 1px 2px 0px #FFFFFF4D inset, -1px -1px 2px 0px #AEAEAE80 inset, -1px 1px 2px 0px #AEAEAE33, 1px -1px 2px 0px #AEAEAE33, -1px -1px 2px 0px #FFFFFFE5, 1px 1px 3px 0px #AEAEAEE5",
             },
-            "&.Mui-disabled": {
-              color: theme.palette.text.thirtiary,
-              boxShadow:
-                "1px 1px 2px 0px #FFFFFF4D inset, -1px -1px 2px 0px #AEAEAE80 inset, -1px 1px 2px 0px #AEAEAE33, 1px -1px 2px 0px #AEAEAE33, -1px -1px 2px 0px #FFFFFFE5, 1px 1px 3px 0px #AEAEAEE5",
+            ":hover": {
+              background: theme.palette.grey[100],
             },
           }),
         },

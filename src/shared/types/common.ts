@@ -172,7 +172,8 @@ export interface IMyCourseListDetail {
   level: number;
   lesson_count: number;
   finished_count: number;
-  exam_result: null;
+  exam_result: "Passed" | "Not passed" | null;
+  lesson: string;
 }
 
 export interface IMyCourseListItem
@@ -180,7 +181,7 @@ export interface IMyCourseListItem
     ICourseListItem,
     "id" | "title" | "image" | "icon"
   > {
-  detail: IMyCourseListDetail | null;
+  detail: IMyCourseListDetail;
 }
 
 export interface IPaginatedList<ListItem> {

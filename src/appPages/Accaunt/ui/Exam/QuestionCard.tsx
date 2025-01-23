@@ -9,6 +9,7 @@ import {
   Radio,
   RadioGroup,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 
 import { IQuestion } from "@/shared/types";
@@ -48,6 +49,10 @@ export function QuestionCard({
     setUserAnswer(null);
     setIsCorrect(false);
   }
+
+  const upSm = useMediaQuery((theme) =>
+    theme.breakpoints.up("sm"),
+  );
   return (
     <Paper className={styles.question_card}>
       <Typography
@@ -73,6 +78,7 @@ export function QuestionCard({
           {question.answers.map((answer) => (
             <FormControlLabel
               key={answer.id}
+              className={styles.label}
               label={answer.value}
               value={answer.value}
               control={
@@ -173,12 +179,14 @@ export function QuestionCard({
           }}
           disabled={firstQuestion}
           startIcon={
-            <Image
-              src={arrowLeftGrayCoalIcon}
-              alt="arrow left gray coal icon"
-              width={24}
-              height={24}
-            />
+            upSm ? (
+              <Image
+                src={arrowLeftGrayCoalIcon}
+                alt="arrow left gray coal icon"
+                width={24}
+                height={24}
+              />
+            ) : undefined
           }
         >
           Назад
@@ -192,12 +200,14 @@ export function QuestionCard({
               clear();
             }}
             endIcon={
-              <Image
-                src={arrowRightIcon}
-                alt="arrow right icon"
-                width={24}
-                height={24}
-              />
+              upSm ? (
+                <Image
+                  src={arrowRightIcon}
+                  alt="arrow right icon"
+                  width={24}
+                  height={24}
+                />
+              ) : undefined
             }
             sx={{ minHeight: "50px" }}
           >
@@ -213,12 +223,14 @@ export function QuestionCard({
               clear();
             }}
             endIcon={
-              <Image
-                src={arrowRightGrayCoalIcon}
-                alt="arrow right gray coal icon"
-                width={24}
-                height={24}
-              />
+              upSm ? (
+                <Image
+                  src={arrowRightGrayCoalIcon}
+                  alt="arrow right gray coal icon"
+                  width={24}
+                  height={24}
+                />
+              ) : undefined
             }
           >
             Пропустить

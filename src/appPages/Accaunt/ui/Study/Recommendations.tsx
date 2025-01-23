@@ -8,10 +8,9 @@ import { CourseCard } from "@/features/CourseCard";
 
 import { TubeSpinner } from "@/shared/UI";
 import axiosInstance from "@/shared/config/axiosClientInstance";
-import { SECTION_MARGIN_TOP } from "@/shared/config/const";
 import { ICourseListItem } from "@/shared/types";
 
-import styles from "../styles.module.scss";
+import commonStyles from "../styles.module.scss";
 
 export default function Recommendations() {
   const [recommendations, setRecommendations] =
@@ -31,8 +30,9 @@ export default function Recommendations() {
       })
       .finally(() => setLoading(false));
   }, []);
+
   return (
-    <Box sx={{ marginTop: SECTION_MARGIN_TOP }}>
+    <Box className={commonStyles.page}>
       <Typography
         variant="h5"
         color="textSecondary"
@@ -44,7 +44,7 @@ export default function Recommendations() {
         {loading ? (
           <Box
             className={
-              styles.tube_spinner_wrapper
+              commonStyles.tube_spinner_wrapper
             }
           >
             <TubeSpinner
@@ -53,7 +53,11 @@ export default function Recommendations() {
             />
           </Box>
         ) : recommendations.length > 0 ? (
-          <Box className={styles.courses_wrapper}>
+          <Box
+            className={
+              commonStyles.courses_wrapper
+            }
+          >
             {recommendations.map((course) => (
               <CourseCard
                 key={course.id}

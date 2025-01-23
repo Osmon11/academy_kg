@@ -10,26 +10,27 @@ import {
 } from "@mui/material";
 
 import { TIME_FORMAT } from "@/shared/config/const";
-import { ILessonDetail } from "@/shared/types";
+import { useAppSelector } from "@/shared/config/store";
 
 import playCirclePrimaryIcon from "@/icons/play-circle-primary.svg";
 
-import styles from "../styles.module.scss";
+import commonStyles from "../styles.module.scss";
+import styles from "./styles.module.scss";
 
-interface IOverviewLessonsProps {
-  lessons: ILessonDetail[];
-}
-
-export default function OverviewLessons({
-  lessons,
-}: IOverviewLessonsProps) {
+export default function OverviewLessons() {
+  const courseLevels = useAppSelector(
+    (store) => store.course.courseLevels,
+  );
+  const lessons = courseLevels
+    ? courseLevels.lessons
+    : [];
   return lessons.length > 0 ? (
     <Box>
       {lessons.map((lesson, index) => (
         <ListItem
           key={lesson.id}
           component="div"
-          className={styles.item}
+          className={styles.lesson_item}
           sx={{
             borderBottom:
               index + 1 !== lessons.length
@@ -37,7 +38,7 @@ export default function OverviewLessons({
                 : "none",
           }}
         >
-          <Box className={styles.flex_box}>
+          <Box className={commonStyles.flex_box}>
             <Typography
               variant="h5"
               fontWeight={600}
@@ -47,7 +48,7 @@ export default function OverviewLessons({
               {index + 1}
             </Typography>
             <Box
-              className={styles.flex_box}
+              className={commonStyles.flex_box}
               sx={{ gap: "8px" }}
             >
               <Image
@@ -68,6 +69,7 @@ export default function OverviewLessons({
           <Typography
             variant="body1"
             color="textSecondary"
+            textAlign="right"
           >{`Видео - ${moment(lesson.duration, TIME_FORMAT).format("HH:mm")}`}</Typography>
         </ListItem>
       ))}

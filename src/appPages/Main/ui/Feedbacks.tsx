@@ -49,6 +49,7 @@ export default function Feedbacks({
             <Box
               key={feedbackIndex}
               sx={{
+                width: "auto",
                 height: "auto",
                 paddingRight: {
                   xs: "20px",

@@ -31,6 +31,7 @@ export default function Recommendations() {
         <Box
           key={item.id}
           sx={{
+            width: "auto",
             height: "auto",
             paddingRight: "20px",
           }}

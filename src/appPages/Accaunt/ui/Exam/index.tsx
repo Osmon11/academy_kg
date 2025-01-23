@@ -103,6 +103,7 @@ export function ExamPage({
             className={
               styles.tube_spinner_wrapper
             }
+            sx={{ height: "100vh" }}
           >
             <TubeSpinner
               width={50}
