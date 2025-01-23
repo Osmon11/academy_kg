@@ -170,7 +170,7 @@ let theme = createTheme({
                 theme.palette.primary.dark,
             },
             "&.Mui-disabled": {
-              color: "#A8A8A8",
+              color: theme.palette.text.primary,
               background: "#A6D5C9",
             },
           }),
@@ -190,7 +190,7 @@ let theme = createTheme({
                 theme.palette.secondary.dark,
             },
             "&.Mui-disabled": {
-              color: "#A8A8A8",
+              color: theme.palette.text.primary,
               background: "#F8CBA3",
             },
           }),

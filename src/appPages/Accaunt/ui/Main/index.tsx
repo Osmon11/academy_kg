@@ -1,5 +1,6 @@
 "use client";
 
+import classNames from "classnames";
 import {
   Fragment,
   useEffect,
@@ -16,7 +17,7 @@ import { CurrentCourseCard } from "@/features/CurrentCourseCard";
 import axiosInstance from "@/shared/config/axiosClientInstance";
 import { IMyCourseListItem } from "@/shared/types";
 
-import styles from "../styles.module.scss";
+import commonStyles from "../styles.module.scss";
 import CourseList from "./CourseList";
 import Recommendations from "./Recommendations";
 
@@ -39,7 +40,10 @@ export function AccauntMainPage() {
     <Fragment>
       <Header background="white" />
       <Box
-        className={styles.page}
+        className={classNames(
+          commonStyles.page,
+          commonStyles.full_height,
+        )}
         sx={{ marginTop: "80px" }}
       >
         <Typography
@@ -62,7 +66,9 @@ export function AccauntMainPage() {
               Продолжить обучение
             </Typography>
             <Box
-              className={styles.courses_wrapper}
+              className={
+                commonStyles.courses_wrapper
+              }
             >
               {currentCourses.map((item) => (
                 <CurrentCourseCard

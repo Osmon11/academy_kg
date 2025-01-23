@@ -5,6 +5,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import { toast } from "react-toastify";
 
 import { Box } from "@mui/material";
 
@@ -38,6 +39,11 @@ export function ExamPage({
   const dispatch = useAppDispatch();
   const { examQuestions, results, loading } =
     useAppSelector((store) => store.exam);
+  const [summary, setSummary] = useState<{
+    answeredQuestions: number;
+    correctAnswers: number;
+    score: number;
+  }>();
   const [finished, setFinished] = useState(false);
 
   useEffect(() => {
@@ -55,12 +61,24 @@ export function ExamPage({
         dispatch(setExamLoading(false));
       });
     return () => {
+      setSummary(undefined);
       setFinished(false);
     };
   }, [dispatch, courseId]);
 
   function finishExam() {
     if (examQuestions) {
+      const answeredQuestions = results.filter(
+        (i) => !i.skipped,
+      );
+      const correctAnswers =
+        answeredQuestions.filter(
+          (i) => i.correctAnswer,
+        );
+      const score = correctAnswers.reduce(
+        (acc, item) => acc + item.point,
+        0,
+      );
       dispatch(setExamLoading(true));
       axiosInstance
         .post(
@@ -70,12 +88,24 @@ export function ExamPage({
               (i) =>
                 !i.skipped && i.correctAnswer,
             ).length,
+            point_sum: score,
           },
         )
-        .then(() => setFinished(true))
-        .finally(() =>
-          dispatch(setExamLoading(false)),
-        );
+        .then((res) => {
+          if (res?.data?.message) {
+            toast.success(res.data.message);
+          }
+        })
+        .finally(() => {
+          setSummary({
+            answeredQuestions:
+              answeredQuestions.length,
+            correctAnswers: correctAnswers.length,
+            score,
+          });
+          setFinished(true);
+          dispatch(setExamLoading(false));
+        });
     }
   }
   return (
@@ -87,7 +117,7 @@ export function ExamPage({
             : "Экзамен"
         }
         append={
-          examQuestions ? (
+          examQuestions && !finished ? (
             <Timer
               minutes={getAllMinutes(
                 examQuestions.duration,
@@ -110,8 +140,11 @@ export function ExamPage({
               height={50}
             />
           </Box>
-        ) : finished ? (
-          <ResultCard />
+        ) : finished && summary ? (
+          <ResultCard
+            courseId={courseId}
+            {...summary}
+          />
         ) : (
           <Questions finishExam={finishExam} />
         )}

@@ -1,5 +1,9 @@
 @use "variables";
 
+.full_height {
+  min-height: calc(100vh - 235px);
+}
+
 .courses_wrapper {
   margin-top: 20px;
   display: flex;

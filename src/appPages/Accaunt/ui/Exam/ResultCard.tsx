@@ -1,4 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 
 import {
   Box,
@@ -7,32 +9,55 @@ import {
   Typography,
 } from "@mui/material";
 
+import axiosInstance from "@/shared/config/axiosClientInstance";
 import { useAppSelector } from "@/shared/config/store";
 import { routePath } from "@/shared/functions";
 
+import documentDownloadIcon from "@/icons/document-download.svg";
+
 import styles from "./styles.module.scss";
 
-export default function ResultCard() {
-  const { examQuestions, results } =
-    useAppSelector((store) => store.exam);
-  const answeredQuestions = results.filter(
-    (i) => !i.skipped,
+interface IResultCardProps {
+  courseId: string;
+  answeredQuestions: number;
+  correctAnswers: number;
+  score: number;
+}
+
+export default function ResultCard({
+  courseId,
+  answeredQuestions,
+  correctAnswers,
+  score,
+}: IResultCardProps) {
+  const { examQuestions } = useAppSelector(
+    (store) => store.exam,
   );
-  const correctAnswers = answeredQuestions.filter(
-    (i) => i.correctAnswer,
-  );
-  const score = correctAnswers.reduce(
-    (acc, item) => acc + item.point,
-    0,
-  );
-  const examPassed =
-    examQuestions &&
-    score >= examQuestions?.pass_points;
+  const [loading, setLoading] = useState(true);
+
+  function fetchCertificate() {
+    setLoading(true);
+    axiosInstance
+      .get(`/auth/certificate/${courseId}/`)
+      .then((res) => {
+        if (res?.data?.file_url) {
+          window.open(
+            res.data.file_url,
+            "_blank",
+          );
+        }
+      })
+      .finally(() => setLoading(false));
+  }
+
+  const examPassed = examQuestions
+    ? score >= examQuestions?.pass_points
+    : false;
   return (
     <Box className={styles.wrapper}>
       <Paper className={styles.question_card}>
         <Typography
-          variant="body1"
+          variant="h5"
           fontWeight={600}
           color="textSecondary"
           textAlign="center"
@@ -65,7 +90,7 @@ export default function ResultCard() {
                 variant="body1"
                 color="textThirtiary"
                 fontWeight={600}
-              >{`${answeredQuestions.length} из ${examQuestions.questions.length}`}</Typography>
+              >{`${answeredQuestions} из ${examQuestions.questions.length}`}</Typography>
             </Box>
             <Box
               className={styles.item}
@@ -86,7 +111,7 @@ export default function ResultCard() {
                 color="textThirtiary"
                 fontWeight={600}
               >
-                {correctAnswers.length}
+                {correctAnswers}
               </Typography>
             </Box>
             <Box
@@ -139,14 +164,45 @@ export default function ResultCard() {
             Осутствуют данные об экзамене
           </Typography>
         )}
-        <Typography
-          variant="h4"
-          fontWeight={600}
-          color={
-            examPassed ? "primary" : "secondary"
-          }
-          textAlign="center"
-        >{`ЭКЗАМЕН ${examPassed ? "" : "НЕ "}СДАН`}</Typography>
+        <Box>
+          <Typography
+            variant="h4"
+            fontWeight={600}
+            color={
+              examPassed ? "primary" : "secondary"
+            }
+            textAlign="center"
+          >{`ЭКЗАМЕН ${examPassed ? "" : "НЕ "}СДАН`}</Typography>
+          {examPassed && (
+            <Box
+              sx={{
+                marginTop: "20px",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <Button
+                variant="convex"
+                color="secondary"
+                size="small"
+                onClick={fetchCertificate}
+                disabled={loading}
+                endIcon={
+                  <Image
+                    src={documentDownloadIcon}
+                    alt="document download icon"
+                    width={20}
+                    height={20}
+                  />
+                }
+              >
+                {loading
+                  ? "Подождите..."
+                  : "Cкачать сертификат"}
+              </Button>
+            </Box>
+          )}
+        </Box>
       </Paper>
       <Link href={routePath("accaunt")}>
         <Button
