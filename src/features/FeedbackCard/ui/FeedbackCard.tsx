@@ -21,6 +21,7 @@ export function FeedbackCard({
   return (
     <CommentCard
       className={styles.card}
+      contentClassName={styles.content}
       comment={comment}
       color={color}
     >

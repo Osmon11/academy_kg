@@ -5,12 +5,11 @@ import {
   useSession,
 } from "next-auth/react";
 import Image from "next/image";
-import Link from "next/link";
 import {
   useRouter,
   useSearchParams,
 } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 
 import {
@@ -43,6 +42,7 @@ export function Authentication() {
     process.env
       .NEXT_PUBLIC_ACCESS_TOKEN_KEY as string,
   ])[1];
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (
@@ -52,6 +52,7 @@ export function Authentication() {
       session.accessToken &&
       session.user
     ) {
+      setLoading(true);
       axiosInstance
         .post("/auth/google_sign_in/", {
           token: session.accessToken,
@@ -59,11 +60,11 @@ export function Authentication() {
           name: session.user.name,
         })
         .then((res) => {
-          if (res?.data?.token) {
+          if (res?.data?.access) {
             setCookie(
               process.env
                 .NEXT_PUBLIC_ACCESS_TOKEN_KEY as string,
-              res?.data.access,
+              res.data.access,
               {
                 path: "/",
                 expires: sessionExpiration(),
@@ -74,7 +75,8 @@ export function Authentication() {
         })
         .catch(() =>
           router.replace(routePath("signIn")),
-        );
+        )
+        .finally(() => setLoading(false));
     }
   }, [session, status, via, setCookie, router]);
 
@@ -100,34 +102,37 @@ export function Authentication() {
           />
         }
         onClick={handleGoogleSignIn}
+        disabled={loading}
       >
-        Войти с Google
+        {loading
+          ? "Загрузка..."
+          : "Войти с Google"}
       </Button>
-      <Link
-        href={routePath("signIn", {
-          queryParams: {
-            ...searchParamsObject,
-            via: "email",
-          },
-        })}
-        style={{ width: "100%" }}
+      <Button
+        className={styles.white_button}
+        variant="shadow"
+        color="white"
+        startIcon={
+          <Image
+            src={smsCoalGrayIcon}
+            alt="sms coal gray icon"
+            width={24}
+            height={24}
+          />
+        }
+        onClick={() =>
+          routePath("signIn", {
+            queryParams: {
+              ...searchParamsObject,
+              via: "email",
+            },
+          })
+        }
+        disabled={loading}
+        fullWidth
       >
-        <Button
-          className={styles.white_button}
-          variant="shadow"
-          color="white"
-          startIcon={
-            <Image
-              src={smsCoalGrayIcon}
-              alt="sms coal gray icon"
-              width={24}
-              height={24}
-            />
-          }
-        >
-          Войти с эл. почтой
-        </Button>
-      </Link>
+        Войти с эл. почтой
+      </Button>
       <Box className={styles.divider}>
         <span className={styles.line} />
         <Typography
@@ -138,18 +143,15 @@ export function Authentication() {
         </Typography>
         <span className={styles.line} />
       </Box>
-      <Link
-        href={routePath("signUp")}
-        style={{ width: "100%" }}
+      <Button
+        color="primary"
+        variant="contained"
+        onClick={() => routePath("signUp")}
+        disabled={loading}
+        fullWidth
       >
-        <Button
-          color="primary"
-          variant="contained"
-          fullWidth
-        >
-          Зарегистрироваться
-        </Button>
-      </Link>
+        Зарегистрироваться
+      </Button>
     </PaperContainer>
   );
 }

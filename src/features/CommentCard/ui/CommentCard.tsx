@@ -16,6 +16,7 @@ interface ICommentCardProps {
   children?: React.ReactNode;
   sx?: SxProps;
   className?: string;
+  contentClassName?: string;
 }
 
 export function CommentCard({
@@ -25,6 +26,7 @@ export function CommentCard({
   children,
   sx,
   className,
+  contentClassName,
 }: ICommentCardProps) {
   return (
     <Card
@@ -36,7 +38,12 @@ export function CommentCard({
       )}
       sx={sx}
     >
-      <CardContent className={styles.content}>
+      <CardContent
+        className={classNames(
+          styles.content,
+          contentClassName,
+        )}
+      >
         {Boolean(header) && (
           <Typography
             variant="h6"

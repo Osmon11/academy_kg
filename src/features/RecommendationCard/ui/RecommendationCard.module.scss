@@ -44,7 +44,7 @@
 
 @media (min-width: variables.$theme-breakpoint-xs) {
   .recommendation_card {
-    min-width: calc(100vw - 40px);
+    min-width: calc(100vw - 30px);
     min-height: 200px;
     .media {
       height: 200px;

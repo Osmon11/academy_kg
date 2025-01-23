@@ -38,23 +38,22 @@ export default function CourseSets() {
   }, []);
   return (
     <Box sx={{ marginTop: "20px" }}>
-      <Carousel>
-        {loading ? (
-          <Box
-            className={
-              styles.tube_spinner_wrapper
-            }
-          >
-            <TubeSpinner
-              width={50}
-              height={50}
-            />
-          </Box>
-        ) : (
-          courseSets.map((item) => (
+      {loading ? (
+        <Box
+          className={styles.tube_spinner_wrapper}
+        >
+          <TubeSpinner
+            width={50}
+            height={50}
+          />
+        </Box>
+      ) : (
+        <Carousel options={{ align: "start" }}>
+          {courseSets.map((item) => (
             <Box
               key={item.id}
               sx={{
+                width: "auto",
                 height: "auto",
                 paddingRight: "20px",
               }}
@@ -63,9 +62,9 @@ export default function CourseSets() {
                 setOfCourses={item}
               />
             </Box>
-          ))
-        )}
-      </Carousel>
+          ))}
+        </Carousel>
+      )}
     </Box>
   );
 }
