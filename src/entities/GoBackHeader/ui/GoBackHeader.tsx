@@ -65,16 +65,13 @@ function Component({
     : mainNavLinks;
   return (
     <AppBar className={styles.header}>
-      <IconButton
-        className={styles.go_back_button}
-        onClick={handleGoBack}
-      >
+      <IconButton onClick={handleGoBack}>
         <Image
           className={styles.arrow_left_icon}
           src={arrowLeftIcon}
           alt="arrow left icon"
-          width={24}
-          height={24}
+          width={32}
+          height={32}
         />
       </IconButton>
       <Typography
@@ -87,15 +84,12 @@ function Component({
       </Typography>
       <Box className={styles.append_wrapper}>
         {append}
-        <IconButton
-          className={styles.menu_button}
-          onClick={() => setOpen(true)}
-        >
+        <IconButton onClick={() => setOpen(true)}>
           <Image
             src={menuGrayIcon}
             alt="menu icon"
-            width={24}
-            height={24}
+            width={32}
+            height={32}
           />
         </IconButton>
         <DrawerSidebar

@@ -11,6 +11,7 @@ export enum ERoute {
   "signIn" = "/authorization/login",
   "signUp" = "/authorization/registration",
   "accaunt" = "/personal-accaunt/main",
+  "profile" = "/personal-accaunt/profile",
   "courses" = "/personal-accaunt/courses",
   "[course]" = "/personal-accaunt/courses/[id]",
   "study" = "/personal-accaunt/courses/[id]/study",

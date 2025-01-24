@@ -43,7 +43,9 @@ export function AllCoursesPage() {
       <Header background="white" />
       <Box
         className={commonStyles.page}
-        sx={{ marginTop: "80px" }}
+        sx={{
+          marginTop: { xs: "72px", md: "80px" },
+        }}
       >
         {upSm && (
           <Box

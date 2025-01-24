@@ -40,7 +40,9 @@ export function AccauntMainPage() {
           commonStyles.page,
           commonStyles.full_height,
         )}
-        sx={{ marginTop: "80px" }}
+        sx={{
+          marginTop: { xs: "72px", md: "80px" },
+        }}
       >
         <Typography
           variant="h5"

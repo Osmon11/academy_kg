@@ -236,9 +236,6 @@ let theme = createTheme({
               {
                 borderBottom: `2px solid ${theme.palette.text.secondary}`,
               },
-            ".MuiInput-input": {
-              padding: "0px",
-            },
           },
         }),
       },

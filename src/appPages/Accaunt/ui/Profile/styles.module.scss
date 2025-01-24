@@ -1,0 +1,59 @@
+@use "variables";
+
+.wrapper {
+  width: 100%;
+  height: calc(100vh - 152px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .paper {
+    border-radius: 14px;
+    box-shadow:
+      0px 73px 20px 0px #14141400,
+      0px 47px 19px 0px #14141403,
+      0px 26px 16px 0px #1414140d,
+      0px 12px 12px 0px #14141417,
+      0px 3px 6px 0px #1414141a;
+    display: flex;
+    flex-direction: column;
+    .avatar_wrapper {
+      border-radius: 50%;
+      position: relative;
+      .avatar {
+        border-radius: 50%;
+      }
+      .edit_avatar_btn {
+        position: absolute;
+        right: 0px;
+        bottom: 0px;
+        background: variables.$theme-color-white-smoke;
+        box-shadow: 0px 1px 4px 0px #1a0f011f;
+      }
+    }
+  }
+}
+
+@media (min-width: variables.$theme-breakpoint-xs) {
+  .paper {
+    width: calc(100vw - 30px);
+    padding: 20px 15px 30px;
+    gap: 20px;
+  }
+}
+@media (min-width: variables.$theme-breakpoint-sm) {
+  .paper {
+    width: 540px;
+    padding: 35px 60px 60px;
+    gap: 25px;
+  }
+}
+@media (min-width: variables.$theme-breakpoint-md) {
+  .paper {
+    width: 600px;
+    gap: 30px;
+  }
+}
+@media (min-width: variables.$theme-breakpoint-lg) {
+}
+@media (min-width: variables.$theme-breakpoint-xl) {
+}

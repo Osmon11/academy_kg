@@ -2,7 +2,6 @@
 
 import classNames from "classnames";
 import Image from "next/image";
-import Link from "next/link";
 import {
   usePathname,
   useRouter,
@@ -75,14 +74,18 @@ export function DrawerSidebar({
       }}
     >
       <Box className={styles.drawer_header}>
-        <Link href={routePath("main")}>
+        <IconButton
+          onClick={() =>
+            router.push(routePath("main"))
+          }
+        >
           <Image
             src={logoPrimaryIcon}
             alt="islamic online-academy green icon"
             width={40}
             height={40}
           />
-        </Link>
+        </IconButton>
         <IconButton onClick={onClose}>
           <Image
             src={xCloseBlackIcon}
@@ -111,6 +114,7 @@ export function DrawerSidebar({
         color="white"
         border={true}
         sx={{
+          width: "100% !important",
           marginTop: "30px",
         }}
       />
@@ -125,43 +129,44 @@ export function DrawerSidebar({
             <ListItem
               key={navItem.label + index}
               disablePadding
-              sx={{ marginBottom: "30px" }}
+              sx={{
+                marginBottom:
+                  navLinks.length === index + 1
+                    ? "30px"
+                    : "14px",
+              }}
             >
-              <Link
-                href={navItem.href}
+              <ListItemButton
                 className={classNames(
                   styles.nav_link,
                   {
                     [styles.active]: isActive,
                   },
                 )}
+                onClick={() =>
+                  router.push(navItem.href)
+                }
+                // sx={{paddingLeft: '0px', paddingRight: "0px"}}
               >
-                <ListItemButton
-                  sx={{
-                    padding: "0px",
-                  }}
-                >
-                  <ListItemText
-                    primary={navItem.label}
-                    slotProps={{
-                      primary: {
-                        variant: "body2",
-                        color: isActive
-                          ? "primary"
-                          : "textSecondary",
-                        textTransform:
-                          "uppercase",
-                        sx: {
-                          fontWeight: {
-                            xs: 500,
-                            sm: 600,
-                          },
+                <ListItemText
+                  primary={navItem.label}
+                  slotProps={{
+                    primary: {
+                      variant: "body2",
+                      color: isActive
+                        ? "primary"
+                        : "textSecondary",
+                      textTransform: "uppercase",
+                      sx: {
+                        fontWeight: {
+                          xs: 500,
+                          sm: 600,
                         },
                       },
-                    }}
-                  />
-                </ListItemButton>
-              </Link>
+                    },
+                  }}
+                />
+              </ListItemButton>
             </ListItem>
           );
         })}

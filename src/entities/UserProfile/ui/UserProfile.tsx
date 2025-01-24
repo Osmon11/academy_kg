@@ -68,6 +68,7 @@ export function UserProfile({
         sx={sx}
       >
         <Image
+          className={styles.avatar}
           src={profile?.avatar ?? avatarGrayIcon}
           alt="user profile avatar"
           width={30}
@@ -142,6 +143,7 @@ export function UserProfile({
         <MenuItem
           onClick={() => {
             setAnchorEl(null);
+            router.push(routePath("profile"));
           }}
         >
           Мой профиль

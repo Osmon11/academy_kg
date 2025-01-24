@@ -22,10 +22,7 @@ interface IControllerTextFieldProps<
 > extends Omit<ControllerProps<T>, "render"> {
   textField: Omit<
     TextFieldProps,
-    | "variant"
-    | "error"
-    | "helperText"
-    | "slotProps"
+    "error" | "helperText" | "slotProps"
   >;
 }
 
@@ -51,7 +48,6 @@ export function ControllerTextField<
                 : "password"
               : textField.type
           }
-          variant="outlined"
           error={!!fieldState.error}
           helperText={fieldState.error?.message}
           fullWidth

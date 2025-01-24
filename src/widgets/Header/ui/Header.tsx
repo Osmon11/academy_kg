@@ -67,16 +67,18 @@ export function Header({
       )}
     >
       <Link href={routePath("main")}>
-        <Image
-          src={
-            mainLayout
-              ? logoIcon
-              : logoPrimaryIcon
-          }
-          alt="islamic online-academy logo"
-          width={40}
-          height={40}
-        />
+        <IconButton>
+          <Image
+            src={
+              mainLayout
+                ? logoIcon
+                : logoPrimaryIcon
+            }
+            alt="islamic online-academy logo"
+            width={40}
+            height={40}
+          />
+        </IconButton>
       </Link>
       {upMd && (
         <Box

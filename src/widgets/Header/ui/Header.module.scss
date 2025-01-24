@@ -1,8 +1,6 @@
 @use "variables";
 
 .header {
-  min-height: 80px;
-  padding: 12px 32px;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
@@ -40,7 +38,8 @@
 
 @media (min-width: variables.$theme-breakpoint-xs) {
   .header {
-    padding: 15px;
+    min-height: 72px;
+    padding: 8px 20px;
     &.white,
     &.transparent {
       .nav_link.active {
@@ -56,7 +55,8 @@
 }
 @media (min-width: variables.$theme-breakpoint-md) {
   .header {
-    padding: 15px 30px;
+    min-height: 80px;
+    padding: 12px 24px;
     &.white,
     &.transparent {
       .nav_link.active {
