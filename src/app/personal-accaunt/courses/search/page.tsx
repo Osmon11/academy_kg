@@ -1,5 +1,11 @@
+import { Suspense } from "react";
+
 import { SearchCoursesPage } from "@/appPages/Accaunt";
 
 export default function Search() {
-  return <SearchCoursesPage />;
+  return (
+    <Suspense>
+      <SearchCoursesPage />
+    </Suspense>
+  );
 }

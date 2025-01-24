@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
-import { Suspense } from "react";
 
 import { Box } from "@mui/material";
 
@@ -14,7 +13,7 @@ import FogotPassword from "./FogotPassword";
 import RecoverPassword from "./RecoverPassword";
 import SignIn from "./SignIn";
 
-function Page() {
+export function LoginPage() {
   const searchParams = useSearchParams();
   const via = searchParams.get("via");
   const useCases = {
@@ -42,13 +41,5 @@ function Page() {
         )}
       </Box>
     </Box>
-  );
-}
-
-export function LoginPage() {
-  return (
-    <Suspense>
-      <Page />
-    </Suspense>
   );
 }

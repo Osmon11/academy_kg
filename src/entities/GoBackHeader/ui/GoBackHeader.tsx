@@ -1,8 +1,11 @@
+"use client";
+
 import { useRouter } from "next-nprogress-bar";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import React, {
   ReactElement,
+  Suspense,
   useEffect,
   useState,
 } from "react";
@@ -33,7 +36,7 @@ interface GoBackHeaderProps {
   append?: ReactElement;
 }
 
-export function GoBackHeader({
+function Component({
   title,
   onGoBack,
   append,
@@ -104,3 +107,11 @@ export function GoBackHeader({
     </AppBar>
   );
 }
+
+export const GoBackHeader = (
+  props: GoBackHeaderProps,
+) => (
+  <Suspense>
+    <Component {...props} />
+  </Suspense>
+);
