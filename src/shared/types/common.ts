@@ -190,3 +190,8 @@ export interface IPaginatedList<ListItem> {
   previous: number | null;
   results: ListItem[];
 }
+
+export interface INavLink {
+  label: string;
+  href: string;
+}

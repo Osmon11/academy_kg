@@ -1,5 +1,3 @@
-"use client";
-
 import { signOut } from "next-auth/react";
 import { useRouter } from "next-nprogress-bar";
 import Image from "next/image";
@@ -20,7 +18,7 @@ import { IProfile } from "@/shared/types";
 
 import avatarGrayIcon from "@/icons/avatar-gray.svg";
 
-import styles from "./styles.module.scss";
+import styles from "./UserProfile.module.scss";
 
 interface IUserProfileProps {
   profile: IProfile;
@@ -29,7 +27,7 @@ interface IUserProfileProps {
   sx?: SxProps;
 }
 
-export default function UserProfile({
+export function UserProfile({
   profile,
   color,
   shortFullname,

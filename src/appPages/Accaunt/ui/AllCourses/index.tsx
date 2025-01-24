@@ -1,15 +1,22 @@
-import { Fragment } from "react";
+"use client";
+
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 import {
   Box,
   Typography,
   TypographyProps,
+  useMediaQuery,
 } from "@mui/material";
 
 import { Footer } from "@/widgets/Footer";
 import { Header } from "@/widgets/Header";
 
-import styles from "../styles.module.scss";
+import { SearchTextField } from "@/shared/UI";
+import { routePath } from "@/shared/functions";
+
+import commonStyles from "../styles.module.scss";
 import AcademyCoreProgram from "./AcademyCoreProgram";
 import ArabLanguage from "./ArabLanguage";
 import BasicsOfIslam from "./BasicsOfIslam";
@@ -18,18 +25,54 @@ import LifeOfTheProphet from "./LifeOfTheProphet";
 import NewCourses from "./NewCourses";
 
 export function AllCoursesPage() {
+  const router = useRouter();
+  const [search, setSearch] = useState("");
+
+  useEffect(() => () => setSearch(""), []);
+
   const headerProps = {
     variant: "h5" as TypographyProps["variant"],
     color: "textSecondary",
     fontWeight: 700,
   };
+  const upSm = useMediaQuery((theme) =>
+    theme.breakpoints.up("sm"),
+  );
   return (
-    <Fragment>
+    <Box className={commonStyles.bg_gray}>
       <Header background="white" />
       <Box
-        className={styles.page}
+        className={commonStyles.page}
         sx={{ marginTop: "80px" }}
       >
+        {upSm && (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <SearchTextField
+              value={search}
+              onChange={(event) =>
+                setSearch(event.target.value)
+              }
+              onKeyDown={(event) => {
+                if (
+                  event.key === "Enter" &&
+                  search
+                ) {
+                  router.push(
+                    routePath("searchCourses", {
+                      queryParams: { search },
+                    }),
+                  );
+                }
+              }}
+              color="white"
+            />
+          </Box>
+        )}
         <Typography
           {...headerProps}
           sx={{ marginTop: "20px" }}
@@ -68,6 +111,6 @@ export function AllCoursesPage() {
         <ArabLanguage />
       </Box>
       <Footer />
-    </Fragment>
+    </Box>
   );
 }

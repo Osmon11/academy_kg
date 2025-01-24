@@ -23,7 +23,7 @@ iframe {
   background: #e5e5e5;
 }
 ::-webkit-scrollbar-thumb {
-  background: variables.$theme-color-grey-coal;
+  background: var(--mui-palette-text-tertiary);
   &:hover {
     background: variables.$theme-color-grey-placeholder;
   }

@@ -15,6 +15,7 @@ export enum ERoute {
   "[course]" = "/personal-accaunt/courses/[id]",
   "study" = "/personal-accaunt/courses/[id]/study",
   "exam" = "/personal-accaunt/courses/[id]/exam",
+  "searchCourses" = "/personal-accaunt/courses/search",
 }
 
 export enum EYouTubePlayerState {

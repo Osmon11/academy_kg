@@ -1,7 +1,7 @@
 @use "variables";
 
-.full_height {
-  min-height: calc(100vh - 235px);
+.bg_gray {
+  background: #f2f2f2;
 }
 
 .courses_wrapper {
@@ -64,6 +64,9 @@
   .page {
     padding: 20px 15px;
   }
+  .full_height {
+    min-height: calc(100vh - 246px);
+  }
   .courses_wrapper {
     gap: 15px;
   }
@@ -79,6 +82,9 @@
 @media (min-width: variables.$theme-breakpoint-md) {
   .page {
     padding: 20px 50px;
+  }
+  .full_height {
+    min-height: calc(100vh - 235px);
   }
   .courses_wrapper {
     gap: 30px;

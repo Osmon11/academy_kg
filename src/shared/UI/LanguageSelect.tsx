@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import { Fragment, useState } from "react";
 
@@ -26,7 +24,7 @@ const colors = {
   primary: "primary",
 };
 
-export default function LanguageSelect({
+export function LanguageSelect({
   color,
 }: ILanguageSelectProps) {
   const [language, setLanguage] =

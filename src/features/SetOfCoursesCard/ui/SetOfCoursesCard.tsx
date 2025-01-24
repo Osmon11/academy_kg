@@ -1,3 +1,5 @@
+import { useRouter } from "next/navigation";
+
 import {
   Box,
   Card,
@@ -6,6 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 
+import { routePath } from "@/shared/functions";
 import { ISetOfCourses } from "@/shared/types";
 
 import styles from "./SetOfCoursesCard.module.scss";
@@ -16,8 +19,21 @@ interface ISetOfCoursesCardProps {
 export function SetOfCoursesCard({
   setOfCourses,
 }: ISetOfCoursesCardProps) {
+  const router = useRouter();
   return (
-    <Card className={styles.setOfCourses_card}>
+    <Card
+      className={styles.setOfCourses_card}
+      onClick={() =>
+        router.push(
+          routePath("searchCourses", {
+            queryParams: {
+              setId: setOfCourses.id,
+              setTitle: setOfCourses.title,
+            },
+          }),
+        )
+      }
+    >
       <CardMedia
         image={setOfCourses.img}
         title={setOfCourses.title}

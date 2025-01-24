@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  Fragment,
-  useEffect,
-  useState,
-} from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 import { Box } from "@mui/material";
@@ -25,7 +21,7 @@ import {
 } from "@/shared/model";
 import { IExamQuestions } from "@/shared/types";
 
-import styles from "../styles.module.scss";
+import commonStyles from "../styles.module.scss";
 import Questions from "./Questions";
 import ResultCard from "./ResultCard";
 
@@ -67,7 +63,7 @@ export function ExamPage({
   }, [dispatch, courseId]);
 
   function finishExam() {
-    if (examQuestions) {
+    if (examQuestions && !finished) {
       const answeredQuestions = results.filter(
         (i) => !i.skipped,
       );
@@ -109,7 +105,7 @@ export function ExamPage({
     }
   }
   return (
-    <Fragment>
+    <Box className={commonStyles.bg_gray}>
       <GoBackHeader
         title={
           examQuestions
@@ -117,21 +113,25 @@ export function ExamPage({
             : "Экзамен"
         }
         append={
-          examQuestions && !finished ? (
+          examQuestions ? (
             <Timer
-              minutes={getAllMinutes(
-                examQuestions.duration,
-              )}
+              minutes={
+                finished
+                  ? 0
+                  : getAllMinutes(
+                      examQuestions.duration,
+                    )
+              }
               onEnd={finishExam}
             />
           ) : undefined
         }
       />
-      <Box className={styles.page}>
+      <Box className={commonStyles.page}>
         {loading ? (
           <Box
             className={
-              styles.tube_spinner_wrapper
+              commonStyles.tube_spinner_wrapper
             }
             sx={{ height: "100vh" }}
           >
@@ -149,6 +149,6 @@ export function ExamPage({
           <Questions finishExam={finishExam} />
         )}
       </Box>
-    </Fragment>
+    </Box>
   );
 }

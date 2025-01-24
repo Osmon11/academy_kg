@@ -7,7 +7,7 @@ import { routePath } from "@/shared/functions";
 
 import loginIcon from "@/icons/login.svg";
 
-export default function LoginButton({
+export function LoginButton({
   fullWidth,
 }: {
   fullWidth?: boolean;

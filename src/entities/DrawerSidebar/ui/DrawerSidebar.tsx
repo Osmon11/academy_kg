@@ -3,7 +3,11 @@
 import classNames from "classnames";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import {
+  usePathname,
+  useRouter,
+} from "next/navigation";
+import { useState } from "react";
 
 import {
   Box,
@@ -16,17 +20,21 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
-import { TubeSpinner } from "@/shared/UI";
+import { UserProfile } from "@/entities/UserProfile";
+
+import {
+  LoginButton,
+  SearchTextField,
+  TubeSpinner,
+} from "@/shared/UI";
+import { LanguageSelect } from "@/shared/UI";
 import { useAppSelector } from "@/shared/config/store";
 import { routePath } from "@/shared/functions";
 
 import logoPrimaryIcon from "@/icons/logo-primary.svg";
 import xCloseBlackIcon from "@/icons/x-close-black.svg";
 
-import LanguageSelect from "./LanguageSelect";
-import LoginButton from "./LoginButton";
-import UserProfile from "./UserProfile";
-import styles from "./styles.module.scss";
+import styles from "./DrawerSidebar.module.scss";
 
 interface IDrawerSidebarProps {
   open: boolean;
@@ -34,15 +42,23 @@ interface IDrawerSidebarProps {
   navLinks: { label: string; href: string }[];
 }
 
-export default function DrawerSidebar({
+export function DrawerSidebar({
   open,
   handleDrawerClose,
   navLinks,
 }: IDrawerSidebarProps) {
+  const router = useRouter();
   const { profile, loading } = useAppSelector(
     (state) => state.user,
   );
+  const [search, setSearch] = useState("");
   const pathname = usePathname();
+
+  function onClose() {
+    setSearch("");
+    handleDrawerClose();
+  }
+
   const up400 = useMediaQuery(
     "(min-width:400px)",
   );
@@ -50,6 +66,7 @@ export default function DrawerSidebar({
     <Drawer
       anchor="left"
       open={open}
+      onClose={onClose}
       sx={{
         ".MuiDrawer-paper": {
           width: up400 ? "400px" : "100vw",
@@ -66,7 +83,7 @@ export default function DrawerSidebar({
             height={40}
           />
         </Link>
-        <IconButton onClick={handleDrawerClose}>
+        <IconButton onClick={onClose}>
           <Image
             src={xCloseBlackIcon}
             alt="x close black icon"
@@ -75,6 +92,28 @@ export default function DrawerSidebar({
           />
         </IconButton>
       </Box>
+      <SearchTextField
+        value={search}
+        onChange={(event) =>
+          setSearch(event.target.value)
+        }
+        onKeyDown={(event) => {
+          if (event.key === "Enter" && search) {
+            router.push(
+              routePath("searchCourses", {
+                queryParams: {
+                  search: search,
+                },
+              }),
+            );
+          }
+        }}
+        color="white"
+        border={true}
+        sx={{
+          marginTop: "30px",
+        }}
+      />
       <List
         disablePadding
         sx={{ marginTop: "30px" }}
@@ -140,7 +179,11 @@ export default function DrawerSidebar({
       ) : (
         <LoginButton fullWidth />
       )}
-      <Box sx={{ marginTop: "30px" }}>
+      <Box
+        sx={{
+          marginTop: "30px",
+        }}
+      >
         <LanguageSelect color="black" />
       </Box>
     </Drawer>

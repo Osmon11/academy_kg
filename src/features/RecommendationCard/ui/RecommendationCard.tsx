@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 import {
   Box,
@@ -8,6 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 
+import { routePath } from "@/shared/functions";
 import { ICourseListItem } from "@/shared/types";
 
 import logoIcon from "@/icons/logo.svg";
@@ -20,8 +22,18 @@ interface IRecommendationCardProps {
 export function RecommendationCard({
   recommendation,
 }: IRecommendationCardProps) {
+  const router = useRouter();
   return (
-    <Card className={styles.recommendation_card}>
+    <Card
+      className={styles.recommendation_card}
+      onClick={() =>
+        router.push(
+          routePath("[course]", {
+            id: recommendation.id,
+          }),
+        )
+      }
+    >
       {recommendation.image ? (
         <CardMedia
           image={recommendation.image}

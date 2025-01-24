@@ -15,7 +15,18 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
-import { TubeSpinner } from "@/shared/UI";
+import { DrawerSidebar } from "@/entities/DrawerSidebar";
+import { UserProfile } from "@/entities/UserProfile";
+
+import {
+  LanguageSelect,
+  LoginButton,
+  TubeSpinner,
+} from "@/shared/UI";
+import {
+  accountNavLinks,
+  mainNavLinks,
+} from "@/shared/config/const";
 import { useAppSelector } from "@/shared/config/store";
 import { routePath } from "@/shared/functions";
 
@@ -24,40 +35,7 @@ import logoIcon from "@/icons/logo.svg";
 import menuGrayIcon from "@/icons/menu-gray.svg";
 import menuIcon from "@/icons/menu.svg";
 
-import DrawerSidebar from "./DrawerSidebar";
-import LanguageSelect from "./LanguageSelect";
-import LoginButton from "./LoginButton";
-import UserProfile from "./UserProfile";
-import styles from "./styles.module.scss";
-
-interface INavLink {
-  label: string;
-  href: string;
-}
-
-const mainNavLinks: INavLink[] = [
-  { label: "Главное", href: routePath("main") },
-  {
-    label: "Вебинары",
-    href: routePath("webinars"),
-  },
-  { label: "О нас", href: routePath("aboutUs") },
-  {
-    label: "Поддержать",
-    href: routePath("supportUs"),
-  },
-];
-
-const accountNavLinks: INavLink[] = [
-  {
-    label: "Главное",
-    href: routePath("accaunt"),
-  },
-  {
-    label: "Курсы",
-    href: routePath("courses"),
-  },
-];
+import styles from "./Header.module.scss";
 
 interface IHeaderProps extends AppBarProps {
   background: "transparent" | "white";
@@ -72,13 +50,6 @@ export function Header({
   );
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-
-  function handleDrawerOpen() {
-    setOpen(true);
-  }
-  function handleDrawerClose() {
-    setOpen(false);
-  }
 
   const upMd = useMediaQuery((theme) =>
     theme.breakpoints.up("md"),
@@ -186,7 +157,7 @@ export function Header({
         ) : (
           <Fragment>
             <IconButton
-              onClick={handleDrawerOpen}
+              onClick={() => setOpen(true)}
             >
               <Image
                 src={
@@ -201,8 +172,8 @@ export function Header({
             </IconButton>
             <DrawerSidebar
               open={open}
-              handleDrawerClose={
-                handleDrawerClose
+              handleDrawerClose={() =>
+                setOpen(false)
               }
               navLinks={navLinks}
             />

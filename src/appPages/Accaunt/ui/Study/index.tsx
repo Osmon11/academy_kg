@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useEffect } from "react";
+import { useEffect } from "react";
 
 import { Box } from "@mui/material";
 
@@ -81,7 +81,7 @@ export function StudyPage({
   }, [dispatch, courseId]);
 
   return (
-    <Fragment>
+    <Box className={commonStyles.bg_gray}>
       <GoBackHeader
         title={course ? course.title : ""}
       />
@@ -90,6 +90,6 @@ export function StudyPage({
         <Recommendations />
       </Box>
       <Footer />
-    </Fragment>
+    </Box>
   );
 }

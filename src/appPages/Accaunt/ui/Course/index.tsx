@@ -2,11 +2,7 @@
 
 import classNames from "classnames";
 import { useRouter } from "next/navigation";
-import {
-  Fragment,
-  useEffect,
-  useState,
-} from "react";
+import { useEffect, useState } from "react";
 import YouTube from "react-youtube";
 
 import {
@@ -171,7 +167,7 @@ export function CourseOverviewPage({
     </Box>
   ) : null;
   return course && courseLevels ? (
-    <Fragment>
+    <Box className={commonStyles.bg_gray}>
       <GoBackHeader title={course.title} />
       {loading ? (
         <Box
@@ -267,6 +263,6 @@ export function CourseOverviewPage({
         </Box>
       )}
       <Footer />
-    </Fragment>
+    </Box>
   ) : null;
 }

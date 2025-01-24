@@ -1,0 +1,11 @@
+.user_profile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  &:hover {
+    .clickable {
+      text-decoration: underline;
+    }
+  }
+}

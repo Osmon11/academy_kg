@@ -55,7 +55,9 @@
       .line {
         width: 100%;
         height: 2px;
-        background: variables.$theme-color-grey-coal;
+        background: var(
+          --mui-palette-text-tertiary
+        );
       }
     }
   }

@@ -6,7 +6,6 @@
   box-shadow: variables.$theme-header-box-shadow;
   .go_back_button {
     position: absolute;
-
     .arrow_left_icon {
       filter: invert(84%) sepia(0%) saturate(993%)
         hue-rotate(137deg) brightness(78%)
@@ -14,6 +13,10 @@
     }
   }
   .append_wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 20px;
     position: absolute;
     top: 24px;
     right: 24px;
@@ -24,8 +27,11 @@
   .header {
     min-height: 72px;
     padding: 20px;
+    .menu_button,
     .go_back_button {
       padding: 2px;
+    }
+    .go_back_button {
       left: 20px;
     }
     .append_wrapper {
@@ -43,8 +49,11 @@
   .header {
     min-height: 80px;
     padding: 24px;
+    .menu_button,
     .go_back_button {
       padding: 4px;
+    }
+    .go_back_button {
       left: 24px;
     }
     .append_wrapper {

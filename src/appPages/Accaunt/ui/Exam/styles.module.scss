@@ -25,7 +25,9 @@
 
     .active_chip {
       color: var(--mui-palette-text-primary);
-      background: variables.$theme-color-grey-coal;
+      background: var(
+        --mui-palette-text-tertiary
+      );
     }
     .value_wrapper {
       display: flex;

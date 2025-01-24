@@ -1,8 +1,11 @@
-"use client";
-
 import { useRouter } from "next-nprogress-bar";
 import Image from "next/image";
-import { ReactElement } from "react";
+import { useSearchParams } from "next/navigation";
+import React, {
+  ReactElement,
+  useEffect,
+  useState,
+} from "react";
 
 import {
   AppBar,
@@ -11,7 +14,16 @@ import {
   Typography,
 } from "@mui/material";
 
+import { DrawerSidebar } from "@/entities/DrawerSidebar";
+
+import {
+  accountNavLinks,
+  mainNavLinks,
+} from "@/shared/config/const";
+import { useAppSelector } from "@/shared/config/store";
+
 import arrowLeftIcon from "@/icons/arrow-left-black.svg";
+import menuGrayIcon from "@/icons/menu-gray.svg";
 
 import styles from "./GoBackHeader.module.scss";
 
@@ -27,6 +39,16 @@ export function GoBackHeader({
   append,
 }: GoBackHeaderProps) {
   const navigation = useRouter();
+  const searchParams = useSearchParams();
+  const profile = useAppSelector(
+    (state) => state.user.profile,
+  );
+  const [open, setOpen] = useState(false);
+
+  useEffect(
+    () => () => setOpen(false),
+    [searchParams],
+  );
 
   function handleGoBack() {
     if (typeof onGoBack === "function") {
@@ -34,6 +56,10 @@ export function GoBackHeader({
     }
     navigation.back();
   }
+
+  const navLinks = profile
+    ? accountNavLinks
+    : mainNavLinks;
   return (
     <AppBar className={styles.header}>
       <IconButton
@@ -41,11 +67,11 @@ export function GoBackHeader({
         onClick={handleGoBack}
       >
         <Image
+          className={styles.arrow_left_icon}
           src={arrowLeftIcon}
           alt="arrow left icon"
           width={24}
           height={24}
-          className={styles.arrow_left_icon}
         />
       </IconButton>
       <Typography
@@ -56,7 +82,25 @@ export function GoBackHeader({
       >
         {title}
       </Typography>
-      {append ? <Box className={styles.append_wrapper}>{append}</Box> : null}
+      <Box className={styles.append_wrapper}>
+        {append}
+        <IconButton
+          className={styles.menu_button}
+          onClick={() => setOpen(true)}
+        >
+          <Image
+            src={menuGrayIcon}
+            alt="menu icon"
+            width={24}
+            height={24}
+          />
+        </IconButton>
+        <DrawerSidebar
+          open={open}
+          handleDrawerClose={() => setOpen(false)}
+          navLinks={navLinks}
+        />
+      </Box>
     </AppBar>
   );
 }

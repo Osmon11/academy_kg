@@ -1,11 +1,7 @@
 "use client";
 
 import classNames from "classnames";
-import {
-  Fragment,
-  useEffect,
-  useState,
-} from "react";
+import { useEffect, useState } from "react";
 
 import { Box, Typography } from "@mui/material";
 
@@ -37,7 +33,7 @@ export function AccauntMainPage() {
       });
   }, []);
   return (
-    <Fragment>
+    <Box className={commonStyles.bg_gray}>
       <Header background="white" />
       <Box
         className={classNames(
@@ -70,12 +66,14 @@ export function AccauntMainPage() {
                 commonStyles.courses_wrapper
               }
             >
-              {currentCourses.map((item) => (
-                <CurrentCourseCard
-                  key={item.id}
-                  course={item}
-                />
-              ))}
+              {currentCourses.map((item) =>
+                item.detail ? (
+                  <CurrentCourseCard
+                    key={item.id}
+                    course={item}
+                  />
+                ) : null,
+              )}
             </Box>
           </Box>
         ) : null}
@@ -92,6 +90,6 @@ export function AccauntMainPage() {
         </Box>
       </Box>
       <Footer />
-    </Fragment>
+    </Box>
   );
 }
