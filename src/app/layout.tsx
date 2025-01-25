@@ -16,9 +16,16 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "Исламская академия",
-  description:
-    "Первая исламская онлайн-академия в Кыргызстане - доступное образование, глубокие знания, духовное развитие для всех!",
+  title: process.env.APP_TITLE,
+  description: process.env.APP_DESCRIPTION,
+  openGraph: {
+    type: "website",
+    url: process.env.APP_URL,
+    title: process.env.APP_TITLE,
+    description: process.env.APP_DESCRIPTION,
+    siteName: process.env.APP_SITE_NAME,
+    images: process.env.APP_IMAGE,
+  },
 };
 
 export default async function RootLayout({

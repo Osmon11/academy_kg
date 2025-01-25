@@ -20,7 +20,7 @@ import { IWebinarAfterwardListItem } from "@/shared/types";
 
 import videoPlayPrimaryIcon from "@/icons/video-play-primary.svg";
 
-import styles from "./styles.module.scss";
+import styles from "../styles.module.scss";
 
 function ImageWrapper({
   webinar,
@@ -133,14 +133,14 @@ export default function WebinarAfterwards({
                   <Typography
                     variant="h6"
                     fontWeight={600}
-                    color="textThirtiary"
+                    color="textTertiary"
                   >
                     Дата проведения:
                   </Typography>
                   <Typography
                     variant="h6"
                     fontWeight={400}
-                    color="textThirtiary"
+                    color="textTertiary"
                     textAlign="end"
                   >
                     {moment(
@@ -159,14 +159,14 @@ export default function WebinarAfterwards({
                   <Typography
                     variant="h6"
                     fontWeight={600}
-                    color="textThirtiary"
+                    color="textTertiary"
                   >
                     Продолжительность вебинара:
                   </Typography>
                   <Typography
                     variant="h6"
                     fontWeight={400}
-                    color="textThirtiary"
+                    color="textTertiary"
                     textAlign="end"
                   >
                     {`${totalMinutes} минут`}
@@ -181,14 +181,14 @@ export default function WebinarAfterwards({
                   <Typography
                     variant="h6"
                     fontWeight={600}
-                    color="textThirtiary"
+                    color="textTertiary"
                   >
                     Вебинар для студентов:
                   </Typography>
                   <Typography
                     variant="h6"
                     fontWeight={400}
-                    color="textThirtiary"
+                    color="textTertiary"
                     textAlign="end"
                   >
                     {`${webinar.level}-уровня и выше`}

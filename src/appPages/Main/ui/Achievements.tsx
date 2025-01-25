@@ -7,7 +7,7 @@ import eyeIcon from "@/icons/eye.svg";
 import teacherIcon from "@/icons/teacher.svg";
 import videoCircleIcon from "@/icons/video-circle.svg";
 
-import styles from "./styles.module.scss";
+import styles from "../styles.module.scss";
 
 const achievements = [
   {

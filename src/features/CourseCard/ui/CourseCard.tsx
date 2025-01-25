@@ -116,7 +116,7 @@ export function CourseCard({
           )}
           <Typography
             variant="body1"
-            color="textThirtiary"
+            color="textTertiary"
             fontWeight={700}
             sx={{
               textAlign: {

@@ -10,7 +10,7 @@ import mouseSquareIcon from "@/icons/mouse-square.svg";
 import smsNotificationIcon from "@/icons/sms-notification.svg";
 import smsTrackingIcon from "@/icons/sms-tracking.svg";
 
-import styles from "./styles.module.scss";
+import styles from "../styles.module.scss";
 
 export default function HowOurWebinarsPass() {
   return (

@@ -35,3 +35,73 @@ iframe {
   padding: 8px;
   border-radius: 18px;
 }
+.bg_gray {
+  background: #f2f2f2;
+}
+
+.courses_wrapper {
+  margin-top: 20px;
+  display: flex;
+  align-items: stretch;
+  justify-content: start;
+  flex-wrap: wrap;
+}
+
+.accordeons {
+  border-top: 1px solid #f2f2f2;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+.flex_box {
+  display: flex;
+  align-items: center;
+}
+
+.tube_spinner_wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar {
+  border-radius: 50%;
+}
+
+@media (min-width: variables.$theme-breakpoint-xs) {
+  .page {
+    padding: 20px 15px;
+  }
+  .full_height {
+    min-height: calc(100vh - 246px);
+  }
+  .courses_wrapper {
+    gap: 15px;
+  }
+}
+@media (min-width: variables.$theme-breakpoint-sm) {
+  .page {
+    padding: 20px 30px;
+  }
+  .courses_wrapper {
+    gap: 20px;
+  }
+}
+@media (min-width: variables.$theme-breakpoint-md) {
+  .page {
+    padding: 20px 50px;
+  }
+  .full_height {
+    min-height: calc(100vh - 235px);
+  }
+  .courses_wrapper {
+    gap: 30px;
+  }
+}
+@media (min-width: variables.$theme-breakpoint-lg) {
+  .courses_wrapper {
+    gap: 50px;
+  }
+}
+@media (min-width: variables.$theme-breakpoint-xl) {
+}

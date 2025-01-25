@@ -1,0 +1,12 @@
+.close_button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+.icon_button {
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}

@@ -49,7 +49,7 @@ export function Timer({
       <Typography
         variant="h6"
         fontWeight={600}
-        color={time ? "textThirtiary" : "#FF4D4D"}
+        color={time ? "textTertiary" : "#FF4D4D"}
       >
         {time ? formatTime(time) : "-"}
       </Typography>

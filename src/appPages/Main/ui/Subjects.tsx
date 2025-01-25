@@ -23,7 +23,7 @@ import {
   ISubjectListItem,
 } from "@/shared/types";
 
-import styles from "./styles.module.scss";
+import styles from "../styles.module.scss";
 
 export default function Subjects() {
   const [courseList, setCourseList] =

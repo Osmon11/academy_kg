@@ -125,7 +125,7 @@ export default function RecoverPassword() {
       </Button>
       <Typography
         variant="h6"
-        color="textThirtiary"
+        color="textTertiary"
         textAlign="center"
       >
         Не пришел код?
@@ -152,7 +152,7 @@ export default function RecoverPassword() {
           <Typography
             variant="h6"
             fontWeight={600}
-            color="textThirtiary"
+            color="textTertiary"
           >
             Новый код доступен через
           </Typography>

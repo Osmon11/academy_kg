@@ -85,7 +85,7 @@ export default function FogotPassword() {
       </Button>
       <Typography
         variant="h6"
-        color="textThirtiary"
+        color="textTertiary"
         textAlign="center"
       >
         Еще не зарегистрировались?

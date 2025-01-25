@@ -17,7 +17,7 @@ declare module "@mui/material/styles" {
   //   white: PaletteOptions["primary"];
   // }
   interface TypeText {
-    thirtiary?: string;
+    tertiary?: string;
   }
 }
 
@@ -49,7 +49,7 @@ let theme = createTheme({
     text: {
       primary: "#FFFFFF",
       secondary: "#202020",
-      thirtiary: "#595959",
+      tertiary: "#595959",
     },
     action: {
       disabled: "rgb(255 255 255 / 66%)",
@@ -111,7 +111,7 @@ let theme = createTheme({
             minHeight: "60px",
             background:
               theme.palette.common.white,
-            color: theme.palette.text.thirtiary,
+            color: theme.palette.text.tertiary,
             fontWeight: 500,
             textTransform: "none",
             "&, :hover, &.Mui-disabled": {
@@ -202,7 +202,7 @@ let theme = createTheme({
           },
           style: ({ theme }) => ({
             minHeight: "50px",
-            color: theme.palette.text.thirtiary,
+            color: theme.palette.text.tertiary,
             background:
               theme.palette.common.white,
             textTransform: "none",
@@ -295,7 +295,7 @@ let theme = createTheme({
         slotProps: {
           typography: {
             variant: "h6",
-            color: "textThirtiary",
+            color: "textTertiary",
           },
         },
       },
@@ -314,13 +314,13 @@ let theme = createTheme({
         elevation: 0,
       },
       styleOverrides: {
-        root: ({ theme }) => ({
+        root: ({}) => ({
+          background: "transparent",
           "&.Mui-expanded": {
             margin: "0px",
           },
           "&.Mui-disabled": {
-            background:
-              theme.palette.background.paper,
+            background: "transparent",
           },
         }),
       },
@@ -354,7 +354,6 @@ let theme = createTheme({
         root: {
           borderTop: "2px solid #e5e5e5",
           borderBottom: "2px solid #e5e5e5",
-          background: "#fafafa",
         },
       },
     },
@@ -366,8 +365,8 @@ let theme = createTheme({
             color: "default",
           },
           style: ({ theme }) => ({
-            color: theme.palette.text.thirtiary,
-            border: `1px solid ${theme.palette.text.thirtiary}`,
+            color: theme.palette.text.tertiary,
+            border: `1px solid ${theme.palette.text.tertiary}`,
           }),
         },
       ],

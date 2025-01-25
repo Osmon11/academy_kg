@@ -39,7 +39,6 @@ import { IProfile } from "@/shared/types";
 import avatarGrayIcon from "@/icons/avatar-gray.svg";
 import editCoalGrayIcon from "@/icons/edit-coal-gray.svg";
 
-import commonStyles from "../styles.module.scss";
 import styles from "./styles.module.scss";
 
 type FormTypes = Pick<
@@ -120,12 +119,12 @@ export function ProfilePage() {
     }
   }
   return (
-    <Box className={commonStyles.bg_gray}>
+    <Box className={"bg_gray"}>
       <GoBackHeader title="Мой профиль" />
       <Box
         className={classNames(
-          commonStyles.page,
-          commonStyles.full_height,
+          "page",
+          "full_height",
         )}
       >
         <Box className={styles.wrapper}>
@@ -142,9 +141,7 @@ export function ProfilePage() {
             >
               <Box>
                 <Box
-                  className={
-                    commonStyles.flex_box
-                  }
+                  className={"flex_box"}
                   sx={{
                     paddingBottom: "16px",
                     gap: "16px",
@@ -201,7 +198,7 @@ export function ProfilePage() {
                     <Typography
                       variant="caption"
                       fontWeight={400}
-                      color="textThirtiary"
+                      color="textTertiary"
                     >
                       {profile.email}
                     </Typography>

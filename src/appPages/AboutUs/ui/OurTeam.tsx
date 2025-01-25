@@ -12,7 +12,7 @@ import { TeacherCard } from "@/features/TeacherCard";
 import { SECTION_PADDING } from "@/shared/config/const";
 import { ITeammateListItem } from "@/shared/types";
 
-import styles from "./styles.module.scss";
+import styles from "../styles.module.scss";
 
 export default function OurTeam({
   teammates,

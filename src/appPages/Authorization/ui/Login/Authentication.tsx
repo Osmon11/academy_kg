@@ -137,7 +137,7 @@ export function Authentication() {
         <span className={styles.line} />
         <Typography
           variant="h6"
-          color="textThirtiary"
+          color="textTertiary"
         >
           или
         </Typography>

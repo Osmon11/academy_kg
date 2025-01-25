@@ -13,7 +13,6 @@ import { CurrentCourseCard } from "@/features/CurrentCourseCard";
 import axiosInstance from "@/shared/config/axiosClientInstance";
 import { IMyCourseListItem } from "@/shared/types";
 
-import commonStyles from "../styles.module.scss";
 import CourseList from "./CourseList";
 import Recommendations from "./Recommendations";
 
@@ -33,12 +32,12 @@ export function AccauntMainPage() {
       });
   }, []);
   return (
-    <Box className={commonStyles.bg_gray}>
+    <Box className={"bg_gray"}>
       <Header background="white" />
       <Box
         className={classNames(
-          commonStyles.page,
-          commonStyles.full_height,
+          "page",
+          "full_height",
         )}
         sx={{
           marginTop: { xs: "72px", md: "80px" },
@@ -63,11 +62,7 @@ export function AccauntMainPage() {
             >
               Продолжить обучение
             </Typography>
-            <Box
-              className={
-                commonStyles.courses_wrapper
-              }
-            >
+            <Box className={"courses_wrapper"}>
               {currentCourses.map((item) =>
                 item.detail ? (
                   <CurrentCourseCard

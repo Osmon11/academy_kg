@@ -17,7 +17,7 @@ import note2Icon from "@/icons/note-2.svg";
 
 import laptopBaseBg from "@/backgrounds/base.svg";
 
-import styles from "./styles.module.scss";
+import styles from "../styles.module.scss";
 
 export default function HowItWorks() {
   const xs = useMediaQuery((theme) =>

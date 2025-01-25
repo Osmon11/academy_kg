@@ -64,7 +64,7 @@ export default function PaperContainer({
       <Typography
         variant="h5"
         textAlign="center"
-        color="textThirtiary"
+        color="textTertiary"
         fontWeight={600}
       >
         {title}
