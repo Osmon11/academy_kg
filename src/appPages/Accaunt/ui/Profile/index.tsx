@@ -196,8 +196,8 @@ export function ProfilePage() {
                       {profile.full_name}
                     </Typography>
                     <Typography
-                      variant="caption"
-                      fontWeight={400}
+                      variant="body1"
+                      fontSize="14px"
                       color="textTertiary"
                     >
                       {profile.email}

@@ -39,4 +39,8 @@ export const accountNavLinks: INavLink[] = [
     label: "Курсы",
     href: routePath("courses"),
   },
+  {
+    label: "Прогресс",
+    href: routePath("progress"),
+  },
 ];

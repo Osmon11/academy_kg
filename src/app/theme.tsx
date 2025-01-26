@@ -7,7 +7,9 @@ import {
   responsiveFontSizes,
 } from "@mui/material/styles";
 
-import arrowDownBlackIcon from "@/icons/arrow-down-black.svg";
+import arrowDownGrayIcon from "@/icons/arrow-down-gray.svg";
+import checkboxGrayIcon from "@/icons/checkbox-gray-icon.svg";
+import checkedSquarePrimaryIcon from "@/icons/checked-square-primary.svg";
 
 declare module "@mui/material/styles" {
   // interface Palette {
@@ -318,6 +320,9 @@ let theme = createTheme({
           background: "transparent",
           "&.Mui-expanded": {
             margin: "0px",
+            "&::before": {
+              opacity: 1,
+            },
           },
           "&.Mui-disabled": {
             background: "transparent",
@@ -329,7 +334,7 @@ let theme = createTheme({
       defaultProps: {
         expandIcon: (
           <Image
-            src={arrowDownBlackIcon}
+            src={arrowDownGrayIcon}
             alt="arrow up black icon"
             width={30}
             height={30}
@@ -388,6 +393,33 @@ let theme = createTheme({
           }),
         },
       ],
+    },
+    MuiCheckbox: {
+      defaultProps: {
+        icon: (
+          <Image
+            src={checkboxGrayIcon}
+            alt="checkbox gray icon"
+            width={24}
+            height={24}
+          />
+        ),
+        checkedIcon: (
+          <Image
+            src={checkedSquarePrimaryIcon}
+            alt="checked square green icon"
+            width={24}
+            height={24}
+          />
+        ),
+      },
+      styleOverrides: {
+        root: {
+          width: "30px",
+          height: "30px",
+          ".MuiTouchRipple-root": {},
+        },
+      },
     },
   },
 });

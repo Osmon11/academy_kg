@@ -13,7 +13,11 @@ import {
   useState,
 } from "react";
 
-import { Box, IconButton } from "@mui/material";
+import {
+  Box,
+  IconButton,
+  SxProps,
+} from "@mui/material";
 
 import arrowRightIcon from "@/icons/arrow-right.svg";
 
@@ -23,14 +27,18 @@ interface ICarouselProps {
   options?: EmblaOptionsType;
   children: React.ReactNode;
   navButtons?: boolean;
+  dotButtons?: boolean;
   dotButtonType?: "dot" | "line";
+  dotButtonsSx?: SxProps;
 }
 
 export function Carousel({
   options,
   children,
   navButtons,
+  dotButtons = true,
   dotButtonType = "dot",
+  dotButtonsSx,
 }: ICarouselProps) {
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
@@ -165,12 +173,13 @@ export function Carousel({
             </IconButton>
           </Fragment>
         )}
-      {scrollSnaps.length > 1 && (
+      {dotButtons && scrollSnaps.length > 1 && (
         <Box
           className={classNames(
             styles.dot_buttons,
             styles[dotButtonType],
           )}
+          sx={dotButtonsSx}
         >
           {scrollSnaps.map((_, index) => (
             <button

@@ -96,7 +96,7 @@ export interface ICourseDetail
     id: number;
     level: number;
   };
-  lesson_count: string;
+  lesson_count: number;
   duration_count: string;
   is_learning: boolean;
 }
@@ -196,4 +196,31 @@ export interface IPaginatedList<ListItem> {
 export interface INavLink {
   label: string;
   href: string;
+}
+
+export interface IExamResults {
+  passed_count: number;
+  question_count: number;
+  is_passed: boolean;
+  pass_points: number;
+  point_sum: number;
+  updated_at: string;
+}
+
+export interface ICourseProgress {
+  id: number;
+  title: string;
+  lesson_count: number;
+  lessons: Array<{
+    id: number;
+    title: string;
+    course_level: number;
+    is_finished: boolean;
+  }>;
+  exam: {
+    id: number;
+    title: string;
+    duration: string;
+    user_results: IExamResults;
+  } | null;
 }

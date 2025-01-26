@@ -45,7 +45,6 @@
       transition: 300ms;
     }
     &.dot {
-      margin-top: 25px;
       gap: 10px;
       button {
         border-radius: 50%;
@@ -78,12 +77,15 @@
 @media (min-width: variables.$theme-breakpoint-xs) {
   .embla {
     .dot_buttons {
-      &.dot button {
-        width: 8px;
-        height: 8px;
-        &.active {
-          width: 20px;
-          border-radius: 23px;
+      &.dot {
+        margin-top: 12px;
+        button {
+          width: 8px;
+          height: 8px;
+          &.active {
+            width: 20px;
+            border-radius: 23px;
+          }
         }
       }
       &.line button {
@@ -98,11 +100,14 @@
 @media (min-width: variables.$theme-breakpoint-md) {
   .embla {
     .dot_buttons {
-      &.dot button,
-      &.dot button.active {
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
+      &.dot {
+        margin-top: 25px;
+        button,
+        button.active {
+          width: 12px;
+          height: 12px;
+          border-radius: 50%;
+        }
       }
       &.line button {
         width: 40px;
