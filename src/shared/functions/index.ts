@@ -4,3 +4,4 @@ export { sessionExpiration } from "./sessionExpiration";
 export { getYouTubeVideoId } from "./getYouTubeVideoId";
 export { getAllMinutes } from "./getAllMinutes";
 export { getPercentage } from "./getPercentage";
+export { popupCenter } from "./popupCenter";
