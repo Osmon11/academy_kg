@@ -194,7 +194,7 @@ export interface IPaginatedList<ListItem> {
 }
 
 export interface INavLink {
-  label: string;
+  label: { RU: string; KG: string };
   href: string;
 }
 

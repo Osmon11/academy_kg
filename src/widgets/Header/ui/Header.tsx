@@ -45,9 +45,8 @@ export function Header({
   background,
   ...props
 }: IHeaderProps) {
-  const { profile, loading } = useAppSelector(
-    (state) => state.user,
-  );
+  const { profile, loading, language } =
+    useAppSelector((state) => state.user);
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
@@ -94,7 +93,7 @@ export function Header({
               pathname === navItem.href;
             return (
               <Link
-                key={navItem.label + index}
+                key={navItem.href + index}
                 href={navItem.href}
                 className={classNames(
                   styles.nav_link,
@@ -117,7 +116,7 @@ export function Header({
                     lineHeight: "17px",
                   }}
                 >
-                  {navItem.label}
+                  {navItem.label[language]}
                 </Typography>
               </Link>
             );

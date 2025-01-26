@@ -1,6 +1,6 @@
 export enum ELanguage {
+  "RU" = "RU",
   "KG" = "KG",
-  "RUS" = "RUS",
 }
 
 export enum ERoute {

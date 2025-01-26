@@ -7,11 +7,16 @@ import { routePath } from "@/shared/functions";
 
 import loginIcon from "@/icons/login.svg";
 
+import { useAppSelector } from "../config/store";
+
 export function LoginButton({
   fullWidth,
 }: {
   fullWidth?: boolean;
 }) {
+  const language = useAppSelector(
+    (store) => store.user.language,
+  );
   return (
     <Link
       href={routePath("signIn")}
@@ -38,7 +43,7 @@ export function LoginButton({
         variant="contained"
         fullWidth={fullWidth}
       >
-        вход
+        {language === "RU" ? "ВХОД" : "КИРҮҮ"}
       </Button>
     </Link>
   );

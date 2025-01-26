@@ -29,6 +29,7 @@ import {
 import { LanguageSelect } from "@/shared/UI";
 import { useAppSelector } from "@/shared/config/store";
 import { routePath } from "@/shared/functions";
+import { INavLink } from "@/shared/types";
 
 import logoPrimaryIcon from "@/icons/logo-primary.svg";
 import xCloseBlackIcon from "@/icons/x-close-black.svg";
@@ -38,7 +39,7 @@ import styles from "./DrawerSidebar.module.scss";
 interface IDrawerSidebarProps {
   open: boolean;
   handleDrawerClose: () => void;
-  navLinks: { label: string; href: string }[];
+  navLinks: INavLink[];
 }
 
 export function DrawerSidebar({
@@ -47,9 +48,8 @@ export function DrawerSidebar({
   navLinks,
 }: IDrawerSidebarProps) {
   const router = useRouter();
-  const { profile, loading } = useAppSelector(
-    (state) => state.user,
-  );
+  const { profile, loading, language } =
+    useAppSelector((state) => state.user);
   const [search, setSearch] = useState("");
   const pathname = usePathname();
 
@@ -127,7 +127,7 @@ export function DrawerSidebar({
             pathname === navItem.href;
           return (
             <ListItem
-              key={navItem.label + index}
+              key={navItem.href + index}
               disablePadding
               sx={{
                 marginBottom:
@@ -146,10 +146,11 @@ export function DrawerSidebar({
                 onClick={() =>
                   router.push(navItem.href)
                 }
-                // sx={{paddingLeft: '0px', paddingRight: "0px"}}
               >
                 <ListItemText
-                  primary={navItem.label}
+                  primary={
+                    navItem.label[language]
+                  }
                   slotProps={{
                     primary: {
                       variant: "body2",

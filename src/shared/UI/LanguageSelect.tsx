@@ -14,6 +14,12 @@ import arrowDownIcon from "@/icons/arrow-down.svg";
 import globalBlackIcon from "@/icons/global-black.svg";
 import globalIcon from "@/icons/global.svg";
 
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../config/store";
+import { setLanguage } from "../model";
+
 interface ILanguageSelectProps {
   color: "white" | "black" | "primary";
 }
@@ -27,8 +33,10 @@ const colors = {
 export function LanguageSelect({
   color,
 }: ILanguageSelectProps) {
-  const [language, setLanguage] =
-    useState<ELanguage>(ELanguage.RUS);
+  const dispatch = useAppDispatch();
+  const language = useAppSelector(
+    (store) => store.user.language,
+  );
   const [anchorEl, setAnchorEl] =
     useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -40,7 +48,7 @@ export function LanguageSelect({
   function changeLanguage(
     value: typeof language,
   ) {
-    setLanguage(value);
+    dispatch(setLanguage(value));
     setAnchorEl(null);
   }
   const languages = Object.values(ELanguage);
@@ -86,7 +94,7 @@ export function LanguageSelect({
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
       >
-        RUS
+        RU
       </Button>
       <Menu
         id="language-menu"

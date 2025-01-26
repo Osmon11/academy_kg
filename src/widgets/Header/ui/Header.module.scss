@@ -12,6 +12,7 @@
     box-shadow: variables.$theme-header-box-shadow;
   }
   .nav_link {
+    width: fit-content;
     padding: 6.5px 10px;
     border-radius: 8px;
   }
@@ -45,9 +46,6 @@
       .nav_link.active {
         color: var(--mui-palette-primary-main);
       }
-    }
-    .nav_link {
-      width: 100%;
     }
   }
 }

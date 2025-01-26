@@ -13,6 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 
+import { useAppSelector } from "@/shared/config/store";
 import { routePath } from "@/shared/functions";
 import { IProfile } from "@/shared/types";
 
@@ -33,6 +34,9 @@ export function UserProfile({
   shortFullname,
   sx,
 }: IUserProfileProps) {
+  const language = useAppSelector(
+    (store) => store.user.language,
+  );
   const [anchorEl, setAnchorEl] =
     useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -137,7 +141,9 @@ export function UserProfile({
               router.push(routePath("accaunt"));
             }}
           >
-            Личный кабинет
+            {language === "RU"
+              ? "Личный кабинет"
+              : "Жеке кабинет"}
           </MenuItem>
         )}
         <MenuItem
@@ -146,11 +152,15 @@ export function UserProfile({
             router.push(routePath("profile"));
           }}
         >
-          Мой профиль
+          {language === "RU"
+            ? "Мой профиль"
+            : "Менин профилим"}
         </MenuItem>
         <MenuItem onClick={logout}>
           <Typography color="error">
-            Выйти
+            {language === "RU"
+              ? "Выйти"
+              : "Чыгуу"}
           </Typography>
         </MenuItem>
       </Menu>
