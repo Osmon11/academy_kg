@@ -87,15 +87,17 @@ export interface ICourseListItem {
   price: number | null;
 }
 
+export interface ILevel {
+  id: number;
+  level: number;
+}
+
 export interface ICourseDetail
   extends Omit<ICourseListItem, "teacher"> {
   teacher: ITeacherListItem;
   trailer: string;
   objectives: IObjectivesListItem[];
-  levels: {
-    id: number;
-    level: number;
-  };
+  levels: ILevel[];
   lesson_count: number;
   duration_count: string;
   is_learning: boolean;

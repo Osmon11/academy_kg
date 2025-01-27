@@ -2,7 +2,10 @@
 
 import { useRouter } from "next-nprogress-bar";
 import Image from "next/image";
-import { useSearchParams } from "next/navigation";
+import {
+  usePathname,
+  useSearchParams,
+} from "next/navigation";
 import React, {
   ReactElement,
   Suspense,
@@ -23,7 +26,6 @@ import {
   accountNavLinks,
   mainNavLinks,
 } from "@/shared/config/const";
-import { useAppSelector } from "@/shared/config/store";
 
 import arrowLeftIcon from "@/icons/arrow-left-black.svg";
 import menuGrayIcon from "@/icons/menu-gray.svg";
@@ -42,10 +44,8 @@ function Component({
   append,
 }: GoBackHeaderProps) {
   const navigation = useRouter();
+  const pathname = usePathname();
   const searchParams = useSearchParams();
-  const profile = useAppSelector(
-    (state) => state.user.profile,
-  );
   const [open, setOpen] = useState(false);
 
   useEffect(
@@ -60,7 +60,9 @@ function Component({
     navigation.back();
   }
 
-  const navLinks = profile
+  const navLinks = accountNavLinks.some(
+    (item) => item.href === pathname,
+  )
     ? accountNavLinks
     : mainNavLinks;
   return (

@@ -69,6 +69,18 @@
   gap: 10px;
 }
 
+.levels_wrapper {
+  max-width: 100%;
+  overflow-x: auto;
+  margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.levels_wrapper::-webkit-scrollbar {
+  display: none;
+}
+
 @media (min-width: variables.$theme-breakpoint-xs) {
   .lesson_wrapper {
     min-height: 400px;

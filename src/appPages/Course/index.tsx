@@ -56,8 +56,9 @@ export function CourseOverviewPage({
   const profile = useAppSelector(
     (store) => store.user.profile,
   );
-  const { course, courseLevels, loading } =
-    useAppSelector((store) => store.course);
+  const { course, loading } = useAppSelector(
+    (store) => store.course,
+  );
   const [processing, setProcessing] =
     useState(false);
 
@@ -95,28 +96,31 @@ export function CourseOverviewPage({
 
   useEffect(() => {
     dispatch(setLoading(true));
-    Promise.all([
-      axiosInstance
-        .get<ICourseDetail>(
-          `/academy/course_detail/${courseId}`,
-        )
-        .then((res) => {
-          if (res?.data) {
-            dispatch(setCourse(res.data));
+    axiosInstance
+      .get<ICourseDetail>(
+        `/academy/course_detail/${courseId}`,
+      )
+      .then((res) => {
+        if (res?.data) {
+          dispatch(setCourse(res.data));
+          if (res.data.levels[0]) {
+            axiosInstance
+              .get<ICourseLevelDetail>(
+                `/academy/course_level_detail/${res.data.levels[0].id}`,
+              )
+              .then((res) => {
+                if (res?.data) {
+                  dispatch(
+                    setCourseLevels(res.data),
+                  );
+                }
+              });
           }
-        }),
-      axiosInstance
-        .get<ICourseLevelDetail>(
-          `/academy/course_level_detail/${courseId}`,
-        )
-        .then((res) => {
-          if (res?.data) {
-            dispatch(setCourseLevels(res.data));
-          }
-        }),
-    ]).finally(() => {
-      dispatch(setLoading(false));
-    });
+        }
+      })
+      .finally(() => {
+        dispatch(setLoading(false));
+      });
   }, [dispatch, courseId]);
 
   const onlyXs = useMediaQuery((theme) =>
@@ -172,7 +176,7 @@ export function CourseOverviewPage({
       </Box>
     </Box>
   ) : null;
-  return course && courseLevels ? (
+  return course ? (
     <Box className={"bg_gray"}>
       <GoBackHeader title={course.title} />
       {loading ? (

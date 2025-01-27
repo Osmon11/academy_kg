@@ -49,15 +49,19 @@ export function StudyPage({
         .then((res) => {
           if (res?.data) {
             dispatch(setCourse(res.data));
-          }
-        }),
-      axiosInstance
-        .get<ICourseLevelDetail>(
-          `/academy/course_level_detail/${courseId}`,
-        )
-        .then((res) => {
-          if (res?.data) {
-            dispatch(setCourseLevels(res.data));
+            if (res.data.levels[0]) {
+              axiosInstance
+                .get<ICourseLevelDetail>(
+                  `/academy/course_level_detail/${res.data.levels[0].id}`,
+                )
+                .then((res) => {
+                  if (res?.data) {
+                    dispatch(
+                      setCourseLevels(res.data),
+                    );
+                  }
+                });
+            }
           }
         }),
       axiosInstance

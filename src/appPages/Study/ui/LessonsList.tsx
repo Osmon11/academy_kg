@@ -14,16 +14,25 @@ import {
   AccordionDetails,
   AccordionSummary,
   Box,
+  Chip,
   Typography,
   TypographyProps,
 } from "@mui/material";
 
+import { TubeSpinner } from "@/shared/UI";
+import axiosInstance from "@/shared/config/axiosClientInstance";
 import { TIME_FORMAT } from "@/shared/config/const";
-import { useAppSelector } from "@/shared/config/store";
-import { getAllMinutes } from "@/shared/functions";
 import {
+  useAppDispatch,
+  useAppSelector,
+} from "@/shared/config/store";
+import { getAllMinutes } from "@/shared/functions";
+import { setCourseLevels } from "@/shared/model";
+import {
+  ICourseLevelDetail,
   IExamDetail,
   ILessonDetail,
+  ILevel,
   isExamTypeGuard,
 } from "@/shared/types";
 
@@ -31,8 +40,12 @@ import playCircleGrayIcon from "@/icons/play-circle-gray.svg";
 import playCirclePrimaryIcon from "@/icons/play-circle-primary.svg";
 import starCirclePrimaryIcon from "@/icons/star-circle-primary.svg";
 
+import styles from "../styles.module.scss";
+
 interface ILessonsListProps {
-  onSelectLesson: (lesson: ILessonDetail) => void;
+  onSelectLesson: (
+    lesson: ILessonDetail | null,
+  ) => void;
   onSelectExam: () => void;
 }
 
@@ -40,7 +53,8 @@ export default function LessonsList({
   onSelectLesson,
   onSelectExam,
 }: ILessonsListProps) {
-  const { courseLevels } = useAppSelector(
+  const dispatch = useAppDispatch();
+  const { course, courseLevels } = useAppSelector(
     (store) => store.course,
   );
   const lessonsAndExam = useMemo<
@@ -59,22 +73,46 @@ export default function LessonsList({
   }, [courseLevels]);
   const [activeIndex, setActiveIndex] =
     useState(-1);
+  const [level, setLevel] =
+    useState<ILevel | null>(
+      courseLevels
+        ? {
+            id: courseLevels.id,
+            level: courseLevels.level,
+          }
+        : null,
+    );
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (
-      activeIndex < 0 &&
       lessonsAndExam.length > 0 &&
       lessonsAndExam[0] &&
       !isExamTypeGuard(lessonsAndExam[0])
     ) {
-      setActiveIndex(0);
       onSelectLesson(lessonsAndExam[0]);
+    } else {
+      onSelectLesson(null);
     }
   }, [
     activeIndex,
     lessonsAndExam,
     onSelectLesson,
   ]);
+
+  function fetchLevelDetail(levelId: number) {
+    setLoading(true);
+    axiosInstance
+      .get<ICourseLevelDetail>(
+        `/academy/course_level_detail/${levelId}`,
+      )
+      .then((res) => {
+        if (res?.data) {
+          dispatch(setCourseLevels(res.data));
+        }
+      })
+      .finally(() => setLoading(false));
+  }
 
   const typographyProps = {
     variant:
@@ -86,7 +124,37 @@ export default function LessonsList({
   };
   return (
     <Box className={"accordeons"}>
-      {lessonsAndExam.length > 0 ? (
+      <Box className={styles.levels_wrapper}>
+        {course?.levels.map((item) => (
+          <Chip
+            key={item.id}
+            label={`Уровень ${item.level}`}
+            variant={
+              item.id === level?.id
+                ? "filled"
+                : "outlined"
+            }
+            color="secondary"
+            onClick={(event) => {
+              setLevel(item);
+              event.currentTarget.scrollIntoView({
+                behavior: "smooth",
+                inline: "center",
+                block: "nearest",
+              });
+              fetchLevelDetail(item.id);
+            }}
+          />
+        ))}
+      </Box>
+      {loading ? (
+        <Box className={"tube_spinner_wrapper"}>
+          <TubeSpinner
+            width={50}
+            height={50}
+          />
+        </Box>
+      ) : lessonsAndExam.length > 0 ? (
         <Fragment>
           {lessonsAndExam.map((item, index) => {
             const isActive =

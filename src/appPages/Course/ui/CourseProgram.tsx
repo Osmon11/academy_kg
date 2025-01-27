@@ -72,7 +72,7 @@ export default function CourseProgram({
               color="textSecondary"
               fontWeight={600}
             >
-              Уроки
+              {`Уроки ${course.levels[0].level}-уровень`}
             </Typography>
             <Typography
               variant="subtitle2"

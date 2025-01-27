@@ -53,10 +53,13 @@ export function Header({
   const upMd = useMediaQuery((theme) =>
     theme.breakpoints.up("md"),
   );
-  const mainLayout = background === "transparent";
-  const navLinks = mainLayout
-    ? mainNavLinks
-    : accountNavLinks;
+  const isTransparent =
+    background === "transparent";
+  const navLinks = accountNavLinks.some(
+    (item) => item.href === pathname,
+  )
+    ? accountNavLinks
+    : mainNavLinks;
   return (
     <AppBar
       {...props}
@@ -69,7 +72,7 @@ export function Header({
         <IconButton>
           <Image
             src={
-              mainLayout
+              isTransparent
                 ? logoIcon
                 : logoPrimaryIcon
             }
@@ -105,12 +108,12 @@ export function Header({
                 <Typography
                   variant="subtitle1"
                   color={
-                    mainLayout || active
+                    isTransparent || active
                       ? "textPrimary"
                       : "primary"
                   }
                   sx={{
-                    textTransform: mainLayout
+                    textTransform: isTransparent
                       ? "uppercase"
                       : "initial",
                     lineHeight: "17px",
@@ -135,7 +138,7 @@ export function Header({
           <Fragment>
             <LanguageSelect
               color={
-                mainLayout ? "white" : "black"
+                isTransparent ? "white" : "black"
               }
             />
             {loading ? (
@@ -148,7 +151,9 @@ export function Header({
                 profile={profile}
                 shortFullname
                 color={
-                  mainLayout ? "white" : "black"
+                  isTransparent
+                    ? "white"
+                    : "black"
                 }
               />
             ) : (
@@ -162,7 +167,7 @@ export function Header({
             >
               <Image
                 src={
-                  mainLayout
+                  isTransparent
                     ? menuIcon
                     : menuGrayIcon
                 }

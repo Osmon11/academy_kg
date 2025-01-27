@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   Fragment,
   useEffect,
@@ -42,6 +42,7 @@ import HowItWorks from "./ui/HowItWorks";
 import Subjects from "./ui/Subjects";
 
 export function MainPage() {
+  const router = useRouter();
   const videoRef = useRef<HTMLDivElement>(null);
 
   const [teacherList, setTeacherList] = useState<
@@ -137,27 +138,28 @@ export function MainPage() {
         >
           Смотреть видео
         </Button>
-        <Link href={routePath("signUp")}>
-          <Button
-            variant="convex"
-            color="primary"
-            sx={{
-              marginTop: "18px",
-            }}
-            endIcon={
-              <Box className="circle_icon_wrapper">
-                <Image
-                  src={teacherPrimaryIcon}
-                  alt="cyan teacher icon"
-                  width={24}
-                  height={24}
-                />
-              </Box>
-            }
-          >
-            начать обучение
-          </Button>
-        </Link>
+        <Button
+          variant="convex"
+          color="primary"
+          onClick={() =>
+            router.push(routePath("signUp"))
+          }
+          sx={{
+            marginTop: "18px",
+          }}
+          endIcon={
+            <Box className="circle_icon_wrapper">
+              <Image
+                src={teacherPrimaryIcon}
+                alt="cyan teacher icon"
+                width={24}
+                height={24}
+              />
+            </Box>
+          }
+        >
+          начать обучение
+        </Button>
       </PageHeading>
       <SectionHeader color="primary">
         Наши предметы
