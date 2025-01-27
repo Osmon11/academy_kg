@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 import {
   Box,
@@ -13,6 +13,7 @@ import { routePath } from "@/shared/functions";
 import styles from "../styles.module.scss";
 
 export default function ExamOverview() {
+  const router = useRouter();
   const { course, courseLevels } = useAppSelector(
     (store) => store.course,
   );
@@ -42,7 +43,8 @@ export default function ExamOverview() {
             variant="body1"
             color="textSecondary"
           >
-            {courseLevels.exam.pass_points}
+            {courseLevels.exam?.pass_points ??
+              "Не указано"}
           </Typography>
         </Box>
         <Box className={styles.item}>
@@ -60,19 +62,21 @@ export default function ExamOverview() {
           </Typography>
         </Box>
       </Box>
-      <Link
-        href={routePath("exam", {
-          id: course.id,
-        })}
+      <Button
+        variant="convex"
+        size="small"
+        onClick={() =>
+          router.push(
+            routePath("exam", {
+              id: course.id,
+            }),
+          )
+        }
+        disabled={!courseLevels.exam}
+        sx={{ width: "330px" }}
       >
-        <Button
-          variant="convex"
-          size="small"
-          sx={{ width: "330px" }}
-        >
-          Начать
-        </Button>
-      </Link>
+        Начать
+      </Button>
     </Paper>
   ) : (
     "No course in store"

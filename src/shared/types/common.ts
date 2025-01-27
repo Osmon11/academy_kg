@@ -121,7 +121,7 @@ export interface ICourseLevelDetail {
   id: number;
   level: number;
   lessons: ILessonDetail[];
-  exam: IExamDetail;
+  exam: IExamDetail | null;
 }
 
 export interface ISetOfCourses {
@@ -147,8 +147,9 @@ export interface IComment {
 }
 
 export const isExamTypeGuard = (
-  data: ILessonDetail | IExamDetail,
-): data is IExamDetail => "pass_points" in data;
+  data: ILessonDetail | IExamDetail | null,
+): data is IExamDetail =>
+  data ? "pass_points" in data : false;
 
 export interface IAnswer {
   id: number;

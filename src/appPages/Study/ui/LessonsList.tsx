@@ -22,6 +22,7 @@ import { TIME_FORMAT } from "@/shared/config/const";
 import { useAppSelector } from "@/shared/config/store";
 import { getAllMinutes } from "@/shared/functions";
 import {
+  IExamDetail,
   ILessonDetail,
   isExamTypeGuard,
 } from "@/shared/types";
@@ -42,16 +43,20 @@ export default function LessonsList({
   const { courseLevels } = useAppSelector(
     (store) => store.course,
   );
-  const lessonsAndExam = useMemo(
-    () =>
-      courseLevels
-        ? [
-            ...courseLevels.lessons,
-            courseLevels.exam,
-          ]
-        : [],
-    [courseLevels],
-  );
+  const lessonsAndExam = useMemo<
+    (ILessonDetail | IExamDetail)[]
+  >(() => {
+    const result: (
+      | ILessonDetail
+      | IExamDetail
+    )[] = courseLevels
+      ? [...courseLevels.lessons]
+      : [];
+    if (courseLevels?.exam) {
+      result.push(courseLevels.exam);
+    }
+    return result;
+  }, [courseLevels]);
   const [activeIndex, setActiveIndex] =
     useState(-1);
 
@@ -59,6 +64,7 @@ export default function LessonsList({
     if (
       activeIndex < 0 &&
       lessonsAndExam.length > 0 &&
+      lessonsAndExam[0] &&
       !isExamTypeGuard(lessonsAndExam[0])
     ) {
       setActiveIndex(0);
@@ -69,6 +75,7 @@ export default function LessonsList({
     lessonsAndExam,
     onSelectLesson,
   ]);
+
   const typographyProps = {
     variant:
       "body1" as TypographyProps["variant"],

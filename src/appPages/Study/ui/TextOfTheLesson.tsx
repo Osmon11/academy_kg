@@ -20,7 +20,7 @@ export default function TextOfTheLesson({
   return lesson ? (
     <Box>
       <Box
-        className={styles.flex_box}
+        className="flex_box"
         sx={{ gap: "8px" }}
       >
         <Image
@@ -56,5 +56,14 @@ export default function TextOfTheLesson({
         </Box>
       </Box>
     </Box>
-  ) : null;
+  ) : (
+    <Typography
+      textAlign="center"
+      color="textSecondary"
+      fontWeight={600}
+      sx={{ margin: "12px 0px" }}
+    >
+      Нет урока
+    </Typography>
+  );
 }

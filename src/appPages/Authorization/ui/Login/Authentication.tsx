@@ -121,12 +121,14 @@ export function Authentication() {
           />
         }
         onClick={() =>
-          routePath("signIn", {
-            queryParams: {
-              ...searchParamsObject,
-              via: "email",
-            },
-          })
+          router.push(
+            routePath("signIn", {
+              queryParams: {
+                ...searchParamsObject,
+                via: "email",
+              },
+            }),
+          )
         }
         disabled={loading}
         fullWidth
@@ -146,7 +148,9 @@ export function Authentication() {
       <Button
         color="primary"
         variant="contained"
-        onClick={() => routePath("signUp")}
+        onClick={() =>
+          router.push(routePath("signUp"))
+        }
         disabled={loading}
         fullWidth
       >

@@ -53,22 +53,25 @@ export function CourseOverviewPage({
 }: ICourseOverviewPageProps) {
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const profile = useAppSelector(
+    (store) => store.user.profile,
+  );
   const { course, courseLevels, loading } =
     useAppSelector((store) => store.course);
   const [processing, setProcessing] =
     useState(false);
 
-  function navigate(id: number) {
-    router.push(
-      routePath("study", {
-        id,
-      }),
-    );
-  }
   function onClickStudy() {
     if (course && !processing) {
+      if (!profile) {
+        return router.push(routePath("signIn"));
+      }
       if (course.is_learning) {
-        navigate(Number(course.id));
+        router.push(
+          routePath("study", {
+            id: course.id,
+          }),
+        );
       }
       {
         setProcessing(true);
@@ -78,7 +81,11 @@ export function CourseOverviewPage({
           })
           .then((res) => {
             if (res?.data?.course) {
-              navigate(Number(course.id));
+              router.push(
+                routePath("study", {
+                  id: course.id,
+                }),
+              );
             }
           })
           .finally(() => setProcessing(false));

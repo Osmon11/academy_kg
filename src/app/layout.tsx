@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   description: process.env.APP_DESCRIPTION,
   openGraph: {
     type: "website",
-    url: process.env.APP_URL,
+    url: process.env.NEXTAUTH_URL,
     title: process.env.APP_TITLE,
     description: process.env.APP_DESCRIPTION,
     siteName: process.env.APP_SITE_NAME,
