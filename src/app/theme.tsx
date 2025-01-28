@@ -171,10 +171,6 @@ let theme = createTheme({
               background:
                 theme.palette.primary.dark,
             },
-            "&.Mui-disabled": {
-              color: theme.palette.text.primary,
-              background: "#A6D5C9",
-            },
           }),
         },
         {
@@ -190,10 +186,6 @@ let theme = createTheme({
             ":hover": {
               background:
                 theme.palette.secondary.dark,
-            },
-            "&.Mui-disabled": {
-              color: theme.palette.text.primary,
-              background: "#F8CBA3",
             },
           }),
         },

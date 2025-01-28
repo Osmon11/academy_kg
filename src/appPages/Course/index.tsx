@@ -73,15 +73,14 @@ export function CourseOverviewPage({
             dynamicPaths: { course: course.id },
           }),
         );
-      }
-      {
+      } else {
         setProcessing(true);
         axiosInstance
           .post("/academy/start_learning/", {
             course: course.id,
           })
           .then((res) => {
-            if (res?.data?.course) {
+            if (res?.data?.message) {
               router.push(
                 routePath("study", {
                   dynamicPaths: {

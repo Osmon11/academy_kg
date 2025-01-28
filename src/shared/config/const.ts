@@ -19,7 +19,7 @@ export const PAGINATION_LIMIT = 10;
 
 export const mainNavLinks: INavLink[] = [
   {
-    label: { RU: "Главное", KG: "Негизги" },
+    label: { RU: "Главная", KG: "Негизги" },
     href: routePath("main"),
   },
   {
@@ -38,7 +38,7 @@ export const mainNavLinks: INavLink[] = [
 
 export const accountNavLinks: INavLink[] = [
   {
-    label: { RU: "Главное", KG: "Негизги" },
+    label: { RU: "Главная", KG: "Негизги" },
     href: routePath("accaunt"),
   },
   {

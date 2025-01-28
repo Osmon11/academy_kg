@@ -77,16 +77,19 @@ export default function ExamOverview() {
       <Button
         variant="convex"
         size="small"
-        onClick={() =>
-          router.push(
-            routePath("exam", {
-              dynamicPaths: {
-                course: course.id,
-                level: courseLevels.level,
-              },
-            }),
-          )
-        }
+        onClick={() => {
+          if (courseLevels.exam) {
+            router.push(
+              routePath("exam", {
+                dynamicPaths: {
+                  course: course.id,
+                  exam: courseLevels.exam.id,
+                  level: courseLevels.level,
+                },
+              }),
+            );
+          }
+        }}
         disabled={
           !courseLevels.exam ||
           courseLevels.finished_count <

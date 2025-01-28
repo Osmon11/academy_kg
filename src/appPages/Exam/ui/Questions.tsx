@@ -69,7 +69,8 @@ export default function Questions({
       }
     }
   }
-  return examQuestions ? (
+  return examQuestions &&
+    examQuestions.questions.length > 0 ? (
     <Box>
       <Stepper
         activeStep={activeQuestion}
@@ -179,5 +180,14 @@ export default function Questions({
         </Dialog>
       </Box>
     </Box>
-  ) : null;
+  ) : (
+    <Typography
+      textAlign="center"
+      color="textSecondary"
+      fontWeight={600}
+      sx={{ width: "100%", margin: "12px 0px" }}
+    >
+      Нет вопросов
+    </Typography>
+  );
 }

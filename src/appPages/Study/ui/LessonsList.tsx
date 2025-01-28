@@ -235,7 +235,8 @@ export default function LessonsList({
                       variant="caption"
                       color="textSecondary"
                     >
-                      {item.description}
+                      {item.description ??
+                        "Нет описания"}
                     </Typography>
                   )}
                 </AccordionDetails>

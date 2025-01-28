@@ -205,11 +205,12 @@ export interface INavLink {
 }
 
 export interface IExamResults {
-  passed_count: number;
+  passed_count: number; // correct answers count from exam result
+  point_sum: number; // points sum from correct answers
   question_count: number;
   is_passed: boolean;
   pass_points: number;
-  point_sum: number;
+  max_points: number; // sum of all points in questions
   updated_at: string;
 }
 

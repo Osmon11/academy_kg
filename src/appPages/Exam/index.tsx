@@ -26,10 +26,12 @@ import ResultCard from "./ui/ResultCard";
 
 interface IExamPageProps {
   courseId: string;
+  examId: string;
   levelId: string;
 }
 
 export function ExamPage({
+  examId,
   levelId,
 }: IExamPageProps) {
   const dispatch = useAppDispatch();
@@ -46,7 +48,7 @@ export function ExamPage({
     dispatch(setExamLoading(true));
     axiosInstance
       .get<IExamQuestions>(
-        `/academy/start_exam/${levelId}`,
+        `/academy/start_exam/${examId}`,
       )
       .then((res) => {
         if (res?.data) {
@@ -60,7 +62,7 @@ export function ExamPage({
       setSummary(undefined);
       setFinished(false);
     };
-  }, [dispatch, levelId]);
+  }, [dispatch, examId]);
 
   function finishExam() {
     if (examQuestions && !finished) {
@@ -113,7 +115,8 @@ export function ExamPage({
             : "Экзамен"
         }
         append={
-          examQuestions ? (
+          examQuestions &&
+          examQuestions.questions.length > 0 ? (
             <Timer
               minutes={
                 finished
@@ -127,7 +130,15 @@ export function ExamPage({
           ) : undefined
         }
       />
-      <Box className={"page"}>
+      <Box
+        className={"page"}
+        sx={{
+          minHeight: {
+            xs: "calc(100vh - 72px)",
+            md: "calc(100vh - 80px)",
+          },
+        }}
+      >
         {loading ? (
           <Box
             className={"tube_spinner_wrapper"}

@@ -18,8 +18,12 @@ import {
 
 import { TubeSpinner } from "@/shared/UI";
 import axiosInstance from "@/shared/config/axiosClientInstance";
-import { useAppSelector } from "@/shared/config/store";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "@/shared/config/store";
 import { getYouTubeVideoId } from "@/shared/functions";
+import { setCourseLevels } from "@/shared/model";
 import { ILessonDetail } from "@/shared/types";
 
 import styles from "../styles.module.scss";
@@ -37,6 +41,7 @@ function a11yProps(index: number) {
 }
 
 export default function LessonDetails() {
+  const dispatch = useAppDispatch();
   const { course, courseLevels, loading } =
     useAppSelector((store) => store.course);
   const [lesson, setLesson] =
@@ -62,15 +67,51 @@ export default function LessonDetails() {
           `/academy/finish_lesson/${lesson.id}/`,
         )
         .then((res) => {
-          if (res?.data?.message) {
+          if (
+            res?.data?.message &&
+            courseLevels
+          ) {
             toast.success(res.data.message);
+            const lessonIndex =
+              courseLevels.lessons.findIndex(
+                (i) => i.id === lesson.id,
+              );
+            if (
+              courseLevels.lessons.length >
+              lessonIndex + 1
+            ) {
+              setLesson(
+                courseLevels.lessons[
+                  lessonIndex + 1
+                ],
+              );
+            } else if (courseLevels.exam) {
+              setIsExam(true);
+            }
+            if (
+              courseLevels.finished_count + 1 <
+              courseLevels.lessons.length
+            ) {
+              dispatch(
+                setCourseLevels({
+                  ...courseLevels,
+                  finished_count:
+                    courseLevels.finished_count +
+                    1,
+                }),
+              );
+            }
           }
         });
     }
   }
 
   useEffect(() => {
-    if (course && courseLevels) {
+    if (
+      course &&
+      courseLevels &&
+      lesson === null
+    ) {
       if (courseLevels.lessons.length > 0) {
         setIsExam(false);
         setLesson(courseLevels.lessons[0]);
@@ -89,7 +130,7 @@ export default function LessonDetails() {
         setVideoId(undefined);
       }
     }
-  }, [course, courseLevels]);
+  }, [course, courseLevels, lesson]);
 
   const upSm = useMediaQuery((theme) =>
     theme.breakpoints.up("sm"),
@@ -145,15 +186,15 @@ export default function LessonDetails() {
               className={styles.video}
               videoId={videoId}
               onEnd={finishLesson}
-              onStateChange={(event) => {
-                if (
-                  event.data ===
-                  //@ts-expect-error Property 'YT' does not exist on type 'Window & typeof globalThis'.
-                  window.YT.PlayerState
-                ) {
-                  finishLesson();
-                }
-              }}
+              // onStateChange={(event) => {
+              //   if (
+              //     event.data ===
+              //     //@ts-expect-error Property 'YT' does not exist on type 'Window & typeof globalThis'.
+              //     window.YT.PlayerState
+              //   ) {
+              //     finishLesson();
+              //   }
+              // }}
             />
           )}
           <Box

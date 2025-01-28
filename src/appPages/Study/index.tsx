@@ -49,10 +49,16 @@ export function StudyPage({
         .then((res) => {
           if (res?.data) {
             dispatch(setCourse(res.data));
-            if (res.data.levels[0]) {
+            const currentLevel =
+              res.data.levels.find(
+                (i) =>
+                  i.level ===
+                  res.data.current_level,
+              );
+            if (currentLevel) {
               axiosInstance
                 .get<ICourseLevelDetail>(
-                  `/academy/course_level_detail/${res.data.levels[0].id}`,
+                  `/academy/course_level_detail/${currentLevel.id}`,
                 )
                 .then((res) => {
                   if (res?.data) {

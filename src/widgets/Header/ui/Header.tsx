@@ -55,8 +55,8 @@ export function Header({
   );
   const isTransparent =
     background === "transparent";
-  const navLinks = accountNavLinks.some(
-    (item) => item.href === pathname,
+  const navLinks = pathname.includes(
+    "personal-accaunt",
   )
     ? accountNavLinks
     : mainNavLinks;

@@ -60,8 +60,8 @@ function Component({
     navigation.back();
   }
 
-  const navLinks = accountNavLinks.some(
-    (item) => item.href === pathname,
+  const navLinks = pathname.includes(
+    "personal-accaunt",
   )
     ? accountNavLinks
     : mainNavLinks;

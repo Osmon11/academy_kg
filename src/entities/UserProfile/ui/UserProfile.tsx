@@ -104,6 +104,7 @@ export function UserProfile({
                       ? item
                       : `${item[0]}.`,
                   )
+                  .slice(0, 2)
                   .join(" ")
               : profile.full_name}
           </Typography>

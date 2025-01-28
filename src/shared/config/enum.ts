@@ -13,11 +13,11 @@ export enum ERoute {
   "accaunt" = "/personal-accaunt/main",
   "profile" = "/personal-accaunt/profile",
   "progress" = "/personal-accaunt/progress",
-  "courses" = "/courses",
-  "[course]" = "/courses/[course]",
-  "study" = "/courses/[course]/study",
-  "exam" = "/courses/[course]/exam/[level]",
-  "searchCourses" = "/courses/search",
+  "courses" = "/personal-accaunt/courses",
+  "[course]" = "/personal-accaunt/course/[course]",
+  "study" = "/personal-accaunt/course/[course]/study",
+  "exam" = "/personal-accaunt/course/[course]/[exam]/[level]",
+  "searchCourses" = "/personal-accaunt/courses/search",
 }
 
 export enum EYouTubePlayerState {

@@ -50,7 +50,7 @@ export default function ProgressAccordion({
             color="#A3A3A3"
             lineHeight="16px"
           >
-            {`${progress.exam.user_results.pass_points}/${progress.exam.user_results.point_sum}`}
+            {`${progress.exam.user_results.is_passed ? progress.exam.user_results.point_sum : progress.exam.user_results.pass_points}/${progress.exam.user_results.max_points}`}
           </Typography>
         ) : null}
       </Box>
@@ -185,14 +185,20 @@ export default function ProgressAccordion({
               >
                 <Box>
                   <Rating
-                    value={Math.round(
+                    value={
                       progress.exam.user_results
-                        .pass_points /
-                        (progress.exam
-                          .user_results
-                          .point_sum /
-                          5),
-                    )}
+                        .is_passed
+                        ? Math.round(
+                            progress.exam
+                              .user_results
+                              .pass_points /
+                              (progress.exam
+                                .user_results
+                                .point_sum /
+                                5),
+                          )
+                        : 0
+                    }
                     readOnly
                     sx={{ gap: "6px" }}
                     icon={
@@ -218,7 +224,7 @@ export default function ProgressAccordion({
                     color="primary"
                     lineHeight="16px"
                   >
-                    {`${progress.exam.user_results.pass_points}/${progress.exam.user_results.point_sum}`}
+                    {`${progress.exam.user_results.is_passed ? progress.exam.user_results.point_sum : progress.exam.user_results.pass_points}/${progress.exam.user_results.max_points}`}
                   </Typography>
                 </Box>
                 <Typography

@@ -33,7 +33,7 @@ export default function ResultCard({
   const { examQuestions } = useAppSelector(
     (store) => store.exam,
   );
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   function fetchCertificate() {
     setLoading(true);
