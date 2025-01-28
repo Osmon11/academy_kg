@@ -43,9 +43,7 @@ import starCirclePrimaryIcon from "@/icons/star-circle-primary.svg";
 import styles from "../styles.module.scss";
 
 interface ILessonsListProps {
-  onSelectLesson: (
-    lesson: ILessonDetail | null,
-  ) => void;
+  onSelectLesson: (lesson: ILessonDetail) => void;
   onSelectExam: () => void;
 }
 
@@ -72,9 +70,14 @@ export default function LessonsList({
     return result;
   }, [courseLevels]);
   const [activeIndex, setActiveIndex] =
-    useState(-1);
+    useState(0);
   const [level, setLevel] =
-    useState<ILevel | null>(
+    useState<ILevel | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setActiveIndex(0);
+    setLevel(
       courseLevels
         ? {
             id: courseLevels.id,
@@ -82,23 +85,8 @@ export default function LessonsList({
           }
         : null,
     );
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    if (
-      lessonsAndExam.length > 0 &&
-      lessonsAndExam[0] &&
-      !isExamTypeGuard(lessonsAndExam[0])
-    ) {
-      onSelectLesson(lessonsAndExam[0]);
-    } else {
-      onSelectLesson(null);
-    }
-  }, [
-    activeIndex,
-    lessonsAndExam,
-    onSelectLesson,
-  ]);
+    setLoading(false);
+  }, [courseLevels]);
 
   function fetchLevelDetail(levelId: number) {
     setLoading(true);

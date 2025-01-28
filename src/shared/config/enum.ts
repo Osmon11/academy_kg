@@ -14,9 +14,9 @@ export enum ERoute {
   "profile" = "/personal-accaunt/profile",
   "progress" = "/personal-accaunt/progress",
   "courses" = "/courses",
-  "[course]" = "/courses/[id]",
-  "study" = "/courses/[id]/study",
-  "exam" = "/courses/[id]/exam",
+  "[course]" = "/courses/[course]",
+  "study" = "/courses/[course]/study",
+  "exam" = "/courses/[course]/exam/[level]",
   "searchCourses" = "/courses/search",
 }
 

@@ -45,7 +45,7 @@ export function CurrentCourseCard({
       onClick={() =>
         router.push(
           routePath("study", {
-            id: course.id,
+            dynamicPaths: { course: course.id },
           }),
         )
       }
@@ -59,8 +59,9 @@ export function CurrentCourseCard({
           >
             {course.title}
           </Typography>
-          {course.detail.exam_result !==
-          "Passed" ? (
+          {course.detail.lesson &&
+          course.detail.exam_result !==
+            "Passed" ? (
             <Box
               className={styles.lesson_wrapper}
             >

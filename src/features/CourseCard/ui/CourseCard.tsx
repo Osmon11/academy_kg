@@ -43,7 +43,7 @@ export function CourseCard({
       onClick={() =>
         router.push(
           routePath("[course]", {
-            id: course.id,
+            dynamicPaths: { course: course.id },
           }),
         )
       }

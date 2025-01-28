@@ -67,7 +67,9 @@ export default function SettingsMenu() {
                 setAnchorEl(null);
                 router.push(
                   routePath("[course]", {
-                    id: course.id,
+                    dynamicPaths: {
+                      course: course.id,
+                    },
                   }),
                 );
               }}
@@ -105,7 +107,9 @@ export default function SettingsMenu() {
             shareUrl={
               window.location.origin +
               routePath("[course]", {
-                id: course.id,
+                dynamicPaths: {
+                  course: course.id,
+                },
               })
             }
           />

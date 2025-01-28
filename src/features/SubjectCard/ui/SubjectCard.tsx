@@ -1,17 +1,22 @@
 import classNames from "classnames";
 import Image from "next/image";
+import { useState } from "react";
+import YouTube from "react-youtube";
 
 import {
   Card,
   CardContent,
   CardMedia,
+  Dialog,
   IconButton,
   Typography,
 } from "@mui/material";
 
+import { getYouTubeVideoId } from "@/shared/functions";
 import { ISubjectListItem } from "@/shared/types";
 
 import playIcon from "@/icons/play.svg";
+import closeBlackIcon from "@/icons/x-close-black.svg";
 
 import styles from "./SubjectCard.module.scss";
 
@@ -25,7 +30,9 @@ export function SubjectCard({
   title,
   description,
   color,
+  trailer,
 }: ISubjectCardProps) {
+  const [dialog, setDialog] = useState(false);
   return (
     <Card
       className={classNames(
@@ -51,17 +58,20 @@ export function SubjectCard({
         >
           {title}
         </Typography>
-        <IconButton
-          className={styles.play_button}
-          aria-label="play icon"
-        >
-          <Image
-            src={playIcon}
-            alt="play icon"
-            width={24}
-            height={24}
-          />
-        </IconButton>
+        {trailer && (
+          <IconButton
+            className={styles.play_button}
+            aria-label="play icon"
+            onClick={() => setDialog(true)}
+          >
+            <Image
+              src={playIcon}
+              alt="play icon"
+              width={24}
+              height={24}
+            />
+          </IconButton>
+        )}
         <Typography
           variant="body2"
           fontWeight={500}
@@ -74,6 +84,36 @@ export function SubjectCard({
           >{`${title} - `}</Typography>
           {description}
         </Typography>
+        <Dialog
+          fullScreen
+          open={dialog}
+          onClose={() => setDialog(false)}
+          className="page"
+          PaperProps={{
+            sx: { paddingTop: "58px" },
+          }}
+        >
+          <IconButton
+            className="close_dialog_button"
+            aria-label="close"
+            onClick={() => setDialog(false)}
+          >
+            <Image
+              src={closeBlackIcon}
+              alt="x close black icon"
+              width={24}
+              height={24}
+            />
+          </IconButton>
+          <YouTube
+            className={"video"}
+            videoId={
+              trailer
+                ? getYouTubeVideoId(trailer)
+                : undefined
+            }
+          />
+        </Dialog>
       </CardContent>
     </Card>
   );

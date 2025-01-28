@@ -132,7 +132,6 @@ export default function Questions() {
           )}
         />
         <IconButton
-          sx={{ padding: "0px" }}
           type="submit"
           disabled={
             loading || Boolean(errors.comment)
@@ -179,6 +178,7 @@ export default function Questions() {
                   }}
                 >
                   <Image
+                    className="avatar"
                     src={
                       comment.user.avatar ??
                       avatarGrayIcon

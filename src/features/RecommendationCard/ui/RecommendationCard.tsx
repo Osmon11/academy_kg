@@ -29,7 +29,9 @@ export function RecommendationCard({
       onClick={() =>
         router.push(
           routePath("[course]", {
-            id: recommendation.id,
+            dynamicPaths: {
+              course: recommendation.id,
+            },
           }),
         )
       }

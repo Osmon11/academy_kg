@@ -72,7 +72,7 @@ export function UserProfile({
         sx={sx}
       >
         <Image
-          className={styles.avatar}
+          className="avatar"
           src={profile?.avatar ?? avatarGrayIcon}
           alt="user profile avatar"
           width={30}

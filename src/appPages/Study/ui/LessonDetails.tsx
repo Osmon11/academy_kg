@@ -1,7 +1,11 @@
 "use client";
 
 import classNames from "classnames";
-import { Fragment, useState } from "react";
+import {
+  Fragment,
+  useEffect,
+  useState,
+} from "react";
 import { toast } from "react-toastify";
 import YouTube from "react-youtube";
 
@@ -33,12 +37,15 @@ function a11yProps(index: number) {
 }
 
 export default function LessonDetails() {
-  const { courseLevels, loading } =
+  const { course, courseLevels, loading } =
     useAppSelector((store) => store.course);
   const [lesson, setLesson] =
     useState<ILessonDetail | null>(null);
+  const [videoId, setVideoId] =
+    useState<string>();
   const [isExam, setIsExam] = useState(false);
   const [tab, setTab] = useState(0);
+
   const handleChange = (
     event: React.SyntheticEvent,
     newValue: number,
@@ -62,6 +69,28 @@ export default function LessonDetails() {
     }
   }
 
+  useEffect(() => {
+    if (course && courseLevels) {
+      if (courseLevels.lessons.length > 0) {
+        setIsExam(false);
+        setLesson(courseLevels.lessons[0]);
+        if (
+          course.current_level ===
+          courseLevels.level
+        ) {
+          setVideoId(
+            getYouTubeVideoId(
+              courseLevels.lessons[0].video,
+            ),
+          );
+        }
+      } else {
+        setLesson(null);
+        setVideoId(undefined);
+      }
+    }
+  }, [course, courseLevels]);
+
   const upSm = useMediaQuery((theme) =>
     theme.breakpoints.up("sm"),
   );
@@ -73,7 +102,7 @@ export default function LessonDetails() {
       key="LessonsList"
       onSelectLesson={(lesson) => {
         setIsExam(false);
-        setLesson(lesson);
+        setLesson({ ...lesson });
       }}
       onSelectExam={() => {
         setIsExam(true);
@@ -109,18 +138,12 @@ export default function LessonDetails() {
         </Box>
       ) : (
         <Fragment>
-          {isExam && courseLevels ? (
+          {isExam ? (
             <ExamOverview />
           ) : (
             <YouTube
               className={styles.video}
-              videoId={
-                lesson
-                  ? getYouTubeVideoId(
-                      lesson.video,
-                    )
-                  : undefined
-              }
+              videoId={videoId}
               onEnd={finishLesson}
               onStateChange={(event) => {
                 if (

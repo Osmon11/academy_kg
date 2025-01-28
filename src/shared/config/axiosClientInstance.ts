@@ -11,6 +11,8 @@ import { IErrorResponseData } from "../types";
 import { defaultConfig } from "./axios";
 
 const cookies = new Cookies();
+const tokenKey =
+  process.env.NEXT_PUBLIC_ACCESS_TOKEN_KEY;
 const unknownError =
   "Похоже возникла неизвестная ошибка";
 const axiosInstance = axios.create(defaultConfig);
@@ -19,8 +21,7 @@ axiosInstance.interceptors.request.use(
   function (config: InternalAxiosRequestConfig) {
     if (typeof window !== "undefined") {
       const token: string = cookies.get(
-        process.env
-          .NEXT_PUBLIC_ACCESS_TOKEN_KEY as string,
+        tokenKey as string,
       );
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
@@ -68,6 +69,7 @@ axiosInstance.interceptors.response.use(
     if (error.response) {
       const resData = error.response?.data;
       if (error.response.status === 401) {
+        cookies.remove(tokenKey as string);
         signOut();
       }
       if (typeof window !== "undefined") {

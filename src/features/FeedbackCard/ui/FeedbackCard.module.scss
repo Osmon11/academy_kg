@@ -3,7 +3,6 @@
 .content {
   padding-bottom: 90px !important;
 }
-
 .label {
   position: absolute;
   bottom: -10px;
@@ -51,12 +50,15 @@
 }
 @media (min-width: variables.$theme-breakpoint-xs) {
   .card {
-    min-width: calc(100vw - 40px) !important;
+    width: calc(100vw - 40px) !important;
   }
 }
 @media (min-width: variables.$theme-breakpoint-sm) {
 }
 @media (min-width: variables.$theme-breakpoint-md) {
+  .card {
+    width: 450px !important;
+  }
 }
 @media (min-width: variables.$theme-breakpoint-lg) {
 }

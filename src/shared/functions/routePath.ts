@@ -3,7 +3,9 @@ import queryString from "query-string";
 import { ERoute } from "../config/enum";
 
 interface IOptions {
-  id?: number;
+  dynamicPaths?: {
+    [key: string]: string | number;
+  };
   queryParams?: {
     [key: string | number]: string | number;
   };
@@ -15,14 +17,13 @@ export function routePath(
 ) {
   let result = ERoute[route].toString();
 
-  if (
-    result.includes("[") &&
-    typeof options?.id === "number"
-  ) {
-    result = result.replace(
-      "[id]",
-      options.id.toString(),
-    );
+  if (options && "dynamicPaths" in options) {
+    for (const key in options.dynamicPaths) {
+      result = result.replace(
+        `[${key}]`,
+        options.dynamicPaths[key].toString(),
+      );
+    }
   }
 
   if (

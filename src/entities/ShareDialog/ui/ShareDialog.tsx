@@ -90,7 +90,7 @@ export function ShareDialog({
         {title ?? "Поделиться"}
       </DialogTitle>
       <IconButton
-        className={styles.close_button}
+        className="close_dialog_button"
         aria-label="close"
         onClick={handleClose}
       >

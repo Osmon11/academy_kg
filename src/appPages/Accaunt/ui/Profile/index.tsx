@@ -153,7 +153,7 @@ export function ProfilePage() {
                     }
                   >
                     <Image
-                      className={styles.avatar}
+                      className={"avatar"}
                       src={
                         profile.avatar ??
                         avatarGrayIcon

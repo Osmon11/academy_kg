@@ -18,14 +18,14 @@ import documentDownloadIcon from "@/icons/document-download.svg";
 import styles from "../styles.module.scss";
 
 interface IResultCardProps {
-  courseId: string;
+  levelId: string;
   answeredQuestions: number;
   correctAnswers: number;
   score: number;
 }
 
 export default function ResultCard({
-  courseId,
+  levelId,
   answeredQuestions,
   correctAnswers,
   score,
@@ -38,7 +38,7 @@ export default function ResultCard({
   function fetchCertificate() {
     setLoading(true);
     axiosInstance
-      .get(`/auth/certificate/${courseId}/`)
+      .get(`/auth/certificate/${levelId}/`)
       .then((res) => {
         if (res?.data?.file_url) {
           window.open(

@@ -26,7 +26,10 @@ export default function HowItWorks() {
   const Laptop = (
     <Box className={styles.laptop}>
       <Box className={styles.screen}>
-        <YouTube videoId="MV_J9E1M_dc" />
+        <YouTube
+          className={styles.video}
+          videoId="MV_J9E1M_dc"
+        />
       </Box>
       <Image
         className={styles.base}

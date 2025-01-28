@@ -4,7 +4,8 @@ export function getPercentage(
 ) {
   if (
     typeof value !== "number" ||
-    typeof fromValue !== "number"
+    typeof fromValue !== "number" ||
+    fromValue === 0
   ) {
     return 0;
   }

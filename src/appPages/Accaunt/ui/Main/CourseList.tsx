@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 import { CourseCard } from "@/features/CourseCard";
 
@@ -28,12 +28,23 @@ export default function CourseList() {
   }, []);
   return (
     <Box className={styles.courses_wrapper}>
-      {courses.map((course) => (
-        <CourseCard
-          key={course.id}
-          course={course}
-        />
-      ))}
+      {courses.length > 0 ? (
+        courses.map((course) => (
+          <CourseCard
+            key={course.id}
+            course={course}
+          />
+        ))
+      ) : (
+        <Typography
+          textAlign="center"
+          color="textSecondary"
+          fontWeight={600}
+          sx={{ margin: "12px 0px" }}
+        >
+          Нет курсов
+        </Typography>
+      )}
     </Box>
   );
 }

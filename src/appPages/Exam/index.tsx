@@ -26,10 +26,11 @@ import ResultCard from "./ui/ResultCard";
 
 interface IExamPageProps {
   courseId: string;
+  levelId: string;
 }
 
 export function ExamPage({
-  courseId,
+  levelId,
 }: IExamPageProps) {
   const dispatch = useAppDispatch();
   const { examQuestions, results, loading } =
@@ -45,7 +46,7 @@ export function ExamPage({
     dispatch(setExamLoading(true));
     axiosInstance
       .get<IExamQuestions>(
-        `/academy/start_exam/${courseId}`,
+        `/academy/start_exam/${levelId}`,
       )
       .then((res) => {
         if (res?.data) {
@@ -59,7 +60,7 @@ export function ExamPage({
       setSummary(undefined);
       setFinished(false);
     };
-  }, [dispatch, courseId]);
+  }, [dispatch, levelId]);
 
   function finishExam() {
     if (examQuestions && !finished) {
@@ -77,7 +78,7 @@ export function ExamPage({
       dispatch(setExamLoading(true));
       axiosInstance
         .post(
-          `/academy/finish_exam/${examQuestions.id}/`,
+          `/academy/finish_exam/${levelId}/`,
           {
             passed_count: results.filter(
               (i) =>
@@ -139,7 +140,7 @@ export function ExamPage({
           </Box>
         ) : finished && summary ? (
           <ResultCard
-            courseId={courseId}
+            levelId={levelId}
             {...summary}
           />
         ) : (

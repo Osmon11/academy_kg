@@ -16,6 +16,7 @@ export interface ISubjectListItem {
   description: string;
   image: string;
   price: number | null;
+  trailer: string | null;
 }
 
 export interface IFeedbackListItem {
@@ -101,6 +102,7 @@ export interface ICourseDetail
   lesson_count: number;
   duration_count: string;
   is_learning: boolean;
+  current_level: number;
 }
 
 export interface ILessonDetail {
@@ -122,6 +124,7 @@ export interface IExamDetail {
 export interface ICourseLevelDetail {
   id: number;
   level: number;
+  finished_count: number;
   lessons: ILessonDetail[];
   exam: IExamDetail | null;
 }

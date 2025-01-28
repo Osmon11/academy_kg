@@ -3,10 +3,14 @@
 import classNames from "classnames";
 import moment from "moment";
 import Image from "next/image";
+import { useState } from "react";
+import YouTube from "react-youtube";
 
 import {
   Box,
   Button,
+  Dialog,
+  IconButton,
   Paper,
   Typography,
   useMediaQuery,
@@ -16,16 +20,20 @@ import {
   SECTION_PADDING,
   TIME_FORMAT,
 } from "@/shared/config/const";
+import { getYouTubeVideoId } from "@/shared/functions";
 import { IWebinarAfterwardListItem } from "@/shared/types";
 
 import videoPlayPrimaryIcon from "@/icons/video-play-primary.svg";
+import closeBlackIcon from "@/icons/x-close-black.svg";
 
 import styles from "../styles.module.scss";
 
 function ImageWrapper({
   webinar,
+  handleWhatch,
 }: {
   webinar: IWebinarAfterwardListItem;
+  handleWhatch: (url: string) => void;
 }) {
   return (
     <Box
@@ -44,9 +52,9 @@ function ImageWrapper({
         <Button
           variant="convex"
           className={styles.button}
-          href={webinar.video}
-          target="_blank"
-          rel="noopener"
+          onClick={() =>
+            handleWhatch(webinar.video)
+          }
         >
           смотреть
         </Button>
@@ -61,6 +69,15 @@ export default function WebinarAfterwards({
 }: {
   webinars: IWebinarAfterwardListItem[];
 }) {
+  const [dialog, setDialog] = useState(false);
+  const [videoUrl, setVideoUrl] =
+    useState<string>();
+
+  function onClickWatch(url: string) {
+    setVideoUrl(url);
+    setDialog(true);
+  }
+
   const propertyBoxStyles = {
     display: "flex",
     alignItems: { xs: "start", sm: "center" },
@@ -74,7 +91,6 @@ export default function WebinarAfterwards({
   const upMd = useMediaQuery((theme) =>
     theme.breakpoints.up("md"),
   );
-
   return (
     <Box
       sx={{
@@ -101,13 +117,19 @@ export default function WebinarAfterwards({
             className={styles.card_item}
           >
             {upMd && (
-              <ImageWrapper webinar={webinar} />
+              <ImageWrapper
+                webinar={webinar}
+                handleWhatch={onClickWatch}
+              />
             )}
             <Paper
               className={styles.content_wrapper}
             >
               {!upMd && (
-                <ImageWrapper webinar={webinar} />
+                <ImageWrapper
+                  webinar={webinar}
+                  handleWhatch={onClickWatch}
+                />
               )}
               <Box
                 sx={{
@@ -217,6 +239,36 @@ export default function WebinarAfterwards({
           </Box>
         );
       })}
+      <Dialog
+        fullScreen
+        open={dialog}
+        onClose={() => setDialog(false)}
+        className="page"
+        PaperProps={{
+          sx: { paddingTop: "58px" },
+        }}
+      >
+        <IconButton
+          className="close_dialog_button"
+          aria-label="close"
+          onClick={() => setDialog(false)}
+        >
+          <Image
+            src={closeBlackIcon}
+            alt="x close black icon"
+            width={24}
+            height={24}
+          />
+        </IconButton>
+        <YouTube
+          className={"video"}
+          videoId={
+            videoUrl
+              ? getYouTubeVideoId(videoUrl)
+              : undefined
+          }
+        />
+      </Dialog>
     </Box>
   );
 }

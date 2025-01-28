@@ -17,6 +17,7 @@ export default function ExamOverview() {
   const { course, courseLevels } = useAppSelector(
     (store) => store.course,
   );
+
   return course && courseLevels ? (
     <Paper className={styles.exam_overview}>
       <Typography
@@ -28,10 +29,19 @@ export default function ExamOverview() {
         {`${course.title} (${courseLevels.level} уровень)`}
       </Typography>
       <Box className={styles.content}>
-        {/* <Box className={styles.item}>
-      <Typography variant="body1" color="textSecondary">Просмотрено уроков:</Typography>
-      <Typography variant="body1" color="textSecondary">7 из 7</Typography>
-    </Box> */}
+        <Box className={styles.item}>
+          <Typography
+            variant="body1"
+            color="textSecondary"
+          >
+            Просмотрено уроков:
+          </Typography>
+          <Typography
+            variant="body1"
+            color="textSecondary"
+            textAlign="right"
+          >{`${courseLevels.finished_count} из ${courseLevels.lessons.length}`}</Typography>
+        </Box>
         <Box className={styles.item}>
           <Typography
             variant="body1"
@@ -42,6 +52,7 @@ export default function ExamOverview() {
           <Typography
             variant="body1"
             color="textSecondary"
+            textAlign="right"
           >
             {courseLevels.exam?.pass_points ??
               "Не указано"}
@@ -57,6 +68,7 @@ export default function ExamOverview() {
           <Typography
             variant="body1"
             color="textSecondary"
+            textAlign="right"
           >
             через 1 сутки
           </Typography>
@@ -68,11 +80,18 @@ export default function ExamOverview() {
         onClick={() =>
           router.push(
             routePath("exam", {
-              id: course.id,
+              dynamicPaths: {
+                course: course.id,
+                level: courseLevels.level,
+              },
             }),
           )
         }
-        disabled={!courseLevels.exam}
+        disabled={
+          !courseLevels.exam ||
+          courseLevels.finished_count <
+            courseLevels.lessons.length
+        }
         sx={{ width: "330px" }}
       >
         Начать

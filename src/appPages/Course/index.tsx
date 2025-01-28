@@ -70,7 +70,7 @@ export function CourseOverviewPage({
       if (course.is_learning) {
         router.push(
           routePath("study", {
-            id: course.id,
+            dynamicPaths: { course: course.id },
           }),
         );
       }
@@ -84,7 +84,9 @@ export function CourseOverviewPage({
             if (res?.data?.course) {
               router.push(
                 routePath("study", {
-                  id: course.id,
+                  dynamicPaths: {
+                    course: course.id,
+                  },
                 }),
               );
             }
@@ -222,39 +224,51 @@ export function CourseOverviewPage({
             >
               Чему вы научитесь
             </Typography>
-            <Grid
-              container
-              spacing={2}
-              justifyContent="center"
-              sx={{ marginTop: "20px" }}
-            >
-              {course.objectives.map(
-                (objective) => (
-                  <Grid
-                    key={objective.id}
-                    size={{
-                      xs: 12,
-                      sm: 6,
-                      md: 4,
-                      lg: 3,
-                    }}
-                  >
-                    <Box
-                      className={styles.objective}
+            {course.objectives ? (
+              <Grid
+                container
+                spacing={2}
+                justifyContent="center"
+                sx={{ marginTop: "20px" }}
+              >
+                {course.objectives.map(
+                  (objective) => (
+                    <Grid
+                      key={objective.id}
+                      size={{
+                        xs: 12,
+                        sm: 6,
+                        md: 4,
+                        lg: 3,
+                      }}
                     >
-                      <Typography
-                        variant="h6"
-                        fontWeight={600}
-                        textAlign="center"
-                        lineHeight="24px"
+                      <Box
+                        className={
+                          styles.objective
+                        }
                       >
-                        {objective.title}
-                      </Typography>
-                    </Box>
-                  </Grid>
-                ),
-              )}
-            </Grid>
+                        <Typography
+                          variant="h6"
+                          fontWeight={600}
+                          textAlign="center"
+                          lineHeight="24px"
+                        >
+                          {objective.title}
+                        </Typography>
+                      </Box>
+                    </Grid>
+                  ),
+                )}
+              </Grid>
+            ) : (
+              <Typography
+                variant="h6"
+                color="textSecondary"
+                textAlign="center"
+              >
+                Нет данных
+              </Typography>
+            )}
             <Typography
               variant="h4"
               color="primary"
