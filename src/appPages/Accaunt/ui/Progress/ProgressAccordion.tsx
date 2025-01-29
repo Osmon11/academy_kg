@@ -39,7 +39,7 @@ export default function ProgressAccordion({
   );
   const examResults = progress.exam?.user_results;
   const ExamResultsGrid = (
-    <Grid size={{ xs: 2 }}>
+    <Grid size={{ xs: 4 }}>
       <Box
         className={styles.exam_results_wrapper}
       >
@@ -49,6 +49,7 @@ export default function ProgressAccordion({
             fontWeight={600}
             color="#A3A3A3"
             lineHeight="16px"
+            textAlign="right"
           >
             {`проходной бал ${examResults.pass_points} из ${examResults.max_points}`}
           </Typography>
@@ -69,7 +70,7 @@ export default function ProgressAccordion({
           rowSpacing={1}
           sx={{ width: "100%" }}
         >
-          <Grid size={{ xs: 10, md: 3 }}>
+          <Grid size={{ xs: 8, md: 3 }}>
             <Typography
               variant="body1"
               fontWeight={600}
@@ -83,7 +84,7 @@ export default function ProgressAccordion({
             >{`${progress.lesson_count} уроков`}</Typography>
           </Grid>
           {!upMd && ExamResultsGrid}
-          <Grid size={{ xs: 12, md: 7 }}>
+          <Grid size={{ xs: 12, md: 5 }}>
             <Box
               className={
                 styles.checkboxes_wrapper

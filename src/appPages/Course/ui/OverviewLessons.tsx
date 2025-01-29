@@ -2,6 +2,7 @@
 
 import moment from "moment";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 import {
   Box,
@@ -9,20 +10,39 @@ import {
   Typography,
 } from "@mui/material";
 
+import axiosInstance from "@/shared/config/axiosClientInstance";
 import { TIME_FORMAT } from "@/shared/config/const";
 import { useAppSelector } from "@/shared/config/store";
+import {
+  ILessonListItem,
+  IPaginatedList,
+} from "@/shared/types";
 
 import playCirclePrimaryIcon from "@/icons/play-circle-primary.svg";
 
 import styles from "../styles.module.scss";
 
 export default function OverviewLessons() {
-  const courseLevels = useAppSelector(
-    (store) => store.course.courseLevels,
+  const { course, loading } = useAppSelector(
+    (store) => store.course,
   );
-  const lessons = courseLevels
-    ? courseLevels.lessons
-    : [];
+  const [lessons, setLessons] = useState<
+    ILessonListItem[]
+  >([]);
+
+  useEffect(() => {
+    if (course && !loading) {
+      axiosInstance
+        .get<
+          IPaginatedList<ILessonListItem>
+        >(`/academy/course_lesson_list/${course.id}`)
+        .then((res) => {
+          if (res?.data?.results) {
+            setLessons(res.data.results);
+          }
+        });
+    }
+  }, [course, loading]);
   return lessons.length > 0 ? (
     <Box>
       {lessons.map((lesson, index) => (

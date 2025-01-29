@@ -6,6 +6,7 @@ import { Box, Typography } from "@mui/material";
 
 import { CourseCard } from "@/features/CourseCard";
 
+import { TubeSpinner } from "@/shared/UI";
 import axiosInstance from "@/shared/config/axiosClientInstance";
 import { ICourseListItem } from "@/shared/types";
 
@@ -15,7 +16,10 @@ export default function CourseList() {
   const [courses, setCourses] = useState<
     ICourseListItem[]
   >([]);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
+    setLoading(true);
     axiosInstance
       .get<{
         results: ICourseListItem[];
@@ -24,11 +28,19 @@ export default function CourseList() {
         if (res?.data) {
           setCourses(res.data.results);
         }
-      });
+      })
+      .finally(() => setLoading(false));
   }, []);
   return (
     <Box className={styles.courses_wrapper}>
-      {courses.length > 0 ? (
+      {loading ? (
+        <Box className="tube_spinner_wrapper">
+          <TubeSpinner
+            width={50}
+            height={50}
+          />
+        </Box>
+      ) : courses.length > 0 ? (
         courses.map((course) => (
           <CourseCard
             key={course.id}

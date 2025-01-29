@@ -33,13 +33,9 @@ import {
 } from "@/shared/functions";
 import {
   setCourse,
-  setCourseLevels,
   setLoading,
 } from "@/shared/model";
-import {
-  ICourseDetail,
-  ICourseLevelDetail,
-} from "@/shared/types";
+import { ICourseDetail } from "@/shared/types";
 
 import styles from "./styles.module.scss";
 import CourseProgram from "./ui/CourseProgram";
@@ -59,6 +55,7 @@ export function CourseOverviewPage({
   const { course, loading } = useAppSelector(
     (store) => store.course,
   );
+
   const [processing, setProcessing] =
     useState(false);
 
@@ -104,19 +101,6 @@ export function CourseOverviewPage({
       .then((res) => {
         if (res?.data) {
           dispatch(setCourse(res.data));
-          if (res.data.levels[0]) {
-            axiosInstance
-              .get<ICourseLevelDetail>(
-                `/academy/course_level_detail/${res.data.levels[0].id}`,
-              )
-              .then((res) => {
-                if (res?.data) {
-                  dispatch(
-                    setCourseLevels(res.data),
-                  );
-                }
-              });
-          }
         }
       })
       .finally(() => {

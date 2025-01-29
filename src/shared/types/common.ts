@@ -232,3 +232,8 @@ export interface ICourseProgress {
     user_results: IExamResults | null;
   } | null;
 }
+
+export interface ILessonListItem
+  extends ILessonDetail {
+  course_level: ILevel;
+}

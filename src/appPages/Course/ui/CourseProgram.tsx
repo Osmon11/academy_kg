@@ -72,7 +72,7 @@ export default function CourseProgram({
               color="textSecondary"
               fontWeight={600}
             >
-              Уроки 1-уровень
+              Уроки
             </Typography>
             <Typography
               variant="subtitle2"

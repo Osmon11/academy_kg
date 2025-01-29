@@ -36,7 +36,6 @@
   gap: 8px;
 }
 .exam_results_wrapper {
-  padding-right: 40px;
   justify-content: end;
 }
 .carousel_item {
@@ -74,4 +73,24 @@
       justify-content: space-between;
     }
   }
+}
+
+@media (min-width: variables.$theme-breakpoint-xs) {
+  .exam_results_wrapper {
+    padding-right: 10px;
+  }
+}
+@media (min-width: variables.$theme-breakpoint-sm) {
+  .exam_results_wrapper {
+    padding-right: 20px;
+  }
+}
+@media (min-width: variables.$theme-breakpoint-md) {
+  .exam_results_wrapper {
+    padding-right: 40px;
+  }
+}
+@media (min-width: variables.$theme-breakpoint-lg) {
+}
+@media (min-width: variables.$theme-breakpoint-xl) {
 }

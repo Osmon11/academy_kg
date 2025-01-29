@@ -15,6 +15,10 @@
     width: fit-content;
     padding: 6.5px 10px;
     border-radius: 8px;
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }
 
@@ -41,12 +45,6 @@
   .header {
     min-height: 72px;
     padding: 8px 20px;
-    &.white,
-    &.transparent {
-      .nav_link.active {
-        color: var(--mui-palette-primary-main);
-      }
-    }
   }
 }
 @media (min-width: variables.$theme-breakpoint-sm) {
@@ -61,6 +59,9 @@
         background: var(
           --mui-palette-primary-main
         );
+        &:hover {
+          text-decoration: none;
+        }
       }
     }
   }
