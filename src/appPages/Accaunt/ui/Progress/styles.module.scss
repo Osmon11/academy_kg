@@ -60,7 +60,15 @@
     flex-direction: column;
     justify-content: space-between;
     gap: 10px;
-    .bottom_wrapper {
+    &.clickable {
+      cursor: pointer;
+      &:hover {
+        p {
+          text-decoration: underline;
+        }
+      }
+    }
+    .flex_between {
       display: flex;
       align-items: center;
       justify-content: space-between;

@@ -209,7 +209,7 @@ export interface IExamResults {
   point_sum: number; // points sum from correct answers
   question_count: number;
   is_passed: boolean;
-  pass_points: number;
+  pass_points: number; // min points to pass exam
   max_points: number; // sum of all points in questions
   updated_at: string;
 }
@@ -228,6 +228,7 @@ export interface ICourseProgress {
     id: number;
     title: string;
     duration: string;
-    user_results: IExamResults;
+    levelId: number;
+    user_results: IExamResults | null;
   } | null;
 }

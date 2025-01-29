@@ -8,7 +8,6 @@ import {
   Checkbox,
   Grid2 as Grid,
   Paper,
-  Rating,
   Typography,
   useMediaQuery,
 } from "@mui/material";
@@ -18,11 +17,11 @@ import { Carousel } from "@/widgets/Carousel";
 import { ICourseProgress } from "@/shared/types";
 
 import checkedPrimaryIcon from "@/icons/checked-primary.svg";
-import starGrayIcon from "@/icons/star-gray.svg";
-import starPrimaryIcon from "@/icons/star-primary.svg";
 import starSquareSecondaryIcon from "@/icons/star-square-secondary.svg";
 
 import styles from "./styles.module.scss";
+import ExamResult from "./ui/ExamResult";
+import ViewCertificate from "./ui/ViewCertificate";
 
 export interface IProgressAccordionProps {
   progress: ICourseProgress;
@@ -38,19 +37,20 @@ export default function ProgressAccordion({
   const upMd = useMediaQuery((theme) =>
     theme.breakpoints.up("md"),
   );
+  const examResults = progress.exam?.user_results;
   const ExamResultsGrid = (
     <Grid size={{ xs: 2 }}>
       <Box
         className={styles.exam_results_wrapper}
       >
-        {progress.exam?.user_results ? (
+        {examResults ? (
           <Typography
             fontSize="14px"
             fontWeight={600}
             color="#A3A3A3"
             lineHeight="16px"
           >
-            {`${progress.exam.user_results.is_passed ? progress.exam.user_results.point_sum : progress.exam.user_results.pass_points}/${progress.exam.user_results.max_points}`}
+            {`проходной бал ${examResults.pass_points} из ${examResults.max_points}`}
           </Typography>
         ) : null}
       </Box>
@@ -158,9 +158,7 @@ export default function ProgressAccordion({
                   {item.title}
                 </Typography>
                 <Box
-                  className={
-                    styles.bottom_wrapper
-                  }
+                  className={styles.flex_between}
                 >
                   <Typography
                     variant="caption"
@@ -178,64 +176,15 @@ export default function ProgressAccordion({
               </Paper>
             </Box>
           ))}
-          {progress?.exam?.user_results && (
-            <Box className={styles.carousel_item}>
-              <Paper
-                className={styles.lesson_card}
-              >
-                <Box>
-                  <Rating
-                    value={
-                      progress.exam.user_results
-                        .is_passed
-                        ? Math.round(
-                            progress.exam
-                              .user_results
-                              .pass_points /
-                              (progress.exam
-                                .user_results
-                                .point_sum /
-                                5),
-                          )
-                        : 0
-                    }
-                    readOnly
-                    sx={{ gap: "6px" }}
-                    icon={
-                      <Image
-                        src={starPrimaryIcon}
-                        alt="star green icon"
-                        width={14}
-                        height={14}
-                      />
-                    }
-                    emptyIcon={
-                      <Image
-                        src={starGrayIcon}
-                        alt="star gray icon"
-                        width={14}
-                        height={14}
-                      />
-                    }
-                  />
-                  <Typography
-                    fontSize="14px"
-                    fontWeight={600}
-                    color="primary"
-                    lineHeight="16px"
-                  >
-                    {`${progress.exam.user_results.is_passed ? progress.exam.user_results.point_sum : progress.exam.user_results.pass_points}/${progress.exam.user_results.max_points}`}
-                  </Typography>
-                </Box>
-                <Typography
-                  variant="caption"
-                  color="#A3A3A3"
-                >
-                  Экзамен
-                </Typography>
-              </Paper>
-            </Box>
+          {examResults && (
+            <ExamResult results={examResults} />
           )}
+          {progress.exam &&
+            examResults?.is_passed && (
+              <ViewCertificate
+                levelId={progress.exam.levelId}
+              />
+            )}
         </Carousel>
       </AccordionDetails>
     </Accordion>
