@@ -25,7 +25,11 @@ import { SectionHeader } from "@/entities/SectionHeader";
 
 import axiosInstance from "@/shared/config/axiosClientInstance";
 import { SECTION_MARGIN_TOP } from "@/shared/config/const";
-import { routePath } from "@/shared/functions";
+import { useAppSelector } from "@/shared/config/store";
+import {
+  getUserLocation,
+  routePath,
+} from "@/shared/functions";
 import {
   IFeedbackListItem,
   ITeacherListItem,
@@ -43,13 +47,19 @@ import Subjects from "./ui/Subjects";
 
 export function MainPage() {
   const router = useRouter();
+  const language = useAppSelector(
+    (store) => store.user.language,
+  );
   const videoRef = useRef<HTMLDivElement>(null);
-
   const [teacherList, setTeacherList] = useState<
     ITeacherListItem[]
   >([]);
   const [feedbackList, setFeedbackList] =
     useState<IFeedbackListItem[]>([]);
+  const [userLocation, setUserLocation] =
+    useState("Не найдено");
+  const [fetchingLocation, setFetchingLocation] =
+    useState(true);
 
   useEffect(() => {
     axiosInstance
@@ -77,6 +87,17 @@ export function MainPage() {
         }
       });
   }, []);
+  useEffect(() => {
+    getUserLocation(
+      language === "RU" ? "ru" : "ky",
+    )
+      .then((location) => {
+        if (location) {
+          setUserLocation(location);
+        }
+      })
+      .finally(() => setFetchingLocation(false));
+  }, [language]);
 
   const scrollToVideo = () => {
     videoRef.current?.scrollIntoView({
@@ -106,7 +127,9 @@ export function MainPage() {
               variant="subtitle2"
               textTransform="uppercase"
             >
-              Кыргызстан, бишкек
+              {fetchingLocation
+                ? "Загрузка..."
+                : userLocation}
             </Typography>
           </Box>
         }

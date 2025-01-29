@@ -1,3 +1,5 @@
+import { Suspense } from "react";
+
 import { StudyPage } from "@/appPages/Study";
 
 interface IStudyProps {
@@ -10,5 +12,9 @@ export default async function Study({
   params,
 }: IStudyProps) {
   const { course } = await params;
-  return <StudyPage courseId={course} />;
+  return (
+    <Suspense>
+      <StudyPage courseId={course} />
+    </Suspense>
+  );
 }

@@ -11,7 +11,7 @@ import playCirclePrimaryIcon from "@/icons/play-circle-primary.svg";
 import styles from "../styles.module.scss";
 
 interface ITextOfTheLessonProps {
-  lesson: ILessonDetail | null;
+  lesson: ILessonDetail | undefined;
 }
 
 export default function TextOfTheLesson({

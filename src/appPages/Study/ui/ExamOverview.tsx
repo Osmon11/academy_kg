@@ -26,7 +26,7 @@ export default function ExamOverview() {
         color="primary"
         textAlign="center"
       >
-        {`${course.title} (${courseLevels.level} уровень)`}
+        {`${course.title} (${courseLevels.level}-уровень)`}
       </Typography>
       <Box className={styles.content}>
         <Box className={styles.item}>

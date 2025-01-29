@@ -1,6 +1,8 @@
 "use client";
 
 import classNames from "classnames";
+import { useRouter } from "next-nprogress-bar";
+import { useSearchParams } from "next/navigation";
 import {
   Fragment,
   useEffect,
@@ -22,7 +24,10 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "@/shared/config/store";
-import { getYouTubeVideoId } from "@/shared/functions";
+import {
+  getYouTubeVideoId,
+  routePath,
+} from "@/shared/functions";
 import { setCourseLevels } from "@/shared/model";
 import { ILessonDetail } from "@/shared/types";
 
@@ -41,11 +46,14 @@ function a11yProps(index: number) {
 }
 
 export default function LessonDetails() {
+  const router = useRouter();
   const dispatch = useAppDispatch();
   const { course, courseLevels, loading } =
     useAppSelector((store) => store.course);
+  const searchParams = useSearchParams();
+  const lessonId = searchParams.get("lesson");
   const [lesson, setLesson] =
-    useState<ILessonDetail | null>(null);
+    useState<ILessonDetail>();
   const [videoId, setVideoId] =
     useState<string>();
   const [isExam, setIsExam] = useState(false);
@@ -55,7 +63,7 @@ export default function LessonDetails() {
     event: React.SyntheticEvent,
     newValue: number,
   ) => {
-    if (tabs[newValue]) {
+    if (tabButtons[newValue]) {
       setTab(newValue);
     }
   };
@@ -69,25 +77,28 @@ export default function LessonDetails() {
         .then((res) => {
           if (
             res?.data?.message &&
+            course &&
             courseLevels
           ) {
             toast.success(res.data.message);
-            const lessonIndex =
+            const nextLessonIndex =
               courseLevels.lessons.findIndex(
                 (i) => i.id === lesson.id,
-              );
-            if (
-              courseLevels.lessons.length >
-              lessonIndex + 1
-            ) {
-              setLesson(
-                courseLevels.lessons[
-                  lessonIndex + 1
-                ],
-              );
-            } else if (courseLevels.exam) {
-              setIsExam(true);
-            }
+              ) + 1;
+            router.replace(
+              routePath("study", {
+                dynamicPaths: {
+                  course: course.id,
+                },
+                queryParams: {
+                  lesson: nextLessonIndex
+                    ? courseLevels.lessons[
+                        nextLessonIndex
+                      ].id
+                    : null,
+                },
+              }),
+            );
             if (
               courseLevels.finished_count + 1 <
               courseLevels.lessons.length
@@ -110,27 +121,29 @@ export default function LessonDetails() {
     if (
       course &&
       courseLevels &&
-      lesson === null
+      course?.current_level === courseLevels?.id
     ) {
-      if (courseLevels.lessons.length > 0) {
+      const id =
+        lessonId || course.current_lesson;
+      if (id && courseLevels.lessons.length > 0) {
         setIsExam(false);
-        setLesson(courseLevels.lessons[0]);
-        if (
-          course.current_level ===
-          courseLevels.level
-        ) {
-          setVideoId(
-            getYouTubeVideoId(
-              courseLevels.lessons[0].video,
-            ),
-          );
-        }
+        setLesson(
+          courseLevels.lessons.find(
+            (i) => i.id.toString() === id,
+          ),
+        );
+        setVideoId(
+          getYouTubeVideoId(
+            courseLevels.lessons[0].video,
+          ),
+        );
       } else {
-        setLesson(null);
+        setIsExam(true);
+        setLesson(undefined);
         setVideoId(undefined);
       }
     }
-  }, [course, courseLevels, lesson]);
+  }, [course, courseLevels, lessonId]);
 
   const upSm = useMediaQuery((theme) =>
     theme.breakpoints.up("sm"),
@@ -138,23 +151,25 @@ export default function LessonDetails() {
   const upMd = useMediaQuery((theme) =>
     theme.breakpoints.up("md"),
   );
-  const tabs = [
-    <LessonsList
-      key="LessonsList"
-      onSelectLesson={(lesson) => {
-        setIsExam(false);
-        setLesson({ ...lesson });
-      }}
-      onSelectExam={() => {
-        setIsExam(true);
-      }}
-    />,
-    <Questions key="Questions" />,
-    <TextOfTheLesson
-      key="TextOfTheLesson"
-      lesson={lesson}
-    />,
-  ];
+  const [tabButtons, setTabButtons] = useState<
+    string[]
+  >(["Уроки", "Вопросы"]);
+
+  useEffect(() => {
+    if (
+      lesson &&
+      course?.current_level === courseLevels?.id
+    ) {
+      setTabButtons((state) =>
+        state.includes("Текст урока")
+          ? state
+          : [...state, "Текст урока"],
+      );
+    } else {
+      setTabButtons(["Уроки", "Вопросы"]);
+    }
+  }, [course, courseLevels, lesson]);
+
   return (
     <Box
       className={classNames(
@@ -218,23 +233,52 @@ export default function LessonDetails() {
                   upSm ? "standard" : "scrollable"
                 }
               >
-                <Tab
-                  label="Уроки"
-                  {...a11yProps(0)}
-                />
-                <Tab
-                  label="Вопросы"
-                  {...a11yProps(1)}
-                />
-                <Tab
-                  label="Текст урока"
-                  {...a11yProps(2)}
-                />
+                {tabButtons.map(
+                  (label, index) => (
+                    <Tab
+                      key={label + index}
+                      label={label}
+                      {...a11yProps(index)}
+                    />
+                  ),
+                )}
               </Tabs>
               <SettingsMenu />
             </Box>
             <Box className={styles.list}>
-              {tabs[tab] ?? "No content"}
+              {[
+                <LessonsList
+                  key="LessonsList"
+                  lessonId={
+                    lesson
+                      ? lesson.id.toString()
+                      : null
+                  }
+                  onSelectLesson={(lesson) => {
+                    if (
+                      lesson.is_finished ||
+                      lesson.id.toString() ===
+                        lessonId
+                    ) {
+                      setIsExam(false);
+                      setLesson(lesson);
+                      setVideoId(
+                        getYouTubeVideoId(
+                          lesson.video,
+                        ),
+                      );
+                    }
+                  }}
+                  onSelectExam={() => {
+                    setIsExam(true);
+                  }}
+                />,
+                <Questions key="Questions" />,
+                <TextOfTheLesson
+                  key="TextOfTheLesson"
+                  lesson={lesson}
+                />,
+              ][tab] ?? "No content"}
             </Box>
           </Box>
         </Fragment>

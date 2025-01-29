@@ -103,6 +103,7 @@ export interface ICourseDetail
   duration_count: string;
   is_learning: boolean;
   current_level: number;
+  current_lesson: number | null;
 }
 
 export interface ILessonDetail {
@@ -112,6 +113,8 @@ export interface ILessonDetail {
   video: string;
   text_lesson: string;
   description: string;
+  course_level: ILevel;
+  is_finished: boolean;
 }
 
 export interface IExamDetail {
@@ -231,9 +234,4 @@ export interface ICourseProgress {
     levelId: number;
     user_results: IExamResults | null;
   } | null;
-}
-
-export interface ILessonListItem
-  extends ILessonDetail {
-  course_level: ILevel;
 }

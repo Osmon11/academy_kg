@@ -43,11 +43,13 @@ import starCirclePrimaryIcon from "@/icons/star-circle-primary.svg";
 import styles from "../styles.module.scss";
 
 interface ILessonsListProps {
+  lessonId: string | null;
   onSelectLesson: (lesson: ILessonDetail) => void;
   onSelectExam: () => void;
 }
 
 export default function LessonsList({
+  lessonId,
   onSelectLesson,
   onSelectExam,
 }: ILessonsListProps) {
@@ -69,14 +71,11 @@ export default function LessonsList({
     }
     return result;
   }, [courseLevels]);
-  const [activeIndex, setActiveIndex] =
-    useState(0);
   const [level, setLevel] =
     useState<ILevel | null>(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setActiveIndex(0);
     setLevel(
       courseLevels
         ? {
@@ -145,14 +144,29 @@ export default function LessonsList({
       ) : lessonsAndExam.length > 0 ? (
         <Fragment>
           {lessonsAndExam.map((item, index) => {
-            const isActive =
-              index === activeIndex;
+            const currentLevel =
+              course?.levels.find(
+                (i) =>
+                  i.id === course.current_level,
+              );
+            const disabled =
+              currentLevel && courseLevels
+                ? currentLevel?.level <
+                  courseLevels?.level
+                : true;
             const isExam = isExamTypeGuard(item);
+            const isActive = Boolean(
+              !disabled
+                ? isExam
+                  ? true
+                  : item.id.toString() ===
+                    lessonId
+                : false,
+            );
             return (
               <Accordion
                 key={`${item.id}-${isExam ? "exam" : "lesson"}`}
                 onChange={(_, expanded) => {
-                  setActiveIndex(index);
                   if (expanded) {
                     if (isExam) {
                       onSelectExam();
@@ -162,6 +176,7 @@ export default function LessonsList({
                   }
                 }}
                 expanded={isActive}
+                disabled={disabled}
               >
                 <AccordionSummary>
                   <Box className={"flex_box"}>

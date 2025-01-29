@@ -93,6 +93,9 @@ iframe {
   .page {
     padding: 20px 30px;
   }
+  .full_height {
+    min-height: calc(100vh - 246px);
+  }
   .courses_wrapper {
     gap: 20px;
   }

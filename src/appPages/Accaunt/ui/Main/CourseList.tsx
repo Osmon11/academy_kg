@@ -52,7 +52,6 @@ export default function CourseList() {
           textAlign="center"
           color="textSecondary"
           fontWeight={600}
-          sx={{ margin: "12px 0px" }}
         >
           Нет курсов
         </Typography>

@@ -7,7 +7,10 @@ interface IOptions {
     [key: string]: string | number;
   };
   queryParams?: {
-    [key: string | number]: string | number;
+    [key: string | number]:
+      | string
+      | number
+      | null;
   };
 }
 

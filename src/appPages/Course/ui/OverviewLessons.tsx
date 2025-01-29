@@ -14,7 +14,7 @@ import axiosInstance from "@/shared/config/axiosClientInstance";
 import { TIME_FORMAT } from "@/shared/config/const";
 import { useAppSelector } from "@/shared/config/store";
 import {
-  ILessonListItem,
+  ILessonDetail,
   IPaginatedList,
 } from "@/shared/types";
 
@@ -27,14 +27,14 @@ export default function OverviewLessons() {
     (store) => store.course,
   );
   const [lessons, setLessons] = useState<
-    ILessonListItem[]
+    ILessonDetail[]
   >([]);
 
   useEffect(() => {
     if (course && !loading) {
       axiosInstance
         .get<
-          IPaginatedList<ILessonListItem>
+          IPaginatedList<ILessonDetail>
         >(`/academy/course_lesson_list/${course.id}`)
         .then((res) => {
           if (res?.data?.results) {

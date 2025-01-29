@@ -20,8 +20,9 @@ import PaperContainer from "../PaperContainer";
 import styles from "../styles.module.scss";
 
 interface IFormValues {
-  password: string;
   code: string;
+  password: string;
+  repeatPassword: string;
 }
 
 export default function RecoverPassword() {
@@ -29,11 +30,13 @@ export default function RecoverPassword() {
   const {
     handleSubmit,
     control,
+    watch,
     formState: { errors },
   } = useForm<IFormValues>({
     defaultValues: {
-      password: "",
       code: "",
+      password: "",
+      repeatPassword: "",
     },
   });
   const searchParams = useSearchParams();
@@ -75,25 +78,14 @@ export default function RecoverPassword() {
       })
       .finally(() => setLoading(false));
   }
+
+  const password = watch("password", "");
   return (
     <PaperContainer
-      title="Введите новый пароль"
+      title="Придумайте новый пароль"
       component="form"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <ControllerTextField<IFormValues>
-        name="password"
-        control={control}
-        rules={{
-          required:
-            "Необходимо ввести новый пароль",
-        }}
-        textField={{
-          placeholder: "Пароль",
-          type: "password",
-          autoComplete: "off",
-        }}
-      />
       <ControllerTextField<IFormValues>
         name="code"
         control={control}
@@ -105,6 +97,46 @@ export default function RecoverPassword() {
           placeholder: "Код",
           type: "number",
           autoComplete: "off",
+        }}
+      />
+      <ControllerTextField<IFormValues>
+        name="password"
+        control={control}
+        rules={{
+          required:
+            "Необходимо ввести новый пароль",
+          minLength: {
+            value: 5,
+            message:
+              "Пароль должен быть длиннее 4 символов",
+          },
+          pattern: {
+            value:
+              /^(?=.*[A-Za-z])(?=.*\d).{5,}$/,
+            message:
+              "Пароль должен содержать буквы и цифры",
+          },
+        }}
+        textField={{
+          placeholder: "Пароль",
+          type: "password",
+          autoComplete: "off",
+        }}
+      />
+      <ControllerTextField<IFormValues>
+        name="repeatPassword"
+        control={control}
+        rules={{
+          required:
+            "Пожалуйста подтвердите пароль",
+          validate: (value) =>
+            value === password ||
+            "Пароли не совпадают",
+        }}
+        textField={{
+          placeholder: "Повторите пароль",
+          type: "password",
+          autoComplete: "new-password",
         }}
       />
       <Button
