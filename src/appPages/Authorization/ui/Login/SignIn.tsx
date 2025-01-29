@@ -1,7 +1,6 @@
 "use client";
 
 import { useRouter } from "next-nprogress-bar";
-import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useCookies } from "react-cookie";
@@ -145,16 +144,23 @@ export default function SignIn() {
             marginTop: "20px",
           }}
         >
-          <Link href="/authorization/login?via=fogot_password">
-            <Typography
-              variant="h6"
-              color="primary"
-              className={styles.link_text}
-              sx={{ width: "fit-content" }}
-            >
-              Забыли пароль?
-            </Typography>
-          </Link>
+          <Typography
+            variant="h6"
+            color="primary"
+            className={styles.link_text}
+            sx={{ width: "fit-content" }}
+            onClick={() =>
+              router.push(
+                routePath("signIn", {
+                  queryParams: {
+                    via: "fogot_password",
+                  },
+                }),
+              )
+            }
+          >
+            Забыли пароль?
+          </Typography>
         </Box>
       </Box>
       <Button
@@ -183,19 +189,20 @@ export default function SignIn() {
           justifyContent: "center",
         }}
       >
-        <Link href={routePath("signUp")}>
-          <Typography
-            variant="h6"
-            color="primary"
-            sx={{
-              fontWeight: 700,
-              textAlign: "center",
-            }}
-            className={styles.link_text}
-          >
-            Создать аккаунт
-          </Typography>
-        </Link>
+        <Typography
+          variant="h6"
+          color="primary"
+          sx={{
+            fontWeight: 700,
+            textAlign: "center",
+          }}
+          className={styles.link_text}
+          onClick={() =>
+            router.push(routePath("signUp"))
+          }
+        >
+          Создать аккаунт
+        </Typography>
       </Box>
     </PaperContainer>
   );

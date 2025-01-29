@@ -1,5 +1,5 @@
+import { useRouter } from "next-nprogress-bar";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 
 import {
   Box,

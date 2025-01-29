@@ -1,5 +1,5 @@
+import { useRouter } from "next-nprogress-bar";
 import Image from "next/image";
-import Link from "next/link";
 
 import { Button } from "@mui/material";
 
@@ -14,37 +14,36 @@ export function LoginButton({
 }: {
   fullWidth?: boolean;
 }) {
+  const router = useRouter();
   const language = useAppSelector(
     (store) => store.user.language,
   );
   return (
-    <Link
-      href={routePath("signIn")}
-      style={{ width: "100%" }}
+    <Button
+      startIcon={
+        <Image
+          src={loginIcon}
+          alt="login icon"
+          width={24}
+          height={24}
+        />
+      }
+      onClick={() =>
+        router.push(routePath("signIn"))
+      }
+      sx={{
+        minHeight: fullWidth ? 50 : 30,
+        padding: "3px 10px",
+        borderRadius: "8px",
+        typography: {
+          textTransform: "uppercase",
+        },
+      }}
+      color="secondary"
+      variant="contained"
+      fullWidth={fullWidth}
     >
-      <Button
-        startIcon={
-          <Image
-            src={loginIcon}
-            alt="login icon"
-            width={24}
-            height={24}
-          />
-        }
-        sx={{
-          minHeight: fullWidth ? 50 : 30,
-          padding: "3px 10px",
-          borderRadius: "8px",
-          typography: {
-            textTransform: "uppercase",
-          },
-        }}
-        color="secondary"
-        variant="contained"
-        fullWidth={fullWidth}
-      >
-        {language === "RU" ? "ВХОД" : "КИРҮҮ"}
-      </Button>
-    </Link>
+      {language === "RU" ? "ВХОД" : "КИРҮҮ"}
+    </Button>
   );
 }

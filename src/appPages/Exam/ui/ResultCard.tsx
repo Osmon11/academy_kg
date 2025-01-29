@@ -1,5 +1,5 @@
+import { useRouter } from "next-nprogress-bar";
 import Image from "next/image";
-import Link from "next/link";
 import { useState } from "react";
 
 import {
@@ -30,6 +30,7 @@ export default function ResultCard({
   correctAnswers,
   score,
 }: IResultCardProps) {
+  const router = useRouter();
   const { examQuestions } = useAppSelector(
     (store) => store.exam,
   );
@@ -204,19 +205,20 @@ export default function ResultCard({
           )}
         </Box>
       </Paper>
-      <Link href={routePath("accaunt")}>
-        <Button
-          variant="text"
-          sx={{
-            fontSize: "22px",
-            fontWeight: 700,
-            textTransform: "none",
-            marginTop: "40px",
-          }}
-        >
-          Вернуться на главный экран
-        </Button>
-      </Link>
+      <Button
+        variant="text"
+        onClick={() =>
+          router.push(routePath("accaunt"))
+        }
+        sx={{
+          fontSize: "22px",
+          fontWeight: 700,
+          textTransform: "none",
+          marginTop: "40px",
+        }}
+      >
+        Вернуться на главный экран
+      </Button>
     </Box>
   );
 }

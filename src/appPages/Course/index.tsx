@@ -1,7 +1,7 @@
 "use client";
 
 import classNames from "classnames";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 import { useEffect, useState } from "react";
 import YouTube from "react-youtube";
 

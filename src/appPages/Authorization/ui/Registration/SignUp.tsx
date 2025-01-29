@@ -1,7 +1,6 @@
 "use client";
 
 import { useRouter } from "next-nprogress-bar";
-import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -210,23 +209,21 @@ export default function SignUp() {
       >
         Уже зарегистрировались?
       </Typography>
-      <Link
-        href={routePath("signUp")}
-        style={{ width: "100%" }}
+      <Typography
+        variant="h6"
+        color="primary"
+        sx={{
+          width: "100%",
+          fontWeight: 700,
+          textAlign: "center",
+        }}
+        className={styles.link_text}
+        onClick={() =>
+          router.push(routePath("signUp"))
+        }
       >
-        <Typography
-          variant="h6"
-          color="primary"
-          sx={{
-            width: "100%",
-            fontWeight: 700,
-            textAlign: "center",
-          }}
-          className={styles.link_text}
-        >
-          Войти в аккаунт
-        </Typography>
-      </Link>
+        Войти в аккаунт
+      </Typography>
     </PaperContainer>
   );
 }

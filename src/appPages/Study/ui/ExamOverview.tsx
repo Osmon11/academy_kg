@@ -1,4 +1,4 @@
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 
 import {
   Box,

@@ -1,5 +1,4 @@
 import { useRouter } from "next-nprogress-bar";
-import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -96,19 +95,20 @@ export default function FogotPassword() {
           justifyContent: "center",
         }}
       >
-        <Link href={routePath("signUp")}>
-          <Typography
-            variant="h6"
-            color="primary"
-            sx={{
-              fontWeight: 700,
-              textAlign: "center",
-            }}
-            className={styles.link_text}
-          >
-            Создать аккаунт
-          </Typography>
-        </Link>
+        <Typography
+          variant="h6"
+          color="primary"
+          sx={{
+            fontWeight: 700,
+            textAlign: "center",
+          }}
+          className={styles.link_text}
+          onClick={() =>
+            router.push(routePath("signUp"))
+          }
+        >
+          Создать аккаунт
+        </Typography>
       </Box>
     </PaperContainer>
   );

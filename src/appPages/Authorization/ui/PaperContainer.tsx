@@ -1,7 +1,6 @@
 import classNames from "classnames";
 import { useRouter } from "next-nprogress-bar";
 import Image from "next/image";
-import Link from "next/link";
 
 import {
   IconButton,
@@ -53,14 +52,15 @@ export default function PaperContainer({
           height={24}
         />
       </IconButton>
-      <Link href={routePath("main")}>
-        <Image
-          src={logoPrimaryIcon}
-          alt="islamic online-academy green icon"
-          width={100}
-          height={100}
-        />
-      </Link>
+      <Image
+        src={logoPrimaryIcon}
+        alt="islamic online-academy green icon"
+        width={100}
+        height={100}
+        onClick={() =>
+          router.push(routePath("main"))
+        }
+      />
       <Typography
         variant="h5"
         textAlign="center"

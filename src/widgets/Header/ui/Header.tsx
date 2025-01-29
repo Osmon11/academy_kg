@@ -1,8 +1,8 @@
 "use client";
 
 import classNames from "classnames";
+import { useRouter } from "next-nprogress-bar";
 import Image from "next/image";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Fragment, useState } from "react";
 
@@ -45,6 +45,7 @@ export function Header({
   background,
   ...props
 }: IHeaderProps) {
+  const router = useRouter();
   const { profile, loading, language } =
     useAppSelector((state) => state.user);
   const pathname = usePathname();
@@ -68,20 +69,22 @@ export function Header({
         styles[background],
       )}
     >
-      <Link href={routePath("main")}>
-        <IconButton>
-          <Image
-            src={
-              isTransparent
-                ? logoIcon
-                : logoPrimaryIcon
-            }
-            alt="islamic online-academy logo"
-            width={40}
-            height={40}
-          />
-        </IconButton>
-      </Link>
+      <IconButton
+        onClick={() =>
+          router.push(routePath("main"))
+        }
+      >
+        <Image
+          src={
+            isTransparent
+              ? logoIcon
+              : logoPrimaryIcon
+          }
+          alt="islamic online-academy logo"
+          width={40}
+          height={40}
+        />
+      </IconButton>
       {upMd && (
         <Box
           sx={{
@@ -95,33 +98,32 @@ export function Header({
             const active =
               pathname === navItem.href;
             return (
-              <Link
+              <Typography
                 key={navItem.href + index}
-                href={navItem.href}
                 className={classNames(
                   styles.nav_link,
                   {
                     [styles.active]: active,
                   },
                 )}
+                variant="subtitle1"
+                color={
+                  isTransparent || active
+                    ? "textPrimary"
+                    : "primary"
+                }
+                onClick={() =>
+                  router.push(navItem.href)
+                }
+                sx={{
+                  textTransform: isTransparent
+                    ? "uppercase"
+                    : "initial",
+                  lineHeight: "17px",
+                }}
               >
-                <Typography
-                  variant="subtitle1"
-                  color={
-                    isTransparent || active
-                      ? "textPrimary"
-                      : "primary"
-                  }
-                  sx={{
-                    textTransform: isTransparent
-                      ? "uppercase"
-                      : "initial",
-                    lineHeight: "17px",
-                  }}
-                >
-                  {navItem.label[language]}
-                </Typography>
-              </Link>
+                {navItem.label[language]}
+              </Typography>
             );
           })}
         </Box>
