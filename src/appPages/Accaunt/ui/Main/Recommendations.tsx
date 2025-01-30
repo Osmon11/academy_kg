@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 import { Carousel } from "@/widgets/Carousel";
 
@@ -37,7 +37,7 @@ export default function Recommendations() {
         height={50}
       />
     </Box>
-  ) : (
+  ) : recommendations.length > 0 ? (
     <Carousel options={{ align: "start" }}>
       {recommendations.map((item) => (
         <Box
@@ -54,5 +54,13 @@ export default function Recommendations() {
         </Box>
       ))}
     </Carousel>
+  ) : (
+    <Typography
+      textAlign="center"
+      color="textSecondary"
+      fontWeight={600}
+    >
+      Пока нет рекомендаций
+    </Typography>
   );
 }
