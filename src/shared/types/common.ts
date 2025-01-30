@@ -235,3 +235,10 @@ export interface ICourseProgress {
     user_results: IExamResults | null;
   } | null;
 }
+
+export interface IStatistics {
+  courses: number;
+  students: number;
+  lessons: number;
+  views: number;
+}

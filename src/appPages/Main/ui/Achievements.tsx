@@ -1,6 +1,9 @@
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 import { Box, Typography } from "@mui/material";
+
+import axiosInstance from "@/shared/config/axiosClientInstance";
 
 import bookIcon from "@/icons/book.svg";
 import eyeIcon from "@/icons/eye.svg";
@@ -9,34 +12,55 @@ import videoCircleIcon from "@/icons/video-circle.svg";
 
 import styles from "../styles.module.scss";
 
-const achievements = [
-  {
-    icon: bookIcon,
-    icon_alt: "book icon",
-    score: "7",
-    subtitle: "Предметов",
-  },
-  {
-    icon: videoCircleIcon,
-    icon_alt: "video circle icon",
-    score: "365",
-    subtitle: "уроков",
-  },
-  {
-    icon: teacherIcon,
-    icon_alt: "teacher icon",
-    score: "294229",
-    subtitle: "студентов",
-  },
-  {
-    icon: eyeIcon,
-    icon_alt: "eye icon",
-    score: "3052760",
-    subtitle: "просмотров уроков",
-  },
-];
-
 export default function Achievements() {
+  const [achievements, setAchievements] =
+    useState([
+      {
+        icon: bookIcon,
+        icon_alt: "book icon",
+        score: 0,
+        subtitle: "Предметов",
+        key: "courses",
+      },
+      {
+        icon: videoCircleIcon,
+        icon_alt: "video circle icon",
+        score: 0,
+        subtitle: "уроков",
+        key: "lessons",
+      },
+      {
+        icon: teacherIcon,
+        icon_alt: "teacher icon",
+        score: 0,
+        subtitle: "студентов",
+        key: "students",
+      },
+      {
+        icon: eyeIcon,
+        icon_alt: "eye icon",
+        score: 0,
+        subtitle: "просмотров уроков",
+        key: "views",
+      },
+    ]);
+
+  useEffect(() => {
+    axiosInstance
+      .get("/auth/site_statistics/")
+      .then((res) => {
+        if (res.data) {
+          setAchievements((state) => {
+            const result: typeof state = [];
+            state.forEach((item) => {
+              item.score = res.data[item.key];
+              result.push(item);
+            });
+            return result;
+          });
+        }
+      });
+  }, []);
   return (
     <Box className={styles.scores_wrapper}>
       {achievements.map((achievement) => (
