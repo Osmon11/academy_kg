@@ -124,12 +124,12 @@ export default function LessonDetails() {
       course?.current_level === courseLevels?.id
     ) {
       const id =
-        lessonId || course.current_lesson;
+        Number(lessonId) || course.current_lesson;
       if (id && courseLevels.lessons.length > 0) {
         setIsExam(false);
         setLesson(
           courseLevels.lessons.find(
-            (i) => i.id.toString() === id,
+            (i) => i.id === id,
           ),
         );
         setVideoId(
@@ -177,12 +177,12 @@ export default function LessonDetails() {
         { ["page"]: upMd },
       )}
       sx={
-        loading || !courseLevels
+        loading
           ? { justifyContent: "center" }
           : undefined
       }
     >
-      {loading || !courseLevels ? (
+      {loading ? (
         <Box
           className={"tube_spinner_wrapper"}
           sx={{ height: "100%" }}
@@ -199,6 +199,7 @@ export default function LessonDetails() {
           ) : (
             <YouTube
               className={styles.video}
+              key={videoId} // 👈 Forces re-render when videoId changes
               videoId={videoId}
               onEnd={finishLesson}
               // onStateChange={(event) => {

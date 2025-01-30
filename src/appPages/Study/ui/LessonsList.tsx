@@ -4,6 +4,7 @@ import moment from "moment";
 import Image from "next/image";
 import {
   Fragment,
+  useCallback,
   useEffect,
   useMemo,
   useState,
@@ -75,31 +76,32 @@ export default function LessonsList({
     useState<ILevel | null>(null);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    setLevel(
-      courseLevels
-        ? {
-            id: courseLevels.id,
-            level: courseLevels.level,
+  const fetchLevelDetail = useCallback(
+    (levelId: number) => {
+      setLoading(true);
+      axiosInstance
+        .get<ICourseLevelDetail>(
+          `/academy/course_level_detail/${levelId}`,
+        )
+        .then((res) => {
+          if (res?.data) {
+            dispatch(setCourseLevels(res.data));
+            setLevel({
+              id: res.data.id,
+              level: res.data.level,
+            });
           }
-        : null,
-    );
-    setLoading(false);
-  }, [courseLevels]);
+        })
+        .finally(() => setLoading(false));
+    },
+    [dispatch],
+  );
 
-  function fetchLevelDetail(levelId: number) {
-    setLoading(true);
-    axiosInstance
-      .get<ICourseLevelDetail>(
-        `/academy/course_level_detail/${levelId}`,
-      )
-      .then((res) => {
-        if (res?.data) {
-          dispatch(setCourseLevels(res.data));
-        }
-      })
-      .finally(() => setLoading(false));
-  }
+  useEffect(() => {
+    if (course) {
+      fetchLevelDetail(course?.current_level);
+    }
+  }, [course, fetchLevelDetail]);
 
   const typographyProps = {
     variant:
@@ -149,18 +151,20 @@ export default function LessonsList({
                 (i) =>
                   i.id === course.current_level,
               );
+            const isExam = isExamTypeGuard(item);
             const disabled =
               currentLevel && courseLevels
-                ? currentLevel?.level <
-                  courseLevels?.level
+                ? currentLevel?.level <=
+                    courseLevels?.level && !isExam
+                  ? !item.is_finished &&
+                    item.id !== Number(lessonId)
+                  : true
                 : true;
-            const isExam = isExamTypeGuard(item);
             const isActive = Boolean(
               !disabled
                 ? isExam
                   ? true
-                  : item.id.toString() ===
-                    lessonId
+                  : item.id === Number(lessonId)
                 : false,
             );
             return (

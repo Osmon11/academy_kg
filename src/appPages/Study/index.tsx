@@ -16,13 +16,11 @@ import {
 import {
   setComments,
   setCourse,
-  setCourseLevels,
   setLoading,
 } from "@/shared/model";
 import {
   IComment,
   ICourseDetail,
-  ICourseLevelDetail,
 } from "@/shared/types";
 
 import LessonDetails from "./ui/LessonDetails";
@@ -49,25 +47,6 @@ export function StudyPage({
         .then((res) => {
           if (res?.data) {
             dispatch(setCourse(res.data));
-            const currentLevel =
-              res.data.levels.find(
-                (i) =>
-                  i.level ===
-                  res.data.current_level,
-              );
-            if (currentLevel) {
-              axiosInstance
-                .get<ICourseLevelDetail>(
-                  `/academy/course_level_detail/${currentLevel.id}`,
-                )
-                .then((res) => {
-                  if (res?.data) {
-                    dispatch(
-                      setCourseLevels(res.data),
-                    );
-                  }
-                });
-            }
           }
         }),
       axiosInstance

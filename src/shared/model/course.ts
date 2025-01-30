@@ -20,7 +20,7 @@ const initialState: IInitialState = {
   course: null,
   courseLevels: null,
   comments: [],
-  loading: false,
+  loading: true,
 };
 
 const courseSlice = createSlice({
