@@ -53,7 +53,7 @@ export default function Subjects() {
 
   const [sentryRef] = useInfiniteScroll({
     loading,
-    hasNextPage: Boolean(courseList?.next),
+    hasNextPage: false, // load only limited number of subjects
     onLoadMore: loadMore,
     disabled: !courseList,
   });
