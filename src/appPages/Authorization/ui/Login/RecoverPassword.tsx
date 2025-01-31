@@ -186,7 +186,7 @@ export default function RecoverPassword() {
             fontWeight={600}
             color="textTertiary"
           >
-            Новый код доступен через
+            Отправить повторно через
           </Typography>
           <Timer
             minutes={2}

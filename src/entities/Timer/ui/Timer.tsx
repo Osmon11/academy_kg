@@ -30,6 +30,7 @@ export function Timer({
         if (prevTime > 0) return prevTime - 1;
         else {
           onEnd();
+          clearInterval(interval);
           return 0;
         }
       });

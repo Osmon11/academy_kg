@@ -94,7 +94,7 @@ export function LanguageSelect({
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
       >
-        RU
+        {language}
       </Button>
       <Menu
         id="language-menu"

@@ -6,7 +6,6 @@ import {
   Fragment,
   useCallback,
   useEffect,
-  useMemo,
   useState,
 } from "react";
 
@@ -31,26 +30,29 @@ import { getAllMinutes } from "@/shared/functions";
 import { setCourseLevels } from "@/shared/model";
 import {
   ICourseLevelDetail,
-  IExamDetail,
   ILessonDetail,
   ILevel,
-  isExamTypeGuard,
 } from "@/shared/types";
 
 import playCircleGrayIcon from "@/icons/play-circle-gray.svg";
 import playCirclePrimaryIcon from "@/icons/play-circle-primary.svg";
+import starCircleGrayIcon from "@/icons/star-circle-gray.svg";
 import starCirclePrimaryIcon from "@/icons/star-circle-primary.svg";
 
 import styles from "../styles.module.scss";
 
 interface ILessonsListProps {
-  lessonId: string | null;
+  isExam: boolean;
+  lessonId: number | null;
+  activeId: number | undefined;
   onSelectLesson: (lesson: ILessonDetail) => void;
   onSelectExam: () => void;
 }
 
 export default function LessonsList({
+  isExam,
   lessonId,
+  activeId,
   onSelectLesson,
   onSelectExam,
 }: ILessonsListProps) {
@@ -58,20 +60,6 @@ export default function LessonsList({
   const { course, courseLevels } = useAppSelector(
     (store) => store.course,
   );
-  const lessonsAndExam = useMemo<
-    (ILessonDetail | IExamDetail)[]
-  >(() => {
-    const result: (
-      | ILessonDetail
-      | IExamDetail
-    )[] = courseLevels
-      ? [...courseLevels.lessons]
-      : [];
-    if (courseLevels?.exam) {
-      result.push(courseLevels.exam);
-    }
-    return result;
-  }, [courseLevels]);
   const [level, setLevel] =
     useState<ILevel | null>(null);
   const [loading, setLoading] = useState(false);
@@ -111,6 +99,16 @@ export default function LessonsList({
     fontSize: "14px",
     component: "p",
   };
+
+  const currentLevel = course
+    ? course.levels.find(
+        (i) => i.id === course.current_level,
+      )
+    : undefined;
+  const isAvailableLevel =
+    currentLevel && courseLevels
+      ? currentLevel.level <= courseLevels.level
+      : false;
   return (
     <Box className={"accordeons"}>
       <Box className={styles.levels_wrapper}>
@@ -143,113 +141,71 @@ export default function LessonsList({
             height={50}
           />
         </Box>
-      ) : lessonsAndExam.length > 0 ? (
+      ) : course &&
+        courseLevels &&
+        courseLevels.lessons.length > 0 ? (
         <Fragment>
-          {lessonsAndExam.map((item, index) => {
-            const currentLevel =
-              course?.levels.find(
-                (i) =>
-                  i.id === course.current_level,
-              );
-            const isExam = isExamTypeGuard(item);
-            const disabled =
-              currentLevel && courseLevels
-                ? currentLevel?.level <=
-                    courseLevels?.level && !isExam
-                  ? !item.is_finished &&
-                    item.id !== Number(lessonId)
-                  : true
-                : true;
-            const isActive = Boolean(
-              !disabled
-                ? isExam
-                  ? true
-                  : item.id === Number(lessonId)
-                : false,
-            );
-            return (
-              <Accordion
-                key={`${item.id}-${isExam ? "exam" : "lesson"}`}
-                onChange={(_, expanded) => {
-                  if (expanded) {
-                    if (isExam) {
-                      onSelectExam();
-                    } else {
+          {courseLevels.lessons.map(
+            (item, index) => {
+              const isActive =
+                !isExam && item.id === activeId;
+              const disabled =
+                isAvailableLevel &&
+                (item.id === lessonId
+                  ? false
+                  : !item.is_finished);
+              return (
+                <Accordion
+                  key={`${item.id}-lesson`}
+                  onChange={(_, expanded) => {
+                    if (expanded) {
                       onSelectLesson(item);
                     }
-                  }
-                }}
-                expanded={isActive}
-                disabled={disabled}
-              >
-                <AccordionSummary>
-                  <Box className={"flex_box"}>
-                    <Typography
-                      variant="h5"
-                      fontWeight={600}
-                      color="#A3A3A3"
-                      minWidth="33px"
-                    >
-                      {index + 1}
-                    </Typography>
-                    <Box
-                      className={"flex_box"}
-                      sx={{ gap: "8px" }}
-                    >
-                      <Image
-                        src={
-                          isExam
-                            ? starCirclePrimaryIcon
-                            : isActive
+                  }}
+                  expanded={isActive}
+                  disabled={disabled}
+                >
+                  <AccordionSummary>
+                    <Box className={"flex_box"}>
+                      <Typography
+                        variant="h5"
+                        fontWeight={600}
+                        color="#A3A3A3"
+                        minWidth="33px"
+                      >
+                        {index + 1}
+                      </Typography>
+                      <Box
+                        className={"flex_box"}
+                        sx={{ gap: "8px" }}
+                      >
+                        <Image
+                          src={
+                            isActive
                               ? playCirclePrimaryIcon
                               : playCircleGrayIcon
-                        }
-                        alt={
-                          isExam
-                            ? "star circle green icon"
-                            : `play circle ${isActive ? "green" : "gray"} icon`
-                        }
-                        width={24}
-                        height={24}
-                      />
-                      <Box>
-                        <Typography
-                          {...typographyProps}
-                          fontWeight={
-                            isActive ? 600 : 400
                           }
-                        >
-                          {isExam
-                            ? "Экзамен"
-                            : item.title}
-                        </Typography>
-                        {!isExam && (
+                          alt={`play circle ${isActive ? "green" : "gray"} icon`}
+                          width={24}
+                          height={24}
+                        />
+                        <Box>
+                          <Typography
+                            {...typographyProps}
+                            fontWeight={
+                              isActive ? 600 : 400
+                            }
+                          >
+                            {item.title}
+                          </Typography>
                           <Typography
                             {...typographyProps}
                           >{`Видео - ${moment(item.duration, TIME_FORMAT).format("HH:mm")}`}</Typography>
-                        )}
+                        </Box>
                       </Box>
                     </Box>
-                  </Box>
-                </AccordionSummary>
-                <AccordionDetails>
-                  {isExam ? (
-                    <Fragment>
-                      <Typography
-                        variant="caption"
-                        component="p"
-                        color="textSecondary"
-                      >
-                        {`Необходимый минимум
-                        баллов: ${item.pass_points}`}
-                      </Typography>
-                      <Typography
-                        variant="caption"
-                        component="p"
-                        color="textSecondary"
-                      >{`Время на экзамен: ${getAllMinutes(item.duration)} мин.`}</Typography>
-                    </Fragment>
-                  ) : (
+                  </AccordionSummary>
+                  <AccordionDetails>
                     <Typography
                       variant="caption"
                       color="textSecondary"
@@ -257,11 +213,79 @@ export default function LessonsList({
                       {item.description ??
                         "Нет описания"}
                     </Typography>
-                  )}
-                </AccordionDetails>
-              </Accordion>
-            );
-          })}
+                  </AccordionDetails>
+                </Accordion>
+              );
+            },
+          )}
+          {courseLevels.exam && (
+            <Accordion
+              key={`${courseLevels.exam.id}-exam`}
+              onChange={(_, expanded) => {
+                if (expanded) {
+                  onSelectExam();
+                }
+              }}
+              expanded={isExam}
+              disabled={!isAvailableLevel}
+            >
+              <AccordionSummary>
+                <Box className={"flex_box"}>
+                  <Typography
+                    variant="h5"
+                    fontWeight={600}
+                    color="#A3A3A3"
+                    minWidth="33px"
+                  >
+                    {courseLevels.lessons.length +
+                      1}
+                  </Typography>
+                  <Box
+                    className={"flex_box"}
+                    sx={{ gap: "8px" }}
+                  >
+                    <Image
+                      src={
+                        isExam
+                          ? starCirclePrimaryIcon
+                          : starCircleGrayIcon
+                      }
+                      alt={`star circle ${isExam ? "green" : "gray"} icon`}
+                      width={24}
+                      height={24}
+                    />
+                    <Box>
+                      <Typography
+                        {...typographyProps}
+                        fontWeight={
+                          isExam ? 600 : 400
+                        }
+                      >
+                        {courseLevels.exam.title}
+                      </Typography>
+                    </Box>
+                  </Box>
+                </Box>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Fragment>
+                  <Typography
+                    variant="caption"
+                    component="p"
+                    color="textSecondary"
+                  >
+                    {`Необходимый минимум
+                        баллов: ${courseLevels.exam.pass_points}`}
+                  </Typography>
+                  <Typography
+                    variant="caption"
+                    component="p"
+                    color="textSecondary"
+                  >{`Время на экзамен: ${getAllMinutes(courseLevels.exam.duration)} мин.`}</Typography>
+                </Fragment>
+              </AccordionDetails>
+            </Accordion>
+          )}
         </Fragment>
       ) : (
         <Typography

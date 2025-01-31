@@ -51,13 +51,17 @@ export default function LessonDetails() {
   const { course, courseLevels, loading } =
     useAppSelector((store) => store.course);
   const searchParams = useSearchParams();
-  const lessonId = searchParams.get("lesson");
+  const queryLessonId =
+    searchParams.get("lesson");
   const [lesson, setLesson] =
     useState<ILessonDetail>();
   const [videoId, setVideoId] =
     useState<string>();
   const [isExam, setIsExam] = useState(false);
   const [tab, setTab] = useState(0);
+  const currentLessonId =
+    Number(queryLessonId) ||
+    (course ? course.current_lesson : null);
 
   const handleChange = (
     event: React.SyntheticEvent,
@@ -123,19 +127,22 @@ export default function LessonDetails() {
       courseLevels &&
       course?.current_level === courseLevels?.id
     ) {
-      const id =
-        Number(lessonId) || course.current_lesson;
-      if (id && courseLevels.lessons.length > 0) {
-        setIsExam(false);
-        setLesson(
+      if (
+        currentLessonId &&
+        courseLevels.lessons.length > 0
+      ) {
+        const currentLesson =
           courseLevels.lessons.find(
-            (i) => i.id === id,
-          ),
-        );
+            (i) => i.id === currentLessonId,
+          );
+        setIsExam(false);
+        setLesson(currentLesson);
         setVideoId(
-          getYouTubeVideoId(
-            courseLevels.lessons[0].video,
-          ),
+          currentLesson
+            ? getYouTubeVideoId(
+                currentLesson.video,
+              )
+            : undefined,
         );
       } else {
         setIsExam(true);
@@ -143,7 +150,7 @@ export default function LessonDetails() {
         setVideoId(undefined);
       }
     }
-  }, [course, courseLevels, lessonId]);
+  }, [course, courseLevels, currentLessonId]);
 
   const upSm = useMediaQuery((theme) =>
     theme.breakpoints.up("sm"),
@@ -250,16 +257,14 @@ export default function LessonDetails() {
               {[
                 <LessonsList
                   key="LessonsList"
-                  lessonId={
-                    lesson
-                      ? lesson.id.toString()
-                      : null
-                  }
+                  isExam={isExam}
+                  lessonId={currentLessonId}
+                  activeId={lesson?.id}
                   onSelectLesson={(lesson) => {
                     if (
                       lesson.is_finished ||
-                      lesson.id.toString() ===
-                        lessonId
+                      lesson.id ===
+                        currentLessonId
                     ) {
                       setIsExam(false);
                       setLesson(lesson);
