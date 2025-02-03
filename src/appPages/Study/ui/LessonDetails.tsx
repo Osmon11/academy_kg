@@ -74,50 +74,81 @@ export default function LessonDetails() {
 
   function finishLesson() {
     if (lesson) {
-      axiosInstance
-        .post(
-          `/academy/finish_lesson/${lesson.id}/`,
-        )
-        .then((res) => {
-          if (
-            res?.data?.message &&
-            course &&
-            courseLevels
-          ) {
-            toast.success(res.data.message);
-            const nextLessonIndex =
-              courseLevels.lessons.findIndex(
-                (i) => i.id === lesson.id,
-              ) + 1;
-            router.replace(
-              routePath("study", {
-                dynamicPaths: {
-                  course: course.id,
-                },
-                queryParams: {
-                  lesson: nextLessonIndex
-                    ? courseLevels.lessons[
-                        nextLessonIndex
-                      ].id
-                    : null,
-                },
-              }),
-            );
-            if (
-              courseLevels.finished_count + 1 <
-              courseLevels.lessons.length
-            ) {
-              dispatch(
-                setCourseLevels({
-                  ...courseLevels,
-                  finished_count:
-                    courseLevels.finished_count +
-                    1,
-                }),
-              );
-            }
-          }
-        });
+      if (course && courseLevels) {
+        router.replace(
+          routePath("study", {
+            dynamicPaths: {
+              course: course.id,
+            },
+            queryParams: {
+              lesson:
+                courseLevels.lessons.at(-1)
+                  ?.id !== currentLessonId
+                  ? courseLevels.lessons.findIndex(
+                      (i) =>
+                        i.id === currentLessonId,
+                    ) + 1
+                  : null,
+            },
+          }),
+        );
+        if (
+          courseLevels.finished_count + 1 <=
+          courseLevels.lessons.length
+        ) {
+          dispatch(
+            setCourseLevels({
+              ...courseLevels,
+              finished_count:
+                courseLevels.finished_count + 1,
+            }),
+          );
+        }
+      }
+      // axiosInstance
+      //   .post(
+      //     `/academy/finish_lesson/${currentLessonId}/`,
+      //   )
+      //   .then((res) => {
+      //     if (
+      //       res?.data?.message &&
+      //       course &&
+      //       courseLevels
+      //     ) {
+      //       toast.success(res.data.message);
+      //       router.replace(
+      //         routePath("study", {
+      //           dynamicPaths: {
+      //             course: course.id,
+      //           },
+      //           queryParams: {
+      //             lesson:
+      //               courseLevels.lessons.at(-1)
+      //                 ?.id !== currentLessonId
+      //                 ? courseLevels.lessons.findIndex(
+      //                     (i) =>
+      //                       i.id ===
+      //                       currentLessonId,
+      //                   ) + 1
+      //                 : null,
+      //           },
+      //         }),
+      //       );
+      //       if (
+      //         courseLevels.finished_count + 1 <=
+      //         courseLevels.lessons.length
+      //       ) {
+      //         dispatch(
+      //           setCourseLevels({
+      //             ...courseLevels,
+      //             finished_count:
+      //               courseLevels.finished_count +
+      //               1,
+      //           }),
+      //         );
+      //       }
+      //     }
+      //   });
     }
   }
 

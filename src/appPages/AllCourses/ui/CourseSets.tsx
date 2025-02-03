@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 import { Carousel } from "@/widgets/Carousel";
 
@@ -41,7 +41,7 @@ export default function CourseSets() {
             height={50}
           />
         </Box>
-      ) : (
+      ) : courseSets.length > 0 ? (
         <Carousel options={{ align: "start" }}>
           {courseSets.map((item) => (
             <Box
@@ -58,6 +58,16 @@ export default function CourseSets() {
             </Box>
           ))}
         </Carousel>
+      ) : (
+        <Typography
+          width="100%"
+          textAlign="center"
+          color="textSecondary"
+          fontWeight={600}
+          sx={{ margin: "12px 0px" }}
+        >
+          Нет наборов
+        </Typography>
       )}
     </Box>
   );

@@ -49,6 +49,7 @@ export default function CourseList() {
         ))
       ) : (
         <Typography
+          width="100%"
           textAlign="center"
           color="textSecondary"
           fontWeight={600}

@@ -6,3 +6,5 @@ export { getAllMinutes } from "./getAllMinutes";
 export { getPercentage } from "./getPercentage";
 export { popupCenter } from "./popupCenter";
 export { getUserLocation } from "./getUserLocation";
+export { getAllSeconds } from "./getAllSeconds";
+export { shuffleValues } from "./shuffleValues";

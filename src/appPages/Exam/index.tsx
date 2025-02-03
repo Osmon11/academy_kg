@@ -14,7 +14,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "@/shared/config/store";
-import { getAllMinutes } from "@/shared/functions";
+import { getAllSeconds } from "@/shared/functions";
 import {
   setExamLoading,
   setExamQuestions,
@@ -106,6 +106,7 @@ export function ExamPage({
         });
     }
   }
+
   return (
     <Box className={"bg_gray"}>
       <GoBackHeader
@@ -118,10 +119,10 @@ export function ExamPage({
           examQuestions &&
           examQuestions.questions.length > 0 ? (
             <Timer
-              minutes={
+              seconds={
                 finished
                   ? 0
-                  : getAllMinutes(
+                  : getAllSeconds(
                       examQuestions.duration,
                     )
               }

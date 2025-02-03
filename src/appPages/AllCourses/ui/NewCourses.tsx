@@ -48,6 +48,7 @@ export default function NewCourses() {
         ))
       ) : (
         <Typography
+          width="100%"
           textAlign="center"
           color="textSecondary"
           fontWeight={600}

@@ -48,6 +48,7 @@ export default function ArabLanguage() {
         ))
       ) : (
         <Typography
+          width="100%"
           textAlign="center"
           color="textSecondary"
           fontWeight={600}

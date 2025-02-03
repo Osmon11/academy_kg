@@ -40,6 +40,7 @@ export default function AcademyCoreProgram() {
         variant="h5"
         fontWeight={700}
         textAlign="center"
+        marginBottom="20px"
       >
         Базовая программа Академии
       </Typography>

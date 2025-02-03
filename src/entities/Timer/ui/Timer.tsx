@@ -8,21 +8,29 @@ import { Box, Typography } from "@mui/material";
 import timerCoalGrayIcon from "@/icons/timer-coal-gray.svg";
 import timerRedIcon from "@/icons/timer-red.svg";
 
-// Convert seconds to minutes:seconds format
-const formatTime = (time: number) => {
-  return `${String(Math.floor(time / 60)).padStart(2, "0")}:${String(time % 60).padStart(2, "0")}`;
+// Convert seconds to hours:minutes:seconds format
+const formatTime = (seconds: number) => {
+  const hrs = Math.floor(seconds / 3600),
+    mins = Math.floor((seconds % 3600) / 60),
+    secs = seconds % 60;
+
+  if (hrs > 0) {
+    return `${hrs}:${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
+  } else {
+    return `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
+  }
 };
 
 interface ITimerProps {
-  minutes: number;
+  seconds: number;
   onEnd: () => void;
 }
 
 export function Timer({
-  minutes,
+  seconds,
   onEnd,
 }: ITimerProps) {
-  const [time, setTime] = useState(minutes * 60);
+  const [time, setTime] = useState(seconds);
 
   useEffect(() => {
     const interval = setInterval(() => {

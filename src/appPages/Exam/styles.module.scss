@@ -56,6 +56,13 @@
   margin: 0px;
 }
 
+.arrow {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
 @media (min-width: variables.$theme-breakpoint-xs) {
   .wrapper {
     justify-content: start;
