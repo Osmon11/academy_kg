@@ -68,9 +68,6 @@ export function CourseOverviewPage({
         router.push(
           routePath("study", {
             dynamicPaths: { course: course.id },
-            queryParams: {
-              lesson: course.current_lesson,
-            },
           }),
         );
       } else {
@@ -85,9 +82,6 @@ export function CourseOverviewPage({
                 routePath("study", {
                   dynamicPaths: {
                     course: course.id,
-                  },
-                  queryParams: {
-                    lesson: course.current_lesson,
                   },
                 }),
               );

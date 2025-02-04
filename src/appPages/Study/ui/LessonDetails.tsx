@@ -1,8 +1,6 @@
 "use client";
 
 import classNames from "classnames";
-import { useRouter } from "next-nprogress-bar";
-import { useSearchParams } from "next/navigation";
 import {
   Fragment,
   useEffect,
@@ -24,11 +22,11 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "@/shared/config/store";
+import { getYouTubeVideoId } from "@/shared/functions";
 import {
-  getYouTubeVideoId,
-  routePath,
-} from "@/shared/functions";
-import { setCourseLevels } from "@/shared/model";
+  setCourse,
+  setCourseLevels,
+} from "@/shared/model";
 import { ILessonDetail } from "@/shared/types";
 
 import styles from "../styles.module.scss";
@@ -46,22 +44,15 @@ function a11yProps(index: number) {
 }
 
 export default function LessonDetails() {
-  const router = useRouter();
   const dispatch = useAppDispatch();
   const { course, courseLevels, loading } =
     useAppSelector((store) => store.course);
-  const searchParams = useSearchParams();
-  const queryLessonId =
-    searchParams.get("lesson");
   const [lesson, setLesson] =
     useState<ILessonDetail>();
   const [videoId, setVideoId] =
     useState<string>();
   const [isExam, setIsExam] = useState(false);
   const [tab, setTab] = useState(0);
-  const currentLessonId =
-    Number(queryLessonId) ||
-    (course ? course.current_lesson : null);
 
   const handleChange = (
     event: React.SyntheticEvent,
@@ -73,82 +64,51 @@ export default function LessonDetails() {
   };
 
   function finishLesson() {
-    if (lesson) {
-      if (course && courseLevels) {
-        router.replace(
-          routePath("study", {
-            dynamicPaths: {
-              course: course.id,
-            },
-            queryParams: {
-              lesson:
+    if (course && courseLevels && lesson) {
+      axiosInstance
+        .post(
+          `/academy/finish_lesson/${course.current_lesson}/`,
+        )
+        .then((res) => {
+          if (res?.data?.message) {
+            toast.success(res.data.message);
+            if (
+              courseLevels.finished_count + 1 <=
+              courseLevels.lessons.length
+            ) {
+              dispatch(
+                setCourseLevels({
+                  ...courseLevels,
+                  finished_count:
+                    courseLevels.finished_count +
+                    1,
+                }),
+              );
+            }
+            if (course.current_lesson) {
+              const nextLessonId =
                 courseLevels.lessons.at(-1)
-                  ?.id !== currentLessonId
-                  ? courseLevels.lessons.findIndex(
-                      (i) =>
-                        i.id === currentLessonId,
-                    ) + 1
-                  : null,
-            },
-          }),
-        );
-        if (
-          courseLevels.finished_count + 1 <=
-          courseLevels.lessons.length
-        ) {
-          dispatch(
-            setCourseLevels({
-              ...courseLevels,
-              finished_count:
-                courseLevels.finished_count + 1,
-            }),
-          );
-        }
-      }
-      // axiosInstance
-      //   .post(
-      //     `/academy/finish_lesson/${currentLessonId}/`,
-      //   )
-      //   .then((res) => {
-      //     if (
-      //       res?.data?.message &&
-      //       course &&
-      //       courseLevels
-      //     ) {
-      //       toast.success(res.data.message);
-      //       router.replace(
-      //         routePath("study", {
-      //           dynamicPaths: {
-      //             course: course.id,
-      //           },
-      //           queryParams: {
-      //             lesson:
-      //               courseLevels.lessons.at(-1)
-      //                 ?.id !== currentLessonId
-      //                 ? courseLevels.lessons.findIndex(
-      //                     (i) =>
-      //                       i.id ===
-      //                       currentLessonId,
-      //                   ) + 1
-      //                 : null,
-      //           },
-      //         }),
-      //       );
-      //       if (
-      //         courseLevels.finished_count + 1 <=
-      //         courseLevels.lessons.length
-      //       ) {
-      //         dispatch(
-      //           setCourseLevels({
-      //             ...courseLevels,
-      //             finished_count:
-      //               courseLevels.finished_count +
-      //               1,
-      //           }),
-      //         );
-      //       }
-      //     }
-      //   });
+                  ?.id !== course.current_lesson
+                  ? courseLevels.lessons[
+                      courseLevels.lessons.findIndex(
+                        (i) =>
+                          i.id ===
+                          course.current_lesson,
+                      ) + 1
+                    ].id
+                  : null;
+              dispatch(
+                setCourse({
+                  ...course,
+                  current_lesson: nextLessonId,
+                }),
+              );
+              setIsExam(nextLessonId === null);
+            } else {
+              setIsExam(true);
+            }
+          }
+        });
     }
   }
 
@@ -159,12 +119,12 @@ export default function LessonDetails() {
       course?.current_level === courseLevels?.id
     ) {
       if (
-        currentLessonId &&
+        course.current_lesson &&
         courseLevels.lessons.length > 0
       ) {
         const currentLesson =
           courseLevels.lessons.find(
-            (i) => i.id === currentLessonId,
+            (i) => i.id === course.current_lesson,
           );
         setIsExam(false);
         setLesson(currentLesson);
@@ -181,7 +141,7 @@ export default function LessonDetails() {
         setVideoId(undefined);
       }
     }
-  }, [course, courseLevels, currentLessonId]);
+  }, [course, courseLevels]);
 
   const upSm = useMediaQuery((theme) =>
     theme.breakpoints.up("sm"),
@@ -256,6 +216,8 @@ export default function LessonDetails() {
               styles.content,
               { ["page"]: !upMd },
             )}
+            onClick={finishLesson}
+            sx={{ background: "red" }}
           >
             <Box
               className={"flex_box"}
@@ -289,13 +251,18 @@ export default function LessonDetails() {
                 <LessonsList
                   key="LessonsList"
                   isExam={isExam}
-                  lessonId={currentLessonId}
+                  lessonId={
+                    course
+                      ? course.current_lesson
+                      : null
+                  }
                   activeId={lesson?.id}
                   onSelectLesson={(lesson) => {
                     if (
                       lesson.is_finished ||
-                      lesson.id ===
-                        currentLessonId
+                      (course &&
+                        lesson.id ===
+                          course.current_lesson)
                     ) {
                       setIsExam(false);
                       setLesson(lesson);

@@ -30,8 +30,8 @@ export interface IFeedbackListItem {
 export interface ITeammateListItem {
   id: number;
   full_name: string;
-  email: string;
-  phone: string;
+  email: string | null;
+  phone: string | null;
   avatar?: string;
   position: string;
 }
@@ -94,7 +94,10 @@ export interface ILevel {
 }
 
 export interface ICourseDetail
-  extends Omit<ICourseListItem, "teacher"> {
+  extends Omit<
+    ICourseListItem,
+    "teacher" | "icon"
+  > {
   teacher: ITeacherListItem;
   trailer: string;
   objectives: IObjectivesListItem[];
@@ -102,6 +105,7 @@ export interface ICourseDetail
   lesson_count: number;
   duration_count: string;
   is_learning: boolean;
+  finished_count: number;
   current_level: number;
   current_lesson: number | null;
 }
@@ -122,6 +126,10 @@ export interface IExamDetail {
   title: string;
   duration: string;
   pass_points: number;
+  user_exam_result: Omit<
+    IExamResults,
+    "max_points"
+  > | null;
 }
 
 export interface ICourseLevelDetail {

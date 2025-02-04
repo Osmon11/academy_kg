@@ -189,7 +189,7 @@ export default function RecoverPassword() {
             Отправить повторно через
           </Typography>
           <Timer
-            minutes={2}
+            seconds={120}
             onEnd={() =>
               setIsNewCodeAvailable(true)
             }
