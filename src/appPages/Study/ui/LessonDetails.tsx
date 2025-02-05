@@ -216,8 +216,6 @@ export default function LessonDetails() {
               styles.content,
               { ["page"]: !upMd },
             )}
-            onClick={finishLesson}
-            sx={{ background: "red" }}
           >
             <Box
               className={"flex_box"}
