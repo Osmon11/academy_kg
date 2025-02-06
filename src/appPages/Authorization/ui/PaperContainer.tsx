@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import { useRouter } from "next-nprogress-bar";
 import Image from "next/image";
 
 import {
@@ -9,7 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 
-import { routePath } from "@/shared/functions";
+import { useAppRouter } from "@/shared/hooks/useAppRouter";
 
 import arrowLeftBlackIcon from "@/icons/arrow-left-black.svg";
 import logoPrimaryIcon from "@/icons/logo-primary.svg";
@@ -29,7 +28,7 @@ export default function PaperContainer({
   children,
   ...props
 }: IPaperContainerProps) {
-  const router = useRouter();
+  const router = useAppRouter();
   function handleGoBack() {
     router.back();
   }
@@ -57,9 +56,7 @@ export default function PaperContainer({
         alt="islamic online-academy green icon"
         width={100}
         height={100}
-        onClick={() =>
-          router.push(routePath("main"))
-        }
+        onClick={() => router.push("main")}
       />
       <Typography
         variant="h5"

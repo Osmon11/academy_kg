@@ -1,11 +1,8 @@
 "use client";
 
-import {
-  useRouter,
-  useSearchParams,
-} from "next/navigation";
+import { setCookie } from "cookies-next/client";
+import { useSearchParams } from "next/navigation";
 import { useState } from "react";
-import { useCookies } from "react-cookie";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
@@ -13,10 +10,8 @@ import { Button } from "@mui/material";
 
 import { ControllerTextField } from "@/shared/UI";
 import axiosInstance from "@/shared/config/axiosClientInstance";
-import {
-  routePath,
-  sessionExpiration,
-} from "@/shared/functions";
+import { sessionExpiration } from "@/shared/functions";
+import { useAppRouter } from "@/shared/hooks/useAppRouter";
 
 import PaperContainer from "../PaperContainer";
 
@@ -25,7 +20,7 @@ interface IFormValues {
 }
 
 export default function VerifyAccount() {
-  const router = useRouter();
+  const router = useAppRouter();
   const {
     handleSubmit,
     control,
@@ -38,10 +33,6 @@ export default function VerifyAccount() {
   const searchParams = useSearchParams();
   const email = searchParams.get("email");
   const [loading, setLoading] = useState(false);
-  const setCookie = useCookies([
-    process.env
-      .NEXT_PUBLIC_ACCESS_TOKEN_KEY as string,
-  ])[1];
 
   function onSubmit(data: IFormValues) {
     setLoading(true);
@@ -56,13 +47,13 @@ export default function VerifyAccount() {
           setCookie(
             process.env
               .NEXT_PUBLIC_ACCESS_TOKEN_KEY as string,
-            res?.data.access,
+            res.data.access,
             {
               path: "/",
               expires: sessionExpiration(),
             },
           );
-          router.replace(routePath("accaunt"));
+          router.replace("accaunt");
         }
       })
       .finally(() => setLoading(false));

@@ -1,23 +1,19 @@
-import { useRouter } from "next-nprogress-bar";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 
 import { Button } from "@mui/material";
 
-import { routePath } from "@/shared/functions";
+import { useAppRouter } from "@/shared/hooks/useAppRouter";
 
 import loginIcon from "@/icons/login.svg";
-
-import { useAppSelector } from "../config/store";
 
 export function LoginButton({
   fullWidth,
 }: {
   fullWidth?: boolean;
 }) {
-  const router = useRouter();
-  const language = useAppSelector(
-    (store) => store.user.language,
-  );
+  const router = useAppRouter();
+  const t = useTranslations("Header");
   return (
     <Button
       startIcon={
@@ -28,9 +24,7 @@ export function LoginButton({
           height={24}
         />
       }
-      onClick={() =>
-        router.push(routePath("signIn"))
-      }
+      onClick={() => router.push("signIn")}
       sx={{
         minHeight: fullWidth ? 50 : 30,
         padding: "3px 10px",
@@ -43,7 +37,7 @@ export function LoginButton({
       variant="contained"
       fullWidth={fullWidth}
     >
-      {language === "RU" ? "ВХОД" : "КИРҮҮ"}
+      {t("login")}
     </Button>
   );
 }

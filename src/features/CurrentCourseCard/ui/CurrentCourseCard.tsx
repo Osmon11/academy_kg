@@ -1,4 +1,3 @@
-import { useRouter } from "next-nprogress-bar";
 import Image from "next/image";
 
 import {
@@ -8,10 +7,8 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
-import {
-  getPercentage,
-  routePath,
-} from "@/shared/functions";
+import { getPercentage } from "@/shared/functions";
+import { useAppRouter } from "@/shared/hooks/useAppRouter";
 import { IMyCourseListItem } from "@/shared/types";
 
 import playCirclePrimaryIcon from "@/icons/play-circle-primary.svg";
@@ -26,7 +23,7 @@ interface ICurrentCourseCardProps {
 export function CurrentCourseCard({
   course,
 }: ICurrentCourseCardProps) {
-  const router = useRouter();
+  const router = useAppRouter();
   const onlyXs = useMediaQuery((theme) =>
     theme.breakpoints.only("xs"),
   );
@@ -43,11 +40,9 @@ export function CurrentCourseCard({
     <Box
       className={styles.course_card}
       onClick={() =>
-        router.push(
-          routePath("study", {
-            dynamicPaths: { course: course.id },
-          }),
-        )
+        router.push("study", {
+          dynamicPaths: { course: course.id },
+        })
       }
     >
       <Box className={styles.flex_box}>

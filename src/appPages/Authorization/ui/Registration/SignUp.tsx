@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next-nprogress-bar";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -15,7 +14,7 @@ import {
   ControllerTextField,
 } from "@/shared/UI";
 import axiosInstance from "@/shared/config/axiosClientInstance";
-import { routePath } from "@/shared/functions";
+import { useAppRouter } from "@/shared/hooks/useAppRouter";
 
 import PaperContainer from "../PaperContainer";
 import styles from "../styles.module.scss";
@@ -29,7 +28,7 @@ interface IFormValues {
   gender: string;
 }
 export default function SignUp() {
-  const router = useRouter();
+  const router = useAppRouter();
   const {
     handleSubmit,
     control,
@@ -61,14 +60,12 @@ export default function SignUp() {
             .then((res) => {
               if (res?.data.message) {
                 toast.success(res?.data.message);
-                router.push(
-                  routePath("signUp", {
-                    queryParams: {
-                      verify: "true",
-                      email: data.email,
-                    },
-                  }),
-                );
+                router.push("signUp", {
+                  queryParams: {
+                    verify: "true",
+                    email: data.email,
+                  },
+                });
               }
             })
             .finally(() => setLoading(false));
@@ -218,9 +215,7 @@ export default function SignUp() {
           textAlign: "center",
         }}
         className={styles.link_text}
-        onClick={() =>
-          router.push(routePath("signUp"))
-        }
+        onClick={() => router.push("signUp")}
       >
         Войти в аккаунт
       </Typography>

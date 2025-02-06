@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 
 import {
   Box,
@@ -32,7 +31,7 @@ export function Footer() {
       )}
       <span>
         <Box className={styles.links_wrapper}>
-          <Link
+          <a
             href="https://odigital.app"
             target="_blank"
             rel="noopener"
@@ -40,9 +39,9 @@ export function Footer() {
             <Typography variant="body2">
               Политика конфиденциальности
             </Typography>
-          </Link>
+          </a>
           <Typography>|</Typography>
-          <Link
+          <a
             href=""
             target="_blank"
             rel="noopener"
@@ -50,9 +49,9 @@ export function Footer() {
             <Typography variant="body2">
               Библиотека
             </Typography>
-          </Link>
+          </a>
           <Typography>|</Typography>
-          <Link
+          <a
             href=""
             target="_blank"
             rel="noopener"
@@ -60,7 +59,7 @@ export function Footer() {
             <Typography variant="body2">
               Мир Знаний
             </Typography>
-          </Link>
+          </a>
         </Box>
         <Typography
           variant="body2"

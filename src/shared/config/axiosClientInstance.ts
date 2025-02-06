@@ -3,16 +3,19 @@ import axios, {
   AxiosResponse,
   InternalAxiosRequestConfig,
 } from "axios";
+import {
+  deleteCookie,
+  getCookie,
+  hasCookie,
+} from "cookies-next/client";
 import { signOut } from "next-auth/react";
-import { Cookies } from "react-cookie";
 import { toast } from "react-toastify";
 
 import { IErrorResponseData } from "../types";
 import { defaultConfig } from "./axios";
 
-const cookies = new Cookies();
-const tokenKey =
-  process.env.NEXT_PUBLIC_ACCESS_TOKEN_KEY;
+const tokenKey = process.env
+  .NEXT_PUBLIC_ACCESS_TOKEN_KEY as string;
 const unknownError =
   "Похоже возникла неизвестная ошибка";
 const axiosInstance = axios.create(defaultConfig);
@@ -20,11 +23,11 @@ const axiosInstance = axios.create(defaultConfig);
 axiosInstance.interceptors.request.use(
   function (config: InternalAxiosRequestConfig) {
     if (typeof window !== "undefined") {
-      const token: string = cookies.get(
-        tokenKey as string,
-      );
+      const token = getCookie(tokenKey);
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
+      } else if (config.headers.Authorization) {
+        delete config.headers.Authorization;
       }
     }
     return config;
@@ -69,8 +72,12 @@ axiosInstance.interceptors.response.use(
     if (error.response) {
       const resData = error.response?.data;
       if (error.response.status === 401) {
-        cookies.remove(tokenKey as string);
-        signOut();
+        if (hasCookie(tokenKey)) {
+          signOut();
+          deleteCookie(tokenKey, {
+            path: "/",
+          });
+        }
       }
       if (typeof window !== "undefined") {
         if (

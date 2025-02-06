@@ -1,4 +1,3 @@
-import { useRouter } from "next-nprogress-bar";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -14,7 +13,7 @@ import { Timer } from "@/entities/Timer";
 
 import { ControllerTextField } from "@/shared/UI";
 import axiosInstance from "@/shared/config/axiosClientInstance";
-import { routePath } from "@/shared/functions";
+import { useAppRouter } from "@/shared/hooks/useAppRouter";
 
 import PaperContainer from "../PaperContainer";
 import styles from "../styles.module.scss";
@@ -26,7 +25,7 @@ interface IFormValues {
 }
 
 export default function RecoverPassword() {
-  const router = useRouter();
+  const router = useAppRouter();
   const {
     handleSubmit,
     control,
@@ -69,11 +68,9 @@ export default function RecoverPassword() {
       .then((res) => {
         if (res?.data.message) {
           toast.success(res?.data.message);
-          router.push(
-            routePath("signIn", {
-              queryParams: { via: "email" },
-            }),
-          );
+          router.push("signIn", {
+            queryParams: { via: "email" },
+          });
         }
       })
       .finally(() => setLoading(false));

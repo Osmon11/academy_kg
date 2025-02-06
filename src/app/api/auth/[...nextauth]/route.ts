@@ -1,9 +1,14 @@
+import { setCookie } from "cookies-next";
 import NextAuth from "next-auth";
 import GoogleProvider, {
   GoogleProfile,
 } from "next-auth/providers/google";
 
-import { routePath } from "@/shared/functions";
+import { createAxiosInstanceForSSR } from "@/shared/config/axiosServerInstance";
+import {
+  routePath,
+  sessionExpiration,
+} from "@/shared/functions";
 
 declare module "next-auth" {
   interface Session {
@@ -20,14 +25,12 @@ declare module "next-auth/jwt" {
 
 const handler = NextAuth({
   secret: process.env.NEXTAUTH_SECRET,
-  debug: process.env.NODE_ENV === "development",
+  // debug: process.env.NODE_ENV === "development",
   session: {
     strategy: "jwt",
   },
   pages: {
-    signIn: routePath("signIn", {
-      queryParams: { via: "google" },
-    }),
+    signIn: routePath("signIn"),
   },
   providers: [
     GoogleProvider<GoogleProfile>({
@@ -38,19 +41,42 @@ const handler = NextAuth({
     }),
   ],
   callbacks: {
-    async jwt({ token, account }) {
-      // Persist the OAuth access_token to the token right after signin
-      if (account) {
-        token.accessToken = account.access_token;
-        token.idToken = account.id_token;
+    async jwt({ token, account, profile }) {
+      if (
+        profile &&
+        account &&
+        account.access_token
+      ) {
+        try {
+          const axiosInstance =
+            await createAxiosInstanceForSSR();
+          axiosInstance
+            .post("/auth/google_sign_in/", {
+              token: account.accessToken,
+              email: profile.email,
+              name: profile.name,
+            })
+            .then((res) => {
+              if (res?.data?.access) {
+                setCookie(
+                  process.env
+                    .NEXT_PUBLIC_ACCESS_TOKEN_KEY as string,
+                  res.data.access,
+                  {
+                    path: "/",
+                    expires: sessionExpiration(),
+                  },
+                );
+              }
+            });
+        } catch (error) {
+          console.error(
+            "Error fetching backend token:",
+            error,
+          );
+        }
       }
       return token;
-    },
-    async session({ session, token }) {
-      // Send properties to the client, like an access_token from a provider.
-      session.accessToken = token.accessToken;
-      session.idToken = token.idToken;
-      return session;
     },
   },
 });

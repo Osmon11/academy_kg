@@ -2,7 +2,6 @@
 
 import classNames from "classnames";
 import moment from "moment";
-import { useRouter } from "next-nprogress-bar";
 import Image from "next/image";
 import { useState } from "react";
 import { toast } from "react-toastify";
@@ -18,10 +17,8 @@ import {
 import axiosInstance from "@/shared/config/axiosClientInstance";
 import { SECTION_PADDING } from "@/shared/config/const";
 import { useAppSelector } from "@/shared/config/store";
-import {
-  getAllMinutes,
-  routePath,
-} from "@/shared/functions";
+import { getAllMinutes } from "@/shared/functions";
+import { useAppRouter } from "@/shared/hooks/useAppRouter";
 import { IUpcomingWebinarListItem } from "@/shared/types";
 
 import styles from "../styles.module.scss";
@@ -39,7 +36,7 @@ function ImageWrapper({
     (store) => store.user.profile,
   );
 
-  const router = useRouter();
+  const router = useAppRouter();
   const [loading, setLoading] = useState(false);
 
   function leaveARequest(
@@ -74,13 +71,11 @@ function ImageWrapper({
         );
       }
     } else {
-      router.push(
-        routePath("signIn", {
-          queryParams: {
-            return_pathname: "/webinars",
-          },
-        }),
-      );
+      router.push("signIn", {
+        queryParams: {
+          return_pathname: "/webinars",
+        },
+      });
     }
   }
   return (

@@ -19,34 +19,34 @@ export const PAGINATION_LIMIT = 10;
 
 export const mainNavLinks: INavLink[] = [
   {
-    label: { RU: "Главная", KG: "Негизги" },
+    label: "main",
     href: routePath("main"),
   },
   {
-    label: { RU: "Вебинары", KG: "Вебинарлар" },
+    label: "webinars",
     href: routePath("webinars"),
   },
   {
-    label: { RU: "О нас", KG: "Биз жөнүндө" },
+    label: "aboutUs",
     href: routePath("aboutUs"),
   },
   {
-    label: { RU: "Поддержать", KG: "Колдоо" },
+    label: "supportUs",
     href: routePath("supportUs"),
   },
 ];
 
 export const accountNavLinks: INavLink[] = [
   {
-    label: { RU: "Главная", KG: "Негизги" },
+    label: "main",
     href: routePath("accaunt"),
   },
   {
-    label: { RU: "Курсы", KG: "Курстар" },
+    label: "courses",
     href: routePath("courses"),
   },
   {
-    label: { RU: "Прогресс", KG: "Прогресс" },
+    label: "progress",
     href: routePath("progress"),
   },
 ];

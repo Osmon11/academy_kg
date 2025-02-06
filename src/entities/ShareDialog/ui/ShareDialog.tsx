@@ -71,9 +71,7 @@ export function ShareDialog({
       icon: copyPrimaryIcon,
       alt: "copy green icon",
       handleClick: () => {
-        navigator.clipboard.writeText(
-          `${shareText} ${shareUrl}`,
-        );
+        navigator.clipboard.writeText(shareUrl);
         toast.success("Скопировано!");
       },
     },

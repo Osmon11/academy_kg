@@ -41,7 +41,9 @@
       "@/backgrounds/*": [
         "./src/shared/assets/backgrounds/*"
       ],
-      "variables": ["./src/app/_variables.scss"]
+      "variables": [
+        "./src/shared/styles/_variables.scss"
+      ]
     }
   },
   "include": [

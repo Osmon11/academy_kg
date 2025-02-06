@@ -1,8 +1,3 @@
-export enum ELanguage {
-  "RU" = "RU",
-  "KG" = "KG",
-}
-
 export enum ERoute {
   "main" = "/",
   "aboutUs" = "/about-us",

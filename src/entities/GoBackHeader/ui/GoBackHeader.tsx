@@ -1,11 +1,7 @@
 "use client";
 
-import { useRouter } from "next-nprogress-bar";
 import Image from "next/image";
-import {
-  usePathname,
-  useSearchParams,
-} from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import React, {
   ReactElement,
   Suspense,
@@ -26,6 +22,8 @@ import {
   accountNavLinks,
   mainNavLinks,
 } from "@/shared/config/const";
+import { useAppRouter } from "@/shared/hooks/useAppRouter";
+import { usePathname } from "@/shared/i18n/routing";
 
 import arrowLeftIcon from "@/icons/arrow-left-black.svg";
 import menuGrayIcon from "@/icons/menu-gray.svg";
@@ -43,7 +41,7 @@ function Component({
   onGoBack,
   append,
 }: GoBackHeaderProps) {
-  const navigation = useRouter();
+  const navigation = useAppRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [open, setOpen] = useState(false);

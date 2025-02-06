@@ -1,0 +1,14 @@
+{
+  "Header": {
+    "main": "Главная",
+    "webinars": "Вебинары",
+    "aboutUs": "О нас",
+    "supportUs": "Поддержать",
+    "courses": "Курсы",
+    "progress": "Прогресс",
+    "login": "ВХОД",
+    "personalAccaunt": "Личный кабинет",
+    "myProfile": "Мой профиль",
+    "logout": "Выйти"
+  }
+}

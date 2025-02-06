@@ -1,11 +1,8 @@
 "use client";
 
 import classNames from "classnames";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
-import {
-  usePathname,
-  useRouter,
-} from "next/navigation";
 import { useState } from "react";
 
 import {
@@ -26,9 +23,10 @@ import {
   SearchTextField,
   TubeSpinner,
 } from "@/shared/UI";
-import { LanguageSelect } from "@/shared/UI";
+import { LocalizationMenu } from "@/shared/UI";
 import { useAppSelector } from "@/shared/config/store";
-import { routePath } from "@/shared/functions";
+import { useAppRouter } from "@/shared/hooks/useAppRouter";
+import { usePathname } from "@/shared/i18n/routing";
 import { INavLink } from "@/shared/types";
 
 import logoPrimaryIcon from "@/icons/logo-primary.svg";
@@ -47,9 +45,11 @@ export function DrawerSidebar({
   handleDrawerClose,
   navLinks,
 }: IDrawerSidebarProps) {
-  const router = useRouter();
-  const { profile, loading, language } =
-    useAppSelector((state) => state.user);
+  const t = useTranslations("Header");
+  const router = useAppRouter();
+  const { profile, loading } = useAppSelector(
+    (state) => state.user,
+  );
   const [search, setSearch] = useState("");
   const pathname = usePathname();
 
@@ -75,9 +75,7 @@ export function DrawerSidebar({
     >
       <Box className={styles.drawer_header}>
         <IconButton
-          onClick={() =>
-            router.push(routePath("main"))
-          }
+          onClick={() => router.push("main")}
         >
           <Image
             src={logoPrimaryIcon}
@@ -102,13 +100,11 @@ export function DrawerSidebar({
         }
         onKeyDown={(event) => {
           if (event.key === "Enter" && search) {
-            router.push(
-              routePath("searchCourses", {
-                queryParams: {
-                  search: search,
-                },
-              }),
-            );
+            router.push("searchCourses", {
+              queryParams: {
+                search: search,
+              },
+            });
           }
         }}
         color="white"
@@ -144,13 +140,12 @@ export function DrawerSidebar({
                   },
                 )}
                 onClick={() =>
+                  // @ts-expect-error Argument of type 'string' is not assignable to parameter of type
                   router.push(navItem.href)
                 }
               >
                 <ListItemText
-                  primary={
-                    navItem.label[language]
-                  }
+                  primary={t(navItem.label)}
                   slotProps={{
                     primary: {
                       variant: "body2",
@@ -190,7 +185,7 @@ export function DrawerSidebar({
           marginTop: "30px",
         }}
       >
-        <LanguageSelect color="black" />
+        <LocalizationMenu color="black" />
       </Box>
     </Drawer>
   );

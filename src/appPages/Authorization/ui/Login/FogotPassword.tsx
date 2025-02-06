@@ -1,4 +1,3 @@
-import { useRouter } from "next-nprogress-bar";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -11,7 +10,7 @@ import {
 
 import { ControllerTextField } from "@/shared/UI";
 import axiosInstance from "@/shared/config/axiosClientInstance";
-import { routePath } from "@/shared/functions";
+import { useAppRouter } from "@/shared/hooks/useAppRouter";
 
 import PaperContainer from "../PaperContainer";
 import styles from "../styles.module.scss";
@@ -21,7 +20,7 @@ interface IFormValues {
 }
 
 export default function FogotPassword() {
-  const router = useRouter();
+  const router = useAppRouter();
   const {
     handleSubmit,
     control,
@@ -40,14 +39,12 @@ export default function FogotPassword() {
       .then((res) => {
         if (res?.data.message) {
           toast.success(res?.data.message);
-          router.push(
-            routePath("signIn", {
-              queryParams: {
-                via: "recover_password",
-                email: data.email,
-              },
-            }),
-          );
+          router.push("signIn", {
+            queryParams: {
+              via: "recover_password",
+              email: data.email,
+            },
+          });
         }
       })
       .finally(() => {
@@ -103,9 +100,7 @@ export default function FogotPassword() {
             textAlign: "center",
           }}
           className={styles.link_text}
-          onClick={() =>
-            router.push(routePath("signUp"))
-          }
+          onClick={() => router.push("signUp")}
         >
           Создать аккаунт
         </Typography>

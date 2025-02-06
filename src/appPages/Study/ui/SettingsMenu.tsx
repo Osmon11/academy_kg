@@ -1,4 +1,4 @@
-import { useRouter } from "next-nprogress-bar";
+import { useLocale } from "next-intl";
 import Image from "next/image";
 import { Fragment, useState } from "react";
 
@@ -13,6 +13,8 @@ import { ShareDialog } from "@/entities/ShareDialog";
 
 import { useAppSelector } from "@/shared/config/store";
 import { routePath } from "@/shared/functions";
+import { useAppRouter } from "@/shared/hooks/useAppRouter";
+import { getPathname } from "@/shared/i18n/routing";
 
 import bookSquareIconPrimary from "@/icons/book-square-primary.svg";
 import settingIconPrimary from "@/icons/settng-primary.svg";
@@ -21,7 +23,8 @@ import shareIconPrimary from "@/icons/share-primary.svg";
 import styles from "../styles.module.scss";
 
 export default function SettingsMenu() {
-  const router = useRouter();
+  const locale = useLocale();
+  const router = useAppRouter();
   const course = useAppSelector(
     (store) => store.course.course,
   );
@@ -65,13 +68,11 @@ export default function SettingsMenu() {
               className={styles.menu_item}
               onClick={() => {
                 setAnchorEl(null);
-                router.push(
-                  routePath("[course]", {
-                    dynamicPaths: {
-                      course: course.id,
-                    },
-                  }),
-                );
+                router.push("[course]", {
+                  dynamicPaths: {
+                    course: course.id,
+                  },
+                });
               }}
             >
               <Image
@@ -106,10 +107,13 @@ export default function SettingsMenu() {
             shareText={course.title}
             shareUrl={
               window.location.origin +
-              routePath("[course]", {
-                dynamicPaths: {
-                  course: course.id,
-                },
+              getPathname({
+                locale,
+                href: routePath("[course]", {
+                  dynamicPaths: {
+                    course: course.id,
+                  },
+                }),
               })
             }
           />

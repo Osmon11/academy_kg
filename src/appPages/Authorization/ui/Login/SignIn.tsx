@@ -1,9 +1,8 @@
 "use client";
 
-import { useRouter } from "next-nprogress-bar";
+import { setCookie } from "cookies-next/client";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
-import { useCookies } from "react-cookie";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
@@ -15,10 +14,8 @@ import {
 
 import { ControllerTextField } from "@/shared/UI";
 import axiosInstance from "@/shared/config/axiosClientInstance";
-import {
-  routePath,
-  sessionExpiration,
-} from "@/shared/functions";
+import { sessionExpiration } from "@/shared/functions";
+import { useAppRouter } from "@/shared/hooks/useAppRouter";
 import { IErrorResponseData } from "@/shared/types";
 
 import PaperContainer from "../PaperContainer";
@@ -29,7 +26,7 @@ interface IFormValues {
   password: string;
 }
 export default function SignIn() {
-  const router = useRouter();
+  const router = useAppRouter();
   const {
     handleSubmit,
     control,
@@ -44,14 +41,6 @@ export default function SignIn() {
   const returnPathname = searchParams.get(
     "return_pathname",
   );
-
-  const [
-    { access_token_ilimnuru_kg },
-    setCookie,
-  ] = useCookies([
-    process.env
-      .NEXT_PUBLIC_ACCESS_TOKEN_KEY as string,
-  ]);
   const [loading, setLoading] = useState(false);
 
   function onSubmit(data: IFormValues) {
@@ -59,22 +48,19 @@ export default function SignIn() {
     axiosInstance
       .post("/auth/login/", data)
       .then((res) => {
-        if (
-          res?.data.access &&
-          access_token_ilimnuru_kg === undefined
-        ) {
+        if (res?.data?.access) {
           setCookie(
             process.env
               .NEXT_PUBLIC_ACCESS_TOKEN_KEY as string,
-            res?.data.access,
+            res.data.access,
             {
               path: "/",
               expires: sessionExpiration(),
             },
           );
           router.replace(
-            returnPathname ??
-              routePath("accaunt"),
+            // @ts-expect-error Argument of type 'string' is not assignable to parameter of type
+            returnPathname ?? "accaunt",
           );
           setLoading(false);
         }
@@ -91,14 +77,12 @@ export default function SignIn() {
             .then((res) => {
               if (res?.data.message) {
                 toast.success(res?.data.message);
-                router.push(
-                  routePath("signUp", {
-                    queryParams: {
-                      verify: "true",
-                      email: data.email,
-                    },
-                  }),
-                );
+                router.push("signUp", {
+                  queryParams: {
+                    verify: "true",
+                    email: data.email,
+                  },
+                });
               }
             })
             .finally(() => setLoading(false));
@@ -150,13 +134,11 @@ export default function SignIn() {
             className={styles.link_text}
             sx={{ width: "fit-content" }}
             onClick={() =>
-              router.push(
-                routePath("signIn", {
-                  queryParams: {
-                    via: "fogot_password",
-                  },
-                }),
-              )
+              router.push("signIn", {
+                queryParams: {
+                  via: "fogot_password",
+                },
+              })
             }
           >
             Забыли пароль?
@@ -197,9 +179,7 @@ export default function SignIn() {
             textAlign: "center",
           }}
           className={styles.link_text}
-          onClick={() =>
-            router.push(routePath("signUp"))
-          }
+          onClick={() => router.push("signUp")}
         >
           Создать аккаунт
         </Typography>

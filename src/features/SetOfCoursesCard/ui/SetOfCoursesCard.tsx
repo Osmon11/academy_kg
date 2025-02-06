@@ -1,5 +1,3 @@
-import { useRouter } from "next-nprogress-bar";
-
 import {
   Box,
   Card,
@@ -8,7 +6,7 @@ import {
   Typography,
 } from "@mui/material";
 
-import { routePath } from "@/shared/functions";
+import { useAppRouter } from "@/shared/hooks/useAppRouter";
 import { ISetOfCourses } from "@/shared/types";
 
 import styles from "./SetOfCoursesCard.module.scss";
@@ -19,19 +17,17 @@ interface ISetOfCoursesCardProps {
 export function SetOfCoursesCard({
   setOfCourses,
 }: ISetOfCoursesCardProps) {
-  const router = useRouter();
+  const router = useAppRouter();
   return (
     <Card
       className={styles.setOfCourses_card}
       onClick={() =>
-        router.push(
-          routePath("searchCourses", {
-            queryParams: {
-              setId: setOfCourses.id,
-              setTitle: setOfCourses.title,
-            },
-          }),
-        )
+        router.push("searchCourses", {
+          queryParams: {
+            setId: setOfCourses.id,
+            setTitle: setOfCourses.title,
+          },
+        })
       }
     >
       <CardMedia

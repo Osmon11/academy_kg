@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next-nprogress-bar";
 import Image from "next/image";
 
 import {
@@ -9,10 +8,8 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
-import {
-  formatThePrice,
-  routePath,
-} from "@/shared/functions";
+import { formatThePrice } from "@/shared/functions";
+import { useAppRouter } from "@/shared/hooks/useAppRouter";
 import { ICourseListItem } from "@/shared/types";
 
 import styles from "./CourseCard.module.scss";
@@ -24,7 +21,7 @@ interface ICourseCardProps {
 export function CourseCard({
   course,
 }: ICourseCardProps) {
-  const router = useRouter();
+  const router = useAppRouter();
   const onlyXs = useMediaQuery((theme) =>
     theme.breakpoints.only("xs"),
   );
@@ -41,11 +38,9 @@ export function CourseCard({
     <Box
       className={styles.course_card}
       onClick={() =>
-        router.push(
-          routePath("[course]", {
-            dynamicPaths: { course: course.id },
-          }),
-        )
+        router.push("[course]", {
+          dynamicPaths: { course: course.id },
+        })
       }
     >
       <Box className={styles.flex_box}>

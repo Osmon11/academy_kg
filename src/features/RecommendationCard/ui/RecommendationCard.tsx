@@ -1,4 +1,3 @@
-import { useRouter } from "next-nprogress-bar";
 import Image from "next/image";
 
 import {
@@ -9,7 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 
-import { routePath } from "@/shared/functions";
+import { useAppRouter } from "@/shared/hooks/useAppRouter";
 import { ICourseListItem } from "@/shared/types";
 
 import logoIcon from "@/icons/logo.svg";
@@ -22,18 +21,16 @@ interface IRecommendationCardProps {
 export function RecommendationCard({
   recommendation,
 }: IRecommendationCardProps) {
-  const router = useRouter();
+  const router = useAppRouter();
   return (
     <Card
       className={styles.recommendation_card}
       onClick={() =>
-        router.push(
-          routePath("[course]", {
-            dynamicPaths: {
-              course: recommendation.id,
-            },
-          }),
-        )
+        router.push("[course]", {
+          dynamicPaths: {
+            course: recommendation.id,
+          },
+        })
       }
     >
       {recommendation.image ? (

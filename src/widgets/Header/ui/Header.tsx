@@ -1,9 +1,8 @@
 "use client";
 
 import classNames from "classnames";
-import { useRouter } from "next-nprogress-bar";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
 import { Fragment, useState } from "react";
 
 import {
@@ -19,7 +18,7 @@ import { DrawerSidebar } from "@/entities/DrawerSidebar";
 import { UserProfile } from "@/entities/UserProfile";
 
 import {
-  LanguageSelect,
+  LocalizationMenu,
   LoginButton,
   TubeSpinner,
 } from "@/shared/UI";
@@ -28,7 +27,8 @@ import {
   mainNavLinks,
 } from "@/shared/config/const";
 import { useAppSelector } from "@/shared/config/store";
-import { routePath } from "@/shared/functions";
+import { useAppRouter } from "@/shared/hooks/useAppRouter";
+import { usePathname } from "@/shared/i18n/routing";
 
 import logoPrimaryIcon from "@/icons/logo-primary.svg";
 import logoIcon from "@/icons/logo.svg";
@@ -45,9 +45,11 @@ export function Header({
   background,
   ...props
 }: IHeaderProps) {
-  const router = useRouter();
-  const { profile, loading, language } =
-    useAppSelector((state) => state.user);
+  const router = useAppRouter();
+  const t = useTranslations("Header");
+  const { profile, loading } = useAppSelector(
+    (state) => state.user,
+  );
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
@@ -70,9 +72,7 @@ export function Header({
       )}
     >
       <IconButton
-        onClick={() =>
-          router.push(routePath("main"))
-        }
+        onClick={() => router.push("main")}
       >
         <Image
           src={
@@ -113,6 +113,7 @@ export function Header({
                     : "primary"
                 }
                 onClick={() =>
+                  // @ts-expect-error Argument of type 'string' is not assignable to parameter of type
                   router.push(navItem.href)
                 }
                 sx={{
@@ -122,7 +123,7 @@ export function Header({
                   lineHeight: "17px",
                 }}
               >
-                {navItem.label[language]}
+                {t(navItem.label)}
               </Typography>
             );
           })}
@@ -138,7 +139,7 @@ export function Header({
       >
         {upMd ? (
           <Fragment>
-            <LanguageSelect
+            <LocalizationMenu
               color={
                 isTransparent ? "white" : "black"
               }

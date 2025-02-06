@@ -1,7 +1,6 @@
 "use client";
 
 import classNames from "classnames";
-import { useRouter } from "next-nprogress-bar";
 import { useEffect, useState } from "react";
 import YouTube from "react-youtube";
 
@@ -27,10 +26,8 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "@/shared/config/store";
-import {
-  getYouTubeVideoId,
-  routePath,
-} from "@/shared/functions";
+import { getYouTubeVideoId } from "@/shared/functions";
+import { useAppRouter } from "@/shared/hooks/useAppRouter";
 import {
   setCourse,
   setLoading,
@@ -47,7 +44,7 @@ interface ICourseOverviewPageProps {
 export function CourseOverviewPage({
   courseId,
 }: ICourseOverviewPageProps) {
-  const router = useRouter();
+  const router = useAppRouter();
   const dispatch = useAppDispatch();
   const profile = useAppSelector(
     (store) => store.user.profile,
@@ -62,14 +59,12 @@ export function CourseOverviewPage({
   function onClickStudy() {
     if (course && !processing) {
       if (!profile) {
-        return router.push(routePath("signIn"));
+        return router.push("signIn");
       }
       if (course.is_learning) {
-        router.push(
-          routePath("study", {
-            dynamicPaths: { course: course.id },
-          }),
-        );
+        router.push("study", {
+          dynamicPaths: { course: course.id },
+        });
       } else {
         setProcessing(true);
         axiosInstance
@@ -78,13 +73,11 @@ export function CourseOverviewPage({
           })
           .then((res) => {
             if (res?.data?.message) {
-              router.push(
-                routePath("study", {
-                  dynamicPaths: {
-                    course: course.id,
-                  },
-                }),
-              );
+              router.push("study", {
+                dynamicPaths: {
+                  course: course.id,
+                },
+              });
             }
           })
           .finally(() => setProcessing(false));

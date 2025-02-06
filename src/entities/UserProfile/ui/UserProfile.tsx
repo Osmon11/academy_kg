@@ -1,9 +1,8 @@
+import { deleteCookie } from "cookies-next/client";
 import { signOut } from "next-auth/react";
-import { useRouter } from "next-nprogress-bar";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
 import { Fragment, useState } from "react";
-import { useCookies } from "react-cookie";
 
 import {
   Box,
@@ -13,8 +12,8 @@ import {
   Typography,
 } from "@mui/material";
 
-import { useAppSelector } from "@/shared/config/store";
-import { routePath } from "@/shared/functions";
+import { useAppRouter } from "@/shared/hooks/useAppRouter";
+import { usePathname } from "@/shared/i18n/routing";
 import { IProfile } from "@/shared/types";
 
 import avatarGrayIcon from "@/icons/avatar-gray.svg";
@@ -34,27 +33,22 @@ export function UserProfile({
   shortFullname,
   sx,
 }: IUserProfileProps) {
-  const language = useAppSelector(
-    (store) => store.user.language,
-  );
+  const t = useTranslations("Header");
   const [anchorEl, setAnchorEl] =
     useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const removeCookie = useCookies([
-    process.env
-      .NEXT_PUBLIC_ACCESS_TOKEN_KEY as string,
-  ])[2];
+  const router = useAppRouter();
   const pathname = usePathname();
-  const router = useRouter();
 
   function logout() {
-    signOut();
     setAnchorEl(null);
-    removeCookie(
+    signOut();
+    deleteCookie(
       process.env
         .NEXT_PUBLIC_ACCESS_TOKEN_KEY as string,
+      { path: "/" },
     );
-    router.push(routePath("main"));
+    router.push("main");
   }
   return (
     <Fragment>
@@ -139,29 +133,23 @@ export function UserProfile({
           <MenuItem
             onClick={() => {
               setAnchorEl(null);
-              router.push(routePath("accaunt"));
+              router.push("accaunt");
             }}
           >
-            {language === "RU"
-              ? "Личный кабинет"
-              : "Жеке кабинет"}
+            {t("personalAccaunt")}
           </MenuItem>
         )}
         <MenuItem
           onClick={() => {
             setAnchorEl(null);
-            router.push(routePath("profile"));
+            router.push("profile");
           }}
         >
-          {language === "RU"
-            ? "Мой профиль"
-            : "Менин профилим"}
+          {t("myProfile")}
         </MenuItem>
         <MenuItem onClick={logout}>
           <Typography color="error">
-            {language === "RU"
-              ? "Выйти"
-              : "Чыгуу"}
+            {t("logout")}
           </Typography>
         </MenuItem>
       </Menu>

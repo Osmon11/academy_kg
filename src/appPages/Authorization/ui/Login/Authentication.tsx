@@ -1,16 +1,9 @@
 "use client";
 
-import {
-  signIn,
-  useSession,
-} from "next-auth/react";
+import { signIn } from "next-auth/react";
 import Image from "next/image";
-import {
-  useRouter,
-  useSearchParams,
-} from "next/navigation";
-import { useEffect, useState } from "react";
-import { useCookies } from "react-cookie";
+import { useSearchParams } from "next/navigation";
+import { useState } from "react";
 
 import {
   Box,
@@ -18,11 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 
-import axiosInstance from "@/shared/config/axiosClientInstance";
-import {
-  routePath,
-  sessionExpiration,
-} from "@/shared/functions";
+import { useAppRouter } from "@/shared/hooks/useAppRouter";
 
 import googleColorfulIcon from "@/icons/google-colorful.svg";
 import smsCoalGrayIcon from "@/icons/sms-coal-gray.svg";
@@ -31,61 +20,15 @@ import PaperContainer from "../PaperContainer";
 import styles from "../styles.module.scss";
 
 export function Authentication() {
-  const router = useRouter();
-  const { data: session, status } = useSession();
+  const router = useAppRouter();
   const searchParams = useSearchParams();
-  const via = searchParams.get("via");
   const searchParamsObject = Object.fromEntries(
     searchParams.entries(),
   );
-  const setCookie = useCookies([
-    process.env
-      .NEXT_PUBLIC_ACCESS_TOKEN_KEY as string,
-  ])[1];
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    if (
-      via === "google" &&
-      status === "authenticated" &&
-      session &&
-      session.accessToken &&
-      session.user
-    ) {
-      setLoading(true);
-      axiosInstance
-        .post("/auth/google_sign_in/", {
-          token: session.accessToken,
-          email: session.user.email,
-          name: session.user.name,
-        })
-        .then((res) => {
-          if (res?.data?.access) {
-            setCookie(
-              process.env
-                .NEXT_PUBLIC_ACCESS_TOKEN_KEY as string,
-              res.data.access,
-              {
-                path: "/",
-                expires: sessionExpiration(),
-              },
-            );
-            router.replace(routePath("accaunt"));
-          }
-        })
-        .catch(() =>
-          router.replace(routePath("signIn")),
-        )
-        .finally(() => setLoading(false));
-    }
-  }, [session, status, via, setCookie, router]);
+  const [loading] = useState(false);
 
   function handleGoogleSignIn() {
-    signIn("google", {
-      callbackUrl: routePath("signIn", {
-        queryParams: { via: "google" },
-      }),
-    });
+    signIn("google");
   }
   return (
     <PaperContainer title="Войти или зарегистрироваться">
@@ -121,14 +64,12 @@ export function Authentication() {
           />
         }
         onClick={() =>
-          router.push(
-            routePath("signIn", {
-              queryParams: {
-                ...searchParamsObject,
-                via: "email",
-              },
-            }),
-          )
+          router.push("signIn", {
+            queryParams: {
+              ...searchParamsObject,
+              via: "email",
+            },
+          })
         }
         disabled={loading}
         fullWidth
@@ -148,9 +89,7 @@ export function Authentication() {
       <Button
         color="primary"
         variant="contained"
-        onClick={() =>
-          router.push(routePath("signUp"))
-        }
+        onClick={() => router.push("signUp")}
         disabled={loading}
         fullWidth
       >

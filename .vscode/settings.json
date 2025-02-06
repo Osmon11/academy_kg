@@ -7,5 +7,10 @@
   "editor.formatOnSave": true,
   "editor.formatOnPaste": false,
   "prettier.useEditorConfig": false,
-  "prettier.configPath": ".prettierrc.json"
+  "prettier.configPath": ".prettierrc.json",
+  "i18n-ally.localesPaths": [
+    "../src/shared/i18n",
+    "../src/shared/i18n/messages"
+  ],
+  "i18n-ally.keystyle": "nested"
 }

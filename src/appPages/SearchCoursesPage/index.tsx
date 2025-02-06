@@ -1,10 +1,7 @@
 "use client";
 
 import classNames from "classnames";
-import {
-  useRouter,
-  useSearchParams,
-} from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import queryString from "query-string";
 import { useEffect, useState } from "react";
 
@@ -25,14 +22,14 @@ import {
   TubeSpinner,
 } from "@/shared/UI";
 import axiosInstance from "@/shared/config/axiosClientInstance";
-import { routePath } from "@/shared/functions";
+import { useAppRouter } from "@/shared/hooks/useAppRouter";
 import {
   ICourseListItem,
   IPaginatedList,
 } from "@/shared/types";
 
 export function SearchCoursesPage() {
-  const router = useRouter();
+  const router = useAppRouter();
   const searchParams = useSearchParams();
   const search = searchParams.get("search");
   const setId = searchParams.get("setId");
@@ -104,13 +101,11 @@ export function SearchCoursesPage() {
                   event.key === "Enter" &&
                   searchInput
                 ) {
-                  router.push(
-                    routePath("searchCourses", {
-                      queryParams: {
-                        search: searchInput,
-                      },
-                    }),
-                  );
+                  router.push("searchCourses", {
+                    queryParams: {
+                      search: searchInput,
+                    },
+                  });
                 }
               }}
               color="white"

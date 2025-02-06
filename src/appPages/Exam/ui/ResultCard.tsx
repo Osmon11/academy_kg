@@ -1,4 +1,3 @@
-import { useRouter } from "next-nprogress-bar";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -11,7 +10,7 @@ import {
 
 import axiosInstance from "@/shared/config/axiosClientInstance";
 import { useAppSelector } from "@/shared/config/store";
-import { routePath } from "@/shared/functions";
+import { useAppRouter } from "@/shared/hooks/useAppRouter";
 
 import documentDownloadIcon from "@/icons/document-download.svg";
 
@@ -30,7 +29,7 @@ export default function ResultCard({
   correctAnswers,
   score,
 }: IResultCardProps) {
-  const router = useRouter();
+  const router = useAppRouter();
   const { examQuestions } = useAppSelector(
     (store) => store.exam,
   );
@@ -207,9 +206,7 @@ export default function ResultCard({
       </Paper>
       <Button
         variant="text"
-        onClick={() =>
-          router.push(routePath("accaunt"))
-        }
+        onClick={() => router.push("accaunt")}
         sx={{
           fontSize: "22px",
           fontWeight: 700,

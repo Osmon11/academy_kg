@@ -1,6 +1,8 @@
 {
   "recommendations": [
     "gruntfuggly.triggertaskonsave",
-    "esbenp.prettier-vscode"
+    "esbenp.prettier-vscode",
+    "inlang.vs-code-extension",
+    "lokalise.i18n-ally"
   ]
 }

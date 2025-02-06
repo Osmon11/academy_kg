@@ -1,4 +1,7 @@
+import { useLocale } from "next-intl";
+import { useRouter } from "next-nprogress-bar";
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
 import { Fragment, useState } from "react";
 
 import {
@@ -7,20 +10,18 @@ import {
   MenuItem,
 } from "@mui/material";
 
-import { ELanguage } from "@/shared/config/enum";
-
 import arrowDownBlackIcon from "@/icons/arrow-down-black.svg";
 import arrowDownIcon from "@/icons/arrow-down.svg";
 import globalBlackIcon from "@/icons/global-black.svg";
 import globalIcon from "@/icons/global.svg";
 
 import {
-  useAppDispatch,
-  useAppSelector,
-} from "../config/store";
-import { setLanguage } from "../model";
+  getPathname,
+  routing,
+  usePathname,
+} from "../i18n/routing";
 
-interface ILanguageSelectProps {
+interface ILocalizationMenuProps {
   color: "white" | "black" | "primary";
 }
 
@@ -30,12 +31,15 @@ const colors = {
   primary: "primary",
 };
 
-export function LanguageSelect({
+export function LocalizationMenu({
   color,
-}: ILanguageSelectProps) {
-  const dispatch = useAppDispatch();
-  const language = useAppSelector(
-    (store) => store.user.language,
+}: ILocalizationMenuProps) {
+  const router = useRouter();
+  const locale = useLocale();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const searchParamsObject = Object.fromEntries(
+    searchParams.entries(),
   );
   const [anchorEl, setAnchorEl] =
     useState<null | HTMLElement>(null);
@@ -45,13 +49,6 @@ export function LanguageSelect({
   ) {
     setAnchorEl(event.currentTarget);
   }
-  function changeLanguage(
-    value: typeof language,
-  ) {
-    dispatch(setLanguage(value));
-    setAnchorEl(null);
-  }
-  const languages = Object.values(ELanguage);
   return (
     <Fragment>
       <Button
@@ -94,27 +91,36 @@ export function LanguageSelect({
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
       >
-        {language}
+        {locale.split("-")[1]}
       </Button>
       <Menu
         id="language-menu"
         anchorEl={anchorEl}
         open={open}
-        onClose={() => changeLanguage(language)}
+        onClose={() => setAnchorEl(null)}
         MenuListProps={{
           "aria-labelledby": "language-button",
           color: "primary",
         }}
       >
-        {languages.map((lang) => (
+        {routing.locales.map((item) => (
           <MenuItem
-            key={lang}
-            selected={language === lang}
-            onClick={() =>
-              changeLanguage(lang as ELanguage)
-            }
+            key={item}
+            selected={locale === item}
+            onClick={() => {
+              router.replace(
+                getPathname({
+                  locale: item,
+                  href: {
+                    pathname,
+                    query: searchParamsObject,
+                  },
+                }),
+              );
+              setAnchorEl(null);
+            }}
           >
-            {lang}
+            {item.split("-")[1]}
           </MenuItem>
         ))}
       </Menu>

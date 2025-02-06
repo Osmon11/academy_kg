@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next-nprogress-bar";
+import { useLocale } from "next-intl";
 import Image from "next/image";
 import {
   Fragment,
@@ -25,11 +25,8 @@ import { SectionHeader } from "@/entities/SectionHeader";
 
 import axiosInstance from "@/shared/config/axiosClientInstance";
 import { SECTION_MARGIN_TOP } from "@/shared/config/const";
-import { useAppSelector } from "@/shared/config/store";
-import {
-  getUserLocation,
-  routePath,
-} from "@/shared/functions";
+import { getUserLocation } from "@/shared/functions";
+import { useAppRouter } from "@/shared/hooks/useAppRouter";
 import {
   IFeedbackListItem,
   ITeacherListItem,
@@ -46,10 +43,8 @@ import HowItWorks from "./ui/HowItWorks";
 import Subjects from "./ui/Subjects";
 
 export function MainPage() {
-  const router = useRouter();
-  const language = useAppSelector(
-    (store) => store.user.language,
-  );
+  const router = useAppRouter();
+  const locale = useLocale();
   const videoRef = useRef<HTMLDivElement>(null);
   const [teacherList, setTeacherList] = useState<
     ITeacherListItem[]
@@ -57,7 +52,7 @@ export function MainPage() {
   const [feedbackList, setFeedbackList] =
     useState<IFeedbackListItem[]>([]);
   const [userLocation, setUserLocation] =
-    useState("Не найдено");
+    useState("неизвестно");
   const [fetchingLocation, setFetchingLocation] =
     useState(true);
 
@@ -88,16 +83,14 @@ export function MainPage() {
       });
   }, []);
   useEffect(() => {
-    getUserLocation(
-      language === "RU" ? "ru" : "ky",
-    )
+    getUserLocation(locale)
       .then((location) => {
         if (location) {
           setUserLocation(location);
         }
       })
       .finally(() => setFetchingLocation(false));
-  }, [language]);
+  }, [locale]);
 
   const scrollToVideo = () => {
     videoRef.current?.scrollIntoView({
@@ -164,9 +157,7 @@ export function MainPage() {
         <Button
           variant="convex"
           color="primary"
-          onClick={() =>
-            router.push(routePath("signUp"))
-          }
+          onClick={() => router.push("signUp")}
           sx={{
             marginTop: "18px",
           }}

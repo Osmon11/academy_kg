@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next-nprogress-bar";
 import { useEffect, useState } from "react";
 
 import {
@@ -14,7 +13,7 @@ import { Footer } from "@/widgets/Footer";
 import { Header } from "@/widgets/Header";
 
 import { SearchTextField } from "@/shared/UI";
-import { routePath } from "@/shared/functions";
+import { useAppRouter } from "@/shared/hooks/useAppRouter";
 
 import AcademyCoreProgram from "./ui/AcademyCoreProgram";
 import ArabLanguage from "./ui/ArabLanguage";
@@ -24,7 +23,7 @@ import LifeOfTheProphet from "./ui/LifeOfTheProphet";
 import NewCourses from "./ui/NewCourses";
 
 export function AllCoursesPage() {
-  const router = useRouter();
+  const router = useAppRouter();
   const [search, setSearch] = useState("");
 
   useEffect(() => () => setSearch(""), []);
@@ -63,11 +62,9 @@ export function AllCoursesPage() {
                   event.key === "Enter" &&
                   search
                 ) {
-                  router.push(
-                    routePath("searchCourses", {
-                      queryParams: { search },
-                    }),
-                  );
+                  router.push("searchCourses", {
+                    queryParams: { search },
+                  });
                 }
               }}
               color="white"

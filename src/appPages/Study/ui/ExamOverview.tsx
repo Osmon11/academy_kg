@@ -1,5 +1,3 @@
-import { useRouter } from "next-nprogress-bar";
-
 import {
   Box,
   Button,
@@ -8,12 +6,12 @@ import {
 } from "@mui/material";
 
 import { useAppSelector } from "@/shared/config/store";
-import { routePath } from "@/shared/functions";
+import { useAppRouter } from "@/shared/hooks/useAppRouter";
 
 import styles from "../styles.module.scss";
 
 export default function ExamOverview() {
-  const router = useRouter();
+  const router = useAppRouter();
   const { course, courseLevels } = useAppSelector(
     (store) => store.course,
   );
@@ -79,15 +77,13 @@ export default function ExamOverview() {
         size="small"
         onClick={() => {
           if (courseLevels.exam) {
-            router.push(
-              routePath("exam", {
-                dynamicPaths: {
-                  course: course.id,
-                  exam: courseLevels.exam.id,
-                  level: courseLevels.level,
-                },
-              }),
-            );
+            router.push("exam", {
+              dynamicPaths: {
+                course: course.id,
+                exam: courseLevels.exam.id,
+                level: courseLevels.level,
+              },
+            });
           }
         }}
         disabled={
