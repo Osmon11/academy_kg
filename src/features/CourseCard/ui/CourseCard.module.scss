@@ -13,10 +13,10 @@
   display: flex;
   justify-content: space-between;
   > :nth-child(1) {
-    align-items: start;
+    align-items: flex-start;
   }
   > :nth-child(2) {
-    align-items: end;
+    align-items: flex-end;
   }
   .price {
     width: fit-content;

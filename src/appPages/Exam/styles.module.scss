@@ -65,7 +65,7 @@
 
 @media (min-width: variables.$theme-breakpoint-xs) {
   .wrapper {
-    justify-content: start;
+    justify-content: flex-start;
   }
   .question_card {
     width: calc(100vw - 40px);
