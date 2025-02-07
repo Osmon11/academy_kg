@@ -33,7 +33,15 @@ const eslintConfig = [
       ],
       "@typescript-eslint/no-unused-vars": "off",
       // Avoid hardcoded labels
-      //"react/jsx-no-literals": "error", // Be careful though that this doesn’t catch hardcoded attributes (e.g. aria-label="Open menu").
+      "react/jsx-no-literals": [
+        // Be careful though that this doesn’t catch hardcoded attributes (e.g. aria-label="Open menu").
+        "error",
+        {
+          noStrings: true, // Запрещает строки в JSX
+          allowedStrings: ["|"], // Разрешённые символы
+          ignoreProps: true, // Разрешает строковые литералы в props
+        },
+      ],
       // Consistently import navigation APIs from `@/shared/hooks/useAppRouter`
       "no-restricted-imports": [
         "error",

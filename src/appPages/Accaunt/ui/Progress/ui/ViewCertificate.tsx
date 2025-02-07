@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 import {
@@ -17,6 +18,7 @@ export default function ViewCertificate({
 }: {
   levelId: number;
 }) {
+  const t = useTranslations("ViewCertificate");
   const [loading, setLoading] = useState(false);
 
   function fetchCertificate() {
@@ -51,7 +53,7 @@ export default function ViewCertificate({
             color="primary"
             lineHeight="16px"
           >
-            Сертификат
+            {t("sertifikat")}
           </Typography>
           {loading && (
             <TubeSpinner
@@ -65,7 +67,7 @@ export default function ViewCertificate({
             variant="caption"
             color="#A3A3A3"
           >
-            Просмотреть
+            {t("prosmotret")}
           </Typography>
         </Box>
       </Paper>

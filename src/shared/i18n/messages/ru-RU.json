@@ -9,6 +9,306 @@
     "login": "ВХОД",
     "personalAccaunt": "Личный кабинет",
     "myProfile": "Мой профиль",
-    "logout": "Выйти"
+    "logout": "Выйти",
+    "lv": "{level} ур."
+  },
+  "Footer": {
+    "akademiya": "Академия",
+    "politika-konfidencialnosti": "Политика конфиденциальности",
+    "biblioteka": "Библиотека",
+    "mir-znanii": "Мир Знаний",
+    "c-2015-akademiya": "© 2015 - {year} Академия"
+  },
+  "SubjectCard": {
+    "title": "{title} - "
+  },
+  "SetOfCoursesCard": {
+    "kursa": "{amount} курса"
+  },
+  "CurrentCourseCard": {
+    "uroven": "Уровень {level}",
+    "proideno": "Пройдено: {finished}/{total}"
+  },
+  "CourseCard": {
+    "prepodavatel": "Преподаватель",
+    "ne-naznachen": "Не назначен",
+    "besplatno": "Бесплатно",
+    "som": "{price} сом"
+  },
+  "WebinarAfterwards": {
+    "title": "Эфир: {title}",
+    "data-provedeniya": "Дата проведения:",
+    "prodolzhitelnost-vebinara": "Продолжительность вебинара:",
+    "minut": "{amount} минут",
+    "vebinar-dlya-studentov": "Вебинар для студентов:",
+    "urovnya-i-vyshe": "{level}-уровня и выше",
+    "zapis-efira": "Запись эфира",
+    "smotret": "смотреть"
+  },
+  "UpcomingWebinars": {
+    "data-provedeniya": "Дата проведения:",
+    "prodolzhitelnost-vebinara": "Продолжительность вебинара:",
+    "minut": "≈ {amount} минут",
+    "vebinar-dlya-studentov": "Вебинар для студентов:",
+    "urovnya-i-vyshe": "{level}-уровня и выше",
+    "mesta-ogranicheny-zapisano": "Места ограничены: записано {amount} из {total} (осталось {left} мест!)",
+    "mesta-ogranicheny": "Места ограничены: {amount} мест",
+    "vy-uspeshno-ostavili-zayavku": "Вы успешно оставили заявку!",
+    "za-neskolko-minut-do": "За несколько минут до начала вебинара вы получите индивидуальную ссылку на мероприятие на почту, чтобы перейти прямо в вебинарную комнату.",
+    "vash-uroven-podgotovki-poka": "Ваш уровень подготовки пока недостаточен для этого вебинара!",
+    "ozhidanie": "Ожидание...",
+    "zayavka-otpravlena": "Заявка отправлена",
+    "ostavit-zayavku": "Оставить заявку",
+    "mest-ne-ostalos": "Мест не осталось."
+  },
+  "WebinarsPage": {
+    "nashi-vebinary": "Наши вебинары",
+    "vebinary-eto-kachestvennoe-dopolnenie": "Вебинары - это качественное дополнение к образовательной программе онлайн-академии, позволяющее посредством живого общения стирать границы между преподавателем и учащимся, в какой бы точке мира они ни находились.",
+    "professionalnyi-podkhod-nashikh-prepodavatelei": "Профессиональный подход наших преподавателей, их богатый опыт и потенциал, актуальная тематика вебинаров дают комплексное представление об исламе, раскрывают глубинные стороны этой универсальной религии.",
+    "predstoyashie-vebinary": "Предстоящие вебинары",
+    "zapisi-proshedshikh-vebinarov": "Записи прошедших вебинаров",
+    "o-vebinare": "О вебинаре",
+    "vebinar-eto-raznovidnost-veb": "Вебинар - это разновидность веб-конференции, лекция в виде проведения онлайн-встречи. Объясним проще: наш вебинар на темы связанные с исламом - это обучающее онлайн-занятие по шариатским дисциплинам, лекция с использованием современных интернет технологий в формате онлайн-вебинара. В вебинаре (онлайн лекции) всегда участвуют две стороны: докладчик-ведущий и слушатели. Обычно участники могут видеть ведущего, а он их - нет. Наши лекции по исламу сегодня одновременно посещают от 100 до 1000 человек.",
+    "kak-prokhodyat-nashi-vebinary": "Как проходят наши вебинары"
+  },
+  "SupportUsPage": {
+    "my-iskrenne-blagodarny-kazhdomu": "Мы искренне благодарны каждому из вас за поддержку и интерес к нашей миссии — распространению знаний о Коране и Исламе. Наша академия стремится сделать обучение доступным для всех, независимо от возраста, уровня знаний или географического положения.",
+    "nashi-rekvizity": "наши реквизиты"
+  },
+  "TextOfTheLesson": {
+    "video": "Видео - {duration}",
+    "net-uroka": "Нет урока"
+  },
+  "SettingsMenu": {
+    "o-kurse": "О курсе",
+    "podelitsya-kursom": "Поделиться курсом"
+  },
+  "Recommendations": {
+    "rekomendacii": "Рекомендации",
+    "poka-net-rekomendacii": "Пока нет рекомендаций",
+    "zagruzka": "Загрузка...",
+    "prokrutite-chtoby-zagruzit-bolshe": "Прокрутите, чтобы загрузить больше",
+    "net-bolshe-rekomendacii": "Нет больше рекомендаций"
+  },
+  "Questions": {
+    "vvedite-vash-vopros": "Введите ваш вопрос",
+    "akademiya": "Академия",
+    "net-voprosov": "Нет вопросов"
+  },
+  "LessonsList": {
+    "uroven": "Уровень {level}",
+    "video": "Видео - {duration}",
+    "net-opisaniya": "Нет описания",
+    "neobkhodimyi-minimum-ballov": "Необходимый минимум баллов: {points}",
+    "vremya-na-ekzamen": "Время на экзамен: {minuts} мин.",
+    "net-urokov": "Нет уроков"
+  },
+  "ExamOverview": {
+    "title-and-level": "{title} {level}-уровень",
+    "prosmotreno-urokov": "Просмотрено уроков:",
+    "finished-lessons": "{amount} из {total}",
+    "neobkhodimyi-minimum-ballov": "Необходимый минимум баллов:",
+    "ne-ukazano": "Не указано",
+    "peresdacha-dostupna": "Пересдача доступна:",
+    "cherez-1-sutki": "через 1 сутки",
+    "nachat": "Начать"
+  },
+  "SearchCoursesPage": {
+    "poisk-kursov": "Поиск курсов",
+    "found-courses": "Найдено: {amount}",
+    "po-vashemu-zaprosu-nichego-ne-naideno": "По вашему запросу ничего не найдено"
+  },
+  "Subjects": {
+    "net-dannykh": "Нет данных"
+  },
+  "MainPage": {
+    "pervaya-islamskaya-onlain-akademiya": "Первая исламская онлайн-академия в Кыргызстане - доступное образование, глубокие знания, духовное развитие для всех!",
+    "otkroite-mir-islamskikh-znanii": "Откройте мир исламских знаний в удобном онлайн-формате с ведущими преподавателями.",
+    "smotret-video": "Смотреть видео",
+    "nachat-obuchenie": "начать обучение",
+    "nashi-predmety": "Наши предметы",
+    "ob-akademii": "Об академии",
+    "nauchno-obrazovatelnyi-proekt-medina": "Научно-образовательный проект «Медина» призван донести до современного общества правильное понимание ислама. Его задача - раскрыть ту Божественную милость, которая ниспослана человечеству Творцом всего сущего, через Благородный Коран и Пречистую Сунну.",
+    "nashi-prepodavateli": "Наши преподаватели",
+    "kak-eto-rabotaet": "как это работает?",
+    "otzyvy-o-nas": "отзывы о нас"
+  },
+  "ResultCard": {
+    "rezultaty-ekzamena": "Результаты экзамена",
+    "dano-otvetov": "Дано ответов:",
+    "answered-questions": "{amount} из {total}",
+    "iz-nikh-pravilno": "Из них правильно:",
+    "prokhodnoi-ball": "Проходной балл:",
+    "pass-points": "{amount} из {total}",
+    "vash-rezultat": "Ваш результат:",
+    "final-score": "{amount} из {total}",
+    "osutstvuyut-dannye-ob-ekzamene": "Осутствуют данные об экзамене",
+    "exam-is-passed": "ЭКЗАМЕН СДАН",
+    "exam-is-not-passed": "ЭКЗАМЕН НЕ СДАН",
+    "podozhdite": "Подождите...",
+    "ckachat-sertifikat": "Cкачать сертификат",
+    "vernutsya-na-glavnyi-ekran": "Вернуться на главный экран"
+  },
+  "ExamQuestions": {
+    "zavershit-ekzamen": "Завершить экзамен?",
+    "nekotorye-zadaniya-ostalis-nereshennymi": "Некоторые задания остались нерешенными. Вы дейстивительно хотите завершить экзамен, пропустив их?",
+    "otmena": "отмена",
+    "net-voprosov": "Нет вопросов"
+  },
+  "QuestionCard": {
+    "otmena": "отмена",
+    "sbros": "сброс",
+    "net-otvetov-na-vopros": "Нет ответов на вопрос",
+    "nazad": "Назад",
+    "dalee": "Далее",
+    "propustit": "Пропустить"
+  },
+  "OverviewLessons": {
+    "video": "Видео - {duration}",
+    "net-urokov": "Нет уроков"
+  },
+  "CourseProgram": {
+    "title": "{lections, plural, one {одна лекция} few {# лекции} many {# лекций} other {# лекций}}, {hours, plural, zero {} one {один час} few {# часа} many {# часов} other {# часов}} {minutes, plural, zero {} one {одна минута} few {# минуты} many {# минут} other {# минут}}",
+    "uroki": "Уроки",
+    "lessons": "{amount} уроков"
+  },
+  "CourseOverviewPage": {
+    "opisanie": "Описание:",
+    "podozhdite": "Подождите...",
+    "prodolzhit-obuchenie": "Продолжить обучение",
+    "nachat-uchitsya": "Начать учиться",
+    "chemu-vy-nauchites": "Чему вы научитесь",
+    "net-dannykh": "Нет данных",
+    "programma-kursa": "Программа курса"
+  },
+  "SignUp": {
+    "registraciya": "Регистрация",
+    "neobkhodimo-vvesti-imya": "Необходимо ввести имя",
+    "imya": "Имя",
+    "neobkhodimo-vvesti-familiyu": "Необходимо ввести фамилию",
+    "familiya": "Фамилия",
+    "neobkhodimo-vvesti-e-mail": "Необходимо ввести e-mail",
+    "neobkhodimo-vvesti-parol": "Необходимо ввести пароль",
+    "parol-dolzhen-byt-dlinnee": "Пароль должен быть длиннее 4 символов",
+    "parol-dolzhen-soderzhat-bukvy": "Пароль должен содержать буквы и цифры",
+    "pridumaite-parol": "Придумайте пароль",
+    "pozhaluista-podtverdite-parol": "Пожалуйста подтвердите пароль",
+    "paroli-ne-sovpadayut": "Пароли не совпадают",
+    "povtorite-parol": "Повторите пароль",
+    "pozhaluista-vyberite-svoi-pol": "Пожалуйста выберите свой пол",
+    "ya-muzhchina": "Я мужчина",
+    "ya-zhenshina": "Я женщина",
+    "ozhidanie": "Ожидание...",
+    "zaregistrirovatsya": "Зарегистрироваться",
+    "uzhe-zaregistrirovalis": "Уже зарегистрировались?",
+    "voiti-v-akkaunt": "Войти в аккаунт"
+  },
+  "SignIn": {
+    "polzovatel-ne-podtverzhden": "Пользователь не подтвержден",
+    "vkhod-s-parolem": "Вход с паролем",
+    "neobkhodimo-vvesti-e-mail": "Необходимо ввести e-mail",
+    "neobkhodimo-vvesti-parol": "Необходимо ввести пароль",
+    "parol": "Пароль",
+    "zabyli-parol": "Забыли пароль?",
+    "ozhidanie": "Ожидание...",
+    "voiti": "Войти",
+    "eshe-ne-zaregistrirovalis": "Еще не зарегистрировались?",
+    "sozdat-akkaunt": "Создать аккаунт"
+  },
+  "RecoverPassword": {
+    "pridumaite-novyi-parol": "Придумайте новый пароль",
+    "neobkhodimo-vvesti-kod-iz-pochty": "Необходимо ввести код из почты",
+    "kod": "Код",
+    "neobkhodimo-vvesti-novyi-parol": "Необходимо ввести новый пароль",
+    "parol-dolzhen-byt-dlinnee": "Пароль должен быть длиннее 4 символов",
+    "parol-dolzhen-soderzhat-bukvy": "Пароль должен содержать буквы и цифры",
+    "parol": "Пароль",
+    "pozhaluista-podtverdite-parol": "Пожалуйста подтвердите пароль",
+    "paroli-ne-sovpadayut": "Пароли не совпадают",
+    "povtorite-parol": "Повторите пароль",
+    "ozhidanie": "Ожидание...",
+    "vosstanovit-parol": "Восстановить пароль",
+    "ne-prishel-kod": "Не пришел код?",
+    "otpravit-povtorno": "Отправить повторно",
+    "otpravit-povtorno-cherez": "Отправить повторно через"
+  },
+  "FogotPassword": {
+    "vvedite-e-mail-s-kotorym": "Введите E-mail, с которым вы регистрировались в Академии",
+    "neobkhodimo-vvesti-e-mail": "Необходимо ввести e-mail",
+    "ozhidanie": "Ожидание...",
+    "poluchit-kod": "Получить код",
+    "eshe-ne-zaregistrirovalis": "Еще не зарегистрировались?",
+    "sozdat-akkaunt": "Создать аккаунт"
+  },
+  "Authentication": {
+    "voiti-s-google": "Войти с Google",
+    "voiti-ili-zaregistrirovatsya": "Войти или зарегистрироваться",
+    "ozhidanie": "Ожидание...",
+    "voiti-s-el-pochtoi": "Войти с эл. почтой",
+    "ili": "или",
+    "zaregistrirovatsya": "Зарегистрироваться"
+  },
+  "NewCourses": {
+    "net-novinok": "Нет новинок"
+  },
+  "LifeOfTheProphet": {
+    "net-kursov": "Нет курсов"
+  },
+  "CourseSets": {
+    "net-naborov": "Нет наборов"
+  },
+  "BasicsOfIslam": {
+    "net-kursov": "Нет курсов"
+  },
+  "ArabLanguage": {
+    "net-kursov": "Нет курсов"
+  },
+  "AcademyCoreProgram": {
+    "bazovaya-programma-akademii": "Базовая программа Академии",
+    "attestat-ot-akademii": "Аттестат от Академии",
+    "proidite-vse-kursov": "Пройдите {courses, plural, one {весь курс} few {все # куса} many {все # курсов} other {все # курсов}}, сдайте зачёты и итоговый экзамен, и получите аттестат о начальном исламском образовании"
+  },
+  "AllCoursesPage": {
+    "nabory-kursov": "Наборы курсов",
+    "novinki": "Новинки",
+    "osnovy-islama": "Основы Ислама",
+    "zhizneopisanie-proroka": "Жизнеописание пророка",
+    "arabskii-yazyk": "Арабский язык"
+  },
+  "ViewCertificate": {
+    "sertifikat": "Сертификат",
+    "prosmotret": "Просмотреть"
+  },
+  "ExamResult": {
+    "your-final-score": "Вы набрали {points} баллов",
+    "prokhodnoi-ball": "Проходной балл {amount} из {total}",
+    "ekzamen": "Экзамен"
+  },
+  "ProgressAccordion": {
+    "prokhodnoi-ball": "Проходной балл {amount} из {total}",
+    "lessons": "{amount} уроков",
+    "lesson": "{serialNumber}-урок"
+  },
+  "ProgressPage": {
+    "uroven": "Уровень",
+    "net-dannykh": "Нет данных"
+  },
+  "RecommendationsCarousel": {
+    "poka-net-rekomendacii": "Пока нет рекомендаций"
+  },
+  "AccauntMainPage": {
+    "rekomendacii": "Рекомендации",
+    "prodolzhit-obuchenie": "Продолжить обучение",
+    "vyberite-kurs": "Выберите курс"
+  },
+  "CourseList": {
+    "net-kursov": "Нет курсов"
+  },
+  "AboutUsPage": {
+    "o-nas": "О нас",
+    "nasha-akademiya-predlagaet-kompleksnoe": "Наша академия предлагает комплексное онлайн-обучение Корану и арабскому языку для студентов всех уровней подготовки. Мы стремимся сделать изучение Священной Книги доступным каждому, используя современные технологии и методики преподавания.",
+    "my-predlagaem-individualnyi-podkhod": "Мы предлагаем индивидуальный подход к каждому студенту, гибкий график занятий и раздельное обучение для мужчин и женщин. Наши преподаватели — специалисты с международным опытом, готовые помочь вам на пути к знаниям.",
+    "nasha-komanda": "наша команда",
+    "nashi-prepodavateli": "Наши преподаватели"
   }
 }

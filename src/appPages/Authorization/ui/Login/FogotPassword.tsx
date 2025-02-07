@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -20,6 +21,7 @@ interface IFormValues {
 }
 
 export default function FogotPassword() {
+  const t = useTranslations("FogotPassword");
   const router = useAppRouter();
   const {
     handleSubmit,
@@ -53,7 +55,7 @@ export default function FogotPassword() {
   }
   return (
     <PaperContainer
-      title="Введите E-mail, с которым вы регистрировались в Академии"
+      title={t("vvedite-e-mail-s-kotorym")}
       component="form"
       onSubmit={handleSubmit(onSubmit)}
     >
@@ -61,7 +63,9 @@ export default function FogotPassword() {
         name="email"
         control={control}
         rules={{
-          required: "Необходимо ввести e-mail",
+          required: t(
+            "neobkhodimo-vvesti-e-mail",
+          ),
         }}
         textField={{
           placeholder: "E-mail",
@@ -77,14 +81,16 @@ export default function FogotPassword() {
         )}
         fullWidth
       >
-        {loading ? "Ожидание..." : "Получить код"}
+        {loading
+          ? t("ozhidanie")
+          : t("poluchit-kod")}
       </Button>
       <Typography
         variant="h6"
         color="textTertiary"
         textAlign="center"
       >
-        Еще не зарегистрировались?
+        {t("eshe-ne-zaregistrirovalis")}
       </Typography>
       <Box
         sx={{
@@ -102,7 +108,7 @@ export default function FogotPassword() {
           className={styles.link_text}
           onClick={() => router.push("signUp")}
         >
-          Создать аккаунт
+          {t("sozdat-akkaunt")}
         </Typography>
       </Box>
     </PaperContainer>

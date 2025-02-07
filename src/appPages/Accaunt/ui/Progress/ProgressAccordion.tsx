@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 
 import {
@@ -34,6 +35,7 @@ export default function ProgressAccordion({
   expanded,
   onToggle,
 }: IProgressAccordionProps) {
+  const t = useTranslations("ProgressAccordion");
   const upMd = useMediaQuery((theme) =>
     theme.breakpoints.up("md"),
   );
@@ -51,7 +53,10 @@ export default function ProgressAccordion({
             lineHeight="16px"
             textAlign="right"
           >
-            {`проходной бал ${examResults.pass_points} из ${examResults.max_points}`}
+            {t("prokhodnoi-ball", {
+              amount: examResults.pass_points,
+              total: examResults.max_points,
+            })}
           </Typography>
         ) : null}
       </Box>
@@ -81,7 +86,11 @@ export default function ProgressAccordion({
             <Typography
               variant="caption"
               color="#A3A3A3"
-            >{`${progress.lesson_count} уроков`}</Typography>
+            >
+              {t("lessons", {
+                amount: progress.lesson_count,
+              })}
+            </Typography>
           </Grid>
           {!upMd && ExamResultsGrid}
           <Grid size={{ xs: 12, md: 5 }}>
@@ -164,7 +173,11 @@ export default function ProgressAccordion({
                   <Typography
                     variant="caption"
                     color="#A3A3A3"
-                  >{`${index + 1}-урок`}</Typography>
+                  >
+                    {t("lesson", {
+                      serialNumber: index + 1,
+                    })}
+                  </Typography>
                   {item.is_finished && (
                     <Image
                       src={checkedPrimaryIcon}

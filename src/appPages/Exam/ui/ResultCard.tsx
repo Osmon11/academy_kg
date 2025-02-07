@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -29,6 +30,7 @@ export default function ResultCard({
   correctAnswers,
   score,
 }: IResultCardProps) {
+  const t = useTranslations("ResultCard");
   const router = useAppRouter();
   const { examQuestions } = useAppSelector(
     (store) => store.exam,
@@ -62,7 +64,7 @@ export default function ResultCard({
           color="textSecondary"
           textAlign="center"
         >
-          Результаты экзамена
+          {t("rezultaty-ekzamena")}
         </Typography>
         {examQuestions ? (
           <Box
@@ -84,13 +86,20 @@ export default function ResultCard({
                 color="textTertiary"
                 fontWeight={600}
               >
-                Дано ответов:
+                {t("dano-otvetov")}
               </Typography>
               <Typography
                 variant="body1"
                 color="textTertiary"
                 fontWeight={600}
-              >{`${answeredQuestions} из ${examQuestions.questions.length}`}</Typography>
+              >
+                {t("answered-questions", {
+                  amount: answeredQuestions,
+                  total:
+                    examQuestions.questions
+                      .length,
+                })}
+              </Typography>
             </Box>
             <Box
               className={styles.item}
@@ -104,7 +113,7 @@ export default function ResultCard({
                 color="textTertiary"
                 fontWeight={600}
               >
-                Из них правильно:
+                {t("iz-nikh-pravilno")}
               </Typography>
               <Typography
                 variant="body1"
@@ -126,13 +135,19 @@ export default function ResultCard({
                 color="textTertiary"
                 fontWeight={600}
               >
-                Проходной балл:
+                {t("prokhodnoi-ball")}
               </Typography>
               <Typography
                 variant="body1"
                 color="textTertiary"
                 fontWeight={600}
-              >{`${examQuestions.pass_points} из ${examQuestions.point_sum}`}</Typography>
+              >
+                {t("pass-points", {
+                  amount:
+                    examQuestions.pass_points,
+                  total: examQuestions.point_sum,
+                })}
+              </Typography>
             </Box>
             <Box
               className={styles.item}
@@ -146,13 +161,18 @@ export default function ResultCard({
                 color="textTertiary"
                 fontWeight={600}
               >
-                Ваш результат:
+                {t("vash-rezultat")}
               </Typography>
               <Typography
                 variant="body1"
                 color="textTertiary"
                 fontWeight={600}
-              >{`${score} из ${examQuestions.point_sum}`}</Typography>
+              >
+                {t("final-score", {
+                  amount: score,
+                  total: examQuestions.point_sum,
+                })}
+              </Typography>
             </Box>
           </Box>
         ) : (
@@ -161,7 +181,7 @@ export default function ResultCard({
             color="error"
             textAlign="center"
           >
-            Осутствуют данные об экзамене
+            {t("osutstvuyut-dannye-ob-ekzamene")}
           </Typography>
         )}
         <Box>
@@ -172,7 +192,13 @@ export default function ResultCard({
               examPassed ? "primary" : "secondary"
             }
             textAlign="center"
-          >{`ЭКЗАМЕН ${examPassed ? "" : "НЕ "}СДАН`}</Typography>
+          >
+            {t(
+              examPassed
+                ? "exam-is-passed"
+                : "exam-is-not-passed",
+            )}
+          </Typography>
           {examPassed && (
             <Box
               sx={{
@@ -197,8 +223,8 @@ export default function ResultCard({
                 }
               >
                 {loading
-                  ? "Подождите..."
-                  : "Cкачать сертификат"}
+                  ? t("podozhdite")
+                  : t("ckachat-sertifikat")}
               </Button>
             </Box>
           )}
@@ -214,7 +240,7 @@ export default function ResultCard({
           marginTop: "40px",
         }}
       >
-        Вернуться на главный экран
+        {t("vernutsya-na-glavnyi-ekran")}
       </Button>
     </Box>
   );

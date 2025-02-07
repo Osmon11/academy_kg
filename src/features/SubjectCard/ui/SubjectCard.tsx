@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useState } from "react";
 import YouTube from "react-youtube";
@@ -32,6 +33,7 @@ export function SubjectCard({
   color,
   trailer,
 }: ISubjectCardProps) {
+  const t = useTranslations("SubjectCard");
   const [dialog, setDialog] = useState(false);
   return (
     <Card
@@ -81,7 +83,9 @@ export function SubjectCard({
             component="span"
             fontWeight={700}
             textTransform="capitalize"
-          >{`${title} - `}</Typography>
+          >
+            {t("title", { title })}
+          </Typography>
           {description}
         </Typography>
         <Dialog

@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
 import { Box, Typography } from "@mui/material";
@@ -13,6 +14,7 @@ import { ICourseListItem } from "@/shared/types";
 import styles from "../styles.module.scss";
 
 export default function CourseList() {
+  const t = useTranslations("CourseList");
   const [courses, setCourses] = useState<
     ICourseListItem[]
   >([]);
@@ -54,7 +56,7 @@ export default function CourseList() {
           color="textSecondary"
           fontWeight={600}
         >
-          Нет курсов
+          {t("net-kursov")}
         </Typography>
       )}
     </Box>

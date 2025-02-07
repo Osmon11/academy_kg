@@ -1,3 +1,5 @@
+import { useTranslations } from "next-intl";
+
 import {
   Box,
   Button,
@@ -11,6 +13,7 @@ import { useAppRouter } from "@/shared/hooks/useAppRouter";
 import styles from "../styles.module.scss";
 
 export default function ExamOverview() {
+  const t = useTranslations("ExamOverview");
   const router = useAppRouter();
   const { course, courseLevels } = useAppSelector(
     (store) => store.course,
@@ -24,7 +27,10 @@ export default function ExamOverview() {
         color="primary"
         textAlign="center"
       >
-        {`${course.title} (${courseLevels.level}-уровень)`}
+        {t("title-and-level", {
+          title: course.title,
+          level: courseLevels.level,
+        })}
       </Typography>
       <Box className={styles.content}>
         <Box className={styles.item}>
@@ -32,20 +38,25 @@ export default function ExamOverview() {
             variant="body1"
             color="textSecondary"
           >
-            Просмотрено уроков:
+            {t("prosmotreno-urokov")}
           </Typography>
           <Typography
             variant="body1"
             color="textSecondary"
             textAlign="right"
-          >{`${courseLevels.finished_count} из ${courseLevels.lessons.length}`}</Typography>
+          >
+            {t("finished-lessons", {
+              amount: courseLevels.finished_count,
+              total: courseLevels.lessons.length,
+            })}
+          </Typography>
         </Box>
         <Box className={styles.item}>
           <Typography
             variant="body1"
             color="textSecondary"
           >
-            Необходимый минимум баллов:
+            {t("neobkhodimyi-minimum-ballov")}
           </Typography>
           <Typography
             variant="body1"
@@ -53,7 +64,7 @@ export default function ExamOverview() {
             textAlign="right"
           >
             {courseLevels.exam?.pass_points ??
-              "Не указано"}
+              t("ne-ukazano")}
           </Typography>
         </Box>
         <Box className={styles.item}>
@@ -61,14 +72,14 @@ export default function ExamOverview() {
             variant="body1"
             color="textSecondary"
           >
-            Пересдача доступна:
+            {t("peresdacha-dostupna")}
           </Typography>
           <Typography
             variant="body1"
             color="textSecondary"
             textAlign="right"
           >
-            через 1 сутки
+            {t("cherez-1-sutki")}
           </Typography>
         </Box>
       </Box>
@@ -93,7 +104,7 @@ export default function ExamOverview() {
         }
         sx={{ width: "330px" }}
       >
-        Начать
+        {t("nachat")}
       </Button>
     </Paper>
   ) : (

@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import {
   Fragment,
@@ -57,6 +58,7 @@ export function QuestionCard({
   onSkip,
   onNext,
 }: IQuestionCardProps) {
+  const t = useTranslations("QuestionCard");
   const theme = useTheme();
   const [userAnswer, setUserAnswer] = useState<
     string | null
@@ -245,7 +247,7 @@ export function QuestionCard({
                     }
                   }}
                 >
-                  отмена
+                  {t("otmena")}
                 </Button>
                 <Button
                   variant="text"
@@ -255,7 +257,7 @@ export function QuestionCard({
                     setArrows([]);
                   }}
                 >
-                  сброс
+                  {t("sbros")}
                 </Button>
               </Box>
             </Fragment>
@@ -304,7 +306,7 @@ export function QuestionCard({
             margin: "12px 0px",
           }}
         >
-          Нет ответов на вопрос
+          {t("net-otvetov-na-vopros")}
         </Typography>
       )}
       {arrows.map((item) =>
@@ -344,7 +346,7 @@ export function QuestionCard({
             ) : undefined
           }
         >
-          Назад
+          {t("nazad")}
         </Button>
         {userAnswer || arrows.length > 0 ? (
           <Button
@@ -374,7 +376,7 @@ export function QuestionCard({
             }
             sx={{ minHeight: "50px" }}
           >
-            Далее
+            {t("dalee")}
           </Button>
         ) : (
           <Button
@@ -396,7 +398,7 @@ export function QuestionCard({
               ) : undefined
             }
           >
-            Пропустить
+            {t("propustit")}
           </Button>
         )}
       </Box>

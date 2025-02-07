@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useState } from "react";
 import {
@@ -37,6 +38,7 @@ interface IFormValues {
 }
 
 export default function Questions() {
+  const t = useTranslations("Questions");
   const dispatch = useAppDispatch();
   const profile = useAppSelector(
     (state) => state.user.profile,
@@ -120,7 +122,9 @@ export default function Questions() {
               {...field}
               fullWidth
               variant="standard"
-              placeholder="Введите ваш вопрос"
+              placeholder={t(
+                "vvedite-vash-vopros",
+              )}
               error={!!fieldState.error}
               helperText={
                 fieldState.error?.message
@@ -220,7 +224,7 @@ export default function Questions() {
                         {...captionProps}
                         fontWeight={600}
                       >
-                        Академия
+                        {t("akademiya")}
                       </Typography>
                       <Typography
                         {...captionProps}
@@ -241,7 +245,7 @@ export default function Questions() {
           fontWeight={600}
           sx={{ marginTop: "16px" }}
         >
-          Нет вопросов
+          {t("net-voprosov")}
         </Typography>
       )}
     </Box>

@@ -6,7 +6,7 @@ import { defaultConfig } from "./axios";
 
 export const createAxiosInstanceForSSR =
   async (): Promise<AxiosInstance> => {
-    const token = getCookie(
+    const token = await getCookie(
       process.env
         .NEXT_PUBLIC_ACCESS_TOKEN_KEY as string,
       { cookies },

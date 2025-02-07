@@ -1,3 +1,5 @@
+import { ERoute } from "../config/enum";
+
 export interface IProfile {
   id: number;
   name: string;
@@ -15,7 +17,7 @@ export interface ISubjectListItem {
   title: string;
   description: string;
   image: string;
-  price: number | null;
+  price: null;
   trailer: string | null;
 }
 
@@ -85,7 +87,7 @@ export interface ICourseListItem {
   image: string | null;
   icon: string | null;
   teacher: ITeacherListItem | null;
-  price: number | null;
+  price: string;
 }
 
 export interface ILevel {
@@ -212,7 +214,7 @@ export interface IPaginatedList<ListItem> {
 
 export interface INavLink {
   label: string;
-  href: string;
+  routeName: keyof typeof ERoute;
 }
 
 export interface IExamResults {

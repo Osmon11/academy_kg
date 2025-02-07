@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
 import { Box, Typography } from "@mui/material";
@@ -11,6 +12,7 @@ import axiosInstance from "@/shared/config/axiosClientInstance";
 import { ICourseListItem } from "@/shared/types";
 
 export default function Recommendations() {
+  const t = useTranslations("Recommendations");
   const [recommendations, setRecommendations] =
     useState<ICourseListItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -36,7 +38,7 @@ export default function Recommendations() {
         color="textSecondary"
         fontWeight={700}
       >
-        Рекомендации
+        {t("rekomendacii")}
       </Typography>
       <Box sx={{ marginTop: "20px" }}>
         {loading ? (
@@ -61,7 +63,7 @@ export default function Recommendations() {
             color="textSecondary"
             fontWeight={600}
           >
-            Пока нет рекомендаций
+            {t("poka-net-rekomendacii")}
           </Typography>
         )}
         {/* {data && (
@@ -71,10 +73,10 @@ export default function Recommendations() {
             color="textSecondary"
           >
             {isFetchingNextPage
-              ? "Загрузка..."
+              ? t('zagruzka')
               : hasNextPage
-                ? "Прокрутите, чтобы загрузить больше"
-                : "Нет больше рекомендаций"}
+                ? t('prokrutite-chtoby-zagruzit-bolshe')
+                : t('net-bolshe-rekomendacii')}
           </Typography>
         )} */}
       </Box>

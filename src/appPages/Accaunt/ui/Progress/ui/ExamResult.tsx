@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 
 import {
@@ -19,6 +20,7 @@ export default function ExamResult({
 }: {
   results: IExamResults;
 }) {
+  const t = useTranslations("ExamResult");
   return (
     <Box className={styles.carousel_item}>
       <Paper className={styles.lesson_card}>
@@ -57,14 +59,21 @@ export default function ExamResult({
             color="primary"
             lineHeight="16px"
           >
-            {`${results.is_passed ? `Вы набрали ${results.point_sum} баллов` : `Проходной балл ${results.pass_points}`} из ${results.max_points}`}
+            {results.is_passed
+              ? t("your-final-score", {
+                  points: results.point_sum,
+                })
+              : t("prokhodnoi-ball", {
+                  amount: results.pass_points,
+                  total: results.max_points,
+                })}
           </Typography>
         </Box>
         <Typography
           variant="caption"
           color="#A3A3A3"
         >
-          Экзамен
+          {t("ekzamen")}
         </Typography>
       </Paper>
     </Box>

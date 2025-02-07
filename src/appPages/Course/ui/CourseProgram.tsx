@@ -1,4 +1,5 @@
 import moment from "moment";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { Fragment } from "react";
 
@@ -24,6 +25,7 @@ interface ICourseProgramProps {
 export default function CourseProgram({
   course,
 }: ICourseProgramProps) {
+  const t = useTranslations("CourseProgram");
   const durationTime = moment(
     course ? course.duration_count : "02:45:00",
     TIME_FORMAT,
@@ -42,7 +44,11 @@ export default function CourseProgram({
             marginTop: "10px",
           }}
         >
-          {`${course.lesson_count} лекций, ${hours ? hours + " часов" : ""} ${minutes} минут`}
+          {t("title", {
+            lections: course.lesson_count,
+            hours,
+            minutes,
+          })}
         </Typography>
       )}
       <Accordion
@@ -72,12 +78,16 @@ export default function CourseProgram({
               color="textSecondary"
               fontWeight={600}
             >
-              Уроки
+              {t("uroki")}
             </Typography>
             <Typography
               variant="subtitle2"
               color="textSecondary"
-            >{`${course.lesson_count} уроков`}</Typography>
+            >
+              {t("lessons", {
+                amount: course.lesson_count,
+              })}
+            </Typography>
           </Box>
         </AccordionSummary>
         <AccordionDetails

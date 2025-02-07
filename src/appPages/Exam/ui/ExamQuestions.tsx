@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
 import {
@@ -22,13 +23,14 @@ import { setResults } from "@/shared/model";
 import styles from "../styles.module.scss";
 import { QuestionCard } from "./QuestionCard";
 
-interface IQuestionsProps {
+interface IExamQuestionsProps {
   finishExam: () => void;
 }
 
-export default function Questions({
+export default function ExamQuestions({
   finishExam,
-}: IQuestionsProps) {
+}: IExamQuestionsProps) {
+  const t = useTranslations("ExamQuestions");
   const dispatch = useAppDispatch();
   const { examQuestions, results } =
     useAppSelector((store) => store.exam);
@@ -142,7 +144,7 @@ export default function Questions({
             marginTop: { xs: "20px", md: "40px" },
           }}
         >
-          Завершить экзамен
+          {t("zavershit-ekzamen")}
         </Button>
         <Dialog
           open={finishExamModal}
@@ -151,14 +153,13 @@ export default function Questions({
           }
         >
           <DialogTitle color="textSecondary">
-            Завершить экзамен?
+            {t("zavershit-ekzamen")}
           </DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Некоторые задания остались
-              нерешенными. Вы дейстивительно
-              хотите завершить экзамен, пропустив
-              их?
+              {t(
+                "nekotorye-zadaniya-ostalis-nereshennymi",
+              )}
             </DialogContentText>
           </DialogContent>
           <DialogActions>
@@ -168,13 +169,13 @@ export default function Questions({
                 setFinishExamModal(false)
               }
             >
-              отмена
+              {t("otmena")}
             </Button>
             <Button
               variant="text"
               onClick={finishExam}
             >
-              Завершить экзамен
+              {t("zavershit-ekzamen")}
             </Button>
           </DialogActions>
         </Dialog>
@@ -187,7 +188,7 @@ export default function Questions({
       fontWeight={600}
       sx={{ width: "100%", margin: "12px 0px" }}
     >
-      Нет вопросов
+      {t("net-voprosov")}
     </Typography>
   );
 }

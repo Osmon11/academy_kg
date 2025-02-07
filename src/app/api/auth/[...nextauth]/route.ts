@@ -1,8 +1,9 @@
-import { setCookie } from "cookies-next";
+import { setCookie } from "cookies-next/server";
 import NextAuth from "next-auth";
 import GoogleProvider, {
   GoogleProfile,
 } from "next-auth/providers/google";
+import { cookies } from "next/headers";
 
 import { createAxiosInstanceForSSR } from "@/shared/config/axiosServerInstance";
 import {
@@ -50,25 +51,25 @@ const handler = NextAuth({
         try {
           const axiosInstance =
             await createAxiosInstanceForSSR();
-          axiosInstance
+          const data = await axiosInstance
             .post("/auth/google_sign_in/", {
-              token: account.accessToken,
+              token: account.access_token,
               email: profile.email,
               name: profile.name,
             })
-            .then((res) => {
-              if (res?.data?.access) {
-                setCookie(
-                  process.env
-                    .NEXT_PUBLIC_ACCESS_TOKEN_KEY as string,
-                  res.data.access,
-                  {
-                    path: "/",
-                    expires: sessionExpiration(),
-                  },
-                );
-              }
-            });
+            .then((res) => res.data);
+          if (data?.access) {
+            setCookie(
+              process.env
+                .NEXT_PUBLIC_ACCESS_TOKEN_KEY as string,
+              data.access,
+              {
+                cookies,
+                path: "/",
+                expires: sessionExpiration(),
+              },
+            );
+          }
         } catch (error) {
           console.error(
             "Error fetching backend token:",

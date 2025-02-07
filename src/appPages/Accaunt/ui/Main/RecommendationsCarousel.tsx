@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
 import { Box, Typography } from "@mui/material";
@@ -12,7 +13,10 @@ import { TubeSpinner } from "@/shared/UI";
 import axiosInstance from "@/shared/config/axiosClientInstance";
 import { ICourseListItem } from "@/shared/types";
 
-export default function Recommendations() {
+export default function RecommendationsCarousel() {
+  const t = useTranslations(
+    "RecommendationsCarousel",
+  );
   const [recommendations, setRecommendations] =
     useState<ICourseListItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -60,7 +64,7 @@ export default function Recommendations() {
       color="textSecondary"
       fontWeight={600}
     >
-      Пока нет рекомендаций
+      {t("poka-net-rekomendacii")}
     </Typography>
   );
 }

@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
 import {
@@ -19,6 +20,7 @@ import {
 import styles from "../styles.module.scss";
 
 export default function AcademyCoreProgram() {
+  const t = useTranslations("AcademyCoreProgram");
   const [courses, setCourses] = useState<
     ICourseListItem[]
   >([]);
@@ -42,7 +44,7 @@ export default function AcademyCoreProgram() {
         textAlign="center"
         marginBottom="20px"
       >
-        Базовая программа Академии
+        {t("bazovaya-programma-akademii")}
       </Typography>
       <Carousel>
         {courses.map((item) => (
@@ -68,7 +70,7 @@ export default function AcademyCoreProgram() {
             textAlign="center"
             color="secondary"
           >
-            Аттестат от Академии
+            {t("attestat-ot-akademii")}
           </Typography>
           <Typography
             variant="h6"
@@ -76,9 +78,9 @@ export default function AcademyCoreProgram() {
             color="textSecondary"
             sx={{ marginTop: "16px" }}
           >
-            Пройдите все 7 курсов, сдайте зачёты и
-            итоговый экзамен и получите аттестат о
-            начальном исламском образовании
+            {t("proidite-vse-kursov", {
+              courses: courses.length,
+            })}
           </Typography>
         </Paper>
       </Box>

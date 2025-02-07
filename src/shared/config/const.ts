@@ -1,4 +1,3 @@
-import { routePath } from "../functions";
 import { INavLink } from "../types";
 
 export const SECTION_PADDING = {
@@ -20,33 +19,33 @@ export const PAGINATION_LIMIT = 10;
 export const mainNavLinks: INavLink[] = [
   {
     label: "main",
-    href: routePath("main"),
+    routeName: "main",
   },
   {
     label: "webinars",
-    href: routePath("webinars"),
+    routeName: "webinars",
   },
   {
     label: "aboutUs",
-    href: routePath("aboutUs"),
+    routeName: "aboutUs",
   },
   {
     label: "supportUs",
-    href: routePath("supportUs"),
+    routeName: "supportUs",
   },
 ];
 
 export const accountNavLinks: INavLink[] = [
   {
     label: "main",
-    href: routePath("accaunt"),
+    routeName: "accaunt",
   },
   {
     label: "courses",
-    href: routePath("courses"),
+    routeName: "courses",
   },
   {
     label: "progress",
-    href: routePath("progress"),
+    routeName: "progress",
   },
 ];

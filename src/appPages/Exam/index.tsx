@@ -21,7 +21,7 @@ import {
 } from "@/shared/model";
 import { IExamQuestions } from "@/shared/types";
 
-import Questions from "./ui/Questions";
+import ExamQuestions from "./ui/ExamQuestions";
 import ResultCard from "./ui/ResultCard";
 
 interface IExamPageProps {
@@ -156,7 +156,9 @@ export function ExamPage({
             {...summary}
           />
         ) : (
-          <Questions finishExam={finishExam} />
+          <ExamQuestions
+            finishExam={finishExam}
+          />
         )}
       </Box>
     </Box>

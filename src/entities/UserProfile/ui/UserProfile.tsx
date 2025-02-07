@@ -48,7 +48,6 @@ export function UserProfile({
         .NEXT_PUBLIC_ACCESS_TOKEN_KEY as string,
       { path: "/" },
     );
-    router.push("main");
   }
   return (
     <Fragment>
@@ -113,7 +112,7 @@ export function UserProfile({
             }
             className={styles.clickable}
           >
-            {`${profile?.level} ур.`}
+            {t("lv", { level: profile?.level })}
           </Typography>
         </Box>
       </Box>

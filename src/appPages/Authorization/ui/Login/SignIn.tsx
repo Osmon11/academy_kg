@@ -1,6 +1,7 @@
 "use client";
 
 import { setCookie } from "cookies-next/client";
+import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -26,6 +27,7 @@ interface IFormValues {
   password: string;
 }
 export default function SignIn() {
+  const t = useTranslations("SignIn");
   const router = useAppRouter();
   const {
     handleSubmit,
@@ -68,7 +70,7 @@ export default function SignIn() {
       .catch((error: IErrorResponseData) => {
         if (
           error.message ===
-          "Пользователь не подтвержден"
+          t("polzovatel-ne-podtverzhden")
         ) {
           axiosInstance
             .post("/auth/send_code_email/", {
@@ -93,7 +95,7 @@ export default function SignIn() {
   }
   return (
     <PaperContainer
-      title="Вход с паролем"
+      title={t("vkhod-s-parolem")}
       component="form"
       onSubmit={handleSubmit(onSubmit)}
     >
@@ -101,7 +103,9 @@ export default function SignIn() {
         name="email"
         control={control}
         rules={{
-          required: "Необходимо ввести e-mail",
+          required: t(
+            "neobkhodimo-vvesti-e-mail",
+          ),
         }}
         textField={{
           type: "email",
@@ -113,11 +117,13 @@ export default function SignIn() {
           name="password"
           control={control}
           rules={{
-            required: "Необходимо ввести пароль",
+            required: t(
+              "neobkhodimo-vvesti-parol",
+            ),
           }}
           textField={{
             type: "password",
-            placeholder: "Пароль",
+            placeholder: t("parol"),
           }}
         />
         <Box
@@ -141,7 +147,7 @@ export default function SignIn() {
               })
             }
           >
-            Забыли пароль?
+            {t("zabyli-parol")}
           </Typography>
         </Box>
       </Box>
@@ -156,14 +162,14 @@ export default function SignIn() {
         )}
         fullWidth
       >
-        {loading ? "Ожидание..." : "Войти"}
+        {loading ? t("ozhidanie") : t("voiti")}
       </Button>
       <Typography
         variant="h6"
         color="textTertiary"
         textAlign="center"
       >
-        Еще не зарегистрировались?
+        {t("eshe-ne-zaregistrirovalis")}
       </Typography>
       <Box
         sx={{
@@ -181,7 +187,7 @@ export default function SignIn() {
           className={styles.link_text}
           onClick={() => router.push("signUp")}
         >
-          Создать аккаунт
+          {t("sozdat-akkaunt")}
         </Typography>
       </Box>
     </PaperContainer>

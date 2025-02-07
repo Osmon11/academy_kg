@@ -1,4 +1,5 @@
 import moment from "moment";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 
 import { Box, Typography } from "@mui/material";
@@ -17,6 +18,7 @@ interface ITextOfTheLessonProps {
 export default function TextOfTheLesson({
   lesson,
 }: ITextOfTheLessonProps) {
+  const t = useTranslations("TextOfTheLesson");
   return lesson ? (
     <Box>
       <Box
@@ -40,7 +42,14 @@ export default function TextOfTheLesson({
           <Typography
             variant="body1"
             color="textSecondary"
-          >{`Видео - ${moment(lesson.duration, TIME_FORMAT).format("HH:mm")}`}</Typography>
+          >
+            {t("video", {
+              duration: moment(
+                lesson.duration,
+                TIME_FORMAT,
+              ).format("HH:mm"),
+            })}
+          </Typography>
         </Box>
       </Box>
       <Box className={styles.wrapper}>
@@ -63,7 +72,7 @@ export default function TextOfTheLesson({
       fontWeight={600}
       sx={{ margin: "12px 0px" }}
     >
-      Нет урока
+      {t("net-uroka")}
     </Typography>
   );
 }

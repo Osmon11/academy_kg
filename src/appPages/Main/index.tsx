@@ -1,6 +1,9 @@
 "use client";
 
-import { useLocale } from "next-intl";
+import {
+  useLocale,
+  useTranslations,
+} from "next-intl";
 import Image from "next/image";
 import {
   Fragment,
@@ -43,6 +46,7 @@ import HowItWorks from "./ui/HowItWorks";
 import Subjects from "./ui/Subjects";
 
 export function MainPage() {
+  const t = useTranslations("MainPage");
   const router = useAppRouter();
   const locale = useLocale();
   const videoRef = useRef<HTMLDivElement>(null);
@@ -126,12 +130,11 @@ export function MainPage() {
             </Typography>
           </Box>
         }
-        title="Первая исламская онлайн-академия в
-          Кыргызстане - доступное образование,
-          глубокие знания, духовное развитие для
-          всех!"
+        title={t(
+          "pervaya-islamskaya-onlain-akademiya",
+        )}
         subtitles={[
-          "Откройте мир исламских знаний в удобном онлайн-формате с ведущими преподавателями.",
+          t("otkroite-mir-islamskikh-znanii"),
         ]}
       >
         <Button
@@ -152,7 +155,7 @@ export function MainPage() {
           }
           onClick={scrollToVideo}
         >
-          Смотреть видео
+          {t("smotret-video")}
         </Button>
         <Button
           variant="convex"
@@ -172,11 +175,11 @@ export function MainPage() {
             </Box>
           }
         >
-          начать обучение
+          {t("nachat-obuchenie")}
         </Button>
       </PageHeading>
       <SectionHeader color="primary">
-        Наши предметы
+        {t("nashi-predmety")}
       </SectionHeader>
       <Subjects />
       <Banner
@@ -204,7 +207,7 @@ export function MainPage() {
             },
           }}
         >
-          Об академии
+          {t("ob-akademii")}
         </Typography>
         <Typography
           variant="h5"
@@ -214,17 +217,13 @@ export function MainPage() {
             fontWeight: 500,
           }}
         >
-          Научно-образовательный проект «Медина»
-          призван донести до современного общества
-          правильное понимание ислама. Его задача
-          - раскрыть ту Божественную милость,
-          которая ниспослана человечеству Творцом
-          всего сущего, через Благородный Коран и
-          Пречистую Сунну.
+          {t(
+            "nauchno-obrazovatelnyi-proekt-medina",
+          )}
         </Typography>
       </Banner>
       <SectionHeader color="primary">
-        Наши преподаватели
+        {t("nashi-prepodavateli")}
       </SectionHeader>
       <OurTeachers teachers={teacherList} />
       <Banner
@@ -239,11 +238,11 @@ export function MainPage() {
         ref={videoRef}
         color="secondary"
       >
-        как это работает?
+        {t("kak-eto-rabotaet")}
       </SectionHeader>
       <HowItWorks />
       <SectionHeader color="primary">
-        отзывы о нас
+        {t("otzyvy-o-nas")}
       </SectionHeader>
       <Feedbacks feedbacks={feedbackList} />
       <Footer />

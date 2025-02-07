@@ -1,6 +1,7 @@
 "use client";
 
 import classNames from "classnames";
+import { useTranslations } from "next-intl";
 import queryString from "query-string";
 import {
   Fragment,
@@ -29,6 +30,7 @@ import ProgressAccordion from "./ProgressAccordion";
 import styles from "./styles.module.scss";
 
 export function ProgressPage() {
+  const t = useTranslations("ProgressPage");
   const [data, setData] = useState<
     ICourseProgress[]
   >([]);
@@ -152,7 +154,7 @@ export function ProgressPage() {
                       }
                       textAlign="center"
                     >
-                      Уровень
+                      {t("uroven")}
                     </Typography>
                   </Button>
                 );
@@ -188,7 +190,7 @@ export function ProgressPage() {
                   color="textSecondary"
                   textAlign="center"
                 >
-                  Нет данных
+                  {t("net-dannykh")}
                 </Typography>
               )}
             </Box>

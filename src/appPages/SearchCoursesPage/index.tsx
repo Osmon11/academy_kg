@@ -1,6 +1,7 @@
 "use client";
 
 import classNames from "classnames";
+import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import queryString from "query-string";
 import { useEffect, useState } from "react";
@@ -29,6 +30,7 @@ import {
 } from "@/shared/types";
 
 export function SearchCoursesPage() {
+  const t = useTranslations("SearchCoursesPage");
   const router = useAppRouter();
   const searchParams = useSearchParams();
   const search = searchParams.get("search");
@@ -68,7 +70,7 @@ export function SearchCoursesPage() {
       <GoBackHeader
         title={
           (upSm ? setTitle : search) ??
-          "Поиск курсов"
+          t("poisk-kursov")
         }
       />
       <Box
@@ -89,7 +91,13 @@ export function SearchCoursesPage() {
             variant="h5"
             color="textSecondary"
             fontWeight={600}
-          >{`Найдено: ${loading ? "..." : courses.length}`}</Typography>
+          >
+            {t("found-courses", {
+              amount: loading
+                ? "..."
+                : courses.length,
+            })}
+          </Typography>
           {upSm && (
             <SearchTextField
               value={searchInput}
@@ -138,7 +146,9 @@ export function SearchCoursesPage() {
             textAlign="center"
             sx={{ marginTop: "20px" }}
           >
-            По вашему запросу ничего не найдено
+            {t(
+              "po-vashemu-zaprosu-nichego-ne-naideno",
+            )}
           </Typography>
         )}
       </Box>

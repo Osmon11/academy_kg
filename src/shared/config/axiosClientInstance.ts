@@ -72,7 +72,7 @@ axiosInstance.interceptors.response.use(
     if (error.response) {
       const resData = error.response?.data;
       if (error.response.status === 401) {
-        if (hasCookie(tokenKey)) {
+        if (hasCookie(tokenKey, { path: "/" })) {
           signOut();
           deleteCookie(tokenKey, {
             path: "/",

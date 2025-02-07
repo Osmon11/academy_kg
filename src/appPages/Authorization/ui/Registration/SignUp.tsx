@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -28,6 +29,7 @@ interface IFormValues {
   gender: string;
 }
 export default function SignUp() {
+  const t = useTranslations("SignUp");
   const router = useAppRouter();
   const {
     handleSubmit,
@@ -81,7 +83,7 @@ export default function SignUp() {
   const password = watch("password", "");
   return (
     <PaperContainer
-      title="Регистрация"
+      title={t("registraciya")}
       component="form"
       onSubmit={handleSubmit(onSubmit)}
     >
@@ -89,10 +91,10 @@ export default function SignUp() {
         name="name"
         control={control}
         rules={{
-          required: "Необходимо ввести имя",
+          required: t("neobkhodimo-vvesti-imya"),
         }}
         textField={{
-          placeholder: "Имя",
+          placeholder: t("imya"),
           type: "text",
           autoComplete: "off",
         }}
@@ -101,10 +103,12 @@ export default function SignUp() {
         name="surname"
         control={control}
         rules={{
-          required: "Необходимо ввести фамилию",
+          required: t(
+            "neobkhodimo-vvesti-familiyu",
+          ),
         }}
         textField={{
-          placeholder: "Фамилия",
+          placeholder: t("familiya"),
           type: "text",
           autoComplete: "off",
         }}
@@ -113,7 +117,9 @@ export default function SignUp() {
         name="email"
         control={control}
         rules={{
-          required: "Необходимо ввести e-mail",
+          required: t(
+            "neobkhodimo-vvesti-e-mail",
+          ),
         }}
         textField={{
           placeholder: "E-mail",
@@ -125,21 +131,23 @@ export default function SignUp() {
         name="password"
         control={control}
         rules={{
-          required: "Необходимо ввести пароль",
+          required: t("neobkhodimo-vvesti-parol"),
           minLength: {
             value: 5,
-            message:
-              "Пароль должен быть длиннее 4 символов",
+            message: t(
+              "parol-dolzhen-byt-dlinnee",
+            ),
           },
           pattern: {
             value:
               /^(?=.*[A-Za-z])(?=.*\d).{5,}$/,
-            message:
-              "Пароль должен содержать буквы и цифры",
+            message: t(
+              "parol-dolzhen-soderzhat-bukvy",
+            ),
           },
         }}
         textField={{
-          placeholder: "Придумайте пароль",
+          placeholder: t("pridumaite-parol"),
           type: "password",
           autoComplete: "new-password",
         }}
@@ -148,14 +156,15 @@ export default function SignUp() {
         name="repeatPassword"
         control={control}
         rules={{
-          required:
-            "Пожалуйста подтвердите пароль",
+          required: t(
+            "pozhaluista-podtverdite-parol",
+          ),
           validate: (value) =>
             value === password ||
-            "Пароли не совпадают",
+            t("paroli-ne-sovpadayut"),
         }}
         textField={{
-          placeholder: "Повторите пароль",
+          placeholder: t("povtorite-parol"),
           type: "password",
           autoComplete: "new-password",
         }}
@@ -164,8 +173,9 @@ export default function SignUp() {
         name="gender"
         control={control}
         rules={{
-          required:
-            "Пожалуйста выберите свой пол",
+          required: t(
+            "pozhaluista-vyberite-svoi-pol",
+          ),
         }}
         radioGroup={{
           sx: {
@@ -177,8 +187,14 @@ export default function SignUp() {
           sx: { textAlign: "center" },
         }}
         options={[
-          { value: "male", label: "Я мужчина" },
-          { value: "female", label: "Я женщина" },
+          {
+            value: "male",
+            label: t("ya-muzhchina"),
+          },
+          {
+            value: "female",
+            label: t("ya-zhenshina"),
+          },
         ]}
       />
       <Button
@@ -196,15 +212,15 @@ export default function SignUp() {
         )}
       >
         {loading
-          ? "Ожидание..."
-          : "Зарегистрироваться"}
+          ? t("ozhidanie")
+          : t("zaregistrirovatsya")}
       </Button>
       <Typography
         variant="h6"
         color="textTertiary"
         textAlign="center"
       >
-        Уже зарегистрировались?
+        {t("uzhe-zaregistrirovalis")}
       </Typography>
       <Typography
         variant="h6"
@@ -217,7 +233,7 @@ export default function SignUp() {
         className={styles.link_text}
         onClick={() => router.push("signUp")}
       >
-        Войти в аккаунт
+        {t("voiti-v-akkaunt")}
       </Typography>
     </PaperContainer>
   );

@@ -2,6 +2,7 @@
 
 import classNames from "classnames";
 import moment from "moment";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useState } from "react";
 import YouTube from "react-youtube";
@@ -16,11 +17,11 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
+import { SECTION_PADDING } from "@/shared/config/const";
 import {
-  SECTION_PADDING,
-  TIME_FORMAT,
-} from "@/shared/config/const";
-import { getYouTubeVideoId } from "@/shared/functions";
+  getAllMinutes,
+  getYouTubeVideoId,
+} from "@/shared/functions";
 import { IWebinarAfterwardListItem } from "@/shared/types";
 
 import videoPlayPrimaryIcon from "@/icons/video-play-primary.svg";
@@ -35,6 +36,7 @@ function ImageWrapper({
   webinar: IWebinarAfterwardListItem;
   handleWhatch: (url: string) => void;
 }) {
+  const t = useTranslations("WebinarAfterwards");
   return (
     <Box
       className={classNames(
@@ -56,7 +58,7 @@ function ImageWrapper({
             handleWhatch(webinar.video)
           }
         >
-          смотреть
+          {t("smotret")}
         </Button>
       </Box>
       <Box className={styles.overlay} />
@@ -69,6 +71,7 @@ export default function WebinarAfterwards({
 }: {
   webinars: IWebinarAfterwardListItem[];
 }) {
+  const t = useTranslations("WebinarAfterwards");
   const [dialog, setDialog] = useState(false);
   const [videoUrl, setVideoUrl] =
     useState<string>();
@@ -98,13 +101,9 @@ export default function WebinarAfterwards({
       }}
     >
       {webinars.map((webinar, webinarIndex) => {
-        const durationTime = moment(
+        const totalMinutes = getAllMinutes(
           webinar.duration_video,
-          TIME_FORMAT,
         );
-        const totalMinutes =
-          durationTime.hours() * 60 +
-          durationTime.minutes();
         return (
           <Box
             key={webinarIndex}
@@ -144,7 +143,9 @@ export default function WebinarAfterwards({
                   fontWeight={700}
                   color="primary"
                 >
-                  {`Эфир: ${webinar.title}`}
+                  {t("title", {
+                    title: webinar.title,
+                  })}
                 </Typography>
                 <Box
                   sx={{
@@ -157,7 +158,7 @@ export default function WebinarAfterwards({
                     fontWeight={600}
                     color="textTertiary"
                   >
-                    Дата проведения:
+                    {t("data-provedeniya")}
                   </Typography>
                   <Typography
                     variant="h6"
@@ -183,7 +184,9 @@ export default function WebinarAfterwards({
                     fontWeight={600}
                     color="textTertiary"
                   >
-                    Продолжительность вебинара:
+                    {t(
+                      "prodolzhitelnost-vebinara",
+                    )}
                   </Typography>
                   <Typography
                     variant="h6"
@@ -191,7 +194,9 @@ export default function WebinarAfterwards({
                     color="textTertiary"
                     textAlign="end"
                   >
-                    {`${totalMinutes} минут`}
+                    {t("minut", {
+                      amount: totalMinutes,
+                    })}
                   </Typography>
                 </Box>
                 <Box
@@ -205,7 +210,7 @@ export default function WebinarAfterwards({
                     fontWeight={600}
                     color="textTertiary"
                   >
-                    Вебинар для студентов:
+                    {t("vebinar-dlya-studentov")}
                   </Typography>
                   <Typography
                     variant="h6"
@@ -213,7 +218,9 @@ export default function WebinarAfterwards({
                     color="textTertiary"
                     textAlign="end"
                   >
-                    {`${webinar.level}-уровня и выше`}
+                    {t("urovnya-i-vyshe", {
+                      level: webinar.level,
+                    })}
                   </Typography>
                 </Box>
                 <Box
@@ -231,7 +238,7 @@ export default function WebinarAfterwards({
                     variant="h6"
                     color="primary"
                   >
-                    Запись эфира
+                    {t("zapis-efira")}
                   </Typography>
                 </Box>
               </Box>

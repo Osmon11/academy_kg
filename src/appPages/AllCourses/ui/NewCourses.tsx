@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
 import { Box, Typography } from "@mui/material";
@@ -12,6 +13,7 @@ import {
 } from "@/shared/types";
 
 export default function NewCourses() {
+  const t = useTranslations("NewCourses");
   const [courses, setCourses] = useState<
     ICourseListItem[]
   >([]);
@@ -54,7 +56,7 @@ export default function NewCourses() {
           fontWeight={600}
           sx={{ margin: "12px 0px" }}
         >
-          Нет новинок
+          {t("net-novinok")}
         </Typography>
       )}
     </Box>

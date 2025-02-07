@@ -1,6 +1,7 @@
 "use client";
 
 import classNames from "classnames";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
 import { Box, Typography } from "@mui/material";
@@ -14,9 +15,10 @@ import axiosInstance from "@/shared/config/axiosClientInstance";
 import { IMyCourseListItem } from "@/shared/types";
 
 import CourseList from "./CourseList";
-import Recommendations from "./Recommendations";
+import RecommendationsCarousel from "./RecommendationsCarousel";
 
 export function AccauntMainPage() {
+  const t = useTranslations("AccauntMainPage");
   const [currentCourses, setCurrentCourses] =
     useState<IMyCourseListItem[]>([]);
 
@@ -48,10 +50,10 @@ export function AccauntMainPage() {
           color="textSecondary"
           fontWeight={700}
         >
-          Рекомендации
+          {t("rekomendacii")}
         </Typography>
         <Box sx={{ marginTop: "20px" }}>
-          <Recommendations />
+          <RecommendationsCarousel />
         </Box>
         {currentCourses.length > 0 ? (
           <Box sx={{ marginTop: "20px" }}>
@@ -60,7 +62,7 @@ export function AccauntMainPage() {
               color="textSecondary"
               fontWeight={700}
             >
-              Продолжить обучение
+              {t("prodolzhit-obuchenie")}
             </Typography>
             <Box className={"courses_wrapper"}>
               {currentCourses.map((item) =>
@@ -80,7 +82,7 @@ export function AccauntMainPage() {
           fontWeight={700}
           sx={{ marginTop: "40px" }}
         >
-          Выберите курс
+          {t("vyberite-kurs")}
         </Typography>
         <Box sx={{ marginTop: "20px" }}>
           <CourseList />

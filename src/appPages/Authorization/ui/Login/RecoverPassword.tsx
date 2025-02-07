@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -25,6 +26,7 @@ interface IFormValues {
 }
 
 export default function RecoverPassword() {
+  const t = useTranslations("RecoverPassword");
   const router = useAppRouter();
   const {
     handleSubmit,
@@ -79,7 +81,7 @@ export default function RecoverPassword() {
   const password = watch("password", "");
   return (
     <PaperContainer
-      title="Придумайте новый пароль"
+      title={t("pridumaite-novyi-parol")}
       component="form"
       onSubmit={handleSubmit(onSubmit)}
     >
@@ -87,11 +89,12 @@ export default function RecoverPassword() {
         name="code"
         control={control}
         rules={{
-          required:
-            "Необходимо ввести код из почты",
+          required: t(
+            "neobkhodimo-vvesti-kod-iz-pochty",
+          ),
         }}
         textField={{
-          placeholder: "Код",
+          placeholder: t("kod"),
           type: "number",
           autoComplete: "off",
         }}
@@ -100,22 +103,25 @@ export default function RecoverPassword() {
         name="password"
         control={control}
         rules={{
-          required:
-            "Необходимо ввести новый пароль",
+          required: t(
+            "neobkhodimo-vvesti-novyi-parol",
+          ),
           minLength: {
             value: 5,
-            message:
-              "Пароль должен быть длиннее 4 символов",
+            message: t(
+              "parol-dolzhen-byt-dlinnee",
+            ),
           },
           pattern: {
             value:
               /^(?=.*[A-Za-z])(?=.*\d).{5,}$/,
-            message:
-              "Пароль должен содержать буквы и цифры",
+            message: t(
+              "parol-dolzhen-soderzhat-bukvy",
+            ),
           },
         }}
         textField={{
-          placeholder: "Пароль",
+          placeholder: t("parol"),
           type: "password",
           autoComplete: "off",
         }}
@@ -124,14 +130,15 @@ export default function RecoverPassword() {
         name="repeatPassword"
         control={control}
         rules={{
-          required:
-            "Пожалуйста подтвердите пароль",
+          required: t(
+            "pozhaluista-podtverdite-parol",
+          ),
           validate: (value) =>
             value === password ||
-            "Пароли не совпадают",
+            t("paroli-ne-sovpadayut"),
         }}
         textField={{
-          placeholder: "Повторите пароль",
+          placeholder: t("povtorite-parol"),
           type: "password",
           autoComplete: "new-password",
         }}
@@ -149,15 +156,15 @@ export default function RecoverPassword() {
         sx={{ maxWidth: "400px" }}
       >
         {loading
-          ? "Ожидание..."
-          : "Восстановить пароль"}
+          ? t("ozhidanie")
+          : t("vosstanovit-parol")}
       </Button>
       <Typography
         variant="h6"
         color="textTertiary"
         textAlign="center"
       >
-        Не пришел код?
+        {t("ne-prishel-kod")}
       </Typography>
       {isNewCodeAvailable ? (
         <Typography
@@ -168,7 +175,7 @@ export default function RecoverPassword() {
           onClick={sendCodeAgain}
           className={styles.link_text}
         >
-          Отправить повторно
+          {t("otpravit-povtorno")}
         </Typography>
       ) : (
         <Box
@@ -183,7 +190,7 @@ export default function RecoverPassword() {
             fontWeight={600}
             color="textTertiary"
           >
-            Отправить повторно через
+            {t("otpravit-povtorno-cherez")}
           </Typography>
           <Timer
             seconds={120}

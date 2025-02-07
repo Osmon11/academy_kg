@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 
 import {
@@ -21,6 +22,7 @@ interface ICourseCardProps {
 export function CourseCard({
   course,
 }: ICourseCardProps) {
+  const t = useTranslations("CourseCard");
   const router = useAppRouter();
   const onlyXs = useMediaQuery((theme) =>
     theme.breakpoints.only("xs"),
@@ -34,6 +36,14 @@ export function CourseCard({
   const upLg = useMediaQuery((theme) =>
     theme.breakpoints.up("lg"),
   );
+  const cost =
+    Number(course.price) > 0
+      ? t("som", {
+          price: formatThePrice(
+            Number(course.price),
+          ),
+        })
+      : t("besplatno");
   return (
     <Box
       className={styles.course_card}
@@ -79,7 +89,7 @@ export function CourseCard({
               fontWeight={600}
               lineHeight="24px"
             >
-              {formatThePrice(course.price)}
+              {cost}
             </Typography>
           </Box>
         )}
@@ -105,7 +115,7 @@ export function CourseCard({
                   upLg ? "24px" : "18px"
                 }
               >
-                {formatThePrice(course.price)}
+                {cost}
               </Typography>
             </Box>
           )}
@@ -121,7 +131,7 @@ export function CourseCard({
               marginTop: { xs: "20px" },
             }}
           >
-            Преподаватель
+            {t("prepodavatel")}
           </Typography>
           <Typography
             variant={upLg ? "h6" : "body1"}
@@ -136,7 +146,7 @@ export function CourseCard({
           >
             {course.teacher
               ? course.teacher.full_name
-              : "Не назначен"}
+              : t("ne-naznachen")}
           </Typography>
         </Box>
 

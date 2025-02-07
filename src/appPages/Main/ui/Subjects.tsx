@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import {
   useCallback,
   useEffect,
@@ -28,6 +29,7 @@ import {
 import styles from "../styles.module.scss";
 
 export default function Subjects() {
+  const t = useTranslations("Subjects");
   const [courseList, setCourseList] =
     useState<IPaginatedList<ISubjectListItem> | null>(
       null,
@@ -35,21 +37,19 @@ export default function Subjects() {
   const [loading, setLoading] = useState(true);
 
   const loadMore = useCallback(() => {
-    if (courseList === null || courseList.next) {
-      setLoading(true);
-      axiosInstance
-        .get<IPaginatedList<ISubjectListItem>>(
-          `academy/course_list/?page=${courseList ? courseList.next : 1}`,
-        )
-        .then((res) => {
-          if (res?.data) {
-            setCourseList(res.data);
-          }
-        })
-        .catch(() => setCourseList(null))
-        .finally(() => setLoading(false));
-    }
-  }, [courseList]);
+    setLoading(true);
+    axiosInstance
+      .get<IPaginatedList<ISubjectListItem>>(
+        `academy/course_list/?page=${1}`, // load only first page, temporary solution
+      )
+      .then((res) => {
+        if (res?.data) {
+          setCourseList(res.data);
+        }
+      })
+      .catch(() => setCourseList(null))
+      .finally(() => setLoading(false));
+  }, []);
 
   const [sentryRef] = useInfiniteScroll({
     loading,
@@ -131,7 +131,7 @@ export default function Subjects() {
           color="textSecondary"
           fontWeight={600}
         >
-          Нет данных
+          {t("net-dannykh")}
         </Typography>
       )}
     </Box>

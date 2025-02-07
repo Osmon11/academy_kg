@@ -2,6 +2,7 @@
 
 import classNames from "classnames";
 import moment from "moment";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useState } from "react";
 import { toast } from "react-toastify";
@@ -30,6 +31,7 @@ function ImageWrapper({
   webinar: IUpcomingWebinarListItem;
   haveFreeSeats: boolean;
 }) {
+  const t = useTranslations("UpcomingWebinars");
   const [webinar, setWebinar] =
     useState(webinarProp);
   const profile = useAppSelector(
@@ -52,10 +54,10 @@ function ImageWrapper({
           .then((res) => {
             if (res?.data.webinar) {
               toast.success(
-                "Вы успешно оставили заявку!",
+                t("vy-uspeshno-ostavili-zayavku"),
               );
               toast.info(
-                "За несколько минут до начала вебинара вы получите индивидуальную ссылку на мероприятие на почту, чтобы перейти прямо в вебинарную комнату.",
+                t("za-neskolko-minut-do"),
                 { autoClose: 30000 },
               );
               setWebinar((state) => ({
@@ -67,7 +69,7 @@ function ImageWrapper({
           .finally(() => setLoading(false));
       } else {
         toast.warning(
-          "Ваш уровень подготовки пока недостаточен для этого вебинара",
+          t("vash-uroven-podgotovki-poka"),
         );
       }
     } else {
@@ -103,10 +105,10 @@ function ImageWrapper({
             }
           >
             {loading
-              ? "Ожидание..."
+              ? t("ozhidanie")
               : webinar.is_requested
-                ? "Заявка отправлена"
-                : "Оставить заявку"}
+                ? t("zayavka-otpravlena")
+                : t("ostavit-zayavku")}
           </Button>
         )}
       </Box>
@@ -120,6 +122,7 @@ export default function UpcomingWebinars({
 }: {
   webinars: IUpcomingWebinarListItem[];
 }) {
+  const t = useTranslations("UpcomingWebinars");
   const propertyBoxStyles = {
     display: "flex",
     alignItems: { xs: "start", sm: "center" },
@@ -196,7 +199,7 @@ export default function UpcomingWebinars({
                     fontWeight={600}
                     color="textTertiary"
                   >
-                    Дата проведения:
+                    {t("data-provedeniya")}
                   </Typography>
                   <Typography
                     variant="h6"
@@ -222,7 +225,9 @@ export default function UpcomingWebinars({
                     fontWeight={600}
                     color="textTertiary"
                   >
-                    Продолжительность вебинара:
+                    {t(
+                      "prodolzhitelnost-vebinara",
+                    )}
                   </Typography>
                   <Typography
                     variant="h6"
@@ -230,7 +235,11 @@ export default function UpcomingWebinars({
                     color="textTertiary"
                     textAlign="end"
                   >
-                    {`≈ ${getAllMinutes(webinar.duration)} минут`}
+                    {t("minut", {
+                      amount: getAllMinutes(
+                        webinar.duration,
+                      ),
+                    })}
                   </Typography>
                 </Box>
                 <Box
@@ -244,7 +253,7 @@ export default function UpcomingWebinars({
                     fontWeight={600}
                     color="textTertiary"
                   >
-                    Вебинар для студентов:
+                    {t("vebinar-dlya-studentov")}
                   </Typography>
                   <Typography
                     variant="h6"
@@ -252,7 +261,9 @@ export default function UpcomingWebinars({
                     color="textTertiary"
                     textAlign="end"
                   >
-                    {`${webinar.level}-уровня и выше`}
+                    {t("urovnya-i-vyshe", {
+                      level: webinar.level,
+                    })}
                   </Typography>
                 </Box>
                 <Typography
@@ -263,9 +274,23 @@ export default function UpcomingWebinars({
                 >
                   {haveFreeSeats
                     ? webinar.busy_count > 0
-                      ? `Места ограничены: записано ${webinar.busy_count} из ${webinar.place_count} (осталось ${webinar.place_count - webinar.busy_count} мест!)`
-                      : `Места ограничены: ${webinar.place_count} мест`
-                    : "Мест не осталось."}
+                      ? t(
+                          "mesta-ogranicheny-zapisano",
+                          {
+                            amount:
+                              webinar.busy_count,
+                            total:
+                              webinar.place_count,
+                            left:
+                              webinar.place_count -
+                              webinar.busy_count,
+                          },
+                        )
+                      : t("mesta-ogranicheny", {
+                          amount:
+                            webinar.place_count,
+                        })
+                    : t("mest-ne-ostalos")}
                 </Typography>
               </Box>
             </Paper>

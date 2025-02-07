@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 
 import {
@@ -16,6 +17,7 @@ import youtubeIcon from "@/icons/youtube.svg";
 import styles from "./Footer.module.scss";
 
 export function Footer() {
+  const t = useTranslations("Footer");
   const upMd = useMediaQuery((theme) =>
     theme.breakpoints.up("md"),
   );
@@ -26,7 +28,7 @@ export function Footer() {
           variant="h5"
           fontWeight={700}
         >
-          Академия
+          {t("akademiya")}
         </Typography>
       )}
       <span>
@@ -37,7 +39,7 @@ export function Footer() {
             rel="noopener"
           >
             <Typography variant="body2">
-              Политика конфиденциальности
+              {t("politika-konfidencialnosti")}
             </Typography>
           </a>
           <Typography>|</Typography>
@@ -47,7 +49,7 @@ export function Footer() {
             rel="noopener"
           >
             <Typography variant="body2">
-              Библиотека
+              {t("biblioteka")}
             </Typography>
           </a>
           <Typography>|</Typography>
@@ -57,7 +59,7 @@ export function Footer() {
             rel="noopener"
           >
             <Typography variant="body2">
-              Мир Знаний
+              {t("mir-znanii")}
             </Typography>
           </a>
         </Box>
@@ -68,7 +70,9 @@ export function Footer() {
             marginTop: { xs: "20px", md: "10px" },
           }}
         >
-          © 2015 - 2024 Академия
+          {t("c-2015-akademiya", {
+            year: new Date().getFullYear(),
+          })}
         </Typography>
       </span>
       {upMd && (

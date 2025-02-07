@@ -1,6 +1,7 @@
 "use client";
 
 import moment from "moment";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
@@ -23,6 +24,7 @@ import playCirclePrimaryIcon from "@/icons/play-circle-primary.svg";
 import styles from "../styles.module.scss";
 
 export default function OverviewLessons() {
+  const t = useTranslations("OverviewLessons");
   const { course, loading } = useAppSelector(
     (store) => store.course,
   );
@@ -89,7 +91,14 @@ export default function OverviewLessons() {
             variant="body1"
             color="textSecondary"
             textAlign="right"
-          >{`Видео - ${moment(lesson.duration, TIME_FORMAT).format("HH:mm")}`}</Typography>
+          >
+            {t("video", {
+              duration: moment(
+                lesson.duration,
+                TIME_FORMAT,
+              ).format("HH:mm"),
+            })}
+          </Typography>
         </ListItem>
       ))}
     </Box>
@@ -100,7 +109,7 @@ export default function OverviewLessons() {
       fontWeight={600}
       sx={{ marginTop: "16px" }}
     >
-      Нет уроков
+      {t("net-urokov")}
     </Typography>
   );
 }

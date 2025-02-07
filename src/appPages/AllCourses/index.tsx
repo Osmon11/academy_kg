@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
 import {
@@ -23,6 +24,7 @@ import LifeOfTheProphet from "./ui/LifeOfTheProphet";
 import NewCourses from "./ui/NewCourses";
 
 export function AllCoursesPage() {
+  const t = useTranslations("AllCoursesPage");
   const router = useAppRouter();
   const [search, setSearch] = useState("");
 
@@ -75,28 +77,28 @@ export function AllCoursesPage() {
           {...headerProps}
           sx={{ marginTop: "20px" }}
         >
-          Наборы курсов
+          {t("nabory-kursov")}
         </Typography>
         <CourseSets />
         <Typography
           {...headerProps}
           sx={{ marginTop: "20px" }}
         >
-          Новинки
+          {t("novinki")}
         </Typography>
         <NewCourses />
         <Typography
           {...headerProps}
           sx={{ marginTop: "40px" }}
         >
-          Основы Ислама
+          {t("osnovy-islama")}
         </Typography>
         <BasicsOfIslam />
         <Typography
           {...headerProps}
           sx={{ marginTop: "40px" }}
         >
-          Жизнеописание пророка
+          {t("zhizneopisanie-proroka")}
         </Typography>
         <LifeOfTheProphet />
         <AcademyCoreProgram />
@@ -104,7 +106,7 @@ export function AllCoursesPage() {
           {...headerProps}
           sx={{ marginTop: "40px" }}
         >
-          Арабский язык
+          {t("arabskii-yazyk")}
         </Typography>
         <ArabLanguage />
       </Box>

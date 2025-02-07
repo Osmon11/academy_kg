@@ -1,6 +1,7 @@
 "use client";
 
 import classNames from "classnames";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import YouTube from "react-youtube";
 
@@ -44,6 +45,7 @@ interface ICourseOverviewPageProps {
 export function CourseOverviewPage({
   courseId,
 }: ICourseOverviewPageProps) {
+  const t = useTranslations("CourseOverviewPage");
   const router = useAppRouter();
   const dispatch = useAppDispatch();
   const profile = useAppSelector(
@@ -120,7 +122,7 @@ export function CourseOverviewPage({
     <Box className={styles.description_wrapper}>
       <CommentCard
         className={styles.description}
-        header="Описание:"
+        header={t("opisanie")}
         comment={course.description}
       />
       <Box
@@ -146,10 +148,10 @@ export function CourseOverviewPage({
           disabled={processing}
         >
           {processing
-            ? "Подождите..."
+            ? t("podozhdite")
             : course.is_learning
-              ? "Продолжить обучение"
-              : "Начать учиться"}
+              ? t("prodolzhit-obuchenie")
+              : t("nachat-uchitsya")}
         </Button>
       </Box>
     </Box>
@@ -198,7 +200,7 @@ export function CourseOverviewPage({
                 marginTop: SECTION_MARGIN_TOP,
               }}
             >
-              Чему вы научитесь
+              {t("chemu-vy-nauchites")}
             </Typography>
             {course.objectives ? (
               <Grid
@@ -242,7 +244,7 @@ export function CourseOverviewPage({
                 color="textSecondary"
                 textAlign="center"
               >
-                Нет данных
+                {t("net-dannykh")}
               </Typography>
             )}
             <Typography
@@ -254,7 +256,7 @@ export function CourseOverviewPage({
                 marginTop: SECTION_MARGIN_TOP,
               }}
             >
-              Программа курса
+              {t("programma-kursa")}
             </Typography>
             <CourseProgram course={course} />
           </Box>

@@ -19,6 +19,7 @@ const publicPages = [
   routePath("webinars"),
   routePath("signIn"),
   routePath("signUp"),
+  "/google-signin",
   // (/secret requires auth)
 ];
 
@@ -34,13 +35,13 @@ const authMiddleware = withAuth(
   },
   {
     callbacks: {
-      authorized: ({ req, token }) =>
+      authorized: ({ req }) =>
         Boolean(
           req.cookies.get(
             process.env
               .NEXT_PUBLIC_ACCESS_TOKEN_KEY as string,
           ),
-        ) || token != null,
+        ),
     },
   },
 );

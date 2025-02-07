@@ -1,4 +1,13 @@
-import { Fragment } from "react";
+"use client";
+
+import { useTranslations } from "next-intl";
+import {
+  Fragment,
+  useEffect,
+  useState,
+} from "react";
+
+import { Box } from "@mui/material";
 
 import { Footer } from "@/widgets/Footer";
 import { Header } from "@/widgets/Header";
@@ -7,6 +16,7 @@ import { OurTeachers } from "@/widgets/OurTeachers";
 import { PageHeading } from "@/entities/PageHeading";
 import { SectionHeader } from "@/entities/SectionHeader";
 
+import { TubeSpinner } from "@/shared/UI";
 import axiosInstance from "@/shared/config/axiosClientInstance";
 import {
   ITeacherListItem,
@@ -15,17 +25,37 @@ import {
 
 import OurTeam from "./ui/OurTeam";
 
-export async function AboutUsPage() {
-  const teammateList = await axiosInstance
-    .get<{
-      results: ITeammateListItem[];
-    }>("academy/our_team_list/")
-    .then((res) => res?.data.results);
-  const teacherList = await axiosInstance
-    .get<{
-      results: ITeacherListItem[];
-    }>("academy/teacher_list/")
-    .then((res) => res?.data.results);
+export function AboutUsPage() {
+  const t = useTranslations("AboutUsPage");
+  const [teammateList, setTeammateList] =
+    useState<ITeammateListItem[]>([]);
+  const [teacherList, setTeacherList] = useState<
+    ITeacherListItem[]
+  >([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    Promise.all([
+      axiosInstance
+        .get<{
+          results: ITeammateListItem[];
+        }>("academy/our_team_list/")
+        .then((res) => {
+          if (Array.isArray(res?.data.results)) {
+            setTeammateList(res.data.results);
+          }
+        }),
+      axiosInstance
+        .get<{
+          results: ITeacherListItem[];
+        }>("academy/teacher_list/")
+        .then((res) => {
+          if (Array.isArray(res?.data.results)) {
+            setTeacherList(res.data.results);
+          }
+        }),
+    ]).finally(() => setLoading(false));
+  }, []);
   return (
     <Fragment>
       <Header
@@ -34,20 +64,42 @@ export async function AboutUsPage() {
         position="absolute"
       />
       <PageHeading
-        title="О нас"
+        title={t("o-nas")}
         subtitles={[
-          "Наша академия предлагает комплексное онлайн-обучение Корану и арабскому языку для студентов всех уровней подготовки. Мы стремимся сделать изучение Священной Книги доступным каждому, используя современные технологии и методики преподавания.",
-          "Мы предлагаем индивидуальный подход к каждому студенту, гибкий график занятий и раздельное обучение для мужчин и женщин. Наши преподаватели — специалисты с международным опытом, готовые помочь вам на пути к знаниям.",
+          t(
+            "nasha-akademiya-predlagaet-kompleksnoe",
+          ),
+          t(
+            "my-predlagaem-individualnyi-podkhod",
+          ),
         ]}
       />
       <SectionHeader color="primary">
-        наша команда
+        {t("nasha-komanda")}
       </SectionHeader>
-      <OurTeam teammates={teammateList} />
+      {loading ? (
+        <Box className="tube_spinner_wrapper">
+          <TubeSpinner
+            width={50}
+            height={50}
+          />
+        </Box>
+      ) : (
+        <OurTeam teammates={teammateList} />
+      )}
       <SectionHeader color="primary">
-        Наши преподаватели
+        {t("nashi-prepodavateli")}
       </SectionHeader>
-      <OurTeachers teachers={teacherList} />
+      {loading ? (
+        <Box className="tube_spinner_wrapper">
+          <TubeSpinner
+            width={50}
+            height={50}
+          />
+        </Box>
+      ) : (
+        <OurTeachers teachers={teacherList} />
+      )}
       <Footer />
     </Fragment>
   );

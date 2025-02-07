@@ -1,3 +1,5 @@
+import { useTranslations } from "next-intl";
+
 import {
   Box,
   Card,
@@ -17,6 +19,7 @@ interface ISetOfCoursesCardProps {
 export function SetOfCoursesCard({
   setOfCourses,
 }: ISetOfCoursesCardProps) {
+  const t = useTranslations("SetOfCoursesCard");
   const router = useAppRouter();
   return (
     <Card
@@ -42,7 +45,9 @@ export function SetOfCoursesCard({
               variant="caption"
               fontWeight={900}
             >
-              {`${setOfCourses.course_count} курса`}
+              {t("kursa", {
+                amount: setOfCourses.course_count,
+              })}
             </Typography>
           </Box>
         ) : null}

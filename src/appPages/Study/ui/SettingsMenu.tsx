@@ -1,4 +1,7 @@
-import { useLocale } from "next-intl";
+import {
+  useLocale,
+  useTranslations,
+} from "next-intl";
 import Image from "next/image";
 import { Fragment, useState } from "react";
 
@@ -23,6 +26,7 @@ import shareIconPrimary from "@/icons/share-primary.svg";
 import styles from "../styles.module.scss";
 
 export default function SettingsMenu() {
+  const t = useTranslations("SettingsMenu");
   const locale = useLocale();
   const router = useAppRouter();
   const course = useAppSelector(
@@ -81,7 +85,7 @@ export default function SettingsMenu() {
                 width={24}
                 height={24}
               />
-              О курсе
+              {t("o-kurse")}
             </MenuItem>
             <Divider />
             <MenuItem
@@ -97,13 +101,13 @@ export default function SettingsMenu() {
                 width={24}
                 height={24}
               />
-              Поделиться курсом
+              {t("podelitsya-kursom")}
             </MenuItem>
           </Menu>
           <ShareDialog
             open={dialog}
             handleClose={() => setDialog(false)}
-            title="Поделиться курсом"
+            title={t("podelitsya-kursom")}
             shareText={course.title}
             shareUrl={
               window.location.origin +

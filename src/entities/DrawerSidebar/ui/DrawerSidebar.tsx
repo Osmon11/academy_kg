@@ -24,6 +24,7 @@ import {
   TubeSpinner,
 } from "@/shared/UI";
 import { LocalizationMenu } from "@/shared/UI";
+import { ERoute } from "@/shared/config/enum";
 import { useAppSelector } from "@/shared/config/store";
 import { useAppRouter } from "@/shared/hooks/useAppRouter";
 import { usePathname } from "@/shared/i18n/routing";
@@ -120,10 +121,11 @@ export function DrawerSidebar({
       >
         {navLinks.map((navItem, index) => {
           const isActive =
-            pathname === navItem.href;
+            pathname ===
+            ERoute[navItem.routeName];
           return (
             <ListItem
-              key={navItem.href + index}
+              key={navItem.routeName + index}
               disablePadding
               sx={{
                 marginBottom:
@@ -140,8 +142,7 @@ export function DrawerSidebar({
                   },
                 )}
                 onClick={() =>
-                  // @ts-expect-error Argument of type 'string' is not assignable to parameter of type
-                  router.push(navItem.href)
+                  router.push(navItem.routeName)
                 }
               >
                 <ListItemText

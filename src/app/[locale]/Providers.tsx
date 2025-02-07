@@ -1,6 +1,9 @@
 "use client";
 
-import { SessionProvider } from "next-auth/react";
+import {
+  SessionProvider,
+  useSession,
+} from "next-auth/react";
 import { AppProgressBar } from "next-nprogress-bar";
 import { useEffect, useRef } from "react";
 import { Provider } from "react-redux";
@@ -27,11 +30,10 @@ function GlobalProfileFetcher({
   children: React.ReactNode;
 }) {
   const dispatch = useAppDispatch();
+  const { status } = useSession();
 
   useEffect(() => {
-    if (
-      axiosInstance.defaults.headers.Authorization
-    ) {
+    if (status === "authenticated") {
       // Fetch profile data if token exists
       dispatch(setProfileLoading(true));
       axiosInstance
@@ -49,9 +51,9 @@ function GlobalProfileFetcher({
       // Clear profile data if token is missing
       dispatch(clearUserProfile());
     }
-  }, [dispatch]);
+  }, [dispatch, status]);
 
-  return <>{children}</>;
+  return children;
 }
 
 export function Providers({

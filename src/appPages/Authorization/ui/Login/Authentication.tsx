@@ -1,9 +1,13 @@
 "use client";
 
-import { signIn } from "next-auth/react";
+import { useSession } from "next-auth/react";
+import {
+  useLocale,
+  useTranslations,
+} from "next-intl";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   Box,
@@ -11,7 +15,9 @@ import {
   Typography,
 } from "@mui/material";
 
+import { popupCenter } from "@/shared/functions";
 import { useAppRouter } from "@/shared/hooks/useAppRouter";
+import { getPathname } from "@/shared/i18n/routing";
 
 import googleColorfulIcon from "@/icons/google-colorful.svg";
 import smsCoalGrayIcon from "@/icons/sms-coal-gray.svg";
@@ -20,18 +26,35 @@ import PaperContainer from "../PaperContainer";
 import styles from "../styles.module.scss";
 
 export function Authentication() {
+  const t = useTranslations("Authentication");
+  const locale = useLocale();
   const router = useAppRouter();
   const searchParams = useSearchParams();
   const searchParamsObject = Object.fromEntries(
     searchParams.entries(),
   );
+  const { status } = useSession();
   const [loading] = useState(false);
 
+  useEffect(() => {
+    if (status === "authenticated") {
+      router.replace("accaunt");
+    }
+  }, [status, router]);
+
   function handleGoogleSignIn() {
-    signIn("google");
+    popupCenter(
+      getPathname({
+        locale,
+        href: "/google-signin",
+      }),
+      t("voiti-s-google"),
+    );
   }
   return (
-    <PaperContainer title="Войти или зарегистрироваться">
+    <PaperContainer
+      title={t("voiti-ili-zaregistrirovatsya")}
+    >
       <Button
         className={styles.white_button}
         variant="shadow"
@@ -48,8 +71,8 @@ export function Authentication() {
         disabled={loading}
       >
         {loading
-          ? "Загрузка..."
-          : "Войти с Google"}
+          ? t("ozhidanie")
+          : t("voiti-s-google")}
       </Button>
       <Button
         className={styles.white_button}
@@ -74,7 +97,7 @@ export function Authentication() {
         disabled={loading}
         fullWidth
       >
-        Войти с эл. почтой
+        {t("voiti-s-el-pochtoi")}
       </Button>
       <Box className={styles.divider}>
         <span className={styles.line} />
@@ -82,7 +105,7 @@ export function Authentication() {
           variant="h6"
           color="textTertiary"
         >
-          или
+          {t("ili")}
         </Typography>
         <span className={styles.line} />
       </Box>
@@ -93,7 +116,7 @@ export function Authentication() {
         disabled={loading}
         fullWidth
       >
-        Зарегистрироваться
+        {t("zaregistrirovatsya")}
       </Button>
     </PaperContainer>
   );

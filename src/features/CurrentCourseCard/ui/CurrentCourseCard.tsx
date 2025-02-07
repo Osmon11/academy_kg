@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 
 import {
@@ -23,6 +24,7 @@ interface ICurrentCourseCardProps {
 export function CurrentCourseCard({
   course,
 }: ICurrentCourseCardProps) {
+  const t = useTranslations("CurrentCourseCard");
   const router = useAppRouter();
   const onlyXs = useMediaQuery((theme) =>
     theme.breakpoints.only("xs"),
@@ -96,7 +98,9 @@ export function CurrentCourseCard({
               fontWeight={600}
               lineHeight="24px"
             >
-              {`Уровень ${course.detail.level}`}
+              {t("uroven", {
+                level: course.detail.level,
+              })}
             </Typography>
           </Box>
         )}
@@ -111,7 +115,9 @@ export function CurrentCourseCard({
                 fontWeight={600}
                 lineHeight="24px"
               >
-                {`Уровень ${course.detail.level}`}
+                {t("uroven", {
+                  level: course.detail.level,
+                })}
               </Typography>
             </Box>
           )}
@@ -120,7 +126,11 @@ export function CurrentCourseCard({
             color="textSecondary"
             sx={{ marginTop: { xs: "20px" } }}
           >
-            {`Пройдено: ${course.detail.finished_count}/${course.detail.lesson_count}`}
+            {t("proideno", {
+              finished:
+                course.detail.finished_count,
+              total: course.detail.lesson_count,
+            })}
           </Typography>
         </Box>
         {course.icon ? (

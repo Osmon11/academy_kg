@@ -1,6 +1,7 @@
 "use client";
 
 import moment from "moment";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import {
   Fragment,
@@ -56,6 +57,7 @@ export default function LessonsList({
   onSelectLesson,
   onSelectExam,
 }: ILessonsListProps) {
+  const t = useTranslations("LessonsList");
   const dispatch = useAppDispatch();
   const { course, courseLevels } = useAppSelector(
     (store) => store.course,
@@ -115,7 +117,9 @@ export default function LessonsList({
         {course?.levels.map((item) => (
           <Chip
             key={item.id}
-            label={`Уровень ${item.level}`}
+            label={t("uroven", {
+              level: item.level,
+            })}
             variant={
               item.id === level?.id
                 ? "filled"
@@ -200,7 +204,14 @@ export default function LessonsList({
                           </Typography>
                           <Typography
                             {...typographyProps}
-                          >{`Видео - ${moment(item.duration, TIME_FORMAT).format("HH:mm")}`}</Typography>
+                          >
+                            {t("video", {
+                              duration: moment(
+                                item.duration,
+                                TIME_FORMAT,
+                              ).format("HH:mm"),
+                            })}
+                          </Typography>
                         </Box>
                       </Box>
                     </Box>
@@ -211,7 +222,7 @@ export default function LessonsList({
                       color="textSecondary"
                     >
                       {item.description ??
-                        "Нет описания"}
+                        t("net-opisaniya")}
                     </Typography>
                   </AccordionDetails>
                 </Accordion>
@@ -274,14 +285,27 @@ export default function LessonsList({
                     component="p"
                     color="textSecondary"
                   >
-                    {`Необходимый минимум
-                        баллов: ${courseLevels.exam.pass_points}`}
+                    {t(
+                      "neobkhodimyi-minimum-ballov",
+                      {
+                        points:
+                          courseLevels.exam
+                            .pass_points,
+                      },
+                    )}
                   </Typography>
                   <Typography
                     variant="caption"
                     component="p"
                     color="textSecondary"
-                  >{`Время на экзамен: ${getAllMinutes(courseLevels.exam.duration)} мин.`}</Typography>
+                  >
+                    {t("vremya-na-ekzamen", {
+                      minuts: getAllMinutes(
+                        courseLevels.exam
+                          .duration,
+                      ),
+                    })}
+                  </Typography>
                 </Fragment>
               </AccordionDetails>
             </Accordion>
@@ -294,7 +318,7 @@ export default function LessonsList({
           fontWeight={600}
           sx={{ margin: "12px 0px" }}
         >
-          Нет уроков
+          {t("net-urokov")}
         </Typography>
       )}
     </Box>
