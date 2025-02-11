@@ -1,13 +1,9 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import {
-  Fragment,
-  useEffect,
-  useState,
-} from "react";
+import { Fragment } from "react";
 
-import { Box, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 
 import { Footer } from "@/widgets/Footer";
 import { Header } from "@/widgets/Header";
@@ -16,13 +12,7 @@ import { Banner } from "@/entities/Banner";
 import { PageHeading } from "@/entities/PageHeading";
 import { SectionHeader } from "@/entities/SectionHeader";
 
-import { TubeSpinner } from "@/shared/UI";
-import axiosInstance from "@/shared/config/axiosClientInstance";
 import { SECTION_MARGIN_TOP } from "@/shared/config/const";
-import {
-  IUpcomingWebinarListItem,
-  IWebinarAfterwardListItem,
-} from "@/shared/types";
 
 import HowOurWebinarsPass from "./ui/HowOurWebinarsPass";
 import UpcomingWebinars from "./ui/UpcomingWebinars";
@@ -30,39 +20,6 @@ import WebinarAfterwards from "./ui/WebinarAfterwards";
 
 export function WebinarsPage() {
   const t = useTranslations("WebinarsPage");
-  const [webinarList, setWebinarList] = useState<
-    IUpcomingWebinarListItem[]
-  >([]);
-  const [
-    webinarAfterwards,
-    setWebinarAfterwards,
-  ] = useState<IWebinarAfterwardListItem[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    Promise.all([
-      axiosInstance
-        .get<{
-          results: IUpcomingWebinarListItem[];
-        }>("academy/webinar_list/")
-        .then((res) => {
-          if (Array.isArray(res?.data.results)) {
-            setWebinarList(res.data.results);
-          }
-        }),
-      axiosInstance
-        .get<{
-          results: IWebinarAfterwardListItem[];
-        }>("academy/webinar_afterwards/")
-        .then((res) => {
-          if (Array.isArray(res?.data.results)) {
-            setWebinarAfterwards(
-              res.data.results,
-            );
-          }
-        }),
-    ]).finally(() => setLoading(false));
-  }, []);
   return (
     <Fragment>
       <Header
@@ -84,35 +41,11 @@ export function WebinarsPage() {
       <SectionHeader color="primary">
         {t("predstoyashie-vebinary")}
       </SectionHeader>
-
-      {loading ? (
-        <Box className="tube_spinner_wrapper">
-          <TubeSpinner
-            width={50}
-            height={50}
-          />
-        </Box>
-      ) : (
-        <UpcomingWebinars
-          webinars={webinarList}
-        />
-      )}
+      <UpcomingWebinars />
       <SectionHeader color="secondary">
         {t("zapisi-proshedshikh-vebinarov")}
       </SectionHeader>
-
-      {loading ? (
-        <Box className="tube_spinner_wrapper">
-          <TubeSpinner
-            width={50}
-            height={50}
-          />
-        </Box>
-      ) : (
-        <WebinarAfterwards
-          webinars={webinarAfterwards}
-        />
-      )}
+      <WebinarAfterwards />
       <Banner
         color="secondary"
         sx={{

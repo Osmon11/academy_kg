@@ -1,12 +1,6 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import {
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
-import useInfiniteScroll from "react-infinite-scroll-hook";
 
 import {
   Box,
@@ -19,73 +13,38 @@ import { Carousel } from "@/widgets/Carousel";
 import { SubjectCard } from "@/features/SubjectCard";
 
 import { TubeSpinner } from "@/shared/UI";
-import axiosInstance from "@/shared/config/axiosClientInstance";
 import { SECTION_PADDING } from "@/shared/config/const";
-import {
-  IPaginatedList,
-  ISubjectListItem,
-} from "@/shared/types";
+import { usePaginatedData } from "@/shared/hooks";
+import { ISubjectListItem } from "@/shared/types";
 
 import styles from "../styles.module.scss";
 
 export default function Subjects() {
   const t = useTranslations("Subjects");
-  const [courseList, setCourseList] =
-    useState<IPaginatedList<ISubjectListItem> | null>(
-      null,
-    );
-  const [loading, setLoading] = useState(true);
-
-  const loadMore = useCallback(() => {
-    setLoading(true);
-    axiosInstance
-      .get<IPaginatedList<ISubjectListItem>>(
-        `academy/course_list/?page=${1}`, // load only first page, temporary solution
-      )
-      .then((res) => {
-        if (res?.data) {
-          setCourseList(res.data);
-        }
-      })
-      .catch(() => setCourseList(null))
-      .finally(() => setLoading(false));
-  }, []);
-
-  const [sentryRef] = useInfiniteScroll({
-    loading,
-    hasNextPage: false, // load only limited number of subjects
-    onLoadMore: loadMore,
-    disabled: !courseList,
-  });
-
-  useEffect(() => {
-    loadMore();
-  }, [loadMore]);
 
   const upMd = useMediaQuery((theme) =>
     theme.breakpoints.up("md"),
   );
+
+  const { sentryRef, data, loading } =
+    usePaginatedData<ISubjectListItem>({
+      endpoint: "/academy/course_list/",
+      searchParams: { page_size: 9 },
+      hasNextPage: false,
+    });
   return (
     <Box
       sx={{
         padding: SECTION_PADDING,
       }}
     >
-      {loading ? (
-        <Box className="tube_spinner_wrapper">
-          <TubeSpinner
-            width={50}
-            height={50}
-          />
-        </Box>
-      ) : courseList &&
-        courseList.results.length > 0 ? (
+      {data && data.results.length > 0 ? (
         upMd ? (
           <Box
             className={styles.subjects_wrapper}
             ref={sentryRef}
           >
-            {courseList.results.map(
+            {data.results.map(
               (course, cardIndex) => (
                 <SubjectCard
                   key={course.id}
@@ -101,7 +60,7 @@ export default function Subjects() {
           </Box>
         ) : (
           <Carousel options={{ align: "start" }}>
-            {courseList.results.map(
+            {data.results.map(
               (card, cardIndex) => (
                 <Box
                   key={card.id}
@@ -133,6 +92,14 @@ export default function Subjects() {
         >
           {t("net-dannykh")}
         </Typography>
+      )}
+      {loading && (
+        <Box className={"tube_spinner_wrapper"}>
+          <TubeSpinner
+            width={50}
+            height={50}
+          />
+        </Box>
       )}
     </Box>
   );

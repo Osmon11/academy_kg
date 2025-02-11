@@ -17,11 +17,13 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
+import { TubeSpinner } from "@/shared/UI";
 import { SECTION_PADDING } from "@/shared/config/const";
 import {
   getAllMinutes,
   getYouTubeVideoId,
 } from "@/shared/functions";
+import { usePaginatedData } from "@/shared/hooks";
 import { IWebinarAfterwardListItem } from "@/shared/types";
 
 import videoPlayPrimaryIcon from "@/icons/video-play-primary.svg";
@@ -66,11 +68,7 @@ function ImageWrapper({
   );
 }
 
-export default function WebinarAfterwards({
-  webinars,
-}: {
-  webinars: IWebinarAfterwardListItem[];
-}) {
+export default function WebinarAfterwards() {
   const t = useTranslations("WebinarAfterwards");
   const [dialog, setDialog] = useState(false);
   const [videoUrl, setVideoUrl] =
@@ -94,158 +92,192 @@ export default function WebinarAfterwards({
   const upMd = useMediaQuery((theme) =>
     theme.breakpoints.up("md"),
   );
+
+  const { sentryRef, data, loading } =
+    usePaginatedData<IWebinarAfterwardListItem>({
+      endpoint: "/academy/webinar_list/",
+    });
   return (
     <Box
       sx={{
         padding: SECTION_PADDING,
       }}
+      ref={sentryRef}
     >
-      {webinars.map((webinar, webinarIndex) => {
-        const totalMinutes = getAllMinutes(
-          webinar.duration_video,
-        );
-        return (
-          <Box
-            key={webinarIndex}
-            sx={{
-              marginTop:
-                webinarIndex === 0
-                  ? "0px"
-                  : "60px",
-            }}
-            className={styles.card_item}
-          >
-            {upMd && (
-              <ImageWrapper
-                webinar={webinar}
-                handleWhatch={onClickWatch}
-              />
-            )}
-            <Paper
-              className={styles.content_wrapper}
-            >
-              {!upMd && (
-                <ImageWrapper
-                  webinar={webinar}
-                  handleWhatch={onClickWatch}
-                />
-              )}
+      {data &&
+        data.results.length > 0 &&
+        data.results.map(
+          (webinar, webinarIndex) => {
+            const totalMinutes = getAllMinutes(
+              webinar.duration_video,
+            );
+            return (
               <Box
+                key={webinarIndex}
                 sx={{
-                  padding: {
-                    xs: "15px",
-                    md: "0px",
-                  },
+                  marginTop:
+                    webinarIndex === 0
+                      ? "0px"
+                      : "60px",
                 }}
+                className={styles.card_item}
               >
-                <Typography
-                  variant="h5"
-                  fontWeight={700}
-                  color="primary"
-                >
-                  {t("title", {
-                    title: webinar.title,
-                  })}
-                </Typography>
-                <Box
-                  sx={{
-                    marginTop: "12px",
-                    ...propertyBoxStyles,
-                  }}
-                >
-                  <Typography
-                    variant="h6"
-                    fontWeight={600}
-                    color="textTertiary"
-                  >
-                    {t("data-provedeniya")}
-                  </Typography>
-                  <Typography
-                    variant="h6"
-                    fontWeight={400}
-                    color="textTertiary"
-                    textAlign="end"
-                  >
-                    {moment(
-                      webinar.start_time,
-                    ).format(
-                      "mm:HH - DD.MM.YYYY",
-                    )}
-                  </Typography>
-                </Box>
-                <Box
-                  sx={{
-                    marginTop: "12px",
-                    ...propertyBoxStyles,
-                  }}
-                >
-                  <Typography
-                    variant="h6"
-                    fontWeight={600}
-                    color="textTertiary"
-                  >
-                    {t(
-                      "prodolzhitelnost-vebinara",
-                    )}
-                  </Typography>
-                  <Typography
-                    variant="h6"
-                    fontWeight={400}
-                    color="textTertiary"
-                    textAlign="end"
-                  >
-                    {t("minut", {
-                      amount: totalMinutes,
-                    })}
-                  </Typography>
-                </Box>
-                <Box
-                  sx={{
-                    marginTop: "12px",
-                    ...propertyBoxStyles,
-                  }}
-                >
-                  <Typography
-                    variant="h6"
-                    fontWeight={600}
-                    color="textTertiary"
-                  >
-                    {t("vebinar-dlya-studentov")}
-                  </Typography>
-                  <Typography
-                    variant="h6"
-                    fontWeight={400}
-                    color="textTertiary"
-                    textAlign="end"
-                  >
-                    {t("urovnya-i-vyshe", {
-                      level: webinar.level,
-                    })}
-                  </Typography>
-                </Box>
-                <Box
+                {upMd && (
+                  <ImageWrapper
+                    webinar={webinar}
+                    handleWhatch={onClickWatch}
+                  />
+                )}
+                <Paper
                   className={
-                    styles.broadcast_wrapper
+                    styles.content_wrapper
                   }
                 >
-                  <Image
-                    src={videoPlayPrimaryIcon}
-                    alt="video-play green icon"
-                    width={24}
-                    height={24}
-                  />
-                  <Typography
-                    variant="h6"
-                    color="primary"
+                  {!upMd && (
+                    <ImageWrapper
+                      webinar={webinar}
+                      handleWhatch={onClickWatch}
+                    />
+                  )}
+                  <Box
+                    sx={{
+                      padding: {
+                        xs: "15px",
+                        md: "0px",
+                      },
+                    }}
                   >
-                    {t("zapis-efira")}
-                  </Typography>
-                </Box>
+                    <Typography
+                      variant="h5"
+                      fontWeight={700}
+                      color="primary"
+                    >
+                      {t("title", {
+                        title: webinar.title,
+                      })}
+                    </Typography>
+                    <Box
+                      sx={{
+                        marginTop: "12px",
+                        ...propertyBoxStyles,
+                      }}
+                    >
+                      <Typography
+                        variant="h6"
+                        fontWeight={600}
+                        color="textTertiary"
+                      >
+                        {t("data-provedeniya")}
+                      </Typography>
+                      <Typography
+                        variant="h6"
+                        fontWeight={400}
+                        color="textTertiary"
+                        textAlign="end"
+                      >
+                        {moment(
+                          webinar.start_time,
+                        ).format(
+                          "mm:HH - DD.MM.YYYY",
+                        )}
+                      </Typography>
+                    </Box>
+                    <Box
+                      sx={{
+                        marginTop: "12px",
+                        ...propertyBoxStyles,
+                      }}
+                    >
+                      <Typography
+                        variant="h6"
+                        fontWeight={600}
+                        color="textTertiary"
+                      >
+                        {t(
+                          "prodolzhitelnost-vebinara",
+                        )}
+                      </Typography>
+                      <Typography
+                        variant="h6"
+                        fontWeight={400}
+                        color="textTertiary"
+                        textAlign="end"
+                      >
+                        {t("minut", {
+                          amount: totalMinutes,
+                        })}
+                      </Typography>
+                    </Box>
+                    <Box
+                      sx={{
+                        marginTop: "12px",
+                        ...propertyBoxStyles,
+                      }}
+                    >
+                      <Typography
+                        variant="h6"
+                        fontWeight={600}
+                        color="textTertiary"
+                      >
+                        {t(
+                          "vebinar-dlya-studentov",
+                        )}
+                      </Typography>
+                      <Typography
+                        variant="h6"
+                        fontWeight={400}
+                        color="textTertiary"
+                        textAlign="end"
+                      >
+                        {t("urovnya-i-vyshe", {
+                          level: webinar.level,
+                        })}
+                      </Typography>
+                    </Box>
+                    <Box
+                      className={
+                        styles.broadcast_wrapper
+                      }
+                    >
+                      <Image
+                        src={videoPlayPrimaryIcon}
+                        alt="video-play green icon"
+                        width={24}
+                        height={24}
+                      />
+                      <Typography
+                        variant="h6"
+                        color="primary"
+                      >
+                        {t("zapis-efira")}
+                      </Typography>
+                    </Box>
+                  </Box>
+                </Paper>
               </Box>
-            </Paper>
-          </Box>
-        );
-      })}
+            );
+          },
+        )}
+      {loading ? (
+        <Box className="tube_spinner_wrapper">
+          <TubeSpinner
+            width={50}
+            height={50}
+          />
+        </Box>
+      ) : (
+        Boolean(
+          !data || data.results.length === 0,
+        ) && (
+          <Typography
+            textAlign="center"
+            color="textSecondary"
+            fontWeight={600}
+          >
+            {t("net-proshedshikh-vebinarov")}
+          </Typography>
+        )
+      )}
       <Dialog
         fullScreen
         open={dialog}

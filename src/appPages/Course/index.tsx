@@ -202,7 +202,7 @@ export function CourseOverviewPage({
             >
               {t("chemu-vy-nauchites")}
             </Typography>
-            {course.objectives ? (
+            {course.objectives.length > 0 ? (
               <Grid
                 container
                 spacing={2}
@@ -243,6 +243,7 @@ export function CourseOverviewPage({
                 variant="h6"
                 color="textSecondary"
                 textAlign="center"
+                sx={{ marginTop: "10px" }}
               >
                 {t("net-dannykh")}
               </Typography>

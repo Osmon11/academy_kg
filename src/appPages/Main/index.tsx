@@ -26,14 +26,9 @@ import { Banner } from "@/entities/Banner";
 import { PageHeading } from "@/entities/PageHeading";
 import { SectionHeader } from "@/entities/SectionHeader";
 
-import axiosInstance from "@/shared/config/axiosClientInstance";
 import { SECTION_MARGIN_TOP } from "@/shared/config/const";
 import { getUserLocation } from "@/shared/functions";
 import { useAppRouter } from "@/shared/hooks/useAppRouter";
-import {
-  IFeedbackListItem,
-  ITeacherListItem,
-} from "@/shared/types";
 
 import locationIcon from "@/icons/location.svg";
 import playSecondaryIcon from "@/icons/play-secondary.svg";
@@ -50,42 +45,11 @@ export function MainPage() {
   const router = useAppRouter();
   const locale = useLocale();
   const videoRef = useRef<HTMLDivElement>(null);
-  const [teacherList, setTeacherList] = useState<
-    ITeacherListItem[]
-  >([]);
-  const [feedbackList, setFeedbackList] =
-    useState<IFeedbackListItem[]>([]);
   const [userLocation, setUserLocation] =
     useState("неизвестно");
   const [fetchingLocation, setFetchingLocation] =
     useState(true);
 
-  useEffect(() => {
-    axiosInstance
-      .get<{
-        results: ITeacherListItem[];
-      }>("academy/teacher_list/")
-      .then((res) => {
-        if (
-          res?.data &&
-          Array.isArray(res.data.results)
-        ) {
-          setTeacherList(res.data.results);
-        }
-      });
-    axiosInstance
-      .get<{
-        results: IFeedbackListItem[];
-      }>("academy/feedback_list/")
-      .then((res) => {
-        if (
-          res?.data &&
-          Array.isArray(res.data.results)
-        ) {
-          setFeedbackList(res.data.results);
-        }
-      });
-  }, []);
   useEffect(() => {
     getUserLocation(locale)
       .then((location) => {
@@ -225,7 +189,7 @@ export function MainPage() {
       <SectionHeader color="primary">
         {t("nashi-prepodavateli")}
       </SectionHeader>
-      <OurTeachers teachers={teacherList} />
+      <OurTeachers />
       <Banner
         color="primary"
         sx={{
@@ -244,7 +208,7 @@ export function MainPage() {
       <SectionHeader color="primary">
         {t("otzyvy-o-nas")}
       </SectionHeader>
-      <Feedbacks feedbacks={feedbackList} />
+      <Feedbacks />
       <Footer />
     </Fragment>
   );

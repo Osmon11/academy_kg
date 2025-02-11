@@ -1,10 +1,8 @@
 "use client";
 
-import classNames from "classnames";
 import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
-import queryString from "query-string";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import {
   Box,
@@ -22,12 +20,9 @@ import {
   SearchTextField,
   TubeSpinner,
 } from "@/shared/UI";
-import axiosInstance from "@/shared/config/axiosClientInstance";
+import { usePaginatedData } from "@/shared/hooks";
 import { useAppRouter } from "@/shared/hooks/useAppRouter";
-import {
-  ICourseListItem,
-  IPaginatedList,
-} from "@/shared/types";
+import { ICourseListItem } from "@/shared/types";
 
 export function SearchCoursesPage() {
   const t = useTranslations("SearchCoursesPage");
@@ -38,29 +33,15 @@ export function SearchCoursesPage() {
   const setTitle = searchParams.get("setTitle");
   const [searchInput, setSearchInput] =
     useState("");
-  const [courses, setCourses] = useState<
-    ICourseListItem[]
-  >([]);
-  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    if (setId || search) {
-      if (search) {
-        setSearchInput(search);
-      }
-      setLoading(true);
-      axiosInstance
-        .get<IPaginatedList<ICourseListItem>>(
-          `/academy/course_list/?${queryString.stringify({ search, course_set: setId }, { skipNull: true })}`,
-        )
-        .then((res) => {
-          if (Array.isArray(res.data.results)) {
-            setCourses(res.data.results);
-          }
-        })
-        .finally(() => setLoading(false));
-    }
-  }, [setId, search]);
+  const { sentryRef, data, loading } =
+    usePaginatedData<ICourseListItem>({
+      endpoint: "/academy/course_list/",
+      searchParams: {
+        search,
+        course_set: setId,
+      },
+    });
 
   const upSm = useMediaQuery((theme) =>
     theme.breakpoints.up("sm"),
@@ -73,15 +54,12 @@ export function SearchCoursesPage() {
           t("poisk-kursov")
         }
       />
-      <Box
-        className={classNames(
-          "page",
-          "full_height",
-        )}
-      >
+      <Box className="full_height">
         <Box
+          className="page_paddings"
           sx={{
             width: "100%",
+            marginTop: "40px",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
@@ -95,7 +73,9 @@ export function SearchCoursesPage() {
             {t("found-courses", {
               amount: loading
                 ? "..."
-                : courses.length,
+                : data
+                  ? data.results.length
+                  : 0,
             })}
           </Typography>
           {upSm && (
@@ -120,36 +100,44 @@ export function SearchCoursesPage() {
             />
           )}
         </Box>
-        {loading ? (
+        {data && data.results.length > 0 && (
           <Box
-            className={"tube_spinner_wrapper"}
-            sx={{ height: "100%" }}
+            className={"courses_wrapper"}
+            ref={sentryRef}
           >
-            <TubeSpinner
-              width={50}
-              height={50}
-            />
-          </Box>
-        ) : courses.length > 0 ? (
-          <Box className={"courses_wrapper"}>
-            {courses.map((item) => (
+            {data?.results.map((item) => (
               <CourseCard
                 key={item.id}
                 course={item}
               />
             ))}
           </Box>
-        ) : (
-          <Typography
-            variant="h6"
-            color="textSecondary"
-            textAlign="center"
+        )}
+        {loading ? (
+          <Box
+            className={"tube_spinner_wrapper"}
             sx={{ marginTop: "20px" }}
           >
-            {t(
-              "po-vashemu-zaprosu-nichego-ne-naideno",
-            )}
-          </Typography>
+            <TubeSpinner
+              width={50}
+              height={50}
+            />
+          </Box>
+        ) : (
+          Boolean(
+            !data || data.results.length === 0,
+          ) && (
+            <Typography
+              variant="h6"
+              color="textSecondary"
+              textAlign="center"
+              sx={{ marginTop: "20px" }}
+            >
+              {t(
+                "po-vashemu-zaprosu-nichego-ne-naideno",
+              )}
+            </Typography>
+          )
         )}
       </Box>
       <Footer />

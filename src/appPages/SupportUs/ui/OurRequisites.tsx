@@ -1,54 +1,58 @@
-import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 import { RequisiteCard } from "@/features/RequisiteCard";
 
 import { TubeSpinner } from "@/shared/UI";
-import axiosInstance from "@/shared/config/axiosClientInstance";
 import { SECTION_PADDING } from "@/shared/config/const";
+import { usePaginatedData } from "@/shared/hooks";
 import { IRequisiteListItem } from "@/shared/types";
 
 import styles from "../styles.module.scss";
 
 export default function OurRequisites() {
-  const [requisiteList, setRequisiteList] =
-    useState<IRequisiteListItem[]>([]);
-  const [loading, setLoading] = useState(true);
+  const t = useTranslations("OurRequisites");
 
-  useEffect(() => {
-    axiosInstance
-      .get<{
-        results: IRequisiteListItem[];
-      }>("academy/requisite_list/")
-      .then((res) => {
-        if (Array(res?.data.results)) {
-          setRequisiteList(res.data.results);
-        }
-      })
-      .finally(() => setLoading(false));
-  }, []);
+  const { sentryRef, data, loading } =
+    usePaginatedData<IRequisiteListItem>({
+      endpoint: "/academy/requisite_list/",
+    });
   return (
     <Box sx={{ padding: SECTION_PADDING }}>
-      {loading ? (
-        <Box className="tube_spinner_wrapper">
-          <TubeSpinner
-            width={50}
-            height={50}
-          />
-        </Box>
-      ) : (
-        <Box
-          className={styles.requisites_wrapper}
-        >
-          {requisiteList.map((requisite) => (
+      <Box
+        className={styles.requisites_wrapper}
+        ref={sentryRef}
+      >
+        {data &&
+          data.results.length > 0 &&
+          data.results.map((requisite) => (
             <RequisiteCard
               key={requisite.id}
               {...requisite}
             />
           ))}
-        </Box>
-      )}
+        {loading ? (
+          <Box className="tube_spinner_wrapper">
+            <TubeSpinner
+              width={50}
+              height={50}
+            />
+          </Box>
+        ) : (
+          Boolean(
+            !data || data.results.length === 0,
+          ) && (
+            <Typography
+              textAlign="center"
+              color="textSecondary"
+              fontWeight={600}
+            >
+              {t("poka-net-rekvizitov")}
+            </Typography>
+          )
+        )}
+      </Box>
     </Box>
   );
 }

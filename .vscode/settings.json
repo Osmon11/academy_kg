@@ -8,9 +8,16 @@
   "editor.formatOnPaste": false,
   "prettier.useEditorConfig": false,
   "prettier.configPath": ".prettierrc.json",
+  "i18n-ally.sourceLanguage": "ru-RU",
   "i18n-ally.keystyle": "nested",
   "i18n-ally.localesPaths": [
-    "./src/shared/i18n",
     "./src/shared/i18n/messages"
+  ],
+  "emmet.showAbbreviationSuggestions": false,
+  "emmet.excludeLanguages": [
+    "javascript",
+    "typescript",
+    "javascriptreact",
+    "typescriptreact"
   ]
 }

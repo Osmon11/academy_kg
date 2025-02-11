@@ -1,5 +1,4 @@
 import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
 
 import {
   Box,
@@ -11,31 +10,22 @@ import { Carousel } from "@/widgets/Carousel";
 
 import { CourseCard } from "@/features/CourseCard";
 
-import axiosInstance from "@/shared/config/axiosClientInstance";
-import {
-  ICourseListItem,
-  IPaginatedList,
-} from "@/shared/types";
+import { usePaginatedData } from "@/shared/hooks";
+import { ICourseListItem } from "@/shared/types";
 
 import styles from "../styles.module.scss";
 
 export default function AcademyCoreProgram() {
   const t = useTranslations("AcademyCoreProgram");
-  const [courses, setCourses] = useState<
-    ICourseListItem[]
-  >([]);
 
-  useEffect(() => {
-    axiosInstance
-      .get<
-        IPaginatedList<ICourseListItem>
-      >("/academy/course_list/?course_type=5")
-      .then((res) => {
-        if (Array.isArray(res.data?.results)) {
-          setCourses(res.data.results);
-        }
-      });
-  }, []);
+  const { data } =
+    usePaginatedData<ICourseListItem>({
+      endpoint: "/academy/course_list/",
+      searchParams: {
+        course_type: 5,
+      },
+      hasNextPage: false,
+    });
   return (
     <Box className={styles.core_program_wrapper}>
       <Typography
@@ -47,17 +37,18 @@ export default function AcademyCoreProgram() {
         {t("bazovaya-programma-akademii")}
       </Typography>
       <Carousel>
-        {courses.map((item) => (
-          <Box
-            key={item.id}
-            sx={{
-              height: "auto",
-              padding: "20px 10px",
-            }}
-          >
-            <CourseCard course={item} />
-          </Box>
-        ))}
+        {data &&
+          data.results.map((item) => (
+            <Box
+              key={item.id}
+              sx={{
+                height: "auto",
+                padding: "20px 10px",
+              }}
+            >
+              <CourseCard course={item} />
+            </Box>
+          ))}
       </Carousel>
       <Box className={styles.certificate_wrapper}>
         <Paper
@@ -79,7 +70,9 @@ export default function AcademyCoreProgram() {
             sx={{ marginTop: "16px" }}
           >
             {t("proidite-vse-kursov", {
-              courses: courses.length,
+              courses: data
+                ? data.results.length
+                : 0,
             })}
           </Typography>
         </Paper>

@@ -43,7 +43,8 @@
     "vebinar-dlya-studentov": "Вебинар для студентов:",
     "urovnya-i-vyshe": "{level}-уровня и выше",
     "zapis-efira": "Запись эфира",
-    "smotret": "смотреть"
+    "smotret": "смотреть",
+    "net-proshedshikh-vebinarov": "Нет прошедших вебинаров"
   },
   "UpcomingWebinars": {
     "data-provedeniya": "Дата проведения:",
@@ -59,7 +60,8 @@
     "ozhidanie": "Ожидание...",
     "zayavka-otpravlena": "Заявка отправлена",
     "ostavit-zayavku": "Оставить заявку",
-    "mest-ne-ostalos": "Мест не осталось."
+    "mest-ne-ostalos": "Мест не осталось.",
+    "net-predstoyashikh-vebinarov": "Нет предстоящих вебинаров"
   },
   "WebinarsPage": {
     "nashi-vebinary": "Наши вебинары",
@@ -248,21 +250,6 @@
     "ili": "или",
     "zaregistrirovatsya": "Зарегистрироваться"
   },
-  "NewCourses": {
-    "net-novinok": "Нет новинок"
-  },
-  "LifeOfTheProphet": {
-    "net-kursov": "Нет курсов"
-  },
-  "CourseSets": {
-    "net-naborov": "Нет наборов"
-  },
-  "BasicsOfIslam": {
-    "net-kursov": "Нет курсов"
-  },
-  "ArabLanguage": {
-    "net-kursov": "Нет курсов"
-  },
   "AcademyCoreProgram": {
     "bazovaya-programma-akademii": "Базовая программа Академии",
     "attestat-ot-akademii": "Аттестат от Академии",
@@ -298,7 +285,6 @@
   },
   "AccauntMainPage": {
     "rekomendacii": "Рекомендации",
-    "prodolzhit-obuchenie": "Продолжить обучение",
     "vyberite-kurs": "Выберите курс"
   },
   "CourseList": {
@@ -310,5 +296,23 @@
     "my-predlagaem-individualnyi-podkhod": "Мы предлагаем индивидуальный подход к каждому студенту, гибкий график занятий и раздельное обучение для мужчин и женщин. Наши преподаватели — специалисты с международным опытом, готовые помочь вам на пути к знаниям.",
     "nasha-komanda": "наша команда",
     "nashi-prepodavateli": "Наши преподаватели"
-  }
+  },
+  "OurTeachers": {
+    "net-dannykh": "Нет данных"
+  },
+  "Feedbacks": {
+    "net-otzyvov": "Нет отзывов"
+  },
+  "OurTeam": {
+    "net-dannykh": "Нет данных"
+  },
+  "MyCourses": {
+    "prodolzhit-obuchenie": "Продолжить обучение"
+  },
+  "poka-net-rekvizitov": "Пока нет реквизитов",
+  "OurRequisites": {
+    "poka-net-rekvizitov": "Пока нет реквизитов"
+  },
+  "net-predstoyashikh-vebinarov": "Нет предстоящих вебинаров",
+  "net-proshedshikh-vebinarov": "Нет прошедших вебинаров"
 }

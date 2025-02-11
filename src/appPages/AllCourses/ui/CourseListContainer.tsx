@@ -1,7 +1,4 @@
-"use client";
-
 import { useTranslations } from "next-intl";
-import { Fragment } from "react";
 
 import { Box, Typography } from "@mui/material";
 
@@ -11,28 +8,33 @@ import { TubeSpinner } from "@/shared/UI";
 import { usePaginatedData } from "@/shared/hooks";
 import { ICourseListItem } from "@/shared/types";
 
-export default function CourseList() {
+export default function CourseListContainer({
+  courseType,
+}: {
+  courseType: number;
+}) {
   const t = useTranslations("CourseList");
 
   const { sentryRef, data, loading } =
     usePaginatedData<ICourseListItem>({
       endpoint: "/academy/course_list/",
+      searchParams: {
+        course_type: courseType,
+      },
     });
   return (
-    <Fragment>
-      {data && data.results.length > 0 && (
-        <Box
-          className="courses_wrapper"
-          ref={sentryRef}
-        >
-          {data.results.map((course) => (
-            <CourseCard
-              key={course.id}
-              course={course}
-            />
-          ))}
-        </Box>
-      )}
+    <Box
+      className={"courses_wrapper"}
+      ref={sentryRef}
+    >
+      {data &&
+        data.results.length > 0 &&
+        data.results.map((course) => (
+          <CourseCard
+            key={course.id}
+            course={course}
+          />
+        ))}
       {loading ? (
         <Box className={"tube_spinner_wrapper"}>
           <TubeSpinner
@@ -49,11 +51,12 @@ export default function CourseList() {
             textAlign="center"
             color="textSecondary"
             fontWeight={600}
+            sx={{ margin: "12px 0px" }}
           >
             {t("net-kursov")}
           </Typography>
         )
       )}
-    </Fragment>
+    </Box>
   );
 }

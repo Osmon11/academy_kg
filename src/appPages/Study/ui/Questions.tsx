@@ -21,11 +21,9 @@ import {
 
 import { TubeSpinner } from "@/shared/UI";
 import axiosInstance from "@/shared/config/axiosClientInstance";
-import {
-  useAppDispatch,
-  useAppSelector,
-} from "@/shared/config/store";
-import { setComments } from "@/shared/model";
+import { useAppSelector } from "@/shared/config/store";
+import { usePaginatedData } from "@/shared/hooks";
+import { IComment } from "@/shared/types";
 
 import avatarGrayIcon from "@/icons/avatar-gray.svg";
 import logoPrimary from "@/icons/logo-primary.svg";
@@ -37,13 +35,16 @@ interface IFormValues {
   comment: string;
 }
 
-export default function Questions() {
+export default function Questions({
+  courseId,
+}: {
+  courseId: string;
+}) {
   const t = useTranslations("Questions");
-  const dispatch = useAppDispatch();
   const profile = useAppSelector(
     (state) => state.user.profile,
   );
-  const { course, comments } = useAppSelector(
+  const { course } = useAppSelector(
     (state) => state.course,
   );
   const {
@@ -56,11 +57,16 @@ export default function Questions() {
       comment: "",
     },
   });
-  const [loading, setLoading] = useState(false);
+  const { sentryRef, data, setData, loading } =
+    usePaginatedData<IComment>({
+      endpoint: `/academy/comment_list/${courseId}`,
+    });
+  const [processing, setProcessing] =
+    useState(false);
 
   function onSubmit({ comment }: IFormValues) {
     if (course && profile) {
-      setLoading(true);
+      setProcessing(true);
       axiosInstance
         .post("/academy/comment_create/", {
           course: course.id,
@@ -68,27 +74,40 @@ export default function Questions() {
         })
         .then((res) => {
           if (res?.data?.comment) {
-            dispatch(
-              setComments([
-                {
-                  id: comments.length + 1,
-                  comment,
-                  user: {
-                    id: profile.id,
-                    full_name: profile.full_name,
-                    avatar: profile.avatar,
+            const newComment: IComment = {
+              id: data
+                ? data.results.length + 1
+                : 1,
+              comment,
+              user: {
+                id: profile.id,
+                full_name: profile.full_name,
+                avatar: profile.avatar,
+              },
+              created_at:
+                new Date().toISOString(),
+              answer: null,
+            };
+            setData(
+              data
+                ? {
+                    ...data,
+                    results: [
+                      newComment,
+                      ...data.results,
+                    ],
+                  }
+                : {
+                    count: 1,
+                    previous: null,
+                    next: null,
+                    results: [newComment],
                   },
-                  created_at:
-                    new Date().toISOString(),
-                  answer: null,
-                },
-                ...comments,
-              ]),
             );
             reset();
           }
         })
-        .finally(() => setLoading(false));
+        .finally(() => setProcessing(false));
     }
   }
 
@@ -129,7 +148,7 @@ export default function Questions() {
               helperText={
                 fieldState.error?.message
               }
-              disabled={loading}
+              disabled={processing}
               multiline
               maxRows={3}
             />
@@ -138,10 +157,10 @@ export default function Questions() {
         <IconButton
           type="submit"
           disabled={
-            loading || Boolean(errors.comment)
+            processing || Boolean(errors.comment)
           }
         >
-          {loading ? (
+          {processing ? (
             <TubeSpinner
               width={30}
               height={30}
@@ -156,14 +175,16 @@ export default function Questions() {
           )}
         </IconButton>
       </Box>
-      {comments.length > 0 ? (
-        <Box
-          className={"accordeons"}
-          sx={{
-            margin: "10px",
-          }}
-        >
-          {comments.map((comment, index) => (
+      <Box
+        className={"accordeons"}
+        sx={{
+          margin: "10px",
+        }}
+        ref={sentryRef}
+      >
+        {data &&
+          data.results.length > 0 &&
+          data.results.map((comment, index) => (
             <Accordion
               key={comment.id}
               disabled={comment.answer === null}
@@ -237,17 +258,28 @@ export default function Questions() {
               )}
             </Accordion>
           ))}
-        </Box>
-      ) : (
-        <Typography
-          textAlign="center"
-          color="textSecondary"
-          fontWeight={600}
-          sx={{ marginTop: "16px" }}
-        >
-          {t("net-voprosov")}
-        </Typography>
-      )}
+        {loading ? (
+          <Box className="tube_spinner_wrapper">
+            <TubeSpinner
+              width={50}
+              height={50}
+            />
+          </Box>
+        ) : (
+          Boolean(
+            !data || data.results.length === 0,
+          ) && (
+            <Typography
+              textAlign="center"
+              color="textSecondary"
+              fontWeight={600}
+              sx={{ marginTop: "16px" }}
+            >
+              {t("net-voprosov")}
+            </Typography>
+          )
+        )}
+      </Box>
     </Box>
   );
 }

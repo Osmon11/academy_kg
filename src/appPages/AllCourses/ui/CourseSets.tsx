@@ -1,5 +1,4 @@
 import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
 
 import { Box, Typography } from "@mui/material";
 
@@ -8,32 +7,20 @@ import { Carousel } from "@/widgets/Carousel";
 import { SetOfCoursesCard } from "@/features/SetOfCoursesCard";
 
 import { TubeSpinner } from "@/shared/UI";
-import axiosInstance from "@/shared/config/axiosClientInstance";
-import {
-  IPaginatedList,
-  ISetOfCourses,
-} from "@/shared/types";
+import { usePaginatedData } from "@/shared/hooks";
+import { ISetOfCourses } from "@/shared/types";
 
 export default function CourseSets() {
   const t = useTranslations("CourseSets");
-  const [courseSets, setCourseSets] = useState<
-    ISetOfCourses[]
-  >([]);
-  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    setLoading(true);
-    axiosInstance
-      .get<IPaginatedList<ISetOfCourses>>(
-        "/academy/course_sets/list/",
-      )
-      .then((res) => {
-        if (Array.isArray(res.data?.results)) {
-          setCourseSets(res.data.results);
-        }
-      })
-      .finally(() => setLoading(false));
-  }, []);
+  const { data, loading } =
+    usePaginatedData<ISetOfCourses>({
+      endpoint: "/academy/course_sets/list/",
+      searchParams: {
+        course_type: 5,
+      },
+      hasNextPage: false,
+    });
   return (
     <Box sx={{ marginTop: "20px" }}>
       {loading ? (
@@ -43,9 +30,9 @@ export default function CourseSets() {
             height={50}
           />
         </Box>
-      ) : courseSets.length > 0 ? (
+      ) : data && data.results.length > 0 ? (
         <Carousel options={{ align: "start" }}>
-          {courseSets.map((item) => (
+          {data.results.map((item) => (
             <Box
               key={item.id}
               sx={{

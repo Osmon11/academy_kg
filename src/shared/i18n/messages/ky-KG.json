@@ -31,7 +31,9 @@
   },
   "CourseCard": {
     "prepodavatel": "Преподаватель",
-    "ne-naznachen": "Не назначен"
+    "ne-naznachen": "Не назначен",
+    "besplatno": "Бесплатно",
+    "som": "{price} сом"
   },
   "WebinarAfterwards": {
     "title": "Эфир: {title}",
@@ -296,7 +298,6 @@
   },
   "AccauntMainPage": {
     "rekomendacii": "Рекомендации",
-    "prodolzhit-obuchenie": "Продолжить обучение",
     "vyberite-kurs": "Выберите курс"
   },
   "CourseList": {
@@ -308,5 +309,20 @@
     "my-predlagaem-individualnyi-podkhod": "Мы предлагаем индивидуальный подход к каждому студенту, гибкий график занятий и раздельное обучение для мужчин и женщин. Наши преподаватели — специалисты с международным опытом, готовые помочь вам на пути к знаниям.",
     "nasha-komanda": "наша команда",
     "nashi-prepodavateli": "Наши преподаватели"
+  },
+  "OurTeachers": {
+    "net-dannykh": "Нет данных"
+  },
+  "Feedbacks": {
+    "net-otzyvov": "Нет отзывов"
+  },
+  "OurTeam": {
+    "net-dannykh": "Нет данных"
+  },
+  "MyCourses": {
+    "prodolzhit-obuchenie": "Продолжить обучение"
+  },
+  "OurRequisites": {
+    "poka-net-rekvizitov": "Пока нет реквизитов"
   }
 }

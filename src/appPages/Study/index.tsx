@@ -14,14 +14,10 @@ import {
   useAppSelector,
 } from "@/shared/config/store";
 import {
-  setComments,
   setCourse,
   setLoading,
 } from "@/shared/model";
-import {
-  IComment,
-  ICourseDetail,
-} from "@/shared/types";
+import { ICourseDetail } from "@/shared/types";
 
 import LessonDetails from "./ui/LessonDetails";
 import Recommendations from "./ui/Recommendations";
@@ -37,37 +33,22 @@ export function StudyPage({
   const course = useAppSelector(
     (store) => store.course.course,
   );
+
   useEffect(() => {
     dispatch(setLoading(true));
-    Promise.all([
-      axiosInstance
-        .get<ICourseDetail>(
-          `/academy/course_detail/${courseId}`,
-        )
-        .then((res) => {
-          if (res?.data) {
-            dispatch(setCourse(res.data));
-          }
-        }),
-      axiosInstance
-        .get<{
-          results: IComment[];
-        }>(`/academy/comment_list/${courseId}`)
-        .then((res) => {
-          if (
-            res?.data &&
-            Array.isArray(res.data.results)
-          ) {
-            dispatch(
-              setComments(res.data.results),
-            );
-          }
-        }),
-    ]).finally(() => {
-      dispatch(setLoading(false));
-    });
+    axiosInstance
+      .get<ICourseDetail>(
+        `/academy/course_detail/${courseId}`,
+      )
+      .then((res) => {
+        if (res?.data) {
+          dispatch(setCourse(res.data));
+        }
+      })
+      .finally(() => {
+        dispatch(setLoading(false));
+      });
   }, [dispatch, courseId]);
-
   return (
     <Box className={"bg_gray"}>
       <GoBackHeader

@@ -38,8 +38,11 @@ iframe {
 .bg_gray {
   background: #f2f2f2;
 }
-.courses_wrapper {
-  margin-top: 20px;
+.courses_wrapper,
+.current_courses {
+  padding-top: 20px;
+  padding-bottom: 15px;
+  overflow: auto;
   display: flex;
   align-items: stretch;
   justify-content: flex-start;
@@ -82,10 +85,23 @@ iframe {
   .page {
     padding: 20px 15px;
   }
+  .page_paddings {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
   .full_height {
     min-height: calc(100vh - 275px);
   }
   .courses_wrapper {
+    max-height: 610px;
+  }
+  .current_courses {
+    max-height: 635px;
+  }
+  .courses_wrapper,
+  .current_courses {
+    padding-left: 15px;
+    padding-right: 15px;
     gap: 15px;
   }
 }
@@ -93,10 +109,23 @@ iframe {
   .page {
     padding: 20px 30px;
   }
+  .page_paddings {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
   .full_height {
     min-height: calc(100vh - 246px);
   }
   .courses_wrapper {
+    max-height: 615px;
+  }
+  .current_courses {
+    max-height: 700px;
+  }
+  .courses_wrapper,
+  .current_courses {
+    padding-left: 30px;
+    padding-right: 30px;
     gap: 20px;
   }
 }
@@ -104,15 +133,35 @@ iframe {
   .page {
     padding: 20px 50px;
   }
+  .page_paddings {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
   .full_height {
-    min-height: calc(100vh - 235px);
+    min-height: calc(100vh - 255px);
   }
   .courses_wrapper {
+    max-height: 625px;
+  }
+  .current_courses {
+    max-height: 717px;
+  }
+  .courses_wrapper,
+  .current_courses {
+    padding-left: 50px;
+    padding-right: 50px;
     gap: 30px;
   }
 }
 @media (min-width: variables.$theme-breakpoint-lg) {
   .courses_wrapper {
+    max-height: 645px;
+  }
+  .current_courses {
+    max-height: 790px;
+  }
+  .courses_wrapper,
+  .current_courses {
     gap: 50px;
   }
 }

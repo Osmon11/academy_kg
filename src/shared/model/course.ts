@@ -4,7 +4,6 @@ import {
 } from "@reduxjs/toolkit";
 
 import {
-  IComment,
   ICourseDetail,
   ICourseLevelDetail,
 } from "../types";
@@ -12,14 +11,12 @@ import {
 interface IInitialState {
   course: ICourseDetail | null;
   courseLevels: ICourseLevelDetail | null;
-  comments: IComment[];
   loading: boolean;
 }
 
 const initialState: IInitialState = {
   course: null,
   courseLevels: null,
-  comments: [],
   loading: true,
 };
 
@@ -41,14 +38,6 @@ const courseSlice = createSlice({
     ) => {
       state.courseLevels = action.payload;
     },
-    setComments: (
-      state,
-      action: PayloadAction<
-        typeof state.comments
-      >,
-    ) => {
-      state.comments = action.payload;
-    },
     setLoading: (
       state,
       action: PayloadAction<typeof state.loading>,
@@ -61,7 +50,6 @@ const courseSlice = createSlice({
 export const {
   setCourse,
   setCourseLevels,
-  setComments,
   setLoading,
 } = courseSlice.actions;
 export const courseReducer = courseSlice.reducer;

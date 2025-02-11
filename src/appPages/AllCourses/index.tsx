@@ -17,11 +17,8 @@ import { SearchTextField } from "@/shared/UI";
 import { useAppRouter } from "@/shared/hooks/useAppRouter";
 
 import AcademyCoreProgram from "./ui/AcademyCoreProgram";
-import ArabLanguage from "./ui/ArabLanguage";
-import BasicsOfIslam from "./ui/BasicsOfIslam";
+import CourseListContainer from "./ui/CourseListContainer";
 import CourseSets from "./ui/CourseSets";
-import LifeOfTheProphet from "./ui/LifeOfTheProphet";
-import NewCourses from "./ui/NewCourses";
 
 export function AllCoursesPage() {
   const t = useTranslations("AllCoursesPage");
@@ -86,21 +83,21 @@ export function AllCoursesPage() {
         >
           {t("novinki")}
         </Typography>
-        <NewCourses />
+        <CourseListContainer courseType={1} />
         <Typography
           {...headerProps}
           sx={{ marginTop: "40px" }}
         >
           {t("osnovy-islama")}
         </Typography>
-        <BasicsOfIslam />
+        <CourseListContainer courseType={2} />
         <Typography
           {...headerProps}
           sx={{ marginTop: "40px" }}
         >
           {t("zhizneopisanie-proroka")}
         </Typography>
-        <LifeOfTheProphet />
+        <CourseListContainer courseType={3} />
         <AcademyCoreProgram />
         <Typography
           {...headerProps}
@@ -108,7 +105,7 @@ export function AllCoursesPage() {
         >
           {t("arabskii-yazyk")}
         </Typography>
-        <ArabLanguage />
+        <CourseListContainer courseType={4} />
       </Box>
       <Footer />
     </Box>
