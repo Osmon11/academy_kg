@@ -1,28 +1,20 @@
-import { setCookie } from "cookies-next/server";
+import axios from "axios";
+import {
+  getCookie,
+  setCookie,
+} from "cookies-next";
 import NextAuth from "next-auth";
 import GoogleProvider, {
   GoogleProfile,
 } from "next-auth/providers/google";
 import { cookies } from "next/headers";
 
-import { createAxiosInstanceForSSR } from "@/shared/config/axiosServerInstance";
+import { defaultConfig } from "@/shared/config/axios";
 import {
   routePath,
   sessionExpiration,
 } from "@/shared/functions";
-
-declare module "next-auth" {
-  interface Session {
-    accessToken?: string;
-    idToken?: string;
-  }
-}
-declare module "next-auth/jwt" {
-  interface JWT {
-    accessToken?: string;
-    idToken?: string;
-  }
-}
+import { routing } from "@/shared/i18n/routing";
 
 const handler = NextAuth({
   secret: process.env.NEXTAUTH_SECRET,
@@ -49,8 +41,16 @@ const handler = NextAuth({
         account.access_token
       ) {
         try {
-          const axiosInstance =
-            await createAxiosInstanceForSSR();
+          const locale = await getCookie(
+            "NEXT_LOCALE",
+          );
+          const axiosInstance = axios.create({
+            ...defaultConfig,
+            headers: {
+              "Accept-Language":
+                locale ?? routing.defaultLocale,
+            },
+          });
           const data = await axiosInstance
             .post("/auth/google_sign_in/", {
               token: account.access_token,
@@ -69,6 +69,7 @@ const handler = NextAuth({
                 expires: sessionExpiration(),
               },
             );
+          } else {
           }
         } catch (error) {
           console.error(

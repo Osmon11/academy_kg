@@ -1,9 +1,7 @@
 "use client";
 
-import {
-  SessionProvider,
-  useSession,
-} from "next-auth/react";
+import { hasCookie } from "cookies-next";
+import { SessionProvider } from "next-auth/react";
 import { AppProgressBar } from "next-nprogress-bar";
 import { useEffect, useRef } from "react";
 import { Provider } from "react-redux";
@@ -18,6 +16,7 @@ import {
   makeStore,
   useAppDispatch,
 } from "@/shared/config/store";
+import { usePathname } from "@/shared/i18n/routing";
 import {
   clearUserProfile,
   setProfileLoading,
@@ -30,10 +29,15 @@ function GlobalProfileFetcher({
   children: React.ReactNode;
 }) {
   const dispatch = useAppDispatch();
-  const { status } = useSession();
+  const pathname = usePathname();
 
   useEffect(() => {
-    if (status === "authenticated") {
+    if (
+      hasCookie(
+        process.env
+          .NEXT_PUBLIC_ACCESS_TOKEN_KEY as string,
+      )
+    ) {
       // Fetch profile data if token exists
       dispatch(setProfileLoading(true));
       axiosInstance
@@ -51,7 +55,7 @@ function GlobalProfileFetcher({
       // Clear profile data if token is missing
       dispatch(clearUserProfile());
     }
-  }, [dispatch, status]);
+  }, [dispatch, pathname]);
 
   return children;
 }

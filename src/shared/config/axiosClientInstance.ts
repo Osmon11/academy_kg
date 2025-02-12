@@ -7,10 +7,11 @@ import {
   deleteCookie,
   getCookie,
   hasCookie,
-} from "cookies-next/client";
+} from "cookies-next";
 import { signOut } from "next-auth/react";
 import { toast } from "react-toastify";
 
+import { routing } from "../i18n/routing";
 import { IErrorResponseData } from "../types";
 import { defaultConfig } from "./axios";
 
@@ -22,14 +23,15 @@ const axiosInstance = axios.create(defaultConfig);
 
 axiosInstance.interceptors.request.use(
   function (config: InternalAxiosRequestConfig) {
-    if (typeof window !== "undefined") {
-      const token = getCookie(tokenKey);
-      if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-      } else if (config.headers.Authorization) {
-        delete config.headers.Authorization;
-      }
+    const token = getCookie(tokenKey);
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    } else if (config.headers.Authorization) {
+      delete config.headers.Authorization;
     }
+    config.headers["Accept-Language"] =
+      getCookie("NEXT_LOCALE") ??
+      routing.defaultLocale;
     return config;
   },
   async function (error) {

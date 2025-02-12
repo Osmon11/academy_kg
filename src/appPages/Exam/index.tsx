@@ -1,6 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { toast } from "react-toastify";
 
 import { Box } from "@mui/material";
@@ -43,21 +47,25 @@ export function ExamPage({
     score: number;
   }>();
   const [finished, setFinished] = useState(false);
+  const effectCalled = useRef(false);
 
   useEffect(() => {
-    dispatch(setExamLoading(true));
-    axiosInstance
-      .get<IExamQuestions>(
-        `/academy/start_exam/${examId}`,
-      )
-      .then((res) => {
-        if (res?.data) {
-          dispatch(setExamQuestions(res.data));
-        }
-      })
-      .finally(() => {
-        dispatch(setExamLoading(false));
-      });
+    if (!effectCalled.current) {
+      effectCalled.current = true;
+      dispatch(setExamLoading(true));
+      axiosInstance
+        .get<IExamQuestions>(
+          `/academy/start_exam/${examId}`,
+        )
+        .then((res) => {
+          if (res?.data) {
+            dispatch(setExamQuestions(res.data));
+          }
+        })
+        .finally(() => {
+          dispatch(setExamLoading(false));
+        });
+    }
     return () => {
       setSummary(undefined);
       setFinished(false);

@@ -84,5 +84,11 @@ export function usePaginatedData<T>({
     }
   }, [loadMore]);
 
-  return { sentryRef, data, setData, loading };
+  return {
+    sentryRef,
+    data,
+    setData,
+    loading,
+    setLoading,
+  };
 }

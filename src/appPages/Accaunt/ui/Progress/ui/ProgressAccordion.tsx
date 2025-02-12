@@ -20,9 +20,9 @@ import { ICourseProgress } from "@/shared/types";
 import checkedPrimaryIcon from "@/icons/checked-primary.svg";
 import starSquareSecondaryIcon from "@/icons/star-square-secondary.svg";
 
-import styles from "./styles.module.scss";
-import ExamResult from "./ui/ExamResult";
-import ViewCertificate from "./ui/ViewCertificate";
+import styles from "../styles.module.scss";
+import ExamResult from "./ExamResult";
+import ViewCertificate from "./ViewCertificate";
 
 export interface IProgressAccordionProps {
   progress: ICourseProgress;
@@ -55,7 +55,7 @@ export default function ProgressAccordion({
           >
             {t("prokhodnoi-ball", {
               amount: examResults.pass_points,
-              total: examResults.max_points,
+              total: examResults.max_points ?? 0,
             })}
           </Typography>
         ) : null}

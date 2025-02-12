@@ -317,5 +317,8 @@
   "net-proshedshikh-vebinarov": "Нет прошедших вебинаров",
   "CourseSets": {
     "net-naborov": "Нет наборов"
+  },
+  "LevelProgress": {
+    "net-dannykh": "Нет данных"
   }
 }

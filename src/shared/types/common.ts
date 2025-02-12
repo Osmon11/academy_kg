@@ -101,7 +101,7 @@ export interface ICourseDetail
     "teacher" | "icon"
   > {
   teacher: ITeacherListItem;
-  trailer: string;
+  trailer: string | null;
   objectives: IObjectivesListItem[];
   levels: ILevel[];
   lesson_count: number;
@@ -223,8 +223,8 @@ export interface IExamResults {
   question_count: number;
   is_passed: boolean;
   pass_points: number; // min points to pass exam
-  max_points: number; // sum of all points in questions
-  updated_at: string;
+  max_points: number | null; // sum of all points in questions
+  updated_at: string | null;
 }
 
 export interface ICourseProgress {

@@ -1,6 +1,6 @@
 "use client";
 
-import { setCookie } from "cookies-next/client";
+import { setCookie } from "cookies-next";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";

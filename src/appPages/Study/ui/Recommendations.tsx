@@ -19,8 +19,13 @@ export default function Recommendations() {
         "/academy/recommendation_courses/",
     });
   return (
-    <Box className={"page"}>
+    <Box
+      sx={{
+        marginTop: "40px",
+      }}
+    >
       <Typography
+        className="page_paddings"
         variant="h5"
         color="textSecondary"
         fontWeight={700}

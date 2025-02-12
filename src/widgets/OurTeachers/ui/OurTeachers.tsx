@@ -37,19 +37,41 @@ export function OurTeachers() {
     width: "240px",
     height: "280px",
   };
+  const LoadingAndEmptyState = loading ? (
+    <Box className={"tube_spinner_wrapper"}>
+      <TubeSpinner
+        width={50}
+        height={50}
+      />
+    </Box>
+  ) : (
+    Boolean(
+      !data || data.results.length === 0,
+    ) && (
+      <Typography
+        width="100%"
+        textAlign="center"
+        color="textSecondary"
+        fontWeight={600}
+      >
+        {t("net-dannykh")}
+      </Typography>
+    )
+  );
   return (
     <Box
       sx={{
         padding: SECTION_PADDING,
       }}
     >
-      {data && data.results.length > 0 ? (
-        upMd ? (
-          <Box
-            className={styles.teachers_wrapper}
-            ref={sentryRef}
-          >
-            {data.results.map((teacher) => (
+      {upMd ? (
+        <Box
+          className={styles.teachers_wrapper}
+          ref={sentryRef}
+        >
+          {data &&
+            data.results.length > 0 &&
+            data.results.map((teacher) => (
               <TeacherCard
                 key={teacher.id}
                 {...teacher}
@@ -57,10 +79,13 @@ export function OurTeachers() {
                 sx={cardStyles}
               />
             ))}
-          </Box>
-        ) : (
-          <Carousel options={{ align: "start" }}>
-            {data.results.map((teacher) => (
+          {LoadingAndEmptyState}
+        </Box>
+      ) : (
+        <Carousel options={{ align: "start" }}>
+          {data &&
+            data.results.length > 0 &&
+            data.results.map((teacher) => (
               <Box
                 key={teacher.id}
                 sx={{
@@ -75,25 +100,8 @@ export function OurTeachers() {
                 />
               </Box>
             ))}
-          </Carousel>
-        )
-      ) : (
-        <Typography
-          width="100%"
-          textAlign="center"
-          color="textSecondary"
-          fontWeight={600}
-        >
-          {t("net-dannykh")}
-        </Typography>
-      )}
-      {loading && (
-        <Box className={"tube_spinner_wrapper"}>
-          <TubeSpinner
-            width={50}
-            height={50}
-          />
-        </Box>
+          {LoadingAndEmptyState}
+        </Carousel>
       )}
     </Box>
   );

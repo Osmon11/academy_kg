@@ -3,7 +3,6 @@
 import moment from "moment";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import { useEffect, useState } from "react";
 
 import {
   Box,
@@ -11,13 +10,11 @@ import {
   Typography,
 } from "@mui/material";
 
-import axiosInstance from "@/shared/config/axiosClientInstance";
+import { TubeSpinner } from "@/shared/UI";
 import { TIME_FORMAT } from "@/shared/config/const";
 import { useAppSelector } from "@/shared/config/store";
-import {
-  ILessonDetail,
-  IPaginatedList,
-} from "@/shared/types";
+import { usePaginatedData } from "@/shared/hooks";
+import { ILessonDetail } from "@/shared/types";
 
 import playCirclePrimaryIcon from "@/icons/play-circle-primary.svg";
 
@@ -25,91 +22,98 @@ import styles from "../styles.module.scss";
 
 export default function OverviewLessons() {
   const t = useTranslations("OverviewLessons");
-  const { course, loading } = useAppSelector(
-    (store) => store.course,
+  const course = useAppSelector(
+    (store) => store.course.course,
   );
-  const [lessons, setLessons] = useState<
-    ILessonDetail[]
-  >([]);
 
-  useEffect(() => {
-    if (course && !loading) {
-      axiosInstance
-        .get<
-          IPaginatedList<ILessonDetail>
-        >(`/academy/course_lesson_list/${course.id}`)
-        .then((res) => {
-          if (res?.data?.results) {
-            setLessons(res.data.results);
-          }
-        });
-    }
-  }, [course, loading]);
-  return lessons.length > 0 ? (
-    <Box>
-      {lessons.map((lesson, index) => (
-        <ListItem
-          key={lesson.id}
-          component="div"
-          className={styles.lesson_item}
-          sx={{
-            borderBottom:
-              index + 1 !== lessons.length
-                ? "1px solid #E5E5E5"
-                : "none",
-          }}
-        >
-          <Box className={"flex_box"}>
-            <Typography
-              variant="h5"
-              fontWeight={600}
-              color="#A3A3A3"
-              minWidth="33px"
+  const { sentryRef, data, loading } =
+    usePaginatedData<ILessonDetail>({
+      endpoint: `/academy/course_lesson_list/${course!.id}`,
+    });
+  return (
+    <Box
+      className={styles.lessons_wrapper}
+      ref={sentryRef}
+    >
+      {data &&
+        data.results.length > 0 &&
+        data.results.map(
+          (lesson, index, array) => (
+            <ListItem
+              key={lesson.id}
+              component="div"
+              className={styles.lesson_item}
+              sx={{
+                borderBottom:
+                  index + 1 !== array.length
+                    ? "1px solid #E5E5E5"
+                    : "none",
+              }}
             >
-              {index + 1}
-            </Typography>
-            <Box
-              className={"flex_box"}
-              sx={{ gap: "8px" }}
-            >
-              <Image
-                src={playCirclePrimaryIcon}
-                alt="play circle green icon"
-                width={24}
-                height={24}
-              />
+              <Box className={"flex_box"}>
+                <Typography
+                  variant="h5"
+                  fontWeight={600}
+                  color="#A3A3A3"
+                  minWidth="33px"
+                >
+                  {index + 1}
+                </Typography>
+                <Box
+                  className={"flex_box"}
+                  sx={{ gap: "8px" }}
+                >
+                  <Image
+                    src={playCirclePrimaryIcon}
+                    alt="play circle green icon"
+                    width={24}
+                    height={24}
+                  />
+                  <Typography
+                    variant="body1"
+                    color="textSecondary"
+                    fontWeight={600}
+                  >
+                    {lesson.title}
+                  </Typography>
+                </Box>
+              </Box>
               <Typography
                 variant="body1"
                 color="textSecondary"
-                fontWeight={600}
+                textAlign="right"
               >
-                {lesson.title}
+                {t("video", {
+                  duration: moment(
+                    lesson.duration,
+                    TIME_FORMAT,
+                  ).format("HH:mm"),
+                })}
               </Typography>
-            </Box>
-          </Box>
+            </ListItem>
+          ),
+        )}
+      {loading ? (
+        <Box>
+          <TubeSpinner
+            width={50}
+            height={50}
+          />
+        </Box>
+      ) : (
+        Boolean(
+          !data || data.results.length === 0,
+        ) && (
           <Typography
-            variant="body1"
+            textAlign="center"
             color="textSecondary"
-            textAlign="right"
+            fontWeight={600}
+            sx={{ marginTop: "16px" }}
           >
-            {t("video", {
-              duration: moment(
-                lesson.duration,
-                TIME_FORMAT,
-              ).format("HH:mm"),
-            })}
+            {t("net-urokov")}
           </Typography>
-        </ListItem>
-      ))}
+        )
+      )}
     </Box>
-  ) : (
-    <Typography
-      textAlign="center"
-      color="textSecondary"
-      fontWeight={600}
-      sx={{ marginTop: "16px" }}
-    >
-      {t("net-urokov")}
-    </Typography>
   );
 }

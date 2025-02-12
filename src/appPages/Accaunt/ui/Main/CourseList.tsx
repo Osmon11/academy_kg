@@ -20,40 +20,40 @@ export default function CourseList() {
     });
   return (
     <Fragment>
-      {data && data.results.length > 0 && (
-        <Box
-          className="courses_wrapper"
-          ref={sentryRef}
-        >
-          {data.results.map((course) => (
+      <Box
+        className="courses_wrapper"
+        ref={sentryRef}
+      >
+        {data &&
+          data.results.length > 0 &&
+          data.results.map((course) => (
             <CourseCard
               key={course.id}
               course={course}
             />
           ))}
-        </Box>
-      )}
-      {loading ? (
-        <Box className={"tube_spinner_wrapper"}>
-          <TubeSpinner
-            width={50}
-            height={50}
-          />
-        </Box>
-      ) : (
-        Boolean(
-          !data || data.results.length === 0,
-        ) && (
-          <Typography
-            width="100%"
-            textAlign="center"
-            color="textSecondary"
-            fontWeight={600}
-          >
-            {t("net-kursov")}
-          </Typography>
-        )
-      )}
+        {loading ? (
+          <Box className={"tube_spinner_wrapper"}>
+            <TubeSpinner
+              width={50}
+              height={50}
+            />
+          </Box>
+        ) : (
+          Boolean(
+            !data || data.results.length === 0,
+          ) && (
+            <Typography
+              width="100%"
+              textAlign="center"
+              color="textSecondary"
+              fontWeight={600}
+            >
+              {t("net-kursov")}
+            </Typography>
+          )
+        )}
+      </Box>
     </Fragment>
   );
 }

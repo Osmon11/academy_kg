@@ -15,6 +15,7 @@ import arrowDownIcon from "@/icons/arrow-down.svg";
 import globalBlackIcon from "@/icons/global-black.svg";
 import globalIcon from "@/icons/global.svg";
 
+import axiosInstance from "../config/axiosClientInstance";
 import {
   getPathname,
   routing,
@@ -108,6 +109,9 @@ export function LocalizationMenu({
             key={item}
             selected={locale === item}
             onClick={() => {
+              axiosInstance.defaults.headers[
+                "Accept-Language"
+              ] = item;
               router.replace(
                 getPathname({
                   locale: item,

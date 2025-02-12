@@ -1,4 +1,4 @@
-import { deleteCookie } from "cookies-next/client";
+import { deleteCookie } from "cookies-next";
 import { signOut } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";

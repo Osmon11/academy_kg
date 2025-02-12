@@ -32,20 +32,41 @@ export default function Subjects() {
       searchParams: { page_size: 9 },
       hasNextPage: false,
     });
+  const LoadingAndEmptyState = loading ? (
+    <Box className={"tube_spinner_wrapper"}>
+      <TubeSpinner
+        width={50}
+        height={50}
+      />
+    </Box>
+  ) : (
+    Boolean(
+      !data || data.results.length === 0,
+    ) && (
+      <Typography
+        width="100%"
+        textAlign="center"
+        color="textSecondary"
+        fontWeight={600}
+      >
+        {t("net-dannykh")}
+      </Typography>
+    )
+  );
   return (
     <Box
       sx={{
         padding: SECTION_PADDING,
       }}
     >
-      {data &&
-        data.results.length > 0 &&
-        (upMd ? (
-          <Box
-            className={styles.subjects_wrapper}
-            ref={sentryRef}
-          >
-            {data.results.map(
+      {upMd ? (
+        <Box
+          className={styles.subjects_wrapper}
+          ref={sentryRef}
+        >
+          {data &&
+            data.results.length > 0 &&
+            data.results.map(
               (course, cardIndex) => (
                 <SubjectCard
                   key={course.id}
@@ -58,10 +79,13 @@ export default function Subjects() {
                 />
               ),
             )}
-          </Box>
-        ) : (
-          <Carousel options={{ align: "start" }}>
-            {data.results.map(
+          {LoadingAndEmptyState}
+        </Box>
+      ) : (
+        <Carousel options={{ align: "start" }}>
+          {data &&
+            data.results.length > 0 &&
+            data.results.map(
               (card, cardIndex) => (
                 <Box
                   key={card.id}
@@ -82,28 +106,8 @@ export default function Subjects() {
                 </Box>
               ),
             )}
-          </Carousel>
-        ))}
-      {loading ? (
-        <Box className={"tube_spinner_wrapper"}>
-          <TubeSpinner
-            width={50}
-            height={50}
-          />
-        </Box>
-      ) : (
-        Boolean(
-          !data || data.results.length === 0,
-        ) && (
-          <Typography
-            width="100%"
-            textAlign="center"
-            color="textSecondary"
-            fontWeight={600}
-          >
-            {t("net-dannykh")}
-          </Typography>
-        )
+          {LoadingAndEmptyState}
+        </Carousel>
       )}
     </Box>
   );

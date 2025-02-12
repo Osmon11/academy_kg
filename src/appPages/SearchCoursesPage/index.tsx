@@ -74,7 +74,7 @@ export function SearchCoursesPage() {
               amount: loading
                 ? "..."
                 : data
-                  ? data.results.length
+                  ? data.count
                   : 0,
             })}
           </Typography>
@@ -100,45 +100,45 @@ export function SearchCoursesPage() {
             />
           )}
         </Box>
-        {data && data.results.length > 0 && (
-          <Box
-            className={"courses_wrapper"}
-            ref={sentryRef}
-          >
-            {data?.results.map((item) => (
+        <Box
+          className={"courses_wrapper"}
+          ref={sentryRef}
+        >
+          {data &&
+            data.results.length > 0 &&
+            data.results.map((item) => (
               <CourseCard
                 key={item.id}
                 course={item}
               />
             ))}
-          </Box>
-        )}
-        {loading ? (
-          <Box
-            className={"tube_spinner_wrapper"}
-            sx={{ marginTop: "20px" }}
-          >
-            <TubeSpinner
-              width={50}
-              height={50}
-            />
-          </Box>
-        ) : (
-          Boolean(
-            !data || data.results.length === 0,
-          ) && (
-            <Typography
-              variant="h6"
-              color="textSecondary"
-              textAlign="center"
+          {loading ? (
+            <Box
+              className={"tube_spinner_wrapper"}
               sx={{ marginTop: "20px" }}
             >
-              {t(
-                "po-vashemu-zaprosu-nichego-ne-naideno",
-              )}
-            </Typography>
-          )
-        )}
+              <TubeSpinner
+                width={50}
+                height={50}
+              />
+            </Box>
+          ) : (
+            Boolean(
+              !data || data.results.length === 0,
+            ) && (
+              <Typography
+                variant="h6"
+                color="textSecondary"
+                textAlign="center"
+                sx={{ marginTop: "20px" }}
+              >
+                {t(
+                  "po-vashemu-zaprosu-nichego-ne-naideno",
+                )}
+              </Typography>
+            )
+          )}
+        </Box>
       </Box>
       <Footer />
     </Box>

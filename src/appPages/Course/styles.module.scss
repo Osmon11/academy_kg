@@ -23,6 +23,20 @@
   border-radius: 14px;
   background: var(--mui-palette-secondary-main);
 }
+.lessons_wrapper {
+  max-height: 500px;
+  overflow: auto;
+  &::-webkit-scrollbar-thumb {
+    background-color: var(
+      --mui-palette-primary-dark
+    );
+    &:hover {
+      background-color: var(
+        --mui-palette-primary-main
+      );
+    }
+  }
+}
 .lesson_item {
   display: flex;
   align-items: center;

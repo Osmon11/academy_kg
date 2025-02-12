@@ -2,10 +2,8 @@
 
 import classNames from "classnames";
 import { useTranslations } from "next-intl";
-import queryString from "query-string";
 import {
   Fragment,
-  useCallback,
   useEffect,
   useState,
 } from "react";
@@ -21,49 +19,21 @@ import { Header } from "@/widgets/Header";
 
 import { TubeSpinner } from "@/shared/UI";
 import axiosInstance from "@/shared/config/axiosClientInstance";
-import {
-  ICourseProgress,
-  IPaginatedList,
-} from "@/shared/types";
 
-import ProgressAccordion from "./ProgressAccordion";
 import styles from "./styles.module.scss";
+import LevelProgress from "./ui/LevelProgress";
 
 export function ProgressPage() {
   const t = useTranslations("ProgressPage");
-  const [data, setData] = useState<
-    ICourseProgress[]
-  >([]);
   const [loadingLevels, setLoadingLevels] =
     useState(true);
-  const [loading, setLoading] = useState(true);
   const [levels, setLevels] = useState<number[]>(
     [],
   );
   const [level, setLevel] = useState(0);
 
-  const fetchProgress = useCallback(
-    (level: number) => {
-      setLoading(true);
-      axiosInstance
-        .get<IPaginatedList<ICourseProgress>>(
-          `/academy/progress_view/?${queryString.stringify({ level })}`,
-        )
-        .then((res) => {
-          if (Array.isArray(res?.data?.results)) {
-            setData(res.data.results);
-          }
-        })
-        .finally(() => {
-          setLoadingLevels(false);
-          setLoading(false);
-        });
-    },
-    [],
-  );
-
   useEffect(() => {
-    setLoading(true);
+    setLoadingLevels(true);
     axiosInstance
       .get("/academy/level_list/")
       .then((res) => {
@@ -74,18 +44,10 @@ export function ProgressPage() {
           setLevels(res.data);
           setLevel(res.data[0]);
         }
-      });
+      })
+      .finally(() => setLoadingLevels(false));
   }, []);
-  useEffect(() => {
-    if (level) {
-      fetchProgress(level);
-    }
-  }, [fetchProgress, level]);
 
-  const [
-    expandedAccordion,
-    setExpandedAccordion,
-  ] = useState<number | null>(null);
   return (
     <Box className="bg_gray">
       <Header background="white" />
@@ -160,40 +122,15 @@ export function ProgressPage() {
                 );
               })}
             </Box>
-            <Box sx={{ marginTop: "40px" }}>
-              {loading ? (
-                <Box className="tube_spinner_wrapper">
-                  <TubeSpinner
-                    width={50}
-                    height={50}
+            {levels.map(
+              (item) =>
+                item === level && (
+                  <LevelProgress
+                    key={"LevelProgress" + item}
+                    level={item}
                   />
-                </Box>
-              ) : data.length > 0 ? (
-                data.map((item) => (
-                  <ProgressAccordion
-                    key={`${level}-${item.id}`}
-                    progress={item}
-                    expanded={
-                      item.id ===
-                      expandedAccordion
-                    }
-                    onToggle={(value) =>
-                      setExpandedAccordion(
-                        value ? item.id : null,
-                      )
-                    }
-                  />
-                ))
-              ) : (
-                <Typography
-                  variant="h6"
-                  color="textSecondary"
-                  textAlign="center"
-                >
-                  {t("net-dannykh")}
-                </Typography>
-              )}
-            </Box>
+                ),
+            )}
           </Fragment>
         )}
       </Box>

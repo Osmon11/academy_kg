@@ -37,15 +37,15 @@ export default function MyCourses() {
             />
           ) : null,
         )}
+        {loading && (
+          <Box className={"tube_spinner_wrapper"}>
+            <TubeSpinner
+              width={50}
+              height={50}
+            />
+          </Box>
+        )}
       </Box>
-      {loading && (
-        <Box className={"tube_spinner_wrapper"}>
-          <TubeSpinner
-            width={50}
-            height={50}
-          />
-        </Box>
-      )}
     </Box>
   ) : null;
 }

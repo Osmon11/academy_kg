@@ -7,6 +7,7 @@ import {
   Fragment,
   useCallback,
   useEffect,
+  useRef,
   useState,
 } from "react";
 
@@ -65,6 +66,7 @@ export default function LessonsList({
   const [level, setLevel] =
     useState<ILevel | null>(null);
   const [loading, setLoading] = useState(false);
+  const effectCalled = useRef(false);
 
   const fetchLevelDetail = useCallback(
     (levelId: number) => {
@@ -88,7 +90,8 @@ export default function LessonsList({
   );
 
   useEffect(() => {
-    if (course) {
+    if (course && !effectCalled.current) {
+      effectCalled.current = true;
       fetchLevelDetail(course?.current_level);
     }
   }, [course, fetchLevelDetail]);
