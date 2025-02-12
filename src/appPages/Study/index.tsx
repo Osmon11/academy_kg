@@ -55,7 +55,7 @@ export function StudyPage({
         title={course ? course.title : ""}
       />
       <Box className={"full_height"}>
-        <LessonDetails />
+        <LessonDetails courseId={courseId} />
         <Recommendations />
       </Box>
       <Footer />

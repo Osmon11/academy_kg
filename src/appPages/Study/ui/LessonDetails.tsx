@@ -43,7 +43,11 @@ function a11yProps(index: number) {
   };
 }
 
-export default function LessonDetails() {
+export default function LessonDetails({
+  courseId,
+}: {
+  courseId: string;
+}) {
   const dispatch = useAppDispatch();
   const { course, courseLevels, loading } =
     useAppSelector((store) => store.course);
@@ -275,7 +279,10 @@ export default function LessonDetails() {
                     setIsExam(true);
                   }}
                 />,
-                <Questions key="Questions" />,
+                <Questions
+                  key="Questions"
+                  courseId={courseId}
+                />,
                 <TextOfTheLesson
                   key="TextOfTheLesson"
                   lesson={lesson}
