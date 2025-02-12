@@ -25,7 +25,6 @@
     .subtitle {
       padding: 10px;
       border-radius: 15px;
-      opacity: 1;
       background: #dfdfdf33;
       backdrop-filter: blur(25px);
     }
@@ -40,14 +39,13 @@
   }
 }
 @media (min-width: variables.$theme-breakpoint-lg) {
-  .page_heading {
-    .subtitle {
-      padding: 0px;
-      background: transparent;
-      backdrop-filter: none;
-      opacity: 0.7;
-    }
-  }
+  // .page_heading {
+  //   .subtitle {
+  //     padding: 0px;
+  //     background: transparent;
+  //     backdrop-filter: none;
+  //   }
+  // }
 }
 @media (min-width: variables.$theme-breakpoint-xl) {
 }

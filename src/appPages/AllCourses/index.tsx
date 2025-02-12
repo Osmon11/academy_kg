@@ -28,6 +28,7 @@ export function AllCoursesPage() {
   useEffect(() => () => setSearch(""), []);
 
   const headerProps = {
+    className: "page_paddings",
     variant: "h5" as TypographyProps["variant"],
     color: "textSecondary",
     fontWeight: 700,
@@ -39,44 +40,47 @@ export function AllCoursesPage() {
     <Box className={"bg_gray"}>
       <Header background="white" />
       <Box
-        className={"page"}
         sx={{
           marginTop: { xs: "72px", md: "80px" },
         }}
       >
-        {upSm && (
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            <SearchTextField
-              value={search}
-              onChange={(event) =>
-                setSearch(event.target.value)
-              }
-              onKeyDown={(event) => {
-                if (
-                  event.key === "Enter" &&
-                  search
-                ) {
-                  router.push("searchCourses", {
-                    queryParams: { search },
-                  });
-                }
+        <Box className={"page"}>
+          {upSm && (
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
               }}
-              color="white"
-            />
-          </Box>
-        )}
-        <Typography
-          {...headerProps}
-          sx={{ marginTop: "20px" }}
-        >
-          {t("nabory-kursov")}
-        </Typography>
-        <CourseSets />
+            >
+              <SearchTextField
+                value={search}
+                onChange={(event) =>
+                  setSearch(event.target.value)
+                }
+                onKeyDown={(event) => {
+                  if (
+                    event.key === "Enter" &&
+                    search
+                  ) {
+                    router.push("searchCourses", {
+                      queryParams: { search },
+                    });
+                  }
+                }}
+                color="white"
+              />
+            </Box>
+          )}
+          <Typography
+            variant={headerProps.variant}
+            color={headerProps.color}
+            fontWeight={headerProps.fontWeight}
+            sx={{ marginTop: "20px" }}
+          >
+            {t("nabory-kursov")}
+          </Typography>
+          <CourseSets />
+        </Box>
         <Typography
           {...headerProps}
           sx={{ marginTop: "20px" }}

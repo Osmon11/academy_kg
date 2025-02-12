@@ -40,13 +40,26 @@ iframe {
 }
 .courses_wrapper,
 .current_courses {
-  padding-top: 20px;
+  margin-top: 10px;
+  padding-top: 10px;
   padding-bottom: 15px;
   overflow: auto;
   display: flex;
   align-items: stretch;
   justify-content: flex-start;
   flex-wrap: wrap;
+  border-top: 2px solid #e5e5e5;
+  border-bottom: 2px solid #e5e5e5;
+  &::-webkit-scrollbar-thumb {
+    background-color: var(
+      --mui-palette-primary-dark
+    );
+    &:hover {
+      background-color: var(
+        --mui-palette-primary-main
+      );
+    }
+  }
 }
 .accordeons {
   border-top: 1px solid #f2f2f2;

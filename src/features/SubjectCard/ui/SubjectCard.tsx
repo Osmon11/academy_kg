@@ -94,7 +94,10 @@ export function SubjectCard({
           onClose={() => setDialog(false)}
           className="page"
           PaperProps={{
-            sx: { paddingTop: "58px" },
+            sx: {
+              paddingTop: "58px",
+              borderRadius: "8px",
+            },
           }}
         >
           <IconButton

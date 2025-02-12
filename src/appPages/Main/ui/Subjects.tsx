@@ -38,8 +38,9 @@ export default function Subjects() {
         padding: SECTION_PADDING,
       }}
     >
-      {data && data.results.length > 0 ? (
-        upMd ? (
+      {data &&
+        data.results.length > 0 &&
+        (upMd ? (
           <Box
             className={styles.subjects_wrapper}
             ref={sentryRef}
@@ -82,24 +83,27 @@ export default function Subjects() {
               ),
             )}
           </Carousel>
-        )
-      ) : (
-        <Typography
-          width="100%"
-          textAlign="center"
-          color="textSecondary"
-          fontWeight={600}
-        >
-          {t("net-dannykh")}
-        </Typography>
-      )}
-      {loading && (
+        ))}
+      {loading ? (
         <Box className={"tube_spinner_wrapper"}>
           <TubeSpinner
             width={50}
             height={50}
           />
         </Box>
+      ) : (
+        Boolean(
+          !data || data.results.length === 0,
+        ) && (
+          <Typography
+            width="100%"
+            textAlign="center"
+            color="textSecondary"
+            fontWeight={600}
+          >
+            {t("net-dannykh")}
+          </Typography>
+        )
       )}
     </Box>
   );

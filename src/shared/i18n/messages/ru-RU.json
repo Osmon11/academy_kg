@@ -314,5 +314,8 @@
     "poka-net-rekvizitov": "Пока нет реквизитов"
   },
   "net-predstoyashikh-vebinarov": "Нет предстоящих вебинаров",
-  "net-proshedshikh-vebinarov": "Нет прошедших вебинаров"
+  "net-proshedshikh-vebinarov": "Нет прошедших вебинаров",
+  "CourseSets": {
+    "net-naborov": "Нет наборов"
+  }
 }

@@ -51,7 +51,7 @@ export default function Feedbacks() {
             height={50}
           />
         </Box>
-      ) : data ? (
+      ) : data && data.results.length > 0 ? (
         <Carousel
           navButtons={upLg}
           dotButtonType="line"

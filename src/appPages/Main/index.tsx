@@ -63,7 +63,7 @@ export function MainPage() {
   const scrollToVideo = () => {
     videoRef.current?.scrollIntoView({
       behavior: "smooth",
-      block: "start",
+      block: "center",
     });
   };
   return (
@@ -204,7 +204,7 @@ export function MainPage() {
       >
         {t("kak-eto-rabotaet")}
       </SectionHeader>
-      <HowItWorks />
+      <HowItWorks ref={videoRef} />
       <SectionHeader color="primary">
         {t("otzyvy-o-nas")}
       </SectionHeader>

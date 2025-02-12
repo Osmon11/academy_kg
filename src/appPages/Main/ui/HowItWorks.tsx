@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { RefObject } from "react";
 import YouTube from "react-youtube";
 
 import {
@@ -19,12 +20,19 @@ import laptopBaseBg from "@/backgrounds/base.svg";
 
 import styles from "../styles.module.scss";
 
-export default function HowItWorks() {
+export default function HowItWorks({
+  ref,
+}: {
+  ref: RefObject<HTMLDivElement | null>;
+}) {
   const xs = useMediaQuery((theme) =>
     theme.breakpoints.only("xs"),
   );
   const Laptop = (
-    <Box className={styles.laptop}>
+    <Box
+      className={styles.laptop}
+      ref={ref}
+    >
       <Box className={styles.screen}>
         <YouTube
           className={styles.video}

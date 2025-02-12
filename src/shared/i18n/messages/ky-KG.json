@@ -43,7 +43,8 @@
     "vebinar-dlya-studentov": "Вебинар для студентов:",
     "urovnya-i-vyshe": "{level}-уровня и выше",
     "zapis-efira": "Запись эфира",
-    "smotret": "смотреть"
+    "smotret": "смотреть",
+    "net-proshedshikh-vebinarov": "Нет прошедших вебинаров"
   },
   "UpcomingWebinars": {
     "data-provedeniya": "Дата проведения:",
@@ -59,7 +60,8 @@
     "ozhidanie": "Ожидание...",
     "zayavka-otpravlena": "Заявка отправлена",
     "ostavit-zayavku": "Оставить заявку",
-    "mest-ne-ostalos": "Мест не осталось."
+    "mest-ne-ostalos": "Мест не осталось.",
+    "net-predstoyashikh-vebinarov": "Нет предстоящих вебинаров"
   },
   "WebinarsPage": {
     "nashi-vebinary": "Наши вебинары",
@@ -248,21 +250,6 @@
     "ili": "или",
     "zaregistrirovatsya": "Зарегистрироваться"
   },
-  "NewCourses": {
-    "net-novinok": "Нет новинок"
-  },
-  "LifeOfTheProphet": {
-    "net-kursov": "Нет курсов"
-  },
-  "CourseSets": {
-    "net-naborov": "Нет наборов"
-  },
-  "BasicsOfIslam": {
-    "net-kursov": "Нет курсов"
-  },
-  "ArabLanguage": {
-    "net-kursov": "Нет курсов"
-  },
   "AcademyCoreProgram": {
     "bazovaya-programma-akademii": "Базовая программа Академии",
     "attestat-ot-akademii": "Аттестат от Академии",
@@ -322,7 +309,13 @@
   "MyCourses": {
     "prodolzhit-obuchenie": "Продолжить обучение"
   },
+  "poka-net-rekvizitov": "Пока нет реквизитов",
   "OurRequisites": {
     "poka-net-rekvizitov": "Пока нет реквизитов"
+  },
+  "net-predstoyashikh-vebinarov": "Нет предстоящих вебинаров",
+  "net-proshedshikh-vebinarov": "Нет прошедших вебинаров",
+  "CourseSets": {
+    "net-naborov": "Нет наборов"
   }
 }

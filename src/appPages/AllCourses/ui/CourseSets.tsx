@@ -16,9 +16,6 @@ export default function CourseSets() {
   const { data, loading } =
     usePaginatedData<ISetOfCourses>({
       endpoint: "/academy/course_sets/list/",
-      searchParams: {
-        course_type: 5,
-      },
       hasNextPage: false,
     });
   return (

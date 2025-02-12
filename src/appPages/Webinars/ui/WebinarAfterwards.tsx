@@ -95,7 +95,7 @@ export default function WebinarAfterwards() {
 
   const { sentryRef, data, loading } =
     usePaginatedData<IWebinarAfterwardListItem>({
-      endpoint: "/academy/webinar_list/",
+      endpoint: "/academy/webinar_afterwards/",
     });
   return (
     <Box
@@ -284,7 +284,10 @@ export default function WebinarAfterwards() {
         onClose={() => setDialog(false)}
         className="page"
         PaperProps={{
-          sx: { paddingTop: "58px" },
+          sx: {
+            paddingTop: "58px",
+            borderRadius: "8px",
+          },
         }}
       >
         <IconButton
