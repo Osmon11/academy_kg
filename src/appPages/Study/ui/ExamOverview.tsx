@@ -72,14 +72,14 @@ export default function ExamOverview() {
             variant="body1"
             color="textSecondary"
           >
-            {t("peresdacha-dostupna")}
+            {t("peresdacha-dostupna-cherez")}
           </Typography>
           <Typography
             variant="body1"
             color="textSecondary"
             textAlign="right"
           >
-            {t("cherez-1-sutki")}
+            {t("1-sutki")}
           </Typography>
         </Box>
       </Box>
@@ -98,13 +98,18 @@ export default function ExamOverview() {
           }
         }}
         disabled={
+          !courseLevels.start_exam_available ||
           !courseLevels.exam ||
           courseLevels.finished_count <
             courseLevels.lessons.length
         }
         sx={{ width: "330px" }}
       >
-        {t("nachat")}
+        {t(
+          courseLevels.start_exam_available
+            ? "nachat"
+            : "peresdacha-seichas-nedostupna",
+        )}
       </Button>
     </Paper>
   ) : (

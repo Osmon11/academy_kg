@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { RefObject } from "react";
 import YouTube from "react-youtube";
@@ -25,6 +26,7 @@ export default function HowItWorks({
 }: {
   ref: RefObject<HTMLDivElement | null>;
 }) {
+  const t = useTranslations("HowItWorks");
   const xs = useMediaQuery((theme) =>
     theme.breakpoints.only("xs"),
   );
@@ -68,8 +70,10 @@ export default function HowItWorks({
       >
         <IconBanner
           color="primary"
-          title="ЗАРЕГИСТРИРУЙТЕСЬ"
-          description="С помощью аккаунтов в социальных сетях или через E-mail и пароль"
+          title={t("zaregistriruites")}
+          description={t(
+            "s-pomoshyu-akkauntov-v",
+          )}
           icon={login2Icon}
           icon_alt="login-2 icon"
           sx={{
@@ -78,8 +82,10 @@ export default function HowItWorks({
         />
         <IconBanner
           color="secondary"
-          title="СДАВАЙТЕ ЭКЗАМЕНЫ"
-          description="закрепляйте полученные знания и открывайте доступ к новым уровням обучения"
+          title={t("sdavaite-ekzameny")}
+          description={t(
+            "zakreplyaite-poluchennye-znaniya-i",
+          )}
           icon={note2Icon}
           icon_alt="note-2 icon"
           sx={{
@@ -100,8 +106,10 @@ export default function HowItWorks({
       >
         <IconBanner
           color="primary"
-          title="ОБУЧАЙТЕСЬ ОНЛАЙН"
-          description="Смотрите видеоуроки, задавайте вопросы преподавателю и получайте обратную связь"
+          title={t("obuchaites-onlain")}
+          description={t(
+            "smotrite-videouroki-zadavaite-voprosy",
+          )}
           icon={monitorRecorderIcon}
           icon_alt="monitor recorder icon"
           sx={{
@@ -110,8 +118,10 @@ export default function HowItWorks({
         />
         <IconBanner
           color="secondary"
-          title="ПРОВЕРЬТЕ СЕБЯ"
-          description="Пройдите начальный тест, чтобы определить свой уровень знаний"
+          title={t("proverte-sebya")}
+          description={t(
+            "proidite-nachalnyi-test-chtoby",
+          )}
           icon={bookIcon}
           icon_alt="book icon"
           sx={{

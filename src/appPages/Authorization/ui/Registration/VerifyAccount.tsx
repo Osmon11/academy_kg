@@ -1,6 +1,7 @@
 "use client";
 
 import { setCookie } from "cookies-next";
+import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -20,6 +21,7 @@ interface IFormValues {
 }
 
 export default function VerifyAccount() {
+  const t = useTranslations("VerifyAccount");
   const router = useAppRouter();
   const {
     handleSubmit,
@@ -43,7 +45,9 @@ export default function VerifyAccount() {
       })
       .then((res) => {
         if (res?.data?.access) {
-          toast.success("Аккаунт подтвержден");
+          toast.success(
+            t("akkaunt-podtverzhden"),
+          );
           setCookie(
             process.env
               .NEXT_PUBLIC_ACCESS_TOKEN_KEY as string,
@@ -60,7 +64,7 @@ export default function VerifyAccount() {
   }
   return (
     <PaperContainer
-      title={`Введите код из вашей почты ${email}`}
+      title={t("vvedite-kod-iz-vashei")}
       component="form"
       onSubmit={handleSubmit(onSubmit)}
     >
@@ -68,11 +72,12 @@ export default function VerifyAccount() {
         name="code"
         control={control}
         rules={{
-          required:
-            "Необходимо ввести код из почты",
+          required: t(
+            "neobkhodimo-vvesti-kod-iz-pochty",
+          ),
         }}
         textField={{
-          placeholder: "Код",
+          placeholder: t("kod"),
           type: "number",
           autoComplete: "off",
         }}
@@ -84,9 +89,11 @@ export default function VerifyAccount() {
         disabled={Boolean(errors.code || loading)}
         fullWidth
       >
-        {loading
-          ? "Ожидание..."
-          : "Подтвердить e-mail"}
+        {t(
+          loading
+            ? "ozhidanie"
+            : "podtverdit-e-mail",
+        )}
       </Button>
     </PaperContainer>
   );

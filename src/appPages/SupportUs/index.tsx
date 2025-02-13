@@ -20,7 +20,7 @@ export function SupportUsPage() {
 
   return (
     <Box className={styles.page}>
-      <GoBackHeader title="Поддержать нас" />
+      <GoBackHeader title={t("podderzhat-nas")} />
       <Banner
         color="primary"
         sx={{ marginTop: SECTION_MARGIN_TOP }}

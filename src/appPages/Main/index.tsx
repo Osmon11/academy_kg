@@ -46,7 +46,7 @@ export function MainPage() {
   const locale = useLocale();
   const videoRef = useRef<HTMLDivElement>(null);
   const [userLocation, setUserLocation] =
-    useState("неизвестно");
+    useState(t("neizvestno"));
   const [fetchingLocation, setFetchingLocation] =
     useState(true);
 
@@ -89,7 +89,7 @@ export function MainPage() {
               textTransform="uppercase"
             >
               {fetchingLocation
-                ? "Загрузка..."
+                ? t("zagruzka")
                 : userLocation}
             </Typography>
           </Box>

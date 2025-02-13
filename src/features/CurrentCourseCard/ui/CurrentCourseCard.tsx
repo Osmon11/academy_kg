@@ -85,7 +85,7 @@ export function CurrentCourseCard({
                 {course.detail.exam_result !==
                 "Not passed"
                   ? course.detail.lesson
-                  : "Экзамен"}
+                  : t("ekzamen")}
               </Typography>
             </Box>
           ) : null}

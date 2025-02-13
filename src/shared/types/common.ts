@@ -138,6 +138,7 @@ export interface ICourseLevelDetail {
   id: number;
   level: number;
   finished_count: number;
+  start_exam_available: boolean;
   lessons: ILessonDetail[];
   exam: IExamDetail | null;
 }

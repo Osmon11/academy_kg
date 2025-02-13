@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
@@ -13,34 +14,35 @@ import videoCircleIcon from "@/icons/video-circle.svg";
 import styles from "../styles.module.scss";
 
 export default function Achievements() {
+  const t = useTranslations("Achievements");
   const [achievements, setAchievements] =
     useState([
       {
         icon: bookIcon,
         icon_alt: "book icon",
         score: 0,
-        subtitle: "Предметов",
+        subtitle: t("predmetov"),
         key: "courses",
       },
       {
         icon: videoCircleIcon,
         icon_alt: "video circle icon",
         score: 0,
-        subtitle: "уроков",
+        subtitle: t("urokov"),
         key: "lessons",
       },
       {
         icon: teacherIcon,
         icon_alt: "teacher icon",
         score: 0,
-        subtitle: "студентов",
+        subtitle: t("studentov"),
         key: "students",
       },
       {
         icon: eyeIcon,
         icon_alt: "eye icon",
         score: 0,
-        subtitle: "просмотров уроков",
+        subtitle: t("prosmotrov-urokov"),
         key: "views",
       },
     ]);

@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 
 import {
@@ -24,11 +25,12 @@ export function SearchTextField({
   border,
   ...props
 }: ISearchTextFieldProps) {
+  const t = useTranslations("SearchTextField");
   return (
     <TextField
       {...props}
       className={styles.text_field}
-      placeholder="Поиск"
+      placeholder={t("poisk")}
       slotProps={{
         htmlInput: {
           className: styles.input,

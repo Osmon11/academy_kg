@@ -1,6 +1,7 @@
 "use client";
 
 import classNames from "classnames";
+import { useTranslations } from "next-intl";
 import {
   Fragment,
   useEffect,
@@ -36,18 +37,12 @@ import Questions from "./Questions";
 import SettingsMenu from "./SettingsMenu";
 import TextOfTheLesson from "./TextOfTheLesson";
 
-function a11yProps(index: number) {
-  return {
-    id: `study-tab-${index}`,
-    "aria-controls": `study-tabpanel-${index}`,
-  };
-}
-
 export default function LessonDetails({
   courseId,
 }: {
   courseId: string;
 }) {
+  const t = useTranslations("LessonDetails");
   const dispatch = useAppDispatch();
   const { course, courseLevels, loading } =
     useAppSelector((store) => store.course);
@@ -155,7 +150,7 @@ export default function LessonDetails({
   );
   const [tabButtons, setTabButtons] = useState<
     string[]
-  >(["Уроки", "Вопросы"]);
+  >([t("uroki"), t("voprosy")]);
 
   useEffect(() => {
     if (
@@ -163,14 +158,14 @@ export default function LessonDetails({
       course?.current_level === courseLevels?.id
     ) {
       setTabButtons((state) =>
-        state.includes("Текст урока")
+        state.includes(t("tekst-uroka"))
           ? state
-          : [...state, "Текст урока"],
+          : [...state, t("tekst-uroka")],
       );
     } else {
-      setTabButtons(["Уроки", "Вопросы"]);
+      setTabButtons([t("uroki"), t("voprosy")]);
     }
-  }, [course, courseLevels, lesson]);
+  }, [t, course, courseLevels, lesson]);
 
   return (
     <Box
@@ -241,7 +236,9 @@ export default function LessonDetails({
                     <Tab
                       key={label + index}
                       label={label}
-                      {...a11yProps(index)}
+                      aria-controls={
+                        "study-tabpanel-" + index
+                      }
                     />
                   ),
                 )}

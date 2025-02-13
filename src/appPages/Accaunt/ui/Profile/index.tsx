@@ -1,6 +1,7 @@
 "use client";
 
 import classNames from "classnames";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import {
   useEffect,
@@ -47,6 +48,7 @@ type FormTypes = Pick<
 >;
 
 export function ProfilePage() {
+  const t = useTranslations("ProfilePage");
   const dispatch = useAppDispatch();
   const { profile, loading } = useAppSelector(
     (store) => store.user,
@@ -97,7 +99,7 @@ export function ProfilePage() {
       .put<IProfile>("/auth/profile/", formData)
       .then((res) => {
         if (res?.data?.id) {
-          toast.success("Сохранено!");
+          toast.success(t("sokhraneno"));
           dispatch(setUserProfile(res.data));
         }
       })
@@ -120,7 +122,7 @@ export function ProfilePage() {
   }
   return (
     <Box className={"bg_gray"}>
-      <GoBackHeader title="Мой профиль" />
+      <GoBackHeader title={t("moi-profil")} />
       <Box
         className={classNames(
           "page",
@@ -210,12 +212,13 @@ export function ProfilePage() {
                 name="name"
                 control={control}
                 rules={{
-                  required:
-                    "Необходимо ввести имя",
+                  required: t(
+                    "neobkhodimo-vvesti-imya",
+                  ),
                 }}
                 textField={{
                   variant: "standard",
-                  placeholder: "Имя",
+                  placeholder: t("imya"),
                   type: "text",
                   autoComplete: "off",
                 }}
@@ -224,12 +227,13 @@ export function ProfilePage() {
                 name="surname"
                 control={control}
                 rules={{
-                  required:
-                    "Необходимо ввести фамилию",
+                  required: t(
+                    "neobkhodimo-vvesti-familiyu",
+                  ),
                 }}
                 textField={{
                   variant: "standard",
-                  placeholder: "Фамилия",
+                  placeholder: t("familiya"),
                   type: "text",
                   autoComplete: "off",
                 }}
@@ -238,12 +242,15 @@ export function ProfilePage() {
                 name="phone"
                 control={control}
                 rules={{
-                  required:
-                    "Необходимо ввести номер",
+                  required: t(
+                    "neobkhodimo-vvesti-nomer",
+                  ),
                 }}
                 textField={{
                   variant: "standard",
-                  placeholder: "Номер телефона",
+                  placeholder: t(
+                    "nomer-telefona",
+                  ),
                   type: "tel",
                   autoComplete: "off",
                 }}
@@ -252,8 +259,9 @@ export function ProfilePage() {
                 name="gender"
                 control={control}
                 rules={{
-                  required:
-                    "Пожалуйста выберите свой пол",
+                  required: t(
+                    "pozhaluista-vyberite-svoi-pol",
+                  ),
                 }}
                 radioGroup={{
                   sx: {
@@ -268,11 +276,11 @@ export function ProfilePage() {
                 options={[
                   {
                     value: "male",
-                    label: "Я мужчина",
+                    label: t("ya-muzhchina"),
                   },
                   {
                     value: "female",
-                    label: "Я женщина",
+                    label: t("ya-zhenshina"),
                   },
                 ]}
               />
@@ -290,9 +298,11 @@ export function ProfilePage() {
                     saving,
                 )}
               >
-                {saving
-                  ? "Ожидание..."
-                  : "Сохранить изменения"}
+                {t(
+                  saving
+                    ? "ozhidanie"
+                    : "sokhranit-izmeneniya",
+                )}
               </Button>
             </Paper>
           )}

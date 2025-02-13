@@ -37,9 +37,9 @@ const eslintConfig = [
         // Be careful though that this doesn’t catch hardcoded attributes (e.g. aria-label="Open menu").
         "error",
         {
-          noStrings: true, // Запрещает строки в JSX
-          allowedStrings: ["|"], // Разрешённые символы
-          ignoreProps: true, // Разрешает строковые литералы в props
+          noStrings: true, // Forbids strings in JSX
+          allowedStrings: ["|"], // Allowed characters
+          ignoreProps: true, // Allows string literals in props
         },
       ],
       // Consistently import navigation APIs from `@/shared/hooks/useAppRouter`

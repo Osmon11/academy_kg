@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import {
   useEffect,
   useRef,
@@ -38,6 +39,7 @@ export function ExamPage({
   examId,
   levelId,
 }: IExamPageProps) {
+  const t = useTranslations("ExamPage");
   const dispatch = useAppDispatch();
   const { examQuestions, results, loading } =
     useAppSelector((store) => store.exam);
@@ -121,7 +123,7 @@ export function ExamPage({
         title={
           examQuestions
             ? examQuestions.title
-            : "Экзамен"
+            : t("ekzamen")
         }
         append={
           examQuestions &&

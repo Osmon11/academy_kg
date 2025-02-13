@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { toast } from "react-toastify";
 
@@ -32,6 +33,7 @@ export function ShareDialog({
   shareUrl,
   title,
 }: IShareDialogProps) {
+  const t = useTranslations("ShareDialog");
   const encodedText =
     encodeURIComponent(shareText);
   const encodedUrl = encodeURIComponent(shareUrl);
@@ -67,12 +69,12 @@ export function ShareDialog({
         ),
     },
     {
-      label: "Скопировать",
+      label: t("skopirovat"),
       icon: copyPrimaryIcon,
       alt: "copy green icon",
       handleClick: () => {
         navigator.clipboard.writeText(shareUrl);
-        toast.success("Скопировано!");
+        toast.success(t("skopirovano"));
       },
     },
   ];
@@ -85,7 +87,7 @@ export function ShareDialog({
         color="textSecondary"
         textAlign="center"
       >
-        {title ?? "Поделиться"}
+        {title ?? t("podelitsya")}
       </DialogTitle>
       <IconButton
         className="close_dialog_button"

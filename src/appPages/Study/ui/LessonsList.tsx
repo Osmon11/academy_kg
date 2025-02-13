@@ -64,7 +64,11 @@ export default function LessonsList({
     (store) => store.course,
   );
   const [level, setLevel] =
-    useState<ILevel | null>(null);
+    useState<ILevel | null>(
+      course?.levels.find(
+        (i) => i.id === course.current_level,
+      ) ?? null,
+    );
   const [loading, setLoading] = useState(false);
   const effectCalled = useRef(false);
 
@@ -90,11 +94,22 @@ export default function LessonsList({
   );
 
   useEffect(() => {
-    if (course && !effectCalled.current) {
+    if (
+      course &&
+      (!courseLevels ||
+        !level ||
+        courseLevels.id !== level.id) &&
+      !effectCalled.current
+    ) {
       effectCalled.current = true;
       fetchLevelDetail(course?.current_level);
     }
-  }, [course, fetchLevelDetail]);
+  }, [
+    course,
+    courseLevels,
+    level,
+    fetchLevelDetail,
+  ]);
 
   const typographyProps = {
     variant:
