@@ -3,7 +3,10 @@ import {
   getCookie,
   setCookie,
 } from "cookies-next";
-import NextAuth from "next-auth";
+import NextAuth, {
+  DefaultSession,
+} from "next-auth";
+import { DefaultUser } from "next-auth";
 import GoogleProvider, {
   GoogleProfile,
 } from "next-auth/providers/google";
@@ -16,9 +19,24 @@ import {
 } from "@/shared/functions";
 import { routing } from "@/shared/i18n/routing";
 
+declare module "next-auth/jwt" {
+  interface JWT {
+    isAuthorized?: boolean;
+  }
+}
+declare module "next-auth" {
+  interface User extends DefaultUser {
+    isAuthorized?: boolean;
+  }
+
+  interface Session extends DefaultSession {
+    user: User;
+  }
+}
+
 const handler = NextAuth({
   secret: process.env.NEXTAUTH_SECRET,
-  // debug: process.env.NODE_ENV === "development",
+  debug: process.env.NODE_ENV === "development",
   session: {
     strategy: "jwt",
   },
@@ -69,7 +87,9 @@ const handler = NextAuth({
                 expires: sessionExpiration(),
               },
             );
+            token.isAuthorized = true;
           } else {
+            token.isAuthorized = false;
           }
         } catch (error) {
           console.error(
@@ -79,6 +99,11 @@ const handler = NextAuth({
         }
       }
       return token;
+    },
+    async session({ session, token }) {
+      session.user.isAuthorized =
+        token.isAuthorized || false;
+      return session;
     },
   },
 });

@@ -33,14 +33,15 @@ export function Authentication() {
   const searchParamsObject = Object.fromEntries(
     searchParams.entries(),
   );
-  const { status } = useSession();
+  const { data } = useSession();
   const [loading] = useState(false);
 
   useEffect(() => {
-    if (status === "authenticated") {
+    if (data && data.user.isAuthorized) {
+      console.log(data.user.isAuthorized);
       router.replace("accaunt");
     }
-  }, [status, router]);
+  }, [data, router]);
 
   function handleGoogleSignIn() {
     popupCenter(
