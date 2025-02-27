@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation";
 
 import { Box } from "@mui/material";
 
-import mainBg from "@/backgrounds/main-bg.png";
+import mainBg from "@/backgrounds/main-bg.webp";
 
 import styles from "../styles.module.scss";
 import SignUp from "./SignUp";

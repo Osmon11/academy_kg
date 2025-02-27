@@ -3,7 +3,7 @@ import React from "react";
 
 import { Box, Typography } from "@mui/material";
 
-import mainBg from "@/backgrounds/main-bg.png";
+import mainBg from "@/backgrounds/main-bg.webp";
 
 import styles from "./PageHeading.module.scss";
 
