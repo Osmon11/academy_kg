@@ -15,21 +15,22 @@ export default function LevelProgress({
   level: number;
 }) {
   const t = useTranslations("LevelProgress");
-  const { sentryRef, data, loading } =
-    usePaginatedData<ICourseProgress>({
-      endpoint: "/academy/progress_view/",
-      searchParams: { level },
-    });
+  const {
+    sentryRef,
+    data,
+    loading,
+    hasNextPage,
+  } = usePaginatedData<ICourseProgress>({
+    endpoint: "/academy/progress_view/",
+    searchParams: { level },
+  });
 
   const [
     expandedAccordion,
     setExpandedAccordion,
   ] = useState<number | null>(null);
   return (
-    <Box
-      sx={{ marginTop: "40px" }}
-      ref={sentryRef}
-    >
+    <Box sx={{ marginTop: "40px" }}>
       {data &&
         data.results.length > 0 &&
         data.results.map((item) => (
@@ -46,8 +47,11 @@ export default function LevelProgress({
             }
           />
         ))}
-      {loading ? (
-        <Box className="tube_spinner_wrapper">
+      {loading || hasNextPage ? (
+        <Box
+          ref={sentryRef}
+          className="tube_spinner_wrapper"
+        >
           <TubeSpinner
             width={50}
             height={50}

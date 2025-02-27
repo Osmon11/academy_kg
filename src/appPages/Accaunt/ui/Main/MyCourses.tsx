@@ -1,34 +1,48 @@
 import { useTranslations } from "next-intl";
 
-import { Box, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Typography,
+} from "@mui/material";
 
 import { CurrentCourseCard } from "@/features/CurrentCourseCard";
 
 import { TubeSpinner } from "@/shared/UI";
-import { usePaginatedData } from "@/shared/hooks";
+import {
+  useAppRouter,
+  usePaginatedData,
+} from "@/shared/hooks";
 import { IMyCourseListItem } from "@/shared/types";
 
 export default function MyCourses() {
+  const router = useAppRouter();
   const t = useTranslations("MyCourses");
 
-  const { sentryRef, data, loading } =
+  const { data, loading } =
     usePaginatedData<IMyCourseListItem>({
       endpoint: "/academy/current_courses/",
+      hasNextPage: false,
     });
   return data && data.results ? (
     <Box sx={{ marginTop: "40px" }}>
-      <Typography
-        variant="h5"
-        color="textSecondary"
-        fontWeight={700}
-        className="page_paddings"
-      >
-        {t("prodolzhit-obuchenie")}
-      </Typography>
-      <Box
-        className={"current_courses"}
-        ref={sentryRef}
-      >
+      <Box className="list_header">
+        <Typography
+          variant="h5"
+          color="textSecondary"
+          fontWeight={700}
+        >
+          {t("prodolzhit-obuchenie")}
+        </Typography>
+        <Button
+          variant="outlined"
+          onClick={() => router.push("myCourses")}
+          sx={{ textTransform: "initial" }}
+        >
+          {t("posmotret-vse")}
+        </Button>
+      </Box>
+      <Box className={"courses_wrapper"}>
         {data.results.map((item) =>
           item.detail ? (
             <CurrentCourseCard

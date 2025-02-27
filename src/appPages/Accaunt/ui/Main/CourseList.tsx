@@ -1,29 +1,51 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Fragment } from "react";
 
-import { Box, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Typography,
+} from "@mui/material";
 
 import { CourseCard } from "@/features/CourseCard";
 
 import { TubeSpinner } from "@/shared/UI";
-import { usePaginatedData } from "@/shared/hooks";
+import { SECTION_MARGIN_TOP } from "@/shared/config/const";
+import {
+  useAppRouter,
+  usePaginatedData,
+} from "@/shared/hooks";
 import { ICourseListItem } from "@/shared/types";
 
 export default function CourseList() {
+  const router = useAppRouter();
   const t = useTranslations("CourseList");
 
-  const { sentryRef, data, loading } =
+  const { data, loading } =
     usePaginatedData<ICourseListItem>({
       endpoint: "/academy/course_list/",
+      hasNextPage: false,
     });
   return (
-    <Fragment>
-      <Box
-        className="courses_wrapper"
-        ref={sentryRef}
-      >
+    <Box sx={{ marginTop: SECTION_MARGIN_TOP }}>
+      <Box className="list_header">
+        <Typography
+          variant="h5"
+          color="textSecondary"
+          fontWeight={700}
+        >
+          {t("vyberite-kurs")}
+        </Typography>
+        <Button
+          variant="outlined"
+          onClick={() => router.push("courses")}
+          sx={{ textTransform: "initial" }}
+        >
+          {t("posmotret-vse")}
+        </Button>
+      </Box>
+      <Box className="courses_wrapper">
         {data &&
           data.results.length > 0 &&
           data.results.map((course) => (
@@ -54,6 +76,6 @@ export default function CourseList() {
           )
         )}
       </Box>
-    </Fragment>
+    </Box>
   );
 }

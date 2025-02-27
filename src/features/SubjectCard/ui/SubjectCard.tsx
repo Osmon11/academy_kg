@@ -47,6 +47,20 @@ export function SubjectCard({
         title={title}
         className={styles.media}
       />
+      {trailer && (
+        <IconButton
+          className={styles.play_button}
+          aria-label="play icon"
+          onClick={() => setDialog(true)}
+        >
+          <Image
+            src={playIcon}
+            alt="play icon"
+            width={24}
+            height={24}
+          />
+        </IconButton>
+      )}
       <CardContent className={styles.content}>
         <Typography
           variant="h4"
@@ -60,20 +74,6 @@ export function SubjectCard({
         >
           {title}
         </Typography>
-        {trailer && (
-          <IconButton
-            className={styles.play_button}
-            aria-label="play icon"
-            onClick={() => setDialog(true)}
-          >
-            <Image
-              src={playIcon}
-              alt="play icon"
-              width={24}
-              height={24}
-            />
-          </IconButton>
-        )}
         <Typography
           variant="body2"
           fontWeight={500}

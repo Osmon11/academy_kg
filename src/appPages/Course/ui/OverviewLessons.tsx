@@ -26,15 +26,17 @@ export default function OverviewLessons() {
     (store) => store.course.course,
   );
 
-  const { sentryRef, data, loading } =
-    usePaginatedData<ILessonDetail>({
-      endpoint: `/academy/course_lesson_list/${course!.id}`,
-    });
+  const {
+    sentryRef,
+    data,
+    loading,
+    hasNextPage,
+  } = usePaginatedData<ILessonDetail>({
+    endpoint: `/academy/course_lesson_list/${course!.id}`,
+  });
+  // className={styles.lessons_wrapper}
   return (
-    <Box
-      className={styles.lessons_wrapper}
-      ref={sentryRef}
-    >
+    <Box>
       {data &&
         data.results.length > 0 &&
         data.results.map(
@@ -93,8 +95,11 @@ export default function OverviewLessons() {
             </ListItem>
           ),
         )}
-      {loading ? (
-        <Box>
+      {loading || hasNextPage ? (
+        <Box
+          ref={sentryRef}
+          className="tube_spinner_wrapper"
+        >
           <TubeSpinner
             width={50}
             height={50}

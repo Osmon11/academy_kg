@@ -23,12 +23,17 @@ interface IOptions {
 
 export function usePaginatedData<T>({
   endpoint,
-  hasNextPage,
+  hasNextPage: hasNextPageProp,
   searchParams,
 }: IOptions) {
   const [data, setData] =
     useState<IPaginatedList<T> | null>(null);
   const [loading, setLoading] = useState(true);
+  const [hasNextPage, setHasNextPage] = useState(
+    (hasNextPageProp ?? true) &&
+      Boolean(data?.next) &&
+      typeof data?.next === "number",
+  );
   const effectCalled = useRef(false);
 
   const loadMore = useCallback(
@@ -53,18 +58,26 @@ export function usePaginatedData<T>({
                   }
                 : res.data,
             );
+            if (
+              (typeof hasNextPageProp ===
+                "undefined" ||
+                hasNextPageProp === true) &&
+              typeof res.data.next === "number"
+            ) {
+              setHasNextPage(
+                Boolean(res.data.next),
+              );
+            }
           }
         })
         .finally(() => setLoading(false));
     },
-    [endpoint, searchParams],
+    [endpoint, searchParams, hasNextPageProp],
   );
 
   const [sentryRef] = useInfiniteScroll({
     loading,
-    hasNextPage:
-      (hasNextPage ?? true) &&
-      Boolean(data?.next),
+    hasNextPage,
     onLoadMore: () => {
       if (
         !loading &&
@@ -90,5 +103,6 @@ export function usePaginatedData<T>({
     setData,
     loading,
     setLoading,
+    hasNextPage,
   };
 }

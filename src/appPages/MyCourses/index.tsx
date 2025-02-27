@@ -4,51 +4,44 @@ import { useTranslations } from "next-intl";
 
 import { Box, Typography } from "@mui/material";
 
-import { CourseCard } from "@/features/CourseCard";
+import { Footer } from "@/widgets/Footer";
+
+import { CurrentCourseCard } from "@/features/CurrentCourseCard";
+
+import { GoBackHeader } from "@/entities/GoBackHeader";
 
 import { TubeSpinner } from "@/shared/UI";
 import { usePaginatedData } from "@/shared/hooks";
-import { ICourseListItem } from "@/shared/types";
+import { IMyCourseListItem } from "@/shared/types";
 
-export default function Recommendations() {
-  const t = useTranslations("Recommendations");
-
+export function MyCoursesPage() {
+  const t = useTranslations("MyCoursesPage");
   const {
     sentryRef,
     data,
     loading,
     hasNextPage,
-  } = usePaginatedData<ICourseListItem>({
-    endpoint: "/academy/recommendation_courses/",
+  } = usePaginatedData<IMyCourseListItem>({
+    endpoint: "/academy/current_courses/",
   });
+
   return (
-    <Box
-      className="page"
-      sx={{
-        marginTop: "40px",
-      }}
-    >
-      <Typography
-        variant="h5"
-        color="textSecondary"
-        fontWeight={700}
-      >
-        {t("rekomendacii")}
-      </Typography>
-      <Box sx={{ marginTop: "20px" }}>
-        <Box className={"courses_wrapper"}>
+    <Box className="bg_gray">
+      <GoBackHeader title={t("moi-kursy")} />
+      <Box className="page full_height">
+        <Box className="courses_wrapper">
           {data &&
             data.results.length > 0 &&
             data.results.map((course) => (
-              <CourseCard
+              <CurrentCourseCard
                 key={course.id}
                 course={course}
               />
             ))}
           {loading || hasNextPage ? (
             <Box
-              ref={sentryRef}
               className={"tube_spinner_wrapper"}
+              ref={sentryRef}
             >
               <TubeSpinner
                 width={50}
@@ -60,16 +53,18 @@ export default function Recommendations() {
               !data || data.results.length === 0,
             ) && (
               <Typography
+                width="100%"
                 textAlign="center"
                 color="textSecondary"
                 fontWeight={600}
               >
-                {t("poka-net-rekomendacii")}
+                {t("net-kursov")}
               </Typography>
             )
           )}
         </Box>
       </Box>
+      <Footer />
     </Box>
   );
 }

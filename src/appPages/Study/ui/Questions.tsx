@@ -57,10 +57,15 @@ export default function Questions({
       comment: "",
     },
   });
-  const { sentryRef, data, setData, loading } =
-    usePaginatedData<IComment>({
-      endpoint: `/academy/comment_list/${courseId}`,
-    });
+  const {
+    sentryRef,
+    data,
+    setData,
+    loading,
+    hasNextPage,
+  } = usePaginatedData<IComment>({
+    endpoint: `/academy/comment_list/${courseId}`,
+  });
   const [processing, setProcessing] =
     useState(false);
 
@@ -180,7 +185,6 @@ export default function Questions({
         sx={{
           margin: "10px",
         }}
-        ref={sentryRef}
       >
         {data &&
           data.results.length > 0 &&
@@ -258,8 +262,11 @@ export default function Questions({
               )}
             </Accordion>
           ))}
-        {loading ? (
-          <Box className="tube_spinner_wrapper">
+        {loading || hasNextPage ? (
+          <Box
+            ref={sentryRef}
+            className="tube_spinner_wrapper"
+          >
             <TubeSpinner
               width={50}
               height={50}

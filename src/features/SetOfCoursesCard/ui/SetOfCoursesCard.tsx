@@ -3,6 +3,7 @@ import { useTranslations } from "next-intl";
 import {
   Box,
   Card,
+  CardActionArea,
   CardContent,
   CardMedia,
   Typography,
@@ -22,54 +23,59 @@ export function SetOfCoursesCard({
   const t = useTranslations("SetOfCoursesCard");
   const router = useAppRouter();
   return (
-    <Card
-      className={styles.setOfCourses_card}
-      onClick={() =>
-        router.push("searchCourses", {
-          queryParams: {
-            setId: setOfCourses.id,
-            setTitle: setOfCourses.title,
-          },
-        })
-      }
-    >
-      <CardMedia
-        image={setOfCourses.img}
-        title={setOfCourses.title}
-        className={styles.media}
-      />
-      <CardContent className={styles.content}>
-        {setOfCourses.course_count ? (
-          <Box className={styles.badge}>
+    <Card className={styles.setOfCourses_card}>
+      <CardActionArea
+        className={styles.action_area}
+        onClick={() =>
+          router.push("searchCourses", {
+            queryParams: {
+              title: setOfCourses.title,
+              setId: setOfCourses.id,
+            },
+          })
+        }
+      >
+        <CardMedia
+          image={setOfCourses.img}
+          title={setOfCourses.title}
+          className={styles.media}
+        />
+        <CardContent className={styles.content}>
+          {setOfCourses.course_count ? (
+            <Box className={styles.badge}>
+              <Typography
+                variant="caption"
+                fontWeight={900}
+              >
+                {t("kursa", {
+                  amount:
+                    setOfCourses.course_count,
+                })}
+              </Typography>
+            </Box>
+          ) : (
+            <Box />
+          )}
+          <Box>
             <Typography
-              variant="caption"
+              className={styles.title}
+              variant="h6"
               fontWeight={900}
+              textTransform="uppercase"
             >
-              {t("kursa", {
-                amount: setOfCourses.course_count,
-              })}
+              {setOfCourses.title}
+            </Typography>
+            <Typography
+              className={styles.description}
+              variant="body1"
+              fontWeight={900}
+              textTransform="uppercase"
+            >
+              {setOfCourses.description}
             </Typography>
           </Box>
-        ) : null}
-        <Box>
-          <Typography
-            className={styles.title}
-            variant="h6"
-            fontWeight={900}
-            textTransform="uppercase"
-          >
-            {setOfCourses.title}
-          </Typography>
-          <Typography
-            className={styles.description}
-            variant="body1"
-            fontWeight={900}
-            textTransform="uppercase"
-          >
-            {setOfCourses.description}
-          </Typography>
-        </Box>
-      </CardContent>
+        </CardContent>
+      </CardActionArea>
     </Card>
   );
 }

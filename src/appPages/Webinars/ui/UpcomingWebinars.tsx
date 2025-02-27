@@ -135,16 +135,19 @@ export default function UpcomingWebinars() {
     theme.breakpoints.up("md"),
   );
 
-  const { sentryRef, data, loading } =
-    usePaginatedData<IUpcomingWebinarListItem>({
-      endpoint: "/academy/webinar_list/",
-    });
+  const {
+    sentryRef,
+    data,
+    loading,
+    hasNextPage,
+  } = usePaginatedData<IUpcomingWebinarListItem>({
+    endpoint: "/academy/webinar_list/",
+  });
   return (
     <Box
       sx={{
         padding: SECTION_PADDING,
       }}
-      ref={sentryRef}
     >
       {data &&
         data.results.length > 0 &&
@@ -314,8 +317,11 @@ export default function UpcomingWebinars() {
             );
           },
         )}
-      {loading ? (
-        <Box className="tube_spinner_wrapper">
+      {loading || hasNextPage ? (
+        <Box
+          ref={sentryRef}
+          className="tube_spinner_wrapper"
+        >
           <TubeSpinner
             width={50}
             height={50}

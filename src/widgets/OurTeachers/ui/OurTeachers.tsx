@@ -24,11 +24,15 @@ export function OurTeachers() {
     theme.breakpoints.up("md"),
   );
 
-  const { sentryRef, data, loading } =
-    usePaginatedData<ITeacherListItem>({
-      endpoint: "/academy/teacher_list/",
-      hasNextPage: upMd,
-    });
+  const {
+    sentryRef,
+    data,
+    loading,
+    hasNextPage,
+  } = usePaginatedData<ITeacherListItem>({
+    endpoint: "/academy/teacher_list/",
+    hasNextPage: upMd,
+  });
 
   const cardStyles = {
     width: "240px",
@@ -37,27 +41,31 @@ export function OurTeachers() {
     width: "240px",
     height: "280px",
   };
-  const LoadingAndEmptyState = loading ? (
-    <Box className={"tube_spinner_wrapper"}>
-      <TubeSpinner
-        width={50}
-        height={50}
-      />
-    </Box>
-  ) : (
-    Boolean(
-      !data || data.results.length === 0,
-    ) && (
-      <Typography
-        width="100%"
-        textAlign="center"
-        color="textSecondary"
-        fontWeight={600}
+  const LoadingAndEmptyState =
+    loading || hasNextPage ? (
+      <Box
+        ref={sentryRef}
+        className={"tube_spinner_wrapper"}
       >
-        {t("net-dannykh")}
-      </Typography>
-    )
-  );
+        <TubeSpinner
+          width={50}
+          height={50}
+        />
+      </Box>
+    ) : (
+      Boolean(
+        !data || data.results.length === 0,
+      ) && (
+        <Typography
+          width="100%"
+          textAlign="center"
+          color="textSecondary"
+          fontWeight={600}
+        >
+          {t("net-dannykh")}
+        </Typography>
+      )
+    );
   return (
     <Box
       sx={{

@@ -2,59 +2,60 @@
 
 .setOfCourses_card {
   position: relative;
-  min-height: 200px;
   height: auto;
   border-radius: 20px;
-  cursor: pointer;
-  .media {
-    height: 200px;
-  }
-  .content {
-    width: 100%;
-    height: 100%;
-    padding: 10px 10px 20px 20px;
-    background: linear-gradient(
-      180deg,
-      rgba(29, 165, 153, 0.6) 0%,
-      rgba(255, 136, 45, 0.6) 99.99%
-    );
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    justify-content: space-between;
-    .badge {
-      height: 28px;
-      padding: 8px 12px;
-      border-radius: 30px;
-      background: var(
-        --mui-palette-secondary-main
+  .action_area {
+    min-height: 200px;
+    .media {
+      height: 200px;
+    }
+    .content {
+      width: 100%;
+      height: 100%;
+      padding: 10px 10px 20px 20px;
+      background: linear-gradient(
+        180deg,
+        rgba(29, 165, 153, 0.6) 0%,
+        rgba(255, 136, 45, 0.6) 99.99%
       );
-      span {
-        display: block;
-        height: 12px;
-        line-height: 12px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: space-between;
+      .badge {
+        height: 28px;
+        padding: 8px 12px;
+        border-radius: 30px;
+        background: var(
+          --mui-palette-secondary-main
+        );
+        span {
+          display: block;
+          height: 12px;
+          line-height: 12px;
+        }
       }
-    }
-    .title {
-      text-shadow:
-        1px 1px 2px 0px #a5d8cb4d,
-        -1px -1px 2px 0px #a1d4c780,
-        -1px 1px 2px 0px #a1d4c733,
-        1px -1px 2px 0px #a1d4c733,
-        -1px -1px 2px 0px #a5d8cbe5,
-        1px 1px 3px 0px #a1d4c7e5;
-    }
-    .description {
-      text-shadow:
-        1px 1px 2px 0px #ffc28a4d,
-        -1px -1px 2px 0px #ffc28a80,
-        -1px 1px 2px 0px #ffc28a33,
-        1px -1px 2px 0px #ffc28a33,
-        -1px -1px 2px 0px #ffc28ae5,
-        1px 1px 3px 0px #ffc28ae5;
+      .title {
+        text-shadow:
+          1px 1px 2px 0px #a5d8cb4d,
+          -1px -1px 2px 0px #a1d4c780,
+          -1px 1px 2px 0px #a1d4c733,
+          1px -1px 2px 0px #a1d4c733,
+          -1px -1px 2px 0px #a5d8cbe5,
+          1px 1px 3px 0px #a1d4c7e5;
+      }
+      .description {
+        text-shadow:
+          1px 1px 2px 0px #ffc28a4d,
+          -1px -1px 2px 0px #ffc28a80,
+          -1px 1px 2px 0px #ffc28a33,
+          1px -1px 2px 0px #ffc28a33,
+          -1px -1px 2px 0px #ffc28ae5,
+          1px 1px 3px 0px #ffc28ae5;
+      }
     }
   }
 }

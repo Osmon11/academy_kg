@@ -3,6 +3,7 @@ import Image from "next/image";
 
 import {
   Box,
+  CardActionArea,
   LinearProgress,
   Typography,
   useMediaQuery,
@@ -39,7 +40,7 @@ export function CurrentCourseCard({
     theme.breakpoints.up("lg"),
   );
   return (
-    <Box
+    <CardActionArea
       className={styles.course_card}
       onClick={() =>
         router.push("study", {
@@ -154,6 +155,6 @@ export function CurrentCourseCard({
           />
         </Box>
       ) : null}
-    </Box>
+    </CardActionArea>
   );
 }

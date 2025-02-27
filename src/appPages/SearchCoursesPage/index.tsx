@@ -28,35 +28,62 @@ export function SearchCoursesPage() {
   const t = useTranslations("SearchCoursesPage");
   const router = useAppRouter();
   const searchParams = useSearchParams();
+  const title = searchParams.get("title");
   const search = searchParams.get("search");
   const setId = searchParams.get("setId");
-  const setTitle = searchParams.get("setTitle");
+  const courseType =
+    searchParams.get("courseType");
   const [searchInput, setSearchInput] =
     useState("");
 
-  const { sentryRef, data, loading } =
-    usePaginatedData<ICourseListItem>({
-      endpoint: "/academy/course_list/",
-      searchParams: {
-        search,
-        course_set: setId,
-      },
-    });
+  const {
+    sentryRef,
+    data,
+    loading,
+    hasNextPage,
+  } = usePaginatedData<ICourseListItem>({
+    endpoint: "/academy/course_list/",
+    searchParams: {
+      search,
+      course_set: setId,
+      course_type: courseType,
+    },
+  });
 
   const upSm = useMediaQuery((theme) =>
     theme.breakpoints.up("sm"),
+  );
+  const SearchField = (
+    <SearchTextField
+      value={searchInput}
+      onChange={(event) =>
+        setSearchInput(event.target.value)
+      }
+      onKeyDown={(event) => {
+        if (
+          event.key === "Enter" &&
+          searchInput
+        ) {
+          router.push("searchCourses", {
+            queryParams: {
+              search: searchInput,
+            },
+          });
+        }
+      }}
+      color="white"
+    />
   );
   return (
     <Box className={"bg_gray"}>
       <GoBackHeader
         title={
-          (upSm ? setTitle : search) ??
-          t("poisk-kursov")
+          search ?? title ?? t("poisk-kursov")
         }
       />
-      <Box className="full_height">
+      <Box className="page full_height">
+        {!upSm && SearchField}
         <Box
-          className="page_paddings"
           sx={{
             width: "100%",
             marginTop: "40px",
@@ -79,31 +106,18 @@ export function SearchCoursesPage() {
             })}
           </Typography>
           {upSm && (
-            <SearchTextField
-              value={searchInput}
-              onChange={(event) =>
-                setSearchInput(event.target.value)
-              }
-              onKeyDown={(event) => {
-                if (
-                  event.key === "Enter" &&
-                  searchInput
-                ) {
-                  router.push("searchCourses", {
-                    queryParams: {
-                      search: searchInput,
-                    },
-                  });
-                }
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                marginTop: "20px",
               }}
-              color="white"
-            />
+            >
+              {SearchField}
+            </Box>
           )}
         </Box>
-        <Box
-          className={"courses_wrapper"}
-          ref={sentryRef}
-        >
+        <Box className={"courses_wrapper"}>
           {data &&
             data.results.length > 0 &&
             data.results.map((item) => (
@@ -112,8 +126,9 @@ export function SearchCoursesPage() {
                 course={item}
               />
             ))}
-          {loading ? (
+          {loading || hasNextPage ? (
             <Box
+              ref={sentryRef}
               className={"tube_spinner_wrapper"}
               sx={{ marginTop: "20px" }}
             >

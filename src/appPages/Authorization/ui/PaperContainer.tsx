@@ -51,13 +51,16 @@ export default function PaperContainer({
           height={24}
         />
       </IconButton>
-      <Image
-        src={logoPrimaryIcon}
-        alt="islamic online-academy green icon"
-        width={100}
-        height={100}
+      <IconButton
         onClick={() => router.push("main")}
-      />
+      >
+        <Image
+          src={logoPrimaryIcon}
+          alt="islamic online-academy green icon"
+          width={100}
+          height={100}
+        />
+      </IconButton>
       <Typography
         variant="h5"
         textAlign="center"

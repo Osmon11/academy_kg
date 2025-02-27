@@ -13,6 +13,9 @@ export enum ERoute {
   "study" = "/personal-accaunt/course/[course]/study",
   "exam" = "/personal-accaunt/course/[course]/[exam]/[level]",
   "searchCourses" = "/personal-accaunt/courses/search",
+  "recommendations" = "/personal-accaunt/courses/recommendations",
+  "myCourses" = "/personal-accaunt/courses/my-courses",
+  "courseSets" = "/personal-accaunt/courses/sets",
 }
 
 export enum EYouTubePlayerState {

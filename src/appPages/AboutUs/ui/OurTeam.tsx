@@ -24,11 +24,15 @@ export default function OurTeam() {
     theme.breakpoints.up("md"),
   );
 
-  const { sentryRef, data, loading } =
-    usePaginatedData<ITeammateListItem>({
-      endpoint: "/academy/our_team_list/",
-      hasNextPage: upMd,
-    });
+  const {
+    sentryRef,
+    data,
+    loading,
+    hasNextPage,
+  } = usePaginatedData<ITeammateListItem>({
+    endpoint: "/academy/our_team_list/",
+    hasNextPage: upMd,
+  });
 
   const cardStyles = {
     width: { xs: "240px", sm: "400px" },
@@ -37,27 +41,31 @@ export default function OurTeam() {
     width: { xs: "240px", sm: "400px" },
     height: "280px",
   };
-  const LoadingAndEmptyState = loading ? (
-    <Box className={"tube_spinner_wrapper"}>
-      <TubeSpinner
-        width={50}
-        height={50}
-      />
-    </Box>
-  ) : (
-    Boolean(
-      !data || data.results.length === 0,
-    ) && (
-      <Typography
-        width="100%"
-        textAlign="center"
-        color="textSecondary"
-        fontWeight={600}
+  const LoadingAndEmptyState =
+    loading || hasNextPage ? (
+      <Box
+        ref={sentryRef}
+        className={"tube_spinner_wrapper"}
       >
-        {t("net-dannykh")}
-      </Typography>
-    )
-  );
+        <TubeSpinner
+          width={50}
+          height={50}
+        />
+      </Box>
+    ) : (
+      Boolean(
+        !data || data.results.length === 0,
+      ) && (
+        <Typography
+          width="100%"
+          textAlign="center"
+          color="textSecondary"
+          fontWeight={600}
+        >
+          {t("net-dannykh")}
+        </Typography>
+      )
+    );
   return (
     <Box
       sx={{
@@ -65,10 +73,7 @@ export default function OurTeam() {
       }}
     >
       {upMd ? (
-        <Box
-          className={styles.teammates_wrapper}
-          ref={sentryRef}
-        >
+        <Box className={styles.teammates_wrapper}>
           {data &&
             data.results.length > 0 &&
             data.results.map((teammate) => (

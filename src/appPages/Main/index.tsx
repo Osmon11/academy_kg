@@ -1,13 +1,9 @@
 "use client";
 
-import {
-  useLocale,
-  useTranslations,
-} from "next-intl";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import {
   Fragment,
-  useEffect,
   useRef,
   useState,
 } from "react";
@@ -27,7 +23,6 @@ import { PageHeading } from "@/entities/PageHeading";
 import { SectionHeader } from "@/entities/SectionHeader";
 
 import { SECTION_MARGIN_TOP } from "@/shared/config/const";
-import { getUserLocation } from "@/shared/functions";
 import { useAppRouter } from "@/shared/hooks/useAppRouter";
 
 import locationIcon from "@/icons/location.svg";
@@ -43,22 +38,23 @@ import Subjects from "./ui/Subjects";
 export function MainPage() {
   const t = useTranslations("MainPage");
   const router = useAppRouter();
-  const locale = useLocale();
+  // const locale = useLocale();
   const videoRef = useRef<HTMLDivElement>(null);
   const [userLocation, setUserLocation] =
-    useState(t("neizvestno"));
+    useState("Кыргызстан, бишкек"); //t("neizvestno")
   const [fetchingLocation, setFetchingLocation] =
     useState(true);
 
-  useEffect(() => {
-    getUserLocation(locale)
-      .then((location) => {
-        if (location) {
-          setUserLocation(location);
-        }
-      })
-      .finally(() => setFetchingLocation(false));
-  }, [locale]);
+  // UX issue
+  // useEffect(() => {
+  //   getUserLocation(locale)
+  //     .then((location) => {
+  //       if (location) {
+  //         setUserLocation(location);
+  //       }
+  //     })
+  //     .finally(() => setFetchingLocation(false));
+  // }, [locale]);
 
   const scrollToVideo = () => {
     videoRef.current?.scrollIntoView({
@@ -88,9 +84,10 @@ export function MainPage() {
               variant="subtitle2"
               textTransform="uppercase"
             >
-              {fetchingLocation
+              {/* {fetchingLocation
                 ? t("zagruzka")
-                : userLocation}
+                : userLocation} */}
+              {userLocation}
             </Typography>
           </Box>
         }

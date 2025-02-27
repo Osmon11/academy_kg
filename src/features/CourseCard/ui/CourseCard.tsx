@@ -5,6 +5,7 @@ import Image from "next/image";
 
 import {
   Box,
+  CardActionArea,
   Typography,
   useMediaQuery,
 } from "@mui/material";
@@ -45,7 +46,7 @@ export function CourseCard({
         })
       : t("besplatno");
   return (
-    <Box
+    <CardActionArea
       className={styles.course_card}
       onClick={() =>
         router.push("[course]", {
@@ -53,7 +54,10 @@ export function CourseCard({
         })
       }
     >
-      <Box className={styles.flex_box}>
+      <Box
+        className={styles.flex_box}
+        sx={{ gap: "10px" }}
+      >
         <Box>
           <Typography
             variant="h5"
@@ -159,6 +163,6 @@ export function CourseCard({
           />
         ) : null}
       </Box>
-    </Box>
+    </CardActionArea>
   );
 }

@@ -261,7 +261,6 @@
     "proidite-vse-kursov": "Пройдите {courses, plural, one {весь курс} few {все # куса} many {все # курсов} other {все # курсов}}, сдайте зачёты и итоговый экзамен, и получите аттестат о начальном исламском образовании"
   },
   "AllCoursesPage": {
-    "nabory-kursov": "Наборы курсов",
     "novinki": "Новинки",
     "osnovy-islama": "Основы Ислама",
     "zhizneopisanie-proroka": "Жизнеописание пророка",
@@ -286,14 +285,22 @@
     "net-dannykh": "Нет данных"
   },
   "RecommendationsCarousel": {
-    "poka-net-rekomendacii": "Пока нет рекомендаций"
+    "rekomendacii": "Рекомендации",
+    "poka-net-rekomendacii": "Пока нет рекомендаций",
+    "posmotret-vse": "Посмотреть все"
   },
   "AccauntMainPage": {
     "rekomendacii": "Рекомендации",
     "vyberite-kurs": "Выберите курс"
   },
   "CourseList": {
-    "net-kursov": "Нет курсов"
+    "vyberite-kurs": "Выберите курс",
+    "net-kursov": "Нет курсов",
+    "posmotret-vse": "Посмотреть все"
+  },
+  "CourseListContainer": {
+    "net-kursov": "Нет курсов",
+    "posmotret-vse": "Посмотреть все"
   },
   "AboutUsPage": {
     "o-nas": "О нас",
@@ -312,13 +319,16 @@
     "net-dannykh": "Нет данных"
   },
   "MyCourses": {
-    "prodolzhit-obuchenie": "Продолжить обучение"
+    "prodolzhit-obuchenie": "Продолжить обучение",
+    "posmotret-vse": "Посмотреть все"
   },
   "OurRequisites": {
     "poka-net-rekvizitov": "Пока нет реквизитов"
   },
   "CourseSets": {
-    "net-naborov": "Нет наборов"
+    "nabory-kursov": "Наборы курсов",
+    "net-naborov": "Нет наборов",
+    "posmotret-vse": "Посмотреть все"
   },
   "LevelProgress": {
     "net-dannykh": "Нет данных"
@@ -384,5 +394,17 @@
   },
   "SearchTextField": {
     "poisk": "Поиск"
+  },
+  "RecommendationsPage": {
+    "rekomendacii": "Рекомендации",
+    "net-kursov": "Нет курсов"
+  },
+  "MyCoursesPage": {
+    "moi-kursy": "Мои курсы",
+    "net-kursov": "Нет курсов"
+  },
+  "CourseSetsPage": {
+    "nabory-kursov": "Наборы курсов",
+    "net-naborov": "Нет наборов"
   }
 }

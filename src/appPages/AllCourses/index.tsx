@@ -1,14 +1,9 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-import {
-  Box,
-  Typography,
-  TypographyProps,
-  useMediaQuery,
-} from "@mui/material";
+import { Box } from "@mui/material";
 
 import { Footer } from "@/widgets/Footer";
 import { Header } from "@/widgets/Header";
@@ -25,91 +20,58 @@ export function AllCoursesPage() {
   const router = useAppRouter();
   const [search, setSearch] = useState("");
 
-  useEffect(() => () => setSearch(""), []);
-
-  const headerProps = {
-    className: "page_paddings",
-    variant: "h5" as TypographyProps["variant"],
-    color: "textSecondary",
-    fontWeight: 700,
-  };
-  const upSm = useMediaQuery((theme) =>
-    theme.breakpoints.up("sm"),
-  );
   return (
     <Box className={"bg_gray"}>
       <Header background="white" />
       <Box
+        className="page full_height"
         sx={{
           marginTop: { xs: "72px", md: "80px" },
         }}
       >
-        <Box className={"page"}>
-          {upSm && (
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
-              <SearchTextField
-                value={search}
-                onChange={(event) =>
-                  setSearch(event.target.value)
-                }
-                onKeyDown={(event) => {
-                  if (
-                    event.key === "Enter" &&
-                    search
-                  ) {
-                    router.push("searchCourses", {
-                      queryParams: { search },
-                    });
-                  }
-                }}
-                color="white"
-              />
-            </Box>
-          )}
-          <Typography
-            variant={headerProps.variant}
-            color={headerProps.color}
-            fontWeight={headerProps.fontWeight}
-            sx={{ marginTop: "20px" }}
-          >
-            {t("nabory-kursov")}
-          </Typography>
-          <CourseSets />
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            marginTop: "20px",
+          }}
+        >
+          <SearchTextField
+            value={search}
+            onChange={(event) =>
+              setSearch(event.target.value)
+            }
+            onKeyDown={(event) => {
+              if (
+                event.key === "Enter" &&
+                search
+              ) {
+                router.push("searchCourses", {
+                  queryParams: { search },
+                });
+              }
+            }}
+            color="white"
+          />
         </Box>
-        <Typography
-          {...headerProps}
-          sx={{ marginTop: "20px" }}
-        >
-          {t("novinki")}
-        </Typography>
-        <CourseListContainer courseType={1} />
-        <Typography
-          {...headerProps}
-          sx={{ marginTop: "40px" }}
-        >
-          {t("osnovy-islama")}
-        </Typography>
-        <CourseListContainer courseType={2} />
-        <Typography
-          {...headerProps}
-          sx={{ marginTop: "40px" }}
-        >
-          {t("zhizneopisanie-proroka")}
-        </Typography>
-        <CourseListContainer courseType={3} />
+        <CourseSets />
+        <CourseListContainer
+          title={t("novinki")}
+          courseType={1}
+        />
+        <CourseListContainer
+          title={t("osnovy-islama")}
+          courseType={2}
+        />
+        <CourseListContainer
+          title={t("zhizneopisanie-proroka")}
+          courseType={3}
+        />
         <AcademyCoreProgram />
-        <Typography
-          {...headerProps}
-          sx={{ marginTop: "40px" }}
-        >
-          {t("arabskii-yazyk")}
-        </Typography>
-        <CourseListContainer courseType={4} />
+        <CourseListContainer
+          title={t("arabskii-yazyk")}
+          courseType={4}
+        />
       </Box>
       <Footer />
     </Box>

@@ -14,16 +14,17 @@ import styles from "../styles.module.scss";
 export default function OurRequisites() {
   const t = useTranslations("OurRequisites");
 
-  const { sentryRef, data, loading } =
-    usePaginatedData<IRequisiteListItem>({
-      endpoint: "/academy/requisite_list/",
-    });
+  const {
+    sentryRef,
+    data,
+    loading,
+    hasNextPage,
+  } = usePaginatedData<IRequisiteListItem>({
+    endpoint: "/academy/requisite_list/",
+  });
   return (
     <Box sx={{ padding: SECTION_PADDING }}>
-      <Box
-        className={styles.requisites_wrapper}
-        ref={sentryRef}
-      >
+      <Box className={styles.requisites_wrapper}>
         {data &&
           data.results.length > 0 &&
           data.results.map((requisite) => (
@@ -32,8 +33,11 @@ export default function OurRequisites() {
               {...requisite}
             />
           ))}
-        {loading ? (
-          <Box className="tube_spinner_wrapper">
+        {loading || hasNextPage ? (
+          <Box
+            ref={sentryRef}
+            className="tube_spinner_wrapper"
+          >
             <TubeSpinner
               width={50}
               height={50}

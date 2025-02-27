@@ -93,10 +93,16 @@ export default function WebinarAfterwards() {
     theme.breakpoints.up("md"),
   );
 
-  const { sentryRef, data, loading } =
-    usePaginatedData<IWebinarAfterwardListItem>({
+  const {
+    sentryRef,
+    data,
+    loading,
+    hasNextPage,
+  } = usePaginatedData<IWebinarAfterwardListItem>(
+    {
       endpoint: "/academy/webinar_afterwards/",
-    });
+    },
+  );
   return (
     <Box
       sx={{
@@ -258,8 +264,11 @@ export default function WebinarAfterwards() {
             );
           },
         )}
-      {loading ? (
-        <Box className="tube_spinner_wrapper">
+      {loading || hasNextPage ? (
+        <Box
+          ref={sentryRef}
+          className="tube_spinner_wrapper"
+        >
           <TubeSpinner
             width={50}
             height={50}

@@ -26,10 +26,9 @@ export default function Subjects() {
     theme.breakpoints.up("md"),
   );
 
-  const { sentryRef, data, loading } =
+  const { data, loading } =
     usePaginatedData<ISubjectListItem>({
       endpoint: "/academy/course_list/",
-      searchParams: { page_size: 9 },
       hasNextPage: false,
     });
   const LoadingAndEmptyState = loading ? (
@@ -60,10 +59,7 @@ export default function Subjects() {
       }}
     >
       {upMd ? (
-        <Box
-          className={styles.subjects_wrapper}
-          ref={sentryRef}
-        >
+        <Box className={styles.subjects_wrapper}>
           {data &&
             data.results.length > 0 &&
             data.results.map(
