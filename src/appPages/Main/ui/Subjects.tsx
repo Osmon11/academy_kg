@@ -13,7 +13,10 @@ import { Carousel } from "@/widgets/Carousel";
 import { SubjectCard } from "@/features/SubjectCard";
 
 import { TubeSpinner } from "@/shared/UI";
-import { SECTION_PADDING } from "@/shared/config/const";
+import {
+  CAROUSEL_ITEM_BOX,
+  SECTION_PADDING,
+} from "@/shared/config/const";
 import { usePaginatedData } from "@/shared/hooks";
 import { ISubjectListItem } from "@/shared/types";
 
@@ -85,11 +88,7 @@ export default function Subjects() {
               (card, cardIndex) => (
                 <Box
                   key={card.id}
-                  sx={{
-                    width: "auto",
-                    height: "auto",
-                    paddingRight: "20px",
-                  }}
+                  sx={CAROUSEL_ITEM_BOX}
                 >
                   <SubjectCard
                     color={

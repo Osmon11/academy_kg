@@ -59,9 +59,10 @@ export function Header({
   );
   const isTransparent =
     background === "transparent";
-  const navLinks = pathname.includes(
+  const isAccaunt = pathname.includes(
     "personal-accaunt",
-  )
+  );
+  const navLinks = isAccaunt
     ? accountNavLinks
     : mainNavLinks;
   return (
@@ -71,6 +72,7 @@ export function Header({
         styles.header,
         styles[background],
       )}
+      position={isAccaunt ? "fixed" : "absolute"}
     >
       <IconButton
         onClick={() => router.push("main")}

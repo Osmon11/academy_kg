@@ -23,7 +23,7 @@ export function RegistrationPage() {
         quality={100}
         fill
         priority
-        sizes="100vw"
+        sizes="100%"
       />
       <Box className={styles.content}>
         {verify ? <VerifyAccount /> : <SignUp />}

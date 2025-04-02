@@ -190,7 +190,7 @@ export default function UpcomingWebinars() {
                   <Box
                     sx={{
                       padding: {
-                        xs: "15px",
+                        xs: "20px",
                         md: "0px",
                       },
                     }}

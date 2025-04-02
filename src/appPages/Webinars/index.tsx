@@ -25,7 +25,6 @@ export function WebinarsPage() {
       <Header
         background="transparent"
         elevation={0}
-        position="absolute"
       />
       <PageHeading
         title={t("nashi-vebinary")}

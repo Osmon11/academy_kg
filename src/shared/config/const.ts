@@ -1,7 +1,7 @@
 import { INavLink } from "../types";
 
 export const SECTION_PADDING = {
-  xs: "25px 15px 0px",
+  xs: "25px 20px 0px",
   sm: "25px 30px 0px",
   md: "50px 50px 0px",
 };
@@ -49,3 +49,9 @@ export const accountNavLinks: INavLink[] = [
     routeName: "progress",
   },
 ];
+
+export const CAROUSEL_ITEM_BOX = {
+  width: "auto",
+  height: "auto",
+  paddingRight: "20px",
+};

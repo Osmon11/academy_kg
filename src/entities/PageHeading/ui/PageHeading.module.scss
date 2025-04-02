@@ -2,7 +2,7 @@
 
 .page_heading {
   position: relative;
-  width: 100vw;
+  width: 100%;
   border-radius: 0px 0px 30px 30px;
   overflow: hidden;
   .bg_image {
@@ -21,7 +21,7 @@
 
 @media (min-width: variables.$theme-breakpoint-xs) {
   .page_heading {
-    padding: 85px 15px 30px;
+    padding: 85px 20px 30px;
     .subtitle {
       padding: 10px;
       border-radius: 15px;

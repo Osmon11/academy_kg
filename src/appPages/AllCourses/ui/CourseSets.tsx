@@ -11,6 +11,7 @@ import { Carousel } from "@/widgets/Carousel";
 import { SetOfCoursesCard } from "@/features/SetOfCoursesCard";
 
 import { TubeSpinner } from "@/shared/UI";
+import { CAROUSEL_ITEM_BOX } from "@/shared/config/const";
 import {
   useAppRouter,
   usePaginatedData,
@@ -60,9 +61,7 @@ export default function CourseSets() {
               <Box
                 key={item.id}
                 sx={{
-                  width: "auto",
-                  height: "auto",
-                  paddingRight: "20px",
+                  ...CAROUSEL_ITEM_BOX,
                   paddingBottom: "5px",
                 }}
               >

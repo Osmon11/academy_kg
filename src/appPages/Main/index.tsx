@@ -67,7 +67,6 @@ export function MainPage() {
       <Header
         background="transparent"
         elevation={0}
-        position="absolute"
       />
       <PageHeading
         header={

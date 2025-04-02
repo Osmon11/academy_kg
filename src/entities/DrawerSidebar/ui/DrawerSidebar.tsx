@@ -59,9 +59,9 @@ export function DrawerSidebar({
     handleDrawerClose();
   }
 
-  const up400 = useMediaQuery(
-    "(min-width:400px)",
-  );
+  const width = useMediaQuery("(min-width:400px)")
+    ? "400px"
+    : "100vw";
   return (
     <Drawer
       anchor="left"
@@ -69,7 +69,7 @@ export function DrawerSidebar({
       onClose={onClose}
       sx={{
         ".MuiDrawer-paper": {
-          width: up400 ? "400px" : "100vw",
+          width,
           padding: "16px 20px",
         },
       }}

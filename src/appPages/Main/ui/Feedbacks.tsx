@@ -38,7 +38,7 @@ export default function Feedbacks() {
           md: "50px",
         },
         padding: {
-          xs: "0px 15px",
+          xs: "0px 20px",
           sm: "0px 30px",
           md: "0px 50px",
         },

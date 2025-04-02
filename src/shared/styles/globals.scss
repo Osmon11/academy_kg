@@ -88,13 +88,13 @@ iframe {
 
 @media (min-width: variables.$theme-breakpoint-xs) {
   .page {
-    padding: 20px 15px;
+    padding: 20px 20px;
   }
   .full_height {
     min-height: calc(100vh - 275px);
   }
   .courses_wrapper {
-    gap: 15px;
+    gap: 20px;
   }
 }
 @media (min-width: variables.$theme-breakpoint-sm) {

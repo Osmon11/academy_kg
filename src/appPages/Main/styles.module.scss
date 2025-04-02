@@ -73,7 +73,7 @@
 
 @media (min-width: variables.$theme-breakpoint-xs) {
   .scores_wrapper {
-    padding: 0px 15px;
+    padding: 0px 20px;
     .achievement {
       .icon {
         width: 100px;
@@ -87,7 +87,7 @@
     }
   }
   .icon_banners_wrapper {
-    padding: 0px 15px;
+    padding: 0px 20px;
     flex-wrap: wrap;
     gap: 20px;
   }

@@ -11,7 +11,10 @@ import { Carousel } from "@/widgets/Carousel";
 import { TeacherCard } from "@/features/TeacherCard";
 
 import { TubeSpinner } from "@/shared/UI";
-import { SECTION_PADDING } from "@/shared/config/const";
+import {
+  CAROUSEL_ITEM_BOX,
+  SECTION_PADDING,
+} from "@/shared/config/const";
 import { usePaginatedData } from "@/shared/hooks";
 import { ITeacherListItem } from "@/shared/types";
 
@@ -97,8 +100,9 @@ export function OurTeachers() {
               <Box
                 key={teacher.id}
                 sx={{
-                  height: "auto",
-                  paddingRight: "20px",
+                  ...CAROUSEL_ITEM_BOX,
+                  paddingLeft: "10px",
+                  paddingRight: "10px",
                 }}
               >
                 <TeacherCard

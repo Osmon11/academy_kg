@@ -8,7 +8,10 @@ import { Provider } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { useTheme } from "@mui/material";
+import {
+  Container,
+  useTheme,
+} from "@mui/material";
 
 import axiosInstance from "@/shared/config/axiosClientInstance";
 import {
@@ -75,7 +78,15 @@ export function Providers({
     <Provider store={storeRef.current}>
       <SessionProvider>
         <GlobalProfileFetcher>
-          {children}
+          <Container
+            maxWidth="xl"
+            disableGutters
+            sx={{
+              position: "relative",
+            }}
+          >
+            {children}
+          </Container>
         </GlobalProfileFetcher>
         <ToastContainer
           position="top-right"
