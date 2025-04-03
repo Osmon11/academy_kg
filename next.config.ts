@@ -7,7 +7,14 @@ const withNextIntl = createNextIntlPlugin(
 
 const nextConfig: NextConfig = {
   images: {
-    unoptimized: true,
+    unoptimized: false,
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "api.ilimnuru.kg",
+        pathname: "/media/**",
+      },
+    ],
   },
 };
 

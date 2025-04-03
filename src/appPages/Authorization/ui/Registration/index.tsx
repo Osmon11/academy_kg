@@ -17,6 +17,7 @@ export function RegistrationPage() {
   return (
     <Box className={styles.page}>
       <Image
+        className={styles.bg_image}
         src={mainBg}
         alt="mosque"
         placeholder="blur"
