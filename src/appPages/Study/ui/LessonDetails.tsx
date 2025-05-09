@@ -171,7 +171,7 @@ export default function LessonDetails({
     <Box
       className={classNames(
         styles.lesson_wrapper,
-        { ["page"]: upMd },
+        { page: upMd },
       )}
       sx={
         loading
@@ -181,7 +181,7 @@ export default function LessonDetails({
     >
       {loading ? (
         <Box
-          className={"tube_spinner_wrapper"}
+          className="tube_spinner_wrapper"
           sx={{ height: "100%" }}
         >
           <TubeSpinner
@@ -213,11 +213,11 @@ export default function LessonDetails({
           <Box
             className={classNames(
               styles.content,
-              { ["page"]: !upMd },
+              { page: !upMd },
             )}
           >
             <Box
-              className={"flex_box"}
+              className="flex_box"
               sx={{
                 justifyContent: "space-between",
                 gap: "20px",

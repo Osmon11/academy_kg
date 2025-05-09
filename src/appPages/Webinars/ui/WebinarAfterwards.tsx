@@ -312,7 +312,7 @@ export default function WebinarAfterwards() {
           />
         </IconButton>
         <YouTube
-          className={"video"}
+          className="video"
           videoId={
             videoUrl
               ? getYouTubeVideoId(videoUrl)

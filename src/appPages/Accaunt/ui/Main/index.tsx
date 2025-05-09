@@ -1,6 +1,6 @@
 "use client";
 
-import { Box } from "@mui/material";
+import { Fragment } from "react";
 
 import { Footer } from "@/widgets/Footer";
 import { Header } from "@/widgets/Header";
@@ -11,19 +11,14 @@ import RecommendationsCarousel from "./RecommendationsCarousel";
 
 export function AccauntMainPage() {
   return (
-    <Box className={"bg_gray"}>
+    <Fragment>
       <Header background="white" />
-      <Box
-        className="page full_height"
-        sx={{
-          marginTop: { xs: "72px", md: "80px" },
-        }}
-      >
+      <main className="page full_height">
         <RecommendationsCarousel />
         <MyCourses />
         <CourseList />
-      </Box>
+      </main>
       <Footer />
-    </Box>
+    </Fragment>
   );
 }

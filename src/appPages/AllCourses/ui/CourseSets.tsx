@@ -49,7 +49,7 @@ export default function CourseSets() {
       </Box>
       <Box sx={{ marginTop: "20px" }}>
         {loading ? (
-          <Box className={"tube_spinner_wrapper"}>
+          <Box className="tube_spinner_wrapper">
             <TubeSpinner
               width={50}
               height={50}

@@ -1,9 +1,9 @@
 "use client";
 
-import classNames from "classnames";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import {
+  Fragment,
   useEffect,
   useRef,
   useState,
@@ -121,14 +121,9 @@ export function ProfilePage() {
     }
   }
   return (
-    <Box className={"bg_gray"}>
+    <Fragment>
       <GoBackHeader title={t("moi-profil")} />
-      <Box
-        className={classNames(
-          "page",
-          "full_height",
-        )}
-      >
+      <main className="page full_height">
         <Box className={styles.wrapper}>
           {loading || !profile ? (
             <TubeSpinner
@@ -143,7 +138,7 @@ export function ProfilePage() {
             >
               <Box>
                 <Box
-                  className={"flex_box"}
+                  className="flex_box"
                   sx={{
                     paddingBottom: "16px",
                     gap: "16px",
@@ -155,7 +150,7 @@ export function ProfilePage() {
                     }
                   >
                     <Image
-                      className={"avatar"}
+                      className="avatar"
                       src={
                         profile.avatar ??
                         avatarGrayIcon
@@ -307,8 +302,8 @@ export function ProfilePage() {
             </Paper>
           )}
         </Box>
-      </Box>
+      </main>
       <Footer />
-    </Box>
+    </Fragment>
   );
 }

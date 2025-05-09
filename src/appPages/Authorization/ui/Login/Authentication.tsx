@@ -38,7 +38,6 @@ export function Authentication() {
 
   useEffect(() => {
     if (data && data.user.isAuthorized) {
-      console.log(data.user.isAuthorized);
       router.replace("accaunt");
     }
   }, [data, router]);

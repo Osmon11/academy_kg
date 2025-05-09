@@ -48,11 +48,14 @@
   }
 }
 @media (min-width: variables.$theme-breakpoint-sm) {
+  .header {
+    padding: 12px 30px;
+  }
 }
 @media (min-width: variables.$theme-breakpoint-md) {
   .header {
     min-height: 80px;
-    padding: 12px 24px;
+    padding: 12px 50px;
     &.white,
     &.transparent {
       .nav_link.active {

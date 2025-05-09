@@ -68,143 +68,148 @@ export function MainPage() {
         background="transparent"
         elevation={0}
       />
-      <PageHeading
-        header={
-          <Box
-            className={styles.location_wrapper}
-          >
-            <Image
-              src={locationIcon}
-              alt="location icon"
-              width={24}
-              height={24}
-            />
-            <Typography
-              variant="subtitle2"
-              textTransform="uppercase"
+      <main>
+        <PageHeading
+          header={
+            <Box
+              className={styles.location_wrapper}
             >
-              {/* {fetchingLocation
+              <Image
+                src={locationIcon}
+                alt="location icon"
+                width={24}
+                height={24}
+              />
+              <Typography
+                variant="subtitle2"
+                textTransform="uppercase"
+              >
+                {/* {fetchingLocation
                 ? t("zagruzka")
                 : userLocation} */}
-              {userLocation}
-            </Typography>
-          </Box>
-        }
-        title={t(
-          "pervaya-islamskaya-onlain-akademiya",
-        )}
-        subtitles={[
-          t("otkroite-mir-islamskikh-znanii"),
-        ]}
-      >
-        <Button
-          variant="convex"
+                {userLocation}
+              </Typography>
+            </Box>
+          }
+          title={t(
+            "pervaya-islamskaya-onlain-akademiya",
+          )}
+          subtitles={[
+            t("otkroite-mir-islamskikh-znanii"),
+          ]}
+        >
+          <Button
+            variant="convex"
+            color="secondary"
+            sx={{
+              marginTop: {
+                xs: "20px",
+                md: "50px",
+              },
+            }}
+            endIcon={
+              <Box className="circle_icon_wrapper">
+                <Image
+                  src={playSecondaryIcon}
+                  alt="orange play icon"
+                  width={24}
+                  height={24}
+                />
+              </Box>
+            }
+            onClick={scrollToVideo}
+          >
+            {t("smotret-video")}
+          </Button>
+          <Button
+            variant="convex"
+            color="primary"
+            onClick={() => router.push("signUp")}
+            sx={{
+              marginTop: "18px",
+            }}
+            endIcon={
+              <Box className="circle_icon_wrapper">
+                <Image
+                  src={teacherPrimaryIcon}
+                  alt="cyan teacher icon"
+                  width={24}
+                  height={24}
+                />
+              </Box>
+            }
+          >
+            {t("nachat-obuchenie")}
+          </Button>
+        </PageHeading>
+        <SectionHeader color="primary">
+          {t("nashi-predmety")}
+        </SectionHeader>
+        <Subjects />
+        <Banner
           color="secondary"
           sx={{
-            marginTop: { xs: "20px", md: "50px" },
+            marginTop: SECTION_MARGIN_TOP,
           }}
-          endIcon={
-            <Box className="circle_icon_wrapper">
-              <Image
-                src={playSecondaryIcon}
-                alt="orange play icon"
-                width={24}
-                height={24}
-              />
-            </Box>
-          }
-          onClick={scrollToVideo}
         >
-          {t("smotret-video")}
-        </Button>
-        <Button
-          variant="convex"
+          <Typography
+            variant="h4"
+            sx={{
+              position: "relative",
+              width: "fit-content",
+              margin: "0px auto",
+              fontWeight: 900,
+              ":after": {
+                content: '""',
+                position: "absolute",
+                bottom: "-5px",
+                left: 0,
+                width: "100%",
+                height: "4px",
+                background: "#FFFFFF",
+                borderRadius: "30px",
+              },
+            }}
+          >
+            {t("ob-akademii")}
+          </Typography>
+          <Typography
+            variant="h5"
+            sx={{
+              marginTop: "25px",
+              textAlign: "center",
+              fontWeight: 500,
+            }}
+          >
+            {t(
+              "nauchno-obrazovatelnyi-proekt-medina",
+            )}
+          </Typography>
+        </Banner>
+        <SectionHeader color="primary">
+          {t("nashi-prepodavateli")}
+        </SectionHeader>
+        <OurTeachers />
+        <Banner
           color="primary"
-          onClick={() => router.push("signUp")}
           sx={{
-            marginTop: "18px",
-          }}
-          endIcon={
-            <Box className="circle_icon_wrapper">
-              <Image
-                src={teacherPrimaryIcon}
-                alt="cyan teacher icon"
-                width={24}
-                height={24}
-              />
-            </Box>
-          }
-        >
-          {t("nachat-obuchenie")}
-        </Button>
-      </PageHeading>
-      <SectionHeader color="primary">
-        {t("nashi-predmety")}
-      </SectionHeader>
-      <Subjects />
-      <Banner
-        color="secondary"
-        sx={{
-          marginTop: SECTION_MARGIN_TOP,
-        }}
-      >
-        <Typography
-          variant="h4"
-          sx={{
-            position: "relative",
-            width: "fit-content",
-            margin: "0px auto",
-            fontWeight: 900,
-            ":after": {
-              content: '""',
-              position: "absolute",
-              bottom: "-5px",
-              left: 0,
-              width: "100%",
-              height: "4px",
-              background: "#FFFFFF",
-              borderRadius: "30px",
-            },
+            marginTop: SECTION_MARGIN_TOP,
           }}
         >
-          {t("ob-akademii")}
-        </Typography>
-        <Typography
-          variant="h5"
-          sx={{
-            marginTop: "25px",
-            textAlign: "center",
-            fontWeight: 500,
-          }}
+          <Achievements />
+        </Banner>
+        <SectionHeader
+          ref={videoRef}
+          color="secondary"
         >
-          {t(
-            "nauchno-obrazovatelnyi-proekt-medina",
-          )}
-        </Typography>
-      </Banner>
-      <SectionHeader color="primary">
-        {t("nashi-prepodavateli")}
-      </SectionHeader>
-      <OurTeachers />
-      <Banner
-        color="primary"
-        sx={{
-          marginTop: SECTION_MARGIN_TOP,
-        }}
-      >
-        <Achievements />
-      </Banner>
-      <SectionHeader
-        ref={videoRef}
-        color="secondary"
-      >
-        {t("kak-eto-rabotaet")}
-      </SectionHeader>
-      <HowItWorks ref={videoRef} />
-      <SectionHeader color="primary">
-        {t("otzyvy-o-nas")}
-      </SectionHeader>
-      <Feedbacks />
+          {t("kak-eto-rabotaet")}
+        </SectionHeader>
+        <HowItWorks ref={videoRef} />
+        <SectionHeader color="primary">
+          {t("otzyvy-o-nas")}
+        </SectionHeader>
+        <Feedbacks />
+      </main>
       <Footer />
     </Fragment>
   );

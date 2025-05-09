@@ -22,7 +22,7 @@ export function LoginPage() {
     recover_password: <RecoverPassword />,
   };
   return (
-    <Box className={styles.page}>
+    <Box className={styles.auth_page}>
       <Image
         className={styles.bg_image}
         src={mainBg}

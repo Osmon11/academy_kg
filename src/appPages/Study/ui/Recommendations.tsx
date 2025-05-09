@@ -36,7 +36,7 @@ export default function Recommendations() {
         {t("rekomendacii")}
       </Typography>
       <Box sx={{ marginTop: "20px" }}>
-        <Box className={"courses_wrapper"}>
+        <Box className="courses_wrapper">
           {data &&
             data.results.length > 0 &&
             data.results.map((course) => (
@@ -48,7 +48,7 @@ export default function Recommendations() {
           {loading || hasNextPage ? (
             <Box
               ref={sentryRef}
-              className={"tube_spinner_wrapper"}
+              className="tube_spinner_wrapper"
             >
               <TubeSpinner
                 width={50}

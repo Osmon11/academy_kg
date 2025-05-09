@@ -72,7 +72,9 @@ export function Header({
         styles.header,
         styles[background],
       )}
-      position={isAccaunt ? "fixed" : "absolute"}
+      position={
+        isTransparent ? "absolute" : "static"
+      }
     >
       <IconButton
         onClick={() => router.push("main")}

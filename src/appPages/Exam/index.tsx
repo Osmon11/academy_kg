@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import {
+  Fragment,
   useEffect,
   useRef,
   useState,
@@ -118,7 +119,7 @@ export function ExamPage({
   }
 
   return (
-    <Box className={"bg_gray"}>
+    <Fragment>
       <GoBackHeader
         title={
           examQuestions
@@ -141,36 +142,38 @@ export function ExamPage({
           ) : undefined
         }
       />
-      <Box
-        className={"page"}
-        sx={{
-          minHeight: {
-            xs: "calc(100vh - 72px)",
-            md: "calc(100vh - 80px)",
-          },
-        }}
-      >
-        {loading ? (
-          <Box
-            className={"tube_spinner_wrapper"}
-            sx={{ height: "100vh" }}
-          >
-            <TubeSpinner
-              width={50}
-              height={50}
+      <main>
+        <Box
+          className="page"
+          sx={{
+            minHeight: {
+              xs: "calc(100vh - 72px)",
+              md: "calc(100vh - 80px)",
+            },
+          }}
+        >
+          {loading ? (
+            <Box
+              className="tube_spinner_wrapper"
+              sx={{ height: "100vh" }}
+            >
+              <TubeSpinner
+                width={50}
+                height={50}
+              />
+            </Box>
+          ) : finished && summary ? (
+            <ResultCard
+              levelId={levelId}
+              {...summary}
             />
-          </Box>
-        ) : finished && summary ? (
-          <ResultCard
-            levelId={levelId}
-            {...summary}
-          />
-        ) : (
-          <ExamQuestions
-            finishExam={finishExam}
-          />
-        )}
-      </Box>
-    </Box>
+          ) : (
+            <ExamQuestions
+              finishExam={finishExam}
+            />
+          )}
+        </Box>
+      </main>
+    </Fragment>
   );
 }

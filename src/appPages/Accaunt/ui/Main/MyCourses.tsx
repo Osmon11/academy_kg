@@ -42,7 +42,7 @@ export default function MyCourses() {
           {t("posmotret-vse")}
         </Button>
       </Box>
-      <Box className={"courses_wrapper"}>
+      <Box className="courses_wrapper">
         {data.results.map((item) =>
           item.detail ? (
             <CurrentCourseCard
@@ -52,7 +52,7 @@ export default function MyCourses() {
           ) : null,
         )}
         {loading && (
-          <Box className={"tube_spinner_wrapper"}>
+          <Box className="tube_spinner_wrapper">
             <TubeSpinner
               width={50}
               height={50}

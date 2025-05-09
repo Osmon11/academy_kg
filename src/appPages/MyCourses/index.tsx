@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { Fragment } from "react";
 
 import { Box, Typography } from "@mui/material";
 
@@ -26,9 +27,9 @@ export function MyCoursesPage() {
   });
 
   return (
-    <Box className="bg_gray">
+    <Fragment>
       <GoBackHeader title={t("moi-kursy")} />
-      <Box className="page full_height">
+      <main className="page full_height">
         <Box className="courses_wrapper">
           {data &&
             data.results.length > 0 &&
@@ -40,7 +41,7 @@ export function MyCoursesPage() {
             ))}
           {loading || hasNextPage ? (
             <Box
-              className={"tube_spinner_wrapper"}
+              className="tube_spinner_wrapper"
               ref={sentryRef}
             >
               <TubeSpinner
@@ -63,8 +64,8 @@ export function MyCoursesPage() {
             )
           )}
         </Box>
-      </Box>
+      </main>
       <Footer />
-    </Box>
+    </Fragment>
   );
 }

@@ -2,7 +2,11 @@
 
 import classNames from "classnames";
 import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
+import {
+  Fragment,
+  useEffect,
+  useState,
+} from "react";
 import YouTube from "react-youtube";
 
 import {
@@ -157,113 +161,115 @@ export function CourseOverviewPage({
     </Box>
   ) : null;
   return course ? (
-    <Box className={"bg_gray"}>
+    <Fragment>
       <GoBackHeader title={course.title} />
-      {loading ? (
-        <Box
-          className={"tube_spinner_wrapper"}
-          sx={{
-            minHeight: "calc(100vh - 225px)",
-          }}
-        >
-          <TubeSpinner
-            width={50}
-            height={50}
-          />
-        </Box>
-      ) : (
-        <Box
-          className={classNames({
-            ["page"]: upMd,
-          })}
-        >
-          {upLg ? (
-            <Box className={styles.wrapper}>
-              {Video}
-              {Description}
-            </Box>
-          ) : (
-            Video
-          )}
+      <main>
+        {loading ? (
+          <Box
+            className="tube_spinner_wrapper"
+            sx={{
+              minHeight: "calc(100vh - 225px)",
+            }}
+          >
+            <TubeSpinner
+              width={50}
+              height={50}
+            />
+          </Box>
+        ) : (
           <Box
             className={classNames({
-              ["page"]: !upMd,
+              page: upMd,
             })}
           >
-            {!upLg && Description}
-            <Typography
-              variant="h4"
-              color="primary"
-              textAlign="center"
-              fontWeight={700}
-              sx={{
-                marginTop: SECTION_MARGIN_TOP,
-              }}
-            >
-              {t("chemu-vy-nauchites")}
-            </Typography>
-            {course.objectives.length > 0 ? (
-              <Grid
-                container
-                spacing={2}
-                justifyContent="center"
-                sx={{ marginTop: "20px" }}
-              >
-                {course.objectives.map(
-                  (objective) => (
-                    <Grid
-                      key={objective.id}
-                      size={{
-                        xs: 12,
-                        sm: 6,
-                        md: 4,
-                        lg: 3,
-                      }}
-                    >
-                      <Box
-                        className={
-                          styles.objective
-                        }
-                      >
-                        <Typography
-                          variant="h6"
-                          fontWeight={600}
-                          textAlign="center"
-                          lineHeight="24px"
-                        >
-                          {objective.title}
-                        </Typography>
-                      </Box>
-                    </Grid>
-                  ),
-                )}
-              </Grid>
+            {upLg ? (
+              <Box className={styles.wrapper}>
+                {Video}
+                {Description}
+              </Box>
             ) : (
-              <Typography
-                variant="h6"
-                color="textSecondary"
-                textAlign="center"
-                sx={{ marginTop: "10px" }}
-              >
-                {t("net-dannykh")}
-              </Typography>
+              Video
             )}
-            <Typography
-              variant="h4"
-              color="primary"
-              textAlign="center"
-              fontWeight={700}
-              sx={{
-                marginTop: SECTION_MARGIN_TOP,
-              }}
+            <Box
+              className={classNames({
+                page: !upMd,
+              })}
             >
-              {t("programma-kursa")}
-            </Typography>
-            <CourseProgram course={course} />
+              {!upLg && Description}
+              <Typography
+                variant="h4"
+                color="primary"
+                textAlign="center"
+                fontWeight={700}
+                sx={{
+                  marginTop: SECTION_MARGIN_TOP,
+                }}
+              >
+                {t("chemu-vy-nauchites")}
+              </Typography>
+              {course.objectives.length > 0 ? (
+                <Grid
+                  container
+                  spacing={2}
+                  justifyContent="center"
+                  sx={{ marginTop: "20px" }}
+                >
+                  {course.objectives.map(
+                    (objective) => (
+                      <Grid
+                        key={objective.id}
+                        size={{
+                          xs: 12,
+                          sm: 6,
+                          md: 4,
+                          lg: 3,
+                        }}
+                      >
+                        <Box
+                          className={
+                            styles.objective
+                          }
+                        >
+                          <Typography
+                            variant="h6"
+                            fontWeight={600}
+                            textAlign="center"
+                            lineHeight="24px"
+                          >
+                            {objective.title}
+                          </Typography>
+                        </Box>
+                      </Grid>
+                    ),
+                  )}
+                </Grid>
+              ) : (
+                <Typography
+                  variant="h6"
+                  color="textSecondary"
+                  textAlign="center"
+                  sx={{ marginTop: "10px" }}
+                >
+                  {t("net-dannykh")}
+                </Typography>
+              )}
+              <Typography
+                variant="h4"
+                color="primary"
+                textAlign="center"
+                fontWeight={700}
+                sx={{
+                  marginTop: SECTION_MARGIN_TOP,
+                }}
+              >
+                {t("programma-kursa")}
+              </Typography>
+              <CourseProgram course={course} />
+            </Box>
           </Box>
-        </Box>
-      )}
+        )}
+      </main>
       <Footer />
-    </Box>
+    </Fragment>
   ) : null;
 }

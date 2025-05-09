@@ -49,14 +49,9 @@ export function ProgressPage() {
   }, []);
 
   return (
-    <Box className="bg_gray">
+    <Fragment>
       <Header background="white" />
-      <Box
-        className="page full_height"
-        sx={{
-          marginTop: { xs: "72px", md: "80px" },
-        }}
-      >
+      <main className="page full_height">
         {loadingLevels ? (
           <Box className="tube_spinner_wrapper">
             <TubeSpinner
@@ -133,8 +128,8 @@ export function ProgressPage() {
             )}
           </Fragment>
         )}
-      </Box>
+      </main>
       <Footer />
-    </Box>
+    </Fragment>
   );
 }

@@ -181,7 +181,7 @@ export default function Questions({
         </IconButton>
       </Box>
       <Box
-        className={"accordeons"}
+        className="accordeons"
         sx={{
           margin: "10px",
         }}

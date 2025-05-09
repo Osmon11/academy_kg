@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 
 import {
   Box,
@@ -75,13 +75,13 @@ export function SearchCoursesPage() {
     />
   );
   return (
-    <Box className={"bg_gray"}>
+    <Fragment>
       <GoBackHeader
         title={
           search ?? title ?? t("poisk-kursov")
         }
       />
-      <Box className="page full_height">
+      <main className="page full_height">
         {!upSm && SearchField}
         <Box
           sx={{
@@ -117,7 +117,7 @@ export function SearchCoursesPage() {
             </Box>
           )}
         </Box>
-        <Box className={"courses_wrapper"}>
+        <Box className="courses_wrapper">
           {data &&
             data.results.length > 0 &&
             data.results.map((item) => (
@@ -129,7 +129,7 @@ export function SearchCoursesPage() {
           {loading || hasNextPage ? (
             <Box
               ref={sentryRef}
-              className={"tube_spinner_wrapper"}
+              className="tube_spinner_wrapper"
               sx={{ marginTop: "20px" }}
             >
               <TubeSpinner
@@ -145,7 +145,10 @@ export function SearchCoursesPage() {
                 variant="h6"
                 color="textSecondary"
                 textAlign="center"
-                sx={{ marginTop: "20px" }}
+                sx={{
+                  marginTop: "20px",
+                  width: "100%",
+                }}
               >
                 {t(
                   "po-vashemu-zaprosu-nichego-ne-naideno",
@@ -154,8 +157,8 @@ export function SearchCoursesPage() {
             )
           )}
         </Box>
-      </Box>
+      </main>
       <Footer />
-    </Box>
+    </Fragment>
   );
 }

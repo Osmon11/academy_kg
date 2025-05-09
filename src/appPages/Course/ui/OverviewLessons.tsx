@@ -52,7 +52,7 @@ export default function OverviewLessons() {
                     : "none",
               }}
             >
-              <Box className={"flex_box"}>
+              <Box className="flex_box">
                 <Typography
                   variant="h5"
                   fontWeight={600}
@@ -62,7 +62,7 @@ export default function OverviewLessons() {
                   {index + 1}
                 </Typography>
                 <Box
-                  className={"flex_box"}
+                  className="flex_box"
                   sx={{ gap: "8px" }}
                 >
                   <Image

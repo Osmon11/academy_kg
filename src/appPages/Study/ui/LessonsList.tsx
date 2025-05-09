@@ -130,7 +130,7 @@ export default function LessonsList({
       ? currentLevel.level <= courseLevels.level
       : false;
   return (
-    <Box className={"accordeons"}>
+    <Box className="accordeons">
       <Box className={styles.levels_wrapper}>
         {course?.levels.map((item) => (
           <Chip
@@ -157,7 +157,7 @@ export default function LessonsList({
         ))}
       </Box>
       {loading ? (
-        <Box className={"tube_spinner_wrapper"}>
+        <Box className="tube_spinner_wrapper">
           <TubeSpinner
             width={50}
             height={50}
@@ -188,7 +188,7 @@ export default function LessonsList({
                   disabled={disabled}
                 >
                   <AccordionSummary>
-                    <Box className={"flex_box"}>
+                    <Box className="flex_box">
                       <Typography
                         variant="h5"
                         fontWeight={600}
@@ -198,7 +198,7 @@ export default function LessonsList({
                         {index + 1}
                       </Typography>
                       <Box
-                        className={"flex_box"}
+                        className="flex_box"
                         sx={{ gap: "8px" }}
                       >
                         <Image
@@ -259,7 +259,7 @@ export default function LessonsList({
               disabled={!isAvailableLevel}
             >
               <AccordionSummary>
-                <Box className={"flex_box"}>
+                <Box className="flex_box">
                   <Typography
                     variant="h5"
                     fontWeight={600}
@@ -270,7 +270,7 @@ export default function LessonsList({
                       1}
                   </Typography>
                   <Box
-                    className={"flex_box"}
+                    className="flex_box"
                     sx={{ gap: "8px" }}
                   >
                     <Image

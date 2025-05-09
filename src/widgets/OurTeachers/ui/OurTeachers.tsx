@@ -48,7 +48,7 @@ export function OurTeachers() {
     loading || hasNextPage ? (
       <Box
         ref={sentryRef}
-        className={"tube_spinner_wrapper"}
+        className="tube_spinner_wrapper"
       >
         <TubeSpinner
           width={50}

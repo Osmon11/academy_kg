@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 
 import { Box } from "@mui/material";
 
@@ -21,14 +21,9 @@ export function AllCoursesPage() {
   const [search, setSearch] = useState("");
 
   return (
-    <Box className={"bg_gray"}>
+    <Fragment>
       <Header background="white" />
-      <Box
-        className="page full_height"
-        sx={{
-          marginTop: { xs: "72px", md: "80px" },
-        }}
-      >
+      <main className="page full_height">
         <Box
           sx={{
             display: "flex",
@@ -72,8 +67,8 @@ export function AllCoursesPage() {
           title={t("arabskii-yazyk")}
           courseType={4}
         />
-      </Box>
+      </main>
       <Footer />
-    </Box>
+    </Fragment>
   );
 }

@@ -58,7 +58,7 @@ export default function CourseListContainer({
           {t("posmotret-vse")}
         </Button>
       </Box>
-      <Box className={"courses_wrapper"}>
+      <Box className="courses_wrapper">
         {data &&
           data.results.length > 0 &&
           data.results.map((course) => (
@@ -68,7 +68,7 @@ export default function CourseListContainer({
             />
           ))}
         {loading ? (
-          <Box className={"tube_spinner_wrapper"}>
+          <Box className="tube_spinner_wrapper">
             <TubeSpinner
               width={50}
               height={50}

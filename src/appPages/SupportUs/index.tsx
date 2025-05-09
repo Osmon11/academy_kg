@@ -12,30 +12,31 @@ import { SectionHeader } from "@/entities/SectionHeader";
 
 import { SECTION_MARGIN_TOP } from "@/shared/config/const";
 
-import styles from "./styles.module.scss";
 import OurRequisites from "./ui/OurRequisites";
 
 export function SupportUsPage() {
   const t = useTranslations("SupportUsPage");
 
   return (
-    <Box className={styles.page}>
+    <Box className="page">
       <GoBackHeader title={t("podderzhat-nas")} />
-      <Banner
-        color="primary"
-        sx={{ marginTop: SECTION_MARGIN_TOP }}
-      >
-        <Typography
-          variant="h5"
-          textAlign="center"
+      <main>
+        <Banner
+          color="primary"
+          sx={{ marginTop: SECTION_MARGIN_TOP }}
         >
-          {t("my-iskrenne-blagodarny-kazhdomu")}
-        </Typography>
-      </Banner>
-      <SectionHeader color="secondary">
-        {t("nashi-rekvizity")}
-      </SectionHeader>
-      <OurRequisites />
+          <Typography
+            variant="h5"
+            textAlign="center"
+          >
+            {t("my-iskrenne-blagodarny-kazhdomu")}
+          </Typography>
+        </Banner>
+        <SectionHeader color="secondary">
+          {t("nashi-rekvizity")}
+        </SectionHeader>
+        <OurRequisites />
+      </main>
       <Footer />
     </Box>
   );

@@ -1,8 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
-
-import { Box } from "@mui/material";
+import { Fragment, useEffect } from "react";
 
 import { Footer } from "@/widgets/Footer";
 
@@ -50,15 +48,15 @@ export function StudyPage({
       });
   }, [dispatch, courseId]);
   return (
-    <Box className={"bg_gray"}>
+    <Fragment>
       <GoBackHeader
         title={course ? course.title : ""}
       />
-      <Box className={"full_height"}>
+      <main className="full_height">
         <LessonDetails courseId={courseId} />
         <Recommendations />
-      </Box>
+      </main>
       <Footer />
-    </Box>
+    </Fragment>
   );
 }

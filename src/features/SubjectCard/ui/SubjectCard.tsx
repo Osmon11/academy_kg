@@ -113,7 +113,7 @@ export function SubjectCard({
             />
           </IconButton>
           <YouTube
-            className={"video"}
+            className="video"
             videoId={
               trailer
                 ? getYouTubeVideoId(trailer)

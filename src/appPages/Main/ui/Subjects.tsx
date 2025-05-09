@@ -35,7 +35,7 @@ export default function Subjects() {
       hasNextPage: false,
     });
   const LoadingAndEmptyState = loading ? (
-    <Box className={"tube_spinner_wrapper"}>
+    <Box className="tube_spinner_wrapper">
       <TubeSpinner
         width={50}
         height={50}

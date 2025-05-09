@@ -28,11 +28,14 @@
   }
 }
 @media (min-width: variables.$theme-breakpoint-sm) {
+  .header {
+    padding: 11px 30px;
+  }
 }
 @media (min-width: variables.$theme-breakpoint-md) {
   .header {
     min-height: 80px;
-    padding: 16px 24px;
+    padding: 16px 50px;
   }
 }
 @media (min-width: variables.$theme-breakpoint-lg) {

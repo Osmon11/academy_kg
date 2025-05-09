@@ -33,7 +33,7 @@ export default function RecommendationsCarousel() {
       hasNextPage: false,
     });
   return (
-    <Box>
+    <Box sx={{ marginTop: "20px" }}>
       <Box className="list_header">
         <Typography
           variant="h5"

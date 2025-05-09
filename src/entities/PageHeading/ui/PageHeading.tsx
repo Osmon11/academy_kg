@@ -32,32 +32,34 @@ export function PageHeading({
         priority
         sizes="100%"
       />
-      {header}
-      {Boolean(title) && (
-        <Typography
-          component="h1"
-          variant="h4"
-          textTransform="uppercase"
-          className={styles.title}
-          sx={{ marginTop: "20px" }}
-        >
-          {title}
-        </Typography>
-      )}
-      {Array.isArray(subtitles) &&
-        subtitles.map(
-          (subtitle, subtitleIndex) => (
-            <Typography
-              variant="h6"
-              className={styles.subtitle}
-              sx={{ marginTop: "20px" }}
-              key={subtitle + subtitleIndex}
-            >
-              {subtitle}
-            </Typography>
-          ),
+      <Box className={styles.content}>
+        {header}
+        {Boolean(title) && (
+          <Typography
+            component="h1"
+            variant="h4"
+            textTransform="uppercase"
+            className={styles.title}
+            sx={{ marginTop: "20px" }}
+          >
+            {title}
+          </Typography>
         )}
-      {children}
+        {Array.isArray(subtitles) &&
+          subtitles.map(
+            (subtitle, subtitleIndex) => (
+              <Typography
+                variant="h6"
+                className={styles.subtitle}
+                sx={{ marginTop: "20px" }}
+                key={subtitle + subtitleIndex}
+              >
+                {subtitle}
+              </Typography>
+            ),
+          )}
+        {children}
+      </Box>
     </Box>
   );
 }

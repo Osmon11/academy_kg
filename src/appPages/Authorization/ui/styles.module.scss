@@ -1,6 +1,6 @@
 @use "variables";
 
-.page {
+.auth_page {
   position: relative;
   width: 100%;
   height: 100%;
@@ -70,24 +70,18 @@
 }
 
 @media (min-width: variables.$theme-breakpoint-xs) {
-  .page {
-    .paper {
-      padding: 50px 20px;
-    }
+  .paper {
+    padding: 50px 20px;
   }
 }
 @media (min-width: variables.$theme-breakpoint-sm) {
-  .page {
-    .paper {
-      padding: 50px 40px;
-    }
+  .paper {
+    padding: 50px 40px;
   }
 }
 @media (min-width: variables.$theme-breakpoint-md) {
-  .page {
-    .paper {
-      padding: 50px 60px;
-    }
+  .paper {
+    padding: 50px 60px;
   }
 }
 @media (min-width: variables.$theme-breakpoint-lg) {

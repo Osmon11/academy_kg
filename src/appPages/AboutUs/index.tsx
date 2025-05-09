@@ -21,25 +21,27 @@ export function AboutUsPage() {
         background="transparent"
         elevation={0}
       />
-      <PageHeading
-        title={t("o-nas")}
-        subtitles={[
-          t(
-            "nasha-akademiya-predlagaet-kompleksnoe",
-          ),
-          t(
-            "my-predlagaem-individualnyi-podkhod",
-          ),
-        ]}
-      />
-      <SectionHeader color="primary">
-        {t("nasha-komanda")}
-      </SectionHeader>
-      <OurTeam />
-      <SectionHeader color="primary">
-        {t("nashi-prepodavateli")}
-      </SectionHeader>
-      <OurTeachers />
+      <main>
+        <PageHeading
+          title={t("o-nas")}
+          subtitles={[
+            t(
+              "nasha-akademiya-predlagaet-kompleksnoe",
+            ),
+            t(
+              "my-predlagaem-individualnyi-podkhod",
+            ),
+          ]}
+        />
+        <SectionHeader color="primary">
+          {t("nasha-komanda")}
+        </SectionHeader>
+        <OurTeam />
+        <SectionHeader color="primary">
+          {t("nashi-prepodavateli")}
+        </SectionHeader>
+        <OurTeachers />
+      </main>
       <Footer />
     </Fragment>
   );
